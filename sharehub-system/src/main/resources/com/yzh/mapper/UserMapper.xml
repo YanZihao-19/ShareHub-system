@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzh.mapper.UserMapper">
+    <update id="updateUser">
+        UPDATE user
+        <set>
+            <if test="username!=null and username != ''">
+                username = #{username},
+            </if>
+            <if test="password!=null and password != ''">
+                password = #{password},
+            </if>
+            <if test="role!=null">
+                role = #{role},
+            </if>
+            <if test="gender!=null">
+                gender = #{gender},
+            </if>
+            <if test="image!=null">
+                image = #{image},
+            </if>
+            <if test="phone!=null">
+                phone = #{phone},
+            </if>
+            <if test="credibility!=null">
+                credibility = #{credibility},
+            </if>
+            <if test="createTime !=null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime !=null">
+                update_time = #{updateTime},
+            </if>
+            <if test="identifyId !=null">
+                identifyid = #{identifyId}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delUser">
+        delete
+        from user
+        where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="getUserList" resultType="com.yzh.pojo.User">
+        SELECT * FROM user
+        <where>
+            <if test="name!=null and name != ''">
+                username like concat('%',#{name},'%')
+            </if>
+            <if test="gender!=null">
+                and gender = #{gender}
+            </if>
+            <if test="role!=null">
+                and role = #{role}
+            </if>
+            <if test="credibility == 0">
+                and credibility = #{credibility}
+            </if>
+            <if test="credibility == 1">
+                and #{credibility} &lt;= credibility and credibility &lt; 6
+            </if>
+            <if test="credibility == 6">
+                and #{credibility} &lt;= credibility and credibility &lt;= 10
+            </if>
+        </where>
+        order by update_time desc
+    </select>
+</mapper>

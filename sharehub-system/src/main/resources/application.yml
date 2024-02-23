@@ -1,0 +1,23 @@
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: 123456
+        url: jdbc:mysql://localhost:3306/showhub
+        username: root
+
+mybatis:
+    configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+        map-underscore-to-camel-case: true
+
+
+aliyun:
+    oss:
+        accessKeyId: LTAI5tN5P5JRtsrcAJS6Yjpr
+        accessKeySecret: iV4jEHc944LbZBp1jFne5VC8xgp2oV
+        bucketName: web-showhub
+        endpoint: https://oss-cn-beijing.aliyuncs.com
+
+logging:
+    level:
+        org.springframework.jdbc.support.JdbcTransactionManager: debug
