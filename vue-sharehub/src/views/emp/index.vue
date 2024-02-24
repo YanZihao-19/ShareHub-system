@@ -69,7 +69,7 @@
         </el-form-item>
 
         <el-form-item label="头像">
-          <el-upload class="avatar-uploader" action="/api/upload" :headers="token" name="image" :show-file-list="false"
+          <el-upload class="avatar-uploader" action="/api/upload?flag=users" :headers="token" name="image" :show-file-list="false"
             :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
             <img v-if="user.image" :src="user.image" class="avatar" />
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>

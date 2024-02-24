@@ -4,13 +4,13 @@
 			<!-- 标题 -->
 			<view class="cu-form-group margin-top">
 				<view class="title">标题</view>
-				<input bindinput="getTitleValue" name="title" placeholder="品类品牌型号都是买家喜欢搜索的"></input>
+				<input v-model="formMsg.itemTitle" name="title" placeholder="品类品牌型号都是买家喜欢搜索的"></input>
 			</view>
 			<!-- end -->
 
 			<!-- 内容 -->
 			<view class="cu-form-group margin-top">
-				<textarea @tap="getContentValue" name="content" maxlength="1000" @input="textareaAInput"
+				<textarea v-model="formMsg.itemDesc" name="content" maxlength="1000"
 					placeholder="描述宝贝的转手原因,入手渠道和使用感受"></textarea>
 			</view>
 			<!-- end -->
@@ -24,10 +24,12 @@
 					{{formMsg.imgList.length}}/3
 				</view>
 			</view>
+
 			<view class="cu-form-group">
 				<view class="grid col-4 grid-square flex-sub">
 					<view class="bg-img" v-for="(item,index) in formMsg.imgList" :key="index" @tap="ViewImage"
 						:data-url="formMsg.imgList[index]">
+
 						<image :src="formMsg.imgList[index]" mode='aspectFill'></image>
 						<view class="cu-tag bg-red" @tap.stop="DelImg" :data-index="index">
 							<text class="cuIcon-close"></text>
@@ -36,6 +38,7 @@
 					<view class="solids" @tap="ChooseImage" v-if="formMsg.imgList.length < 3">
 						<text class="cuIcon-cameraadd"></text>
 					</view>
+
 				</view>
 			</view>
 			<!-- end -->
@@ -43,10 +46,10 @@
 			<!-- 地址选择 -->
 			<view class="cu-form-group">
 				<view class="title">地址选择</view>
-				<picker mode="multiSelector" @change="MultiChange" @columnchange="MultiColumnChange"
-					:value="formMsg.multiIndex" :range="multiArray">
+				<picker mode="multiSelector" @change="MultiChange" @columnchange="MultiColumnChange" :value="multiIndex"
+					:range="multiArray">
 					<view class="picker">
-						{{multiArray[0][formMsg.multiIndex[0]]}}，{{multiArray[1][formMsg.multiIndex[1]]}}，{{multiArray[2][formMsg.multiIndex[2]]}}
+						{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}，{{multiArray[2][multiIndex[2]]}}
 
 					</view>
 				</picker>
@@ -106,7 +109,7 @@
 			<scroll-view scroll-with-animation='true' scroll-y='true' class="cu-dialog basis-lg">
 				<view class="cu-list menu text-left">
 					<view class="cu-item " v-for=" (item,index) in  picker" :key="index" @tap="getClassify"
-						:data-name="item.classify_name" :data-value="item.classify_id">
+						:data-name="item.classify_name" :data-value="item.tag">
 						<view class="content">
 							<view>{{item.classify_name}}</view>
 						</view>
@@ -114,7 +117,6 @@
 				</view>
 			</scroll-view>
 		</view>
-
 	</view>
 </template>
 
@@ -124,16 +126,21 @@
 		data() {
 			return {
 				formMsg: {
-					itemIitle: '', //物品标题
+					ownerUid: '1', //暂时还未设置新增用户，故先默认设置为1
+					itemTitle: '', //物品标题
 					itemDesc: '', //物品描述
 					imgList: [], //图片列表
-					multiIndex: [0, 0, 0], //地址选择下标
+					address: '', //地址选择下标拼接的字符串
 					sellPrice: '', //出售价
 					originalPrice: '', //原价
-					classify_id: '', //物品种类
-					usageLevel: 0, //新旧程度（默认全新），对应itemList数组的标
-					tradeStyle: '' //交易方式
+					tag: '', //物品种类
+					usageLevel: '0', //新旧程度（默认全新），对应itemList数组的标
+					deliveryStyle: '', //交送方式（）
+					tradeMode: '2', //二手出售交易模式为2
+					status: '0' //物品状态（0可租借，1已租借，2已下架）
 				},
+
+				multiIndex: [0, 0, 0], //地址选择下标
 
 				itemLists: ['全新', '99新', '95新', '85新', '8新'], //几次新
 				modalName: '', //模态框开关
@@ -153,40 +160,40 @@
 				],
 				classify: '其他闲置', //分类选择默认
 				picker: [{
-					classify_id: 1,
+					tag: 1,
 					classify_name: '电子产品'
 				}, {
-					classify_id: 2,
+					tag: 2,
 					classify_name: '儿童玩具'
 				}, {
-					classify_id: 2,
+					tag: 2,
 					classify_name: '图书'
 				}, {
-					classify_id: 2,
+					tag: 2,
 					classify_name: '数码产品'
 				}, {
-					classify_id: 2,
+					tag: 2,
 					classify_name: '家具'
 				}, {
-					classify_id: 2,
+					tag: 2,
 					classify_name: '体育用品'
 				}, {
-					classify_id: 2,
+					tag: 2,
 					classify_name: '宠物用品'
 				}, {
-					classify_id: 2,
+					tag: 2,
 					classify_name: '服装'
 				}, {
-					classify_id: 2,
+					tag: 2,
 					classify_name: '母婴用品'
 				}, {
-					classify_id: 2,
+					tag: 2,
 					classify_name: '健身器材'
 				}, {
-					classify_id: 2,
+					tag: 2,
 					classify_name: '美妆用品'
 				}, {
-					classify_id: 2,
+					tag: 2,
 					classify_name: '家用电器'
 				}],
 				multiArray: [
@@ -216,16 +223,21 @@
 
 			// 选择地址
 			MultiChange(e) {
-				this.formMsg.multiIndex = e.detail.value
+				this.multiIndex = e.detail.value
+				const coordinateString = this.coordinateToString(this.multiIndex);
+				this.formMsg.address = coordinateString;
+				// console.log('转换后的坐标字符串:', coordinateString);
 			},
+			//滑动地址列表，其他列改变对应值
 			MultiColumnChange(e) {
 				var that = this;
 				allSchool.all(e, that);
 			},
-
+			// 定义坐标转换函数
+			coordinateToString(coordinate) {
+				return coordinate.join(',');
+			},
 			// end
-
-
 			// 图片上传
 			ChooseImage() {
 				if (this.formMsg.imgList.length >= 3) {
@@ -235,17 +247,30 @@
 					});
 					return; // 如果已经上传了3张图片，则直接返回，不再执行上传操作
 				}
-
 				uni.chooseImage({
 					count: 3 - this.formMsg.imgList.length, // 计算还能上传的图片数量
-					sizeType: ['original', 'compressed'],
+					sizeType: ['compressed'], //采用图片压缩
 					sourceType: ['album'],
-					success: (res) => {
-						if (this.formMsg.imgList.length != 0) {
-							this.formMsg.imgList = this.formMsg.imgList.concat(res.tempFilePaths)
-						} else {
-							this.formMsg.imgList = res.tempFilePaths
-						}
+					success: (chooseImageRes) => {
+						//上传到oss服务器的代码：
+						//本地图片临时路径
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						uni.uploadFile({
+							// 生成 UUID
+							url: 'http://localhost:8080/upload?flag=items',
+							filePath: tempFilePaths[0],
+							name: 'image',
+							formData: {
+								'token': 'test'
+							},
+							success: (uploadFileRes) => {
+								//接收后端返回的数据并转为json格式
+								let imgData = JSON.parse(uploadFileRes.data);
+								//将后端返回的url，追加到formMsg.imgList中
+								this.formMsg.imgList = this.formMsg.imgList.concat(imgData.data);
+								console.log(this.formMsg.imgList);
+							}
+						});
 					}
 				});
 			},
@@ -294,10 +319,10 @@
 			},
 
 
-			// 选择交易方式
+			// 选择交送方式
 			radioChange(e) {
-				this.formMsg.tradeStyle = e.mp.detail.value;
-				console.log(this.formMsg.tradeStyle)
+				this.formMsg.deliveryStyle = e.mp.detail.value;
+				console.log(this.formMsg.deliveryStyle)
 			},
 
 
@@ -329,9 +354,40 @@
 				//input框中回显类名
 				this.classify = e.currentTarget.dataset.name
 				//传给表达
-				this.formMsg.classify_id = e.currentTarget.dataset.value
+				this.formMsg.tag = e.currentTarget.dataset.value
 				this.hideModal();
 			},
+			formSubmit() {
+				console.log(this.formMsg)
+				// 发送异步请求
+				uni.request({
+					url: 'http://localhost:8080/items',
+					method: 'POST',
+					data: JSON.stringify(this.formMsg),
+					header: {
+						'token': 'usertoken', // 根据实际情况设置 token
+						'content-type': 'application/json' // 请求头部设置为 JSON 格式
+					},
+					success: (res) => {
+						console.log(res);
+						// 处理响应结果，根据实际情况进行操作
+						if (res.code === 1) {
+							// 请求成功
+							// 根据后端返回的数据进行相应处理，待处理！！！！！！！！！！！！！！！！！！！！！！
+							console.log('成功！');
+						} else {
+							// 请求失败
+							// 处理失败情况，如提示用户等,待处理！！！！！！！！！！！！！！！！！！！！！！！！
+							console.log('失败！');
+						}
+					},
+					fail: (err) => {
+						console.error(err);
+						// 请求失败
+						// 处理失败情况，如提示用户等，待处理！！！！！！！！！！！！！！！！！！！！！！！！！
+					}
+				});
+			}
 		},
 		onLoad(options) {
 
@@ -348,7 +404,8 @@
 			setTimeout(function() {
 				uni.stopPullDownRefresh();
 			}, 2000);
-		}
+		},
+
 	}
 </script>
 

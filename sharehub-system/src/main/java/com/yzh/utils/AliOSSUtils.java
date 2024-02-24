@@ -21,7 +21,7 @@ public class AliOSSUtils {
     /**
      * 实现上传图片到OSS
      */
-    public String upload(MultipartFile file) throws IOException {
+    public String upload(MultipartFile file, String flag) throws IOException {
         String endpoint = aliOSSPropertise.getEndpoint();
         String accessKeyId = aliOSSPropertise.getAccessKeyId();
         String accessKeySecret = aliOSSPropertise.getAccessKeySecret();
@@ -30,16 +30,24 @@ public class AliOSSUtils {
         // 获取上传的文件的输入流
         InputStream inputStream = file.getInputStream();
 
-        // 避免文件覆盖
+        // 使用UUID生成文件名，避免文件覆盖
         String originalFilename = file.getOriginalFilename();
         String fileName = UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."));
-
-        //上传文件到 OSS
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
-        ossClient.putObject(bucketName, fileName, inputStream);
 
+        if (flag.contains("items")) {
+            //上传文件到 OSS,物品目录
+            fileName = "items/" + fileName;
+        } else if (flag.contains("users")) {
+            //上传文件到 OSS,物品目录
+            fileName = "users/" + fileName;
+        }
+
+        ossClient.putObject(bucketName, fileName, inputStream);
         //文件访问路径
         String url = endpoint.split("//")[0] + "//" + bucketName + "." + endpoint.split("//")[1] + "/" + fileName;
+
+
         // 关闭ossClient
         ossClient.shutdown();
         return url;// 把上传到oss的路径返回

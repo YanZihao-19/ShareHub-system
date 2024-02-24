@@ -1,7 +1,7 @@
 function all(e, that) {
 	let data = {
 		multiArray: that.multiArray,
-		multiIndex: that.formMsg.multiIndex
+		multiIndex: that.multiIndex
 	};
 	data.multiIndex[e.detail.column] = e.detail.value;
 	switch (e.detail.column) {

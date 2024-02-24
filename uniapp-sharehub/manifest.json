@@ -74,5 +74,10 @@
     "mp-qq" : {
         "appid" : "1109707808"
     },
-    "vueVersion" : "2"
+    "vueVersion" : "2",
+    "h5" : {
+        "devServer" : {
+            "port" : 7000
+        }
+    }
 }

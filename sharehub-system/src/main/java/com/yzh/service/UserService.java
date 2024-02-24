@@ -20,7 +20,7 @@ public interface UserService {
     void addUser(User user);
 
     /**
-     * 插入用户
+     * 根据id返回用户
      */
     User selectById(Integer id);
 

@@ -25,6 +25,7 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    //web端管理员登录
     @PostMapping
     public Result login(@RequestBody User user) {
         User user1 = userService.login(user);
@@ -37,6 +38,7 @@ public class LoginController {
         return Result.error("用户名或密码错误");
     }
 
+    //小程序端用户登录
     @PostMapping("/users")
     public Result loginUser(@RequestBody User user) {
         User user1 = userService.loginUser(user);

@@ -13,22 +13,23 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-    @Autowired
-    private LoginCheckInterceptor loginCheckInterceptor;
 
-    //拦截器
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginCheckInterceptor).addPathPatterns("/**").excludePathPatterns("/login");
-    }
+//    @Autowired
+//    private LoginCheckInterceptor loginCheckInterceptor;
+//
+//    //拦截器
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(loginCheckInterceptor).addPathPatterns("/**").excludePathPatterns("/login");
+//    }
 
     //ORS（跨域资源共享），允许跨域请求
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:8081","http://localhost:7000") // 允许哪些域名进行跨域访问，这里是你的前端应用地址
+                .allowedOrigins("*") // 允许任意域名进行跨域访问，这里是你的前端应用地址
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // 允许哪些请求方法
-                .allowedHeaders("*"); // 允许哪些请求头
+                .allowedHeaders("*"); // 允许任意请求头
     }
 
 }
