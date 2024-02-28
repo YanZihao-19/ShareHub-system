@@ -98,6 +98,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
+try {
+  components = {
+    uvLoadingPage: function () {
+      return Promise.all(/*! import() | uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page.vue */ 453))
+    },
+  }
+} catch (e) {
+  if (
+    e.message.indexOf("Cannot find module") !== -1 &&
+    e.message.indexOf(".vue") !== -1
+  ) {
+    console.error(e.message)
+    console.error("1. 排查组件名称拼写是否正确")
+    console.error(
+      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
+    )
+    console.error(
+      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
+    )
+  } else {
+    throw e
+  }
+}
 var render = function () {
   var _vm = this
   var _h = _vm.$createElement
@@ -153,18 +176,36 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
+      loggedIn: false,
+      //按钮切换
+      loading: false,
+      //加载页
       nickName: '未登录',
       //昵称
-      headerUrl: 'http://web-showhub.oss-cn-beijing.aliyuncs.com/users/default.png' //头像
+      headerUrl: 'http://web-showhub.oss-cn-beijing.aliyuncs.com/users/default.png' //默认头像
     };
   },
   onLoad: function onLoad() {},
+  computed: {
+    titleClass: function titleClass() {
+      return this.loggedIn ? 'text-area title text-blue' : 'text-area title text-red';
+    }
+  },
   methods: {
     login: function login() {
       var that = this;
+      //显示加载页
+      that.loading = true;
       uni.showModal({
         mask: true,
         title: '温馨提示',
@@ -182,9 +223,9 @@ var _default = {
                     avatarUrl: userRes.userInfo.avatarUrl,
                     nickName: userRes.userInfo.nickName
                   };
-                  //对页面中的变量进行赋值
-                  that.nickName = userRes.userInfo.nickName;
-                  that.headerUrl = userRes.userInfo.avatarUrl;
+                  // //对页面中的变量进行赋值
+                  // that.nickName = userRes.userInfo.nickName
+                  // that.headerUrl = userRes.userInfo.avatarUrl
 
                   // 调用接口请求openid
                   that.getUserOpenId(userInfo);
@@ -219,6 +260,8 @@ var _default = {
             // 根据实际情况指定请求方法
             data: data,
             success: function success(response) {
+              //关闭加载页
+              that.loading = false;
               console.log('后端请求完成后获取到的用户信息：', response.data.data);
               userInfo['openid'] = response.data.data.openId;
               //指定默认的用户名和用户头像，使用截取openId并且拼接字符串
@@ -226,9 +269,22 @@ var _default = {
                 that.nickName = response.data.data.username;
                 that.headerUrl = response.data.data.image;
               }
+              that.loggedIn = true;
+              // 显示登录成功的 toast
+              uni.showToast({
+                title: '登录成功！',
+                icon: 'success',
+                duration: 2000
+              });
             },
             fail: function fail(error) {
               console.error('请求失败', error);
+              // 显示登录失败的 toast
+              uni.showToast({
+                title: '登录失败！',
+                icon: 'none',
+                duration: 2000
+              });
             }
           });
         }

@@ -11,15 +11,15 @@
 	margin-top: 200rpx;
 	margin-left: auto;
 	margin-right: auto;
-	margin-bottom: 50rpx;
+	margin-bottom: 10rpx;
 }
 .text-area {
 	display: flex;
 	justify-content: center;
 }
 .title {
-	font-size: 36rpx;
-	color: #8f8f94;
+	font-size: 30rpx;
+	margin-bottom: 100rpx;
 }
 .button-style {
 	width: 150rpx;

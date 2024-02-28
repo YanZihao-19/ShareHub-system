@@ -11442,7 +11442,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 360:
+/***/ 357:
 /*!********************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-icon/components/uv-icon/icons.js ***!
   \********************************************************************************************/
@@ -11620,7 +11620,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 361:
+/***/ 358:
 /*!********************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-icon/components/uv-icon/props.js ***!
   \********************************************************************************************/
@@ -11733,7 +11733,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 369:
+/***/ 366:
 /*!***************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-ui-tools/libs/function/colorGradient.js ***!
   \***************************************************************************************************/
@@ -11885,7 +11885,7 @@ function colorToRgba(color, alpha) {
 
 /***/ }),
 
-/***/ 370:
+/***/ 367:
 /*!************************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-loading-icon/components/uv-loading-icon/props.js ***!
   \************************************************************************************************************/
@@ -11975,7 +11975,7 @@ exports.default = _default2;
 
 /***/ }),
 
-/***/ 378:
+/***/ 375:
 /*!**********************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-swiper/components/uv-swiper-indicator/props.js ***!
   \**********************************************************************************************************/
@@ -12028,7 +12028,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 386:
+/***/ 383:
 /*!***********************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-notice-bar/components/uv-column-notice/props.js ***!
   \***********************************************************************************************************/
@@ -12112,7 +12112,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 394:
+/***/ 391:
 /*!********************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-notice-bar/components/uv-row-notice/props.js ***!
   \********************************************************************************************************/
@@ -12175,23 +12175,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 4:
-/*!**********************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    "default": obj
-  };
-}
-module.exports = _interopRequireDefault, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ 402:
+/***/ 399:
 /*!********************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-link/components/uv-link/props.js ***!
   \********************************************************************************************/
@@ -12254,7 +12238,23 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 410:
+/***/ 4:
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+module.exports = _interopRequireDefault, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 407:
 /*!********************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-line/components/uv-line/props.js ***!
   \********************************************************************************************/
@@ -12305,6 +12305,84 @@ var _default = {
       default: false
     }
   }, (_uni$$uv = uni.$uv) === null || _uni$$uv === void 0 ? void 0 : (_uni$$uv$props = _uni$$uv.props) === null || _uni$$uv$props === void 0 ? void 0 : _uni$$uv$props.line)
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+
+/***/ 458:
+/*!************************************************************************************************************!*\
+  !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-loading-page/components/uv-loading-page/props.js ***!
+  \************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _uni$$uv, _uni$$uv$props;
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+var _default = {
+  props: _objectSpread({
+    // 提示内容
+    loadingText: {
+      type: [String, Number],
+      default: ''
+    },
+    // 文字上方用于替换loading动画的图片
+    image: {
+      type: String,
+      default: ''
+    },
+    // 加载动画的模式，circle-圆形，spinner-花朵形，semicircle-半圆形
+    loadingMode: {
+      type: String,
+      default: 'circle'
+    },
+    // 是否加载中
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    // 背景色
+    bgColor: {
+      type: String,
+      default: '#fff'
+    },
+    // 文字颜色
+    color: {
+      type: String,
+      default: '#C8C8C8'
+    },
+    // 文字大小
+    fontSize: {
+      type: [String, Number],
+      default: 16
+    },
+    // 图标大小
+    iconSize: {
+      type: [String, Number],
+      default: 26
+    },
+    // 加载中图标的颜色，只能rgb或者十六进制颜色值
+    loadingColor: {
+      type: String,
+      default: '#C8C8C8'
+    },
+    // 过渡时间
+    duration: {
+      type: [String, Number],
+      default: 300
+    }
+  }, (_uni$$uv = uni.$uv) === null || _uni$$uv === void 0 ? void 0 : (_uni$$uv$props = _uni$$uv.props) === null || _uni$$uv$props === void 0 ? void 0 : _uni$$uv$props.loadingPage)
 };
 exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))

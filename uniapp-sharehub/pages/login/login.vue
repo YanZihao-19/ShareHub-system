@@ -1,12 +1,19 @@
 <template>
 	<view class="content">
 		<image class="logo" :src="headerUrl"></image>
-		<view class="text-area">
-			<text class="title">{{nickName}}</text>
+		<view :class="titleClass">
+			<text class="title">{{ nickName }}</text>
 		</view>
-		<view class="text-area button-style" @click="login()">
-			登录
+		<view v-if="!loggedIn">
+			<button class="cu-btn bg-blue lg" @click="login">登录</button>
 		</view>
+		<view v-else>
+			<!-- 导航按钮 -->
+			<navigator class="cu-btn bg-blue lg" url="/other-page">进入主页！</navigator>
+		</view>
+		<template>
+			<uv-loading-page :loading="loading" image="/static/gif/loading.gif" >加载中...</uv-loading-page>
+		</template>
 	</view>
 </template>
 
@@ -14,16 +21,25 @@
 	export default {
 		data() {
 			return {
+				loggedIn: false, //按钮切换
+				loading: false, //加载页
 				nickName: '未登录', //昵称
-				headerUrl: 'http://web-showhub.oss-cn-beijing.aliyuncs.com/users/default.png', //头像
+				headerUrl: 'http://web-showhub.oss-cn-beijing.aliyuncs.com/users/default.png', //默认头像
 			}
 		},
 		onLoad() {
 
 		},
+		computed: {
+			titleClass() {
+				return this.loggedIn ? 'text-area title text-blue' : 'text-area title text-red';
+			}
+		},
 		methods: {
 			login() {
 				var that = this
+				//显示加载页
+				that.loading = true
 				uni.showModal({
 					mask: true,
 					title: '温馨提示',
@@ -44,9 +60,9 @@
 											avatarUrl: userRes.userInfo.avatarUrl,
 											nickName: userRes.userInfo.nickName
 										}
-										//对页面中的变量进行赋值
-										that.nickName = userRes.userInfo.nickName
-										that.headerUrl = userRes.userInfo.avatarUrl
+										// //对页面中的变量进行赋值
+										// that.nickName = userRes.userInfo.nickName
+										// that.headerUrl = userRes.userInfo.avatarUrl
 
 										// 调用接口请求openid
 										that.getUserOpenId(userInfo)
@@ -86,6 +102,8 @@
 							method: 'POST', // 根据实际情况指定请求方法
 							data: data,
 							success(response) {
+								//关闭加载页
+								that.loading = false
 								console.log('后端请求完成后获取到的用户信息：', response.data.data);
 								userInfo['openid'] = response.data.data.openId;
 								//指定默认的用户名和用户头像，使用截取openId并且拼接字符串
@@ -93,10 +111,22 @@
 									that.nickName = response.data.data.username
 									that.headerUrl = response.data.data.image
 								}
-
+								that.loggedIn = true;
+								// 显示登录成功的 toast
+								uni.showToast({
+									title: '登录成功！',
+									icon: 'success',
+									duration: 2000
+								});
 							},
 							fail(error) {
 								console.error('请求失败', error);
+								// 显示登录失败的 toast
+								uni.showToast({
+									title: '登录失败！',
+									icon: 'none',
+									duration: 2000
+								});
 							}
 						});
 					}
@@ -123,7 +153,7 @@
 		margin-top: 200rpx;
 		margin-left: auto;
 		margin-right: auto;
-		margin-bottom: 50rpx;
+		margin-bottom: 10rpx;
 	}
 
 	.text-area {
@@ -132,8 +162,8 @@
 	}
 
 	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+		font-size: 30rpx;
+		margin-bottom: 100rpx;
 	}
 
 	.button-style {

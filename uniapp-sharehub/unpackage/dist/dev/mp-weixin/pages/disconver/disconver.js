@@ -104,7 +104,7 @@ try {
       return __webpack_require__.e(/*! import() | components/bar/bar */ "components/bar/bar").then(__webpack_require__.bind(null, /*! @/components/bar/bar.vue */ 338))
     },
     waterfall: function () {
-      return Promise.all(/*! import() | components/waterfall/waterfall */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/waterfall/waterfall")]).then(__webpack_require__.bind(null, /*! @/components/waterfall/waterfall.vue */ 346))
+      return Promise.all(/*! import() | components/waterfall/waterfall */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/waterfall/waterfall")]).then(__webpack_require__.bind(null, /*! @/components/waterfall/waterfall.vue */ 343))
     },
   }
 } catch (e) {
