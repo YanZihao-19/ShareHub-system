@@ -1,5 +1,12 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages{
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "用户登录",
+				"enablePullDownRefresh": false
+			}
+		},
 		{
 			"path": "pages/home/home",
 			"style": {
@@ -20,14 +27,13 @@
 			"path": "pages/my/my",
 			"style": {}
 		},
-
-
+		// {
+		// 	"path": "pages/home/home_grid/home_grid",
+		// 	"style": {
+		// 		"navigationBarTitleText": "详细"
+		// 	}
+		// }, 
 		{
-			"path": "pages/home/home_grid/home_grid",
-			"style": {
-				"navigationBarTitleText": "详细"
-			}
-		}, {
 			"path": "pages/home/home_classify/home_classify",
 			"style": {}
 		}, {
@@ -75,13 +81,11 @@
 		}, {
 			"path": "pages/my/my_collect/my_collect",
 			"style": {}
-		},
-		{
-			"path" : "pages/demo/demo",
-			"style" : 
-			{
-				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : false
+		}, {
+			"path": "pages/demo/demo",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
 			}
 		}
 	],
@@ -90,7 +94,7 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
-		
+
 	},
 	"tabBar": {
 		"list": [{

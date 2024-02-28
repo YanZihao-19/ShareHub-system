@@ -77,7 +77,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User loginUser(User user) {
-        return userMapper.selectUserByUsernameAndPassword2(user);
+    public User selectOpenId(String openId) {
+        return userMapper.selectOpenId(openId);
     }
+
 }

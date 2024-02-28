@@ -2,6 +2,7 @@ package com.yzh.service;
 
 import com.yzh.pojo.PageBean;
 import com.yzh.pojo.User;
+
 import java.util.*;
 
 /**
@@ -39,8 +40,15 @@ public interface UserService {
      */
     User login(User user);
 
+
     /**
-     * 普通员用户登录
+     * 判断openId是否已经存在
      */
-    User loginUser(User user);
+    User selectOpenId(String openid);
+
+    /**
+     * 新增小程序端用户
+     */
+
+
 }

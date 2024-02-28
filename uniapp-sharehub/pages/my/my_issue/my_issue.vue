@@ -124,6 +124,7 @@
 			<!-- end -->
 
 		</view>
+	</view>
 </template>
 
 <script>

@@ -22,8 +22,8 @@ public class Item extends AbstractEntity {
     private Short tradeMode;
     //物品状态（0可租借，1已租借，2已下架）
     private Short status;
-    //物品所属用户ID（外键对应user表id）
-    private Integer ownerUid;
+    //物品所属用户ID（外键对应user表openId）
+    private String ownerUid;
     //租借/出售价格（共享的话默认为0）
     private Integer sellPrice;
     //物品原价

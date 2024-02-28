@@ -126,7 +126,7 @@
 		data() {
 			return {
 				formMsg: {
-					ownerUid: '1', //暂时还未设置新增用户，故先默认设置为1
+					ownerUid: 'opwm66yu9D_BIoZcSaF4Pjdv8VuA', //暂时还未设置新增用户，故先默认设置
 					itemTitle: '', //物品标题
 					itemDesc: '', //物品描述
 					imgList: [], //图片列表

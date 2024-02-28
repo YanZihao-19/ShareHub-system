@@ -9,6 +9,9 @@ mybatis:
     configuration:
         log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
         map-underscore-to-camel-case: true
+wx:
+    appId: wx841c396b1440b81c
+    secret: 37e2a7e7399da64f83095ee01315c81a
 
 
 aliyun:

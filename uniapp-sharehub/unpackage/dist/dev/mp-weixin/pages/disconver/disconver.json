@@ -1,0 +1,7 @@
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "bar": "/components/bar/bar",
+    "waterfall": "/components/waterfall/waterfall"
+  }
+}

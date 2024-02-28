@@ -1,6 +1,6 @@
 {
-    "name" : "二手商城",
-    "appid" : "",
+    "name" : "ShareHub",
+    "appid" : "__UNI__CE0D615",
     "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -56,9 +56,10 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "",
+        "appid" : "wx841c396b1440b81c",
         "setting" : {
-            "urlCheck" : false
+            "urlCheck" : false,
+            "es6" : false
         },
         "usingComponents" : true
     },

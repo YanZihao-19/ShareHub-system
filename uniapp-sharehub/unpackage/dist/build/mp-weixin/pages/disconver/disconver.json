@@ -1,0 +1,8 @@
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "bar": "/components/bar/bar",
+    "min-swiper": "/components/minSwiper/minSwiper",
+    "waterfall": "/components/waterfall/waterfall"
+  }
+}

@@ -11,7 +11,7 @@
 		<!-- 轮播图 -->
 		<!-- <tabBar></tabBar> -->
 		
-		<minSwiper></minSwiper>
+		
 		<!-- end -->
 
 		<!-- 内容 -->

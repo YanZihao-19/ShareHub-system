@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User extends AbstractEntity {
+    //微信接口返回的唯一标识
+    private String openId;
     //用户名
     private String username;
     //密码
