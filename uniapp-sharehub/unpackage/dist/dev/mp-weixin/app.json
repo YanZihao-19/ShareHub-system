@@ -3,7 +3,7 @@
     "pages/login/login",
     "pages/home/home",
     "pages/disconver/disconver",
-    "pages/issue/issue",
+    "pages/issue/sale/sale",
     "pages/msg/msg",
     "pages/my/my",
     "pages/home/home_classify/home_classify",
@@ -22,7 +22,8 @@
     "pages/my/my_sale/my_sale",
     "pages/my/my_buy/my_buy",
     "pages/my/my_collect/my_collect",
-    "pages/demo/demo"
+    "pages/demo/demo",
+    "pages/issue/issue_select/issue_select"
   ],
   "subPackages": [],
   "window": {
@@ -46,7 +47,7 @@
         "text": "发现"
       },
       {
-        "pagePath": "pages/issue/issue",
+        "pagePath": "pages/issue/issue_select/issue_select",
         "iconPath": "static/img/e1.png",
         "selectedIconPath": "static/img/e2.png",
         "text": "发布"

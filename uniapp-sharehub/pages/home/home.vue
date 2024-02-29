@@ -1,6 +1,5 @@
 <template>
 	<view class="home">
-
 		<!-- 搜索 -->
 		<view class="search">
 			<uv-row customStyle="margin-bottom: 10px" gutter="10">

@@ -1,5 +1,11 @@
 <template>
 	<view class="content">
+		<!-- 	//测试
+		<view>
+			<button class="cu-btn bg-blue lg" @click="switchvue">进入demo</button>
+		</view>
+		 -->
+
 		<image class="logo" :src="headerUrl"></image>
 		<view :class="titleClass">
 			<text class="title">{{ nickName }}</text>
@@ -11,6 +17,7 @@
 			<!-- 导航按钮 -->
 			<button class="cu-btn bg-blue lg" @click="switchTab">进入主页！</button>
 		</view>
+
 		<template>
 			<uv-loading-page :loading="loading" image="/static/gif/loading.gif">加载中...</uv-loading-page>
 		</template>
@@ -63,10 +70,6 @@
 											avatarUrl: userRes.userInfo.avatarUrl,
 											nickName: userRes.userInfo.nickName
 										}
-										// //对页面中的变量进行赋值
-										// that.nickName = userRes.userInfo.nickName
-										// that.headerUrl = userRes.userInfo.avatarUrl
-
 										// 调用接口请求openid
 										that.getUserOpenId(userInfo)
 
@@ -96,7 +99,6 @@
 						var data = {
 							'code': loginAuth.code
 						};
-						// console.log('向login函数中传递的code' + data.code)
 
 						// 指定完整的请求路径
 						var path = 'http://localhost:8080/user/getToken';
@@ -107,7 +109,7 @@
 							success(response) {
 								//关闭加载页
 								that.loading = false
-								console.log('后端请求完成后获取到的用户信息：', response.data.code);
+								// console.log('后端请求完成后获取到的用户信息：', response.data.code);
 								if (response.data.code == 1) {
 									// 显示登录成功的 toast
 									uni.showToast({
@@ -118,10 +120,10 @@
 									//获取后端发来的token
 									const token = response.data.data;
 									//解析token中的用户信息
-									console.log('后端请求到的token：', token);
+									// console.log('后端请求到的token：', token);
 									// 解析 JWT
 									const decoded = jwtDecode(token);
-									console.log(decoded);
+									// console.log(decoded);
 									//赋值
 									that.nickName = decoded.username
 									that.headerUrl = decoded.image
@@ -129,12 +131,14 @@
 									uni.setStorage({
 										key: 'token',
 										data: token,
-										success: function() {
-											console.log('success');
-										}
+										success: function() {}
 									});
-									//用户信息存储到vuex中？
 
+									//用户信息存储到vuex中
+									that.$store.commit('user/setUsername', decoded.username);
+									console.log('Vuex中存储的用户姓名：', that.$store.state.user.username);
+
+									//打开显示进入主页按钮
 									that.loggedIn = true;
 								} else {
 									uni.showToast({
@@ -166,6 +170,11 @@
 				uni.switchTab({
 					url: '/pages/home/home'
 				})
+			},
+			switchvue() {
+				uni.navigateTo({
+					url: '/pages/demo/demo'
+				});
 			},
 
 
