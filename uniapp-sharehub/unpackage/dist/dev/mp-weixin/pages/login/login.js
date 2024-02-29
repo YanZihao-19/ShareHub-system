@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uvLoadingPage: function () {
-      return Promise.all(/*! import() | uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page.vue */ 453))
+      return Promise.all(/*! import() | uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page.vue */ 240))
     },
   }
 } catch (e) {
@@ -164,6 +164,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _jwtDecode = __webpack_require__(/*! jwt-decode */ 462);
 //
 //
 //
@@ -204,20 +205,22 @@ var _default = {
   methods: {
     login: function login() {
       var that = this;
-      //显示加载页
-      that.loading = true;
       uni.showModal({
         mask: true,
         title: '温馨提示',
-        content: '授权微信登录后才能正常使用小程序功能',
+        content: '确定要微信授权登录小程序吗？',
         success: function success(res) {
           if (res.confirm) {
+            //显示加载页
+            that.loading = true;
             uni.getUserProfile({
               desc: '获取你的昵称、头像',
               success: function success(userRes) {
                 //打印获取到的信息
-                console.log('getUserProfile方法获取到的用户信息：' + userRes.userInfo.avatarUrl);
-                console.log('getUserProfile方法获取到的用户信息：' + userRes.userInfo.nickName);
+                // console.log('getUserProfile方法获取到的用户信息：' + userRes.userInfo
+                // 	.avatarUrl)
+                // console.log('getUserProfile方法获取到的用户信息：' + userRes.userInfo
+                // 	.nickName)
                 if (userRes.errMsg == 'getUserProfile:ok' && userRes.userInfo != undefined) {
                   var userInfo = {
                     avatarUrl: userRes.userInfo.avatarUrl,
@@ -250,10 +253,10 @@ var _default = {
           var data = {
             'code': loginAuth.code
           };
-          console.log('向login函数中传递的code' + data.code);
+          // console.log('向login函数中传递的code' + data.code)
 
           // 指定完整的请求路径
-          var path = 'http://localhost:8080/user/getOpenId';
+          var path = 'http://localhost:8080/user/getToken';
           uni.request({
             url: path,
             method: 'POST',
@@ -262,23 +265,47 @@ var _default = {
             success: function success(response) {
               //关闭加载页
               that.loading = false;
-              console.log('后端请求完成后获取到的用户信息：', response.data.data);
-              userInfo['openid'] = response.data.data.openId;
-              //指定默认的用户名和用户头像，使用截取openId并且拼接字符串
-              if (response.data != null) {
-                that.nickName = response.data.data.username;
-                that.headerUrl = response.data.data.image;
+              console.log('后端请求完成后获取到的用户信息：', response.data.code);
+              if (response.data.code == 1) {
+                // 显示登录成功的 toast
+                uni.showToast({
+                  title: '登录成功！',
+                  icon: 'success',
+                  duration: 2000
+                });
+                //获取后端发来的token
+                var token = response.data.data;
+                //解析token中的用户信息
+                console.log('后端请求到的token：', token);
+                // 解析 JWT
+                var decoded = (0, _jwtDecode.jwtDecode)(token);
+                console.log(decoded);
+                //赋值
+                that.nickName = decoded.username;
+                that.headerUrl = decoded.image;
+                //token存储到LocalStorage中
+                uni.setStorage({
+                  key: 'token',
+                  data: token,
+                  success: function success() {
+                    console.log('success');
+                  }
+                });
+                //用户信息存储到vuex中？
+
+                that.loggedIn = true;
+              } else {
+                uni.showToast({
+                  title: '登录失败！',
+                  icon: 'none',
+                  duration: 2000
+                });
               }
-              that.loggedIn = true;
-              // 显示登录成功的 toast
-              uni.showToast({
-                title: '登录成功！',
-                icon: 'success',
-                duration: 2000
-              });
             },
             fail: function fail(error) {
               console.error('请求失败', error);
+              //关闭加载页
+              that.loading = false;
               // 显示登录失败的 toast
               uni.showToast({
                 title: '登录失败！',
@@ -288,6 +315,11 @@ var _default = {
             }
           });
         }
+      });
+    },
+    switchTab: function switchTab() {
+      uni.switchTab({
+        url: '/pages/home/home'
       });
     }
   }

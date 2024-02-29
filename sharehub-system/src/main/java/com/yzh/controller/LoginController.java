@@ -53,10 +53,16 @@ public class LoginController {
 //    }
 
     //小程序端用户登录/注册
-    @PostMapping("/user/getOpenId")
+    @PostMapping("/user/getToken")
     public Result getWxUser(@RequestBody LoginDTO loginDTO) {
-        User user = iMemberLoginService.getUserOpenId(loginDTO.getCode());
-        System.out.println("返回给前端的user:"+user);
-        return Result.success(user);
+        User user1 = iMemberLoginService.getUserOpenId(loginDTO.getCode());
+        if (user1 != null) { //用户不为空
+            Map<String, Object> claims = new HashMap<>();
+            claims.put("openId", user1.getOpenId());
+            claims.put("username", user1.getUsername());
+            claims.put("image", user1.getImage());
+            return Result.success(JwtUtils.generateJwt(claims));
+        }
+        return Result.success("登录失败！");
     }
 }

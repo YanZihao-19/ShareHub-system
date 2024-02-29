@@ -35,8 +35,10 @@ public class MemberLoginServiceImpl implements IMemberLoginService {
         JSONObject jsonObject = JSONUtil.parseObj(result);
         System.out.println(jsonObject);
         String openId = jsonObject.getStr("openid");
+
         // 去数据库中查询openID
         User user = userMapper.selectOpenId(openId);
+
         //若查询不到则进行用户注册，即新增用户user,若查询到了，则返回user
         if (user == null) {
             user = new User();
@@ -51,6 +53,8 @@ public class MemberLoginServiceImpl implements IMemberLoginService {
             }
             //初始换角色身份
             user.setRole((short) 1);
+            //初始化信誉分
+            user.setCredibility((short) 8);
             //初始化创建、更新时间
             user.setUpdateTime(LocalDateTime.now());
             user.setCreateTime(LocalDateTime.now());

@@ -74,10 +74,4 @@ public class UserController {
         return Result.success();
     }
 
-    @GetMapping("/test")
-    public Result test() {
-
-        return Result.success("成功！！！");
-    }
-
 }
