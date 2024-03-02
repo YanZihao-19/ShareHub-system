@@ -61,7 +61,7 @@ public class MemberLoginServiceImpl implements IMemberLoginService {
             //初始化默认头像
             user.setImage("http://web-showhub.oss-cn-beijing.aliyuncs.com/users/default.jpg");
             //初始化用户名,"wxUser_"开头并且拼接openId的后7位
-            user.setUsername("wxUser_" + openId.substring(openId.length() - 7));
+            user.setUsername("sharer_" + openId.substring(openId.length() - 7));
             userMapper.insertUserOpenId(user);
         }
         return user;

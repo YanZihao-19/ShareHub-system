@@ -9,7 +9,7 @@
     "uv-notice-bar": "/uni_modules/uv-notice-bar/components/uv-notice-bar/uv-notice-bar",
     "uv-scroll-list": "/uni_modules/uv-scroll-list/components/uv-scroll-list/uv-scroll-list",
     "uv-sticky": "/uni_modules/uv-sticky/components/uv-sticky/uv-sticky",
-    "uv-text": "/uni_modules/uv-text/components/uv-text/uv-text",
+    "uv-tabs": "/uni_modules/uv-tabs/components/uv-tabs/uv-tabs",
     "uv-waterfall": "/uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall",
     "uv-load-more": "/uni_modules/uv-load-more/components/uv-load-more/uv-load-more"
   }

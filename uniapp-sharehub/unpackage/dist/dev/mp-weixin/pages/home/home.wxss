@@ -44,12 +44,8 @@
   height: 36rpx;
   margin-right: 8rpx;
 }
-.uv-page.data-v-92bb8f34 {
-  padding: 15px 15px 40px 15px;
-}
 .uv-demo-block.data-v-92bb8f34 {
   flex: 1;
-  margin-bottom: 23px;
 }
 .uv-demo-block__content.data-v-92bb8f34 {
   display: flex;

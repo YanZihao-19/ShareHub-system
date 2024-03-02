@@ -35,14 +35,14 @@
 }
 
 .uv-page {
-	padding: 15px 15px 40px 15px;
+	// padding: 15px 15px 40px 15px;
 }
 
 .uv-demo-block {
 	// #ifndef APP-NVUE
 	flex: 1;
 	// #endif
-	margin-bottom: 23px;
+	// margin-bottom: 23px;
 	
 	&__content {
 		@include flex(column);

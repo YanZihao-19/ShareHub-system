@@ -32,8 +32,6 @@
 		<!-- 宫格列表 -->
 		<view class="uv-page">
 			<view class="uv-demo-block">
-				<text class=" text-gray text-lg text-left ">物品种类</text>
-
 				<uv-scroll-list>
 					<view class="scroll-list">
 						<view class="scroll-list__line" v-for="(item, index) in menuArr" :key="index">
@@ -63,12 +61,12 @@
 		<view class="waterfall">
 			<uv-sticky>
 				<view style="padding: 10rpx 0;background-color: #fff;">
-					<!-- <uv-tabs :list="[{ name: '美食' }, { name: '文化' }, { name: '科技' }]" @click="tabChange"></uv-tabs> -->
-					<uv-text class="text-brown text-orange " text="为你推荐"></uv-text>
+					<!-- 这里待修改 -->
+					<uv-tabs :list="[{ name: '全部' }, { name: '免费共享' }, { name: '以物换物' }, { name: '二手交易' }]"
+						@click="tabChange"></uv-tabs>
 				</view>
 			</uv-sticky>
 			<view>
-				<!-- #ifndef APP-NVUE -->
 				<uv-waterfall ref="waterfall" v-model="list" :add-time="10" :left-gap="leftGap" :right-gap="rightGap"
 					:column-gap="columnGap" @changeList="changeList" @remove="remove">
 					<!-- 第一列数据 -->
@@ -100,7 +98,9 @@
 					<template v-slot:list2>
 						<!-- 为了磨平部分平台的BUG，必须套一层view -->
 						<view>
-							<view v-for="(item, index) in list2" :key="item.id" class="waterfall-item">
+							<view v-for="(item, index) in list2" :key="item.id" class="waterfall-item" 
+							@longpress="longHandle(item)">
+								
 								<view class="waterfall-item__image" :style="[imageStyle(item)]">
 									<image :src="item.image" mode="widthFix" :style="{width:item.width+'px'}"></image>
 								</view>
@@ -115,9 +115,11 @@
 							</view>
 						</view>
 					</template>
+					<!-- 第二列数据 -->
+					
+					
 				</uv-waterfall>
 				<uv-load-more :status="loadStatus"></uv-load-more>
-				<!-- #endif -->
 			</view>
 		</view>
 	</view>
@@ -213,6 +215,8 @@
 				list: [], // 瀑布流全部数据
 				list1: [], // 瀑布流第一列数据
 				list2: [], // 瀑布流第二列数据
+				// list3: [], // 瀑布流第三列数据
+
 				loadStatus: 'loadmore',
 				leftGap: 10,
 				rightGap: 10,
@@ -267,12 +271,15 @@
 				}
 			}
 		},
+		
+		//在这里初始化的进行后端请求
 		async onLoad() {
 			const {
 				data
 			} = await this.getData();
 			this.list = data;
 		},
+		
 		onHide() {
 			// #ifndef APP-NVUE
 			this.$refs.waterfall.clear();
@@ -294,6 +301,7 @@
 			})
 			uni.stopPullDownRefresh();
 		},
+		
 		// 触底加载更多
 		async onReachBottom() {
 			if (this.loadStatus == 'loadmore') {
@@ -363,19 +371,21 @@
 			//瀑布流
 
 			// 选项卡切换
-			// tabChange(index) {
-			// 	// #ifndef APP-NVUE
-			// 	this.$refs.waterfall.clear();
-			// 	// #endif
-			// 	this.list = [];
-			// 	this.list1 = [];
-			// 	this.list2 = [];
-			// 	this.init();
-			// },
+			tabChange(index) {
+				// #ifndef APP-NVUE
+				this.$refs.waterfall.clear();
+				// #endif
+				this.list = [];
+				this.list1 = [];
+				this.list2 = [];
+				this.init();
+			},
+
 			// 这点非常重要：e.name在这里返回是list1或list2，要手动将数据追加到相应列
 			changeList(e) {
 				this[e.name].push(e.value);
 			},
+			
 			async init() {
 				this.loadStatus = 'loading';
 				const {

@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/login/login",
     "pages/home/home",
+    "pages/login/login",
     "pages/disconver/disconver",
     "pages/issue/sale/sale",
     "pages/msg/msg",
@@ -23,7 +23,9 @@
     "pages/my/my_buy/my_buy",
     "pages/my/my_collect/my_collect",
     "pages/demo/demo",
-    "pages/issue/issue_select/issue_select"
+    "pages/issue/issue_select/issue_select",
+    "pages/issue/share/share",
+    "pages/issue/barter/barter"
   ],
   "subPackages": [],
   "window": {

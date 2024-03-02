@@ -18,7 +18,7 @@
 		methods: {
 			toExchange() {
 				uni.navigateTo({
-					url: '/pages/issue/sale/sale'
+					url: '/pages/issue/barter/barter'
 				});
 			},
 			toSale() {
@@ -28,7 +28,7 @@
 			},
 			toShare() {
 				uni.navigateTo({
-					url: '/pages/issue/sale/sale'
+					url: '/pages/issue/share/share'
 				});
 			},
 		}

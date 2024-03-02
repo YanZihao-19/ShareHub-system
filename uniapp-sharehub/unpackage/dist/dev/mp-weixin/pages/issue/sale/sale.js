@@ -505,6 +505,10 @@ var _default = {
     },
     formSubmit: function formSubmit() {
       console.log(this.formMsg);
+      //最后处理form数据
+      this.formMsg.ownerUid = this.$store.state.user.username;
+      this.formMsg.status = '0';
+
       // 发送异步请求
       uni.request({
         url: 'http://localhost:8080/items',
@@ -519,20 +523,35 @@ var _default = {
         success: function success(res) {
           console.log(res);
           // 处理响应结果，根据实际情况进行操作
-          if (res.code === 1) {
-            // 请求成功
-            // 根据后端返回的数据进行相应处理，待处理！！！！！！！！！！！！！！！！！！！！！！
+          if (res.data.code == 1) {
+            // 请求成功toast
+            uni.showToast({
+              title: '上传成功！',
+              icon: 'success',
+              duration: 1500
+            });
+            //跳转到物品选择页
+            setTimeout(function () {
+              uni.switchTab({
+                url: '/pages/issue/issue_select/issue_select'
+              });
+            }, 1000);
             console.log('成功！');
           } else {
-            // 请求失败
-            // 处理失败情况，如提示用户等,待处理！！！！！！！！！！！！！！！！！！！！！！！！
+            uni.showToast({
+              title: '上传失败！',
+              icon: 'success',
+              duration: 1500
+            });
             console.log('失败！');
           }
         },
         fail: function fail(err) {
-          console.error(err);
-          // 请求失败
-          // 处理失败情况，如提示用户等，待处理！！！！！！！！！！！！！！！！！！！！！！！！！
+          uni.showToast({
+            title: '上传失败！',
+            icon: 'success',
+            duration: 1500
+          });
         }
       });
     }

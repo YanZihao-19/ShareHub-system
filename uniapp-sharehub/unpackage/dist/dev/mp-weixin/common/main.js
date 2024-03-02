@@ -26,7 +26,7 @@ _App.default.mpType = 'app';
 //注册colorui
 var cuCustom = function cuCustom() {
   __webpack_require__.e(/*! require.ensure | colorui/components/cu-custom */ "colorui/components/cu-custom").then((function () {
-    return resolve(__webpack_require__(/*! ./colorui/components/cu-custom.vue */ 251));
+    return resolve(__webpack_require__(/*! ./colorui/components/cu-custom.vue */ 259));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 _vue.default.component('cu-custom', cuCustom);

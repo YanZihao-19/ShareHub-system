@@ -115,7 +115,7 @@
 									uni.showToast({
 										title: '登录成功！',
 										icon: 'success',
-										duration: 2000
+										duration: 500
 									});
 									//获取后端发来的token
 									const token = response.data.data;

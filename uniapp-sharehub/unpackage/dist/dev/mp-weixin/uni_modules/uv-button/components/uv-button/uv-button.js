@@ -80,10 +80,10 @@ var components
 try {
   components = {
     uvLoadingIcon: function () {
-      return Promise.all(/*! import() | uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon.vue */ 376))
+      return Promise.all(/*! import() | uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon.vue */ 402))
     },
     uvIcon: function () {
-      return Promise.all(/*! import() | uni_modules/uv-icon/components/uv-icon/uv-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-icon/components/uv-icon/uv-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-icon/components/uv-icon/uv-icon.vue */ 385))
+      return Promise.all(/*! import() | uni_modules/uv-icon/components/uv-icon/uv-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-icon/components/uv-icon/uv-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-icon/components/uv-icon/uv-icon.vue */ 393))
     },
   }
 } catch (e) {
@@ -180,9 +180,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _throttle = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/function/throttle.js */ 265));
-var _mpMixin = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js */ 261));
-var _mixin = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/mixin.js */ 262));
+var _throttle = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/function/throttle.js */ 273));
+var _mpMixin = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js */ 269));
+var _mixin = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/mixin.js */ 270));
 var _button = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/button.js */ 298));
 var _openType = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/openType.js */ 299));
 var _props = _interopRequireDefault(__webpack_require__(/*! ./props.js */ 300));

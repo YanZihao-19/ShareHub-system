@@ -1,16 +1,16 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages{
-		{
-			"path": "pages/login/login",
-			"style": {
-				"navigationBarTitleText": "用户登录",
-				"enablePullDownRefresh": false
-			}
-		},
+
 		{
 			"path": "pages/home/home",
 			"style": {
 				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "用户登录",
+				"enablePullDownRefresh": false
 			}
 		}, {
 			"path": "pages/disconver/disconver",
@@ -19,7 +19,10 @@
 			}
 		}, {
 			"path": "pages/issue/sale/sale",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "二手出售",
+				"enablePullDownRefresh": false
+			}
 		}, {
 			"path": "pages/msg/msg",
 			"style": {}
@@ -83,13 +86,28 @@
 			}
 		},
 		{
-			"path" : "pages/issue/issue_select/issue_select",
+			"path": "pages/issue/issue_select/issue_select",
+			"style": {
+				"navigationBarTitleText": "选择发行方式",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/issue/share/share",
+			"style": {
+				"navigationBarTitleText": "物品共享",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path" : "pages/issue/barter/barter",
 			"style" : 
 			{
-				"navigationBarTitleText" : "选择发行方式",
+				"navigationBarTitleText" : "以物换物",
 				"enablePullDownRefresh" : false
 			}
 		}
+
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

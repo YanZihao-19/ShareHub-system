@@ -80,10 +80,10 @@ var components
 try {
   components = {
     uvLoadingIcon: function () {
-      return Promise.all(/*! import() | uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon.vue */ 376))
+      return Promise.all(/*! import() | uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon.vue */ 402))
     },
     uvSwiperIndicator: function () {
-      return Promise.all(/*! import() | uni_modules/uv-swiper/components/uv-swiper-indicator/uv-swiper-indicator */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-swiper/components/uv-swiper-indicator/uv-swiper-indicator")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-swiper/components/uv-swiper-indicator/uv-swiper-indicator.vue */ 394))
+      return Promise.all(/*! import() | uni_modules/uv-swiper/components/uv-swiper-indicator/uv-swiper-indicator */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-swiper/components/uv-swiper-indicator/uv-swiper-indicator")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-swiper/components/uv-swiper-indicator/uv-swiper-indicator.vue */ 411))
     },
   }
 } catch (e) {
@@ -206,8 +206,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 13));
-var _mpMixin = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js */ 261));
-var _mixin = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/mixin.js */ 262));
+var _mpMixin = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js */ 269));
+var _mixin = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/mixin.js */ 270));
 var _props = _interopRequireDefault(__webpack_require__(/*! ./props.js */ 308));
 //
 //

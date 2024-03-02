@@ -156,7 +156,7 @@ var _default = {
   methods: {
     toExchange: function toExchange() {
       uni.navigateTo({
-        url: '/pages/issue/sale/sale'
+        url: '/pages/issue/barter/barter'
       });
     },
     toSale: function toSale() {
@@ -166,7 +166,7 @@ var _default = {
     },
     toShare: function toShare() {
       uni.navigateTo({
-        url: '/pages/issue/sale/sale'
+        url: '/pages/issue/share/share'
       });
     }
   }
