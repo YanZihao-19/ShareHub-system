@@ -101,7 +101,7 @@
 						};
 
 						// 指定完整的请求路径
-						var path = 'http://localhost:8080/user/getToken';
+						var path = 'http://localhost:8080/user/login';
 						uni.request({
 							url: path,
 							method: 'POST', // 根据实际情况指定请求方法

@@ -101,37 +101,37 @@ var components
 try {
   components = {
     uvRow: function () {
-      return Promise.all(/*! import() | uni_modules/uv-row/components/uv-row/uv-row */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-row/components/uv-row/uv-row")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-row/components/uv-row/uv-row.vue */ 264))
+      return Promise.all(/*! import() | uni_modules/uv-row/components/uv-row/uv-row */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-row/components/uv-row/uv-row")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-row/components/uv-row/uv-row.vue */ 272))
     },
     uvCol: function () {
-      return Promise.all(/*! import() | uni_modules/uv-row/components/uv-col/uv-col */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-row/components/uv-col/uv-col")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-row/components/uv-col/uv-col.vue */ 277))
+      return Promise.all(/*! import() | uni_modules/uv-row/components/uv-col/uv-col */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-row/components/uv-col/uv-col")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-row/components/uv-col/uv-col.vue */ 285))
     },
     uvInput: function () {
-      return Promise.all(/*! import() | uni_modules/uv-input/components/uv-input/uv-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-input/components/uv-input/uv-input")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-input/components/uv-input/uv-input.vue */ 285))
+      return Promise.all(/*! import() | uni_modules/uv-input/components/uv-input/uv-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-input/components/uv-input/uv-input")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-input/components/uv-input/uv-input.vue */ 293))
     },
     uvButton: function () {
-      return Promise.all(/*! import() | uni_modules/uv-button/components/uv-button/uv-button */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-button/components/uv-button/uv-button")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-button/components/uv-button/uv-button.vue */ 293))
+      return Promise.all(/*! import() | uni_modules/uv-button/components/uv-button/uv-button */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-button/components/uv-button/uv-button")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-button/components/uv-button/uv-button.vue */ 301))
     },
     uvSwiper: function () {
-      return Promise.all(/*! import() | uni_modules/uv-swiper/components/uv-swiper/uv-swiper */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-swiper/components/uv-swiper/uv-swiper")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-swiper/components/uv-swiper/uv-swiper.vue */ 303))
+      return Promise.all(/*! import() | uni_modules/uv-swiper/components/uv-swiper/uv-swiper */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-swiper/components/uv-swiper/uv-swiper")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-swiper/components/uv-swiper/uv-swiper.vue */ 311))
     },
     uvNoticeBar: function () {
-      return Promise.all(/*! import() | uni_modules/uv-notice-bar/components/uv-notice-bar/uv-notice-bar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-notice-bar/components/uv-notice-bar/uv-notice-bar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-notice-bar/components/uv-notice-bar/uv-notice-bar.vue */ 311))
+      return Promise.all(/*! import() | uni_modules/uv-notice-bar/components/uv-notice-bar/uv-notice-bar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-notice-bar/components/uv-notice-bar/uv-notice-bar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-notice-bar/components/uv-notice-bar/uv-notice-bar.vue */ 319))
     },
     uvScrollList: function () {
-      return Promise.all(/*! import() | uni_modules/uv-scroll-list/components/uv-scroll-list/uv-scroll-list */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-scroll-list/components/uv-scroll-list/uv-scroll-list")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-scroll-list/components/uv-scroll-list/uv-scroll-list.vue */ 319))
+      return Promise.all(/*! import() | uni_modules/uv-scroll-list/components/uv-scroll-list/uv-scroll-list */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-scroll-list/components/uv-scroll-list/uv-scroll-list")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-scroll-list/components/uv-scroll-list/uv-scroll-list.vue */ 327))
     },
     uvSticky: function () {
-      return Promise.all(/*! import() | uni_modules/uv-sticky/components/uv-sticky/uv-sticky */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-sticky/components/uv-sticky/uv-sticky")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-sticky/components/uv-sticky/uv-sticky.vue */ 329))
+      return Promise.all(/*! import() | uni_modules/uv-sticky/components/uv-sticky/uv-sticky */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-sticky/components/uv-sticky/uv-sticky")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-sticky/components/uv-sticky/uv-sticky.vue */ 337))
     },
     uvTabs: function () {
-      return Promise.all(/*! import() | uni_modules/uv-tabs/components/uv-tabs/uv-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-tabs/components/uv-tabs/uv-tabs")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-tabs/components/uv-tabs/uv-tabs.vue */ 337))
+      return Promise.all(/*! import() | uni_modules/uv-tabs/components/uv-tabs/uv-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-tabs/components/uv-tabs/uv-tabs")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-tabs/components/uv-tabs/uv-tabs.vue */ 345))
     },
     uvWaterfall: function () {
-      return Promise.all(/*! import() | uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall.vue */ 355))
+      return Promise.all(/*! import() | uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall.vue */ 354))
     },
     uvLoadMore: function () {
-      return Promise.all(/*! import() | uni_modules/uv-load-more/components/uv-load-more/uv-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-load-more/components/uv-load-more/uv-load-more")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-load-more/components/uv-load-more/uv-load-more.vue */ 363))
+      return Promise.all(/*! import() | uni_modules/uv-load-more/components/uv-load-more/uv-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-load-more/components/uv-load-more/uv-load-more")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-load-more/components/uv-load-more/uv-load-more.vue */ 362))
     },
   }
 } catch (e) {
@@ -369,9 +369,11 @@ var _index = __webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/function/ind
 //
 //
 //
+//
 var _default = {
   data: function data() {
     return {
+      token: '',
       // 导航条
       TabCur: '0',
       scrollLeft: 0,
@@ -391,18 +393,6 @@ var _default = {
       text: ['uv-ui众多组件覆盖开发过程的各个需求', '组件功能丰富，多端兼容', '让您快速集成，开箱即用'],
       // 宫格列表
       menuBaseUrl: 'https://cdn.uviewui.com/uview/menu/',
-      // 1	电子产品1
-      // 2	玩具1
-      // 3	图书1
-      // 4	家用电器1
-      // 5	家具1
-      // 6	体育用品1
-      // 7	宠物用品1
-      // 8	服装1
-      // 9	母婴用品1
-      // 10	健身器材1
-      // 11	美妆用品1
-      // 12	数码产品
       menuArr: [[{
         name: '电子产品',
         icon: __webpack_require__(/*! @/static/itemImages/电子产品.png */ 49)
@@ -447,32 +437,10 @@ var _default = {
       // 瀑布流第一列数据
       list2: [],
       // 瀑布流第二列数据
-      // list3: [], // 瀑布流第三列数据
-
       loadStatus: 'loadmore',
       leftGap: 10,
       rightGap: 10,
       columnGap: 10,
-      //导航条
-      tablist: [{
-        id: 1,
-        name: '导航条888'
-      }, {
-        id: 2,
-        name: '导航条2'
-      }, {
-        id: 3,
-        name: '导航条3'
-      }, {
-        id: 4,
-        name: '导航条4'
-      }, {
-        id: 5,
-        name: '导航条5'
-      }, {
-        id: 6,
-        name: '导航条6'
-      }],
       //end
       //显示异常屏幕回到初始化位置开关
       showTop: false //异常
@@ -497,27 +465,33 @@ var _default = {
       };
     }
   },
-  //在这里初始化的进行后端请求
   onLoad: function onLoad() {
     var _this2 = this;
     return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-      var _yield$_this2$getData, data;
+      var data;
       return _regenerator.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              _context.prev = 0;
+              _context.next = 3;
               return _this2.getData();
-            case 2:
-              _yield$_this2$getData = _context.sent;
-              data = _yield$_this2$getData.data;
-              _this2.list = data;
-            case 5:
+            case 3:
+              data = _context.sent;
+              // 调用 getData() 函数获取数据
+              _this2.list = data; // 将返回的数据赋值给 list 数组
+              _context.next = 10;
+              break;
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context["catch"](0);
+              console.error('Failed to load data:', _context.t0);
+            case 10:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee);
+      }, _callee, null, [[0, 7]]);
     }))();
   },
   onHide: function onHide() {
@@ -558,6 +532,7 @@ var _default = {
           switch (_context3.prev = _context3.next) {
             case 0:
               if (_this4.loadStatus == 'loadmore') {
+                console.log('触发加载');
                 _this4.init();
               }
             case 1:
@@ -635,11 +610,12 @@ var _default = {
     // 这点非常重要：e.name在这里返回是list1或list2，要手动将数据追加到相应列
     changeList: function changeList(e) {
       this[e.name].push(e.value);
+      console.log(e);
     },
     init: function init() {
       var _this5 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
-        var _yield$_this5$getData, data;
+        var data;
         return _regenerator.default.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
@@ -648,8 +624,8 @@ var _default = {
                 _context4.next = 3;
                 return _this5.getData();
               case 3:
-                _yield$_this5$getData = _context4.sent;
-                data = _yield$_this5$getData.data;
+                data = _context4.sent;
+                console.log(data);
                 _this5.list.push.apply(_this5.list, data);
                 _this5.loadStatus = 'loadmore';
               case 7:
@@ -698,81 +674,38 @@ var _default = {
         uni.hideLoading();
       }, 1000);
     },
-    // 模拟的后端数据
+    // 替换原来的模拟数据获取函数
     getData: function getData() {
       var _this7 = this;
-      return new Promise(function (resolve) {
-        var imgs = [{
-          url: 'https://via.placeholder.com/100x110.png/3c9cff/fff',
-          width: 100,
-          height: 110
-        }, {
-          url: 'https://via.placeholder.com/200x220.png/f9ae3d/fff',
-          width: 200,
-          height: 220
-        }, {
-          url: 'https://via.placeholder.com/300x340.png/5ac725/fff',
-          width: 300,
-          height: 340
-        }, {
-          url: 'https://via.placeholder.com/400x400.png/f56c6c/fff',
-          width: 400,
-          height: 400
-        }, {
-          url: 'https://via.placeholder.com/500x510.png/909399/fff',
-          width: 500,
-          height: 510
-        }, {
-          url: 'https://via.placeholder.com/600x606.png/3c9cff/fff',
-          width: 600,
-          height: 606
-        }, {
-          url: 'https://via.placeholder.com/310x422.png/f1a532/fff',
-          width: 310,
-          height: 422
-        }, {
-          url: 'https://via.placeholder.com/320x430.png/3c9cff/fff',
-          width: 320,
-          height: 430
-        }, {
-          url: 'https://via.placeholder.com/330x424.png/f9ae3d/fff',
-          width: 330,
-          height: 424
-        }, {
-          url: 'https://via.placeholder.com/340x435.png/5ac725/fff',
-          width: 340,
-          height: 435
-        }, {
-          url: 'https://via.placeholder.com/350x440.png/f56c6c/fff',
-          width: 350,
-          height: 440
-        }, {
-          url: 'https://via.placeholder.com/380x470.png/909399/fff',
-          width: 380,
-          height: 470
-        }];
-        var list = [];
-        var doFn = function doFn(i) {
-          var randomIndex = Math.floor(Math.random() * 10);
-          return {
-            id: (0, _index.guid)(),
-            allowEdit: i == 0,
-            image: imgs[randomIndex].url,
-            w: imgs[randomIndex].width,
-            h: imgs[randomIndex].height,
-            title: i % 2 == 0 ? "(".concat(_this7.list.length + i + 1, ")\u4F53\u9A8Cuv-ui\u6846\u67B6") : "(".concat(_this7.list.length + i + 1, ")uv-ui\u652F\u6301\u591A\u5E73\u53F0"),
-            desc: i % 2 == 0 ? "(".concat(_this7.list.length + i + 1, ")\u6B22\u8FCE\u4F7F\u7528uv-ui\uFF0Cuni-app\u751F\u6001\u4E13\u7528\u7684UI\u6846\u67B6") : "(".concat(_this7.list.length + i, ")\u5F00\u53D1\u8005\u7F16\u5199\u4E00\u5957\u4EE3\u7801\uFF0C \u53EF\u53D1\u5E03\u5230iOS\u3001Android\u3001H5\u3001\u4EE5\u53CA\u5404\u79CD\u5C0F\u7A0B\u5E8F")
-          };
-        };
-        // 模拟异步
-        setTimeout(function () {
-          for (var i = 0; i < 20; i++) {
-            list.push(doFn(i));
+      return new Promise(function (resolve, reject) {
+        uni.request({
+          url: 'http://localhost:8080/items',
+          method: 'GET',
+          header: {
+            'token': _this7.token
+          },
+          success: function success(res) {
+            var data = res.data.data.map(function (item) {
+              return {
+                id: item.id,
+                allowEdit: false,
+                // 暂时设置为 false，您可以根据实际需求进行修改
+                image: item.image,
+                w: item.image.width,
+                // 这里暂时设置为 null，您可以根据实际需求进行修改
+                h: item.image.height,
+                // 这里暂时设置为 null，您可以根据实际需求进行修改
+                title: item.itemTitle,
+                desc: item.itemDesc
+              };
+            });
+            resolve(data); // 将处理后的数据返回给调用方
+          },
+
+          fail: function fail(err) {
+            reject(err);
           }
-          resolve({
-            data: list
-          });
-        }, 200);
+        });
       });
     }
   }

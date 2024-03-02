@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Item extends AbstractEntity {
+    //物品首页图
+    private String image;
     //物品名称
     private String itemTitle;
     //物品描述

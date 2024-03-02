@@ -53,7 +53,7 @@ public class LoginController {
 //    }
 
     //小程序端用户登录/注册
-    @PostMapping("/user/getToken")
+    @PostMapping("/user/login")
     public Result getWxUser(@RequestBody LoginDTO loginDTO) {
         User user1 = iMemberLoginService.getUserOpenId(loginDTO.getCode());
         if (user1 != null) { //用户不为空

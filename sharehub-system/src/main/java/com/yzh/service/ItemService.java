@@ -1,6 +1,7 @@
 package com.yzh.service;
 
 import com.yzh.pojo.Item;
+import java.util.*;
 
 /**
  * @Author: 燕子豪
@@ -13,4 +14,6 @@ public interface ItemService {
      * @param item
      */
     void addItem(Item item);
+
+    List<Item> getItemList(String token);
 }

@@ -9355,7 +9355,7 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 269:
+/***/ 277:
 /*!******************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js ***!
   \******************************************************************************************/
@@ -9379,7 +9379,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 270:
+/***/ 278:
 /*!****************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-ui-tools/libs/mixin/mixin.js ***!
   \****************************************************************************************/
@@ -9398,9 +9398,9 @@ exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
 var index = _interopRequireWildcard(__webpack_require__(/*! ../function/index.js */ 45));
 var test = _interopRequireWildcard(__webpack_require__(/*! ../function/test.js */ 46));
-var _route = _interopRequireDefault(__webpack_require__(/*! ../util/route.js */ 271));
-var _debounce = _interopRequireDefault(__webpack_require__(/*! ../function/debounce.js */ 272));
-var _throttle = _interopRequireDefault(__webpack_require__(/*! ../function/throttle.js */ 273));
+var _route = _interopRequireDefault(__webpack_require__(/*! ../util/route.js */ 279));
+var _debounce = _interopRequireDefault(__webpack_require__(/*! ../function/debounce.js */ 280));
+var _throttle = _interopRequireDefault(__webpack_require__(/*! ../function/throttle.js */ 281));
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -9581,7 +9581,7 @@ exports.default = _default2;
 
 /***/ }),
 
-/***/ 271:
+/***/ 279:
 /*!***************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-ui-tools/libs/util/route.js ***!
   \***************************************************************************************/
@@ -9774,7 +9774,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 272:
+/***/ 280:
 /*!**********************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-ui-tools/libs/function/debounce.js ***!
   \**********************************************************************************************/
@@ -9822,7 +9822,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 273:
+/***/ 281:
 /*!**********************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-ui-tools/libs/function/throttle.js ***!
   \**********************************************************************************************/
@@ -9872,7 +9872,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 274:
+/***/ 282:
 /*!******************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-row/components/uv-row/props.js ***!
   \******************************************************************************************/
@@ -9915,7 +9915,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 282:
+/***/ 290:
 /*!******************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-row/components/uv-col/props.js ***!
   \******************************************************************************************/
@@ -9968,7 +9968,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 290:
+/***/ 298:
 /*!**********************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-input/components/uv-input/props.js ***!
   \**********************************************************************************************/
@@ -10166,7 +10166,38 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 298:
+/***/ 3:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 306:
 /*!*****************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-ui-tools/libs/mixin/button.js ***!
   \*****************************************************************************************/
@@ -10197,7 +10228,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 299:
+/***/ 307:
 /*!*******************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-ui-tools/libs/mixin/openType.js ***!
   \*******************************************************************************************/
@@ -10262,38 +10293,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 3:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ 300:
+/***/ 308:
 /*!************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-button/components/uv-button/props.js ***!
   \************************************************************************************************/
@@ -10479,7 +10479,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 308:
+/***/ 316:
 /*!************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-swiper/components/uv-swiper/props.js ***!
   \************************************************************************************************/
@@ -10640,107 +10640,6 @@ exports.default = _default2;
 
 /***/ }),
 
-/***/ 316:
-/*!********************************************************************************************************!*\
-  !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-notice-bar/components/uv-notice-bar/props.js ***!
-  \********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _uni$$uv, _uni$$uv$props;
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-var _default2 = {
-  props: _objectSpread({
-    // 显示的内容，数组
-    text: {
-      type: [Array, String],
-      default: function _default() {
-        return [];
-      }
-    },
-    // 通告滚动模式，row-横向滚动，column-竖向滚动
-    direction: {
-      type: String,
-      default: 'row'
-    },
-    // direction = row时，是否使用步进形式滚动
-    step: {
-      type: Boolean,
-      default: false
-    },
-    // 是否显示左侧的音量图标
-    icon: {
-      type: [String, Boolean, null],
-      default: 'volume'
-    },
-    // 通告模式，link-显示右箭头，closable-显示右侧关闭图标
-    mode: {
-      type: String,
-      default: ''
-    },
-    // 文字颜色，各图标也会使用文字颜色
-    color: {
-      type: String,
-      default: '#f9ae3d'
-    },
-    // 背景颜色
-    bgColor: {
-      type: String,
-      default: '#fdf6ec'
-    },
-    // 水平滚动时的滚动速度，即每秒滚动多少px(px)，这有利于控制文字无论多少时，都能有一个恒定的速度
-    speed: {
-      type: [String, Number],
-      default: 80
-    },
-    // 字体大小
-    fontSize: {
-      type: [String, Number],
-      default: 14
-    },
-    // 滚动一个周期的时间长，单位ms
-    duration: {
-      type: [String, Number],
-      default: 2000
-    },
-    // 跳转的页面路径
-    url: {
-      type: String,
-      default: ''
-    },
-    // 页面跳转的类型
-    linkType: {
-      type: String,
-      default: 'navigateTo'
-    },
-    // 是否禁止用手滑动切换
-    // 目前HX2.6.11，只支持App 2.5.5+、H5 2.5.5+、支付宝小程序、字节跳动小程序
-    disableTouch: {
-      type: Boolean,
-      default: true
-    },
-    // 是否禁止滚动，仅`direction="column"生效`
-    disableScroll: {
-      type: Boolean,
-      default: false
-    }
-  }, (_uni$$uv = uni.$uv) === null || _uni$$uv === void 0 ? void 0 : (_uni$$uv$props = _uni$$uv.props) === null || _uni$$uv$props === void 0 ? void 0 : _uni$$uv$props.noticeBar)
-};
-exports.default = _default2;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-
 /***/ 32:
 /*!**********************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -10874,6 +10773,145 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 324:
+/*!********************************************************************************************************!*\
+  !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-notice-bar/components/uv-notice-bar/props.js ***!
+  \********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _uni$$uv, _uni$$uv$props;
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+var _default2 = {
+  props: _objectSpread({
+    // 显示的内容，数组
+    text: {
+      type: [Array, String],
+      default: function _default() {
+        return [];
+      }
+    },
+    // 通告滚动模式，row-横向滚动，column-竖向滚动
+    direction: {
+      type: String,
+      default: 'row'
+    },
+    // direction = row时，是否使用步进形式滚动
+    step: {
+      type: Boolean,
+      default: false
+    },
+    // 是否显示左侧的音量图标
+    icon: {
+      type: [String, Boolean, null],
+      default: 'volume'
+    },
+    // 通告模式，link-显示右箭头，closable-显示右侧关闭图标
+    mode: {
+      type: String,
+      default: ''
+    },
+    // 文字颜色，各图标也会使用文字颜色
+    color: {
+      type: String,
+      default: '#f9ae3d'
+    },
+    // 背景颜色
+    bgColor: {
+      type: String,
+      default: '#fdf6ec'
+    },
+    // 水平滚动时的滚动速度，即每秒滚动多少px(px)，这有利于控制文字无论多少时，都能有一个恒定的速度
+    speed: {
+      type: [String, Number],
+      default: 80
+    },
+    // 字体大小
+    fontSize: {
+      type: [String, Number],
+      default: 14
+    },
+    // 滚动一个周期的时间长，单位ms
+    duration: {
+      type: [String, Number],
+      default: 2000
+    },
+    // 跳转的页面路径
+    url: {
+      type: String,
+      default: ''
+    },
+    // 页面跳转的类型
+    linkType: {
+      type: String,
+      default: 'navigateTo'
+    },
+    // 是否禁止用手滑动切换
+    // 目前HX2.6.11，只支持App 2.5.5+、H5 2.5.5+、支付宝小程序、字节跳动小程序
+    disableTouch: {
+      type: Boolean,
+      default: true
+    },
+    // 是否禁止滚动，仅`direction="column"生效`
+    disableScroll: {
+      type: Boolean,
+      default: false
+    }
+  }, (_uni$$uv = uni.$uv) === null || _uni$$uv === void 0 ? void 0 : (_uni$$uv$props = _uni$$uv.props) === null || _uni$$uv$props === void 0 ? void 0 : _uni$$uv$props.noticeBar)
+};
+exports.default = _default2;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+
+/***/ 33:
+/*!***********************************************************!*\
+  !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/store/index.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
+var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 34));
+var _user = _interopRequireDefault(__webpack_require__(/*! ./modules/user.js */ 35));
+_vue.default.use(_vuex.default);
+var _default = new _vuex.default.Store({
+  state: {
+    // 在这里定义应用程序的全局状态
+  },
+  mutations: {
+    // 在这里定义修改状态的方法
+  },
+  actions: {
+    // 在这里定义触发 mutations 的动作
+  },
+  modules: {
+    //模块化
+    user: _user.default
+  }
+});
+exports.default = _default;
+
+/***/ }),
+
+/***/ 332:
 /*!**********************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-scroll-list/components/uv-scroll-list/props.js ***!
   \**********************************************************************************************************/
@@ -10925,102 +10963,6 @@ var _default = {
       default: ''
     }
   }, (_uni$$uv = uni.$uv) === null || _uni$$uv === void 0 ? void 0 : (_uni$$uv$props = _uni$$uv.props) === null || _uni$$uv$props === void 0 ? void 0 : _uni$$uv$props.scrollList)
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-
-/***/ 33:
-/*!***********************************************************!*\
-  !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/store/index.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
-var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 34));
-var _user = _interopRequireDefault(__webpack_require__(/*! ./modules/user.js */ 35));
-_vue.default.use(_vuex.default);
-var _default = new _vuex.default.Store({
-  state: {
-    // 在这里定义应用程序的全局状态
-  },
-  mutations: {
-    // 在这里定义修改状态的方法
-  },
-  actions: {
-    // 在这里定义触发 mutations 的动作
-  },
-  modules: {
-    //模块化
-    user: _user.default
-  }
-});
-exports.default = _default;
-
-/***/ }),
-
-/***/ 334:
-/*!************************************************************************************************!*\
-  !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-sticky/components/uv-sticky/props.js ***!
-  \************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _uni$$uv, _uni$$uv$props;
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-var _default = {
-  props: _objectSpread({
-    // 吸顶容器到顶部某个距离的时候，进行吸顶，在H5平台，NavigationBar为44px
-    offsetTop: {
-      type: [String, Number],
-      default: 0
-    },
-    // 自定义导航栏的高度
-    customNavHeight: {
-      type: [String, Number],
-      default: 0
-    },
-    // 是否禁用吸顶功能
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    // 吸顶区域的背景颜色
-    bgColor: {
-      type: String,
-      default: 'transparent'
-    },
-    // z-index值
-    zIndex: {
-      type: [String, Number],
-      default: ''
-    },
-    // 列表中的索引值
-    index: {
-      type: [String, Number],
-      default: ''
-    }
-  }, (_uni$$uv = uni.$uv) === null || _uni$$uv === void 0 ? void 0 : (_uni$$uv$props = _uni$$uv.props) === null || _uni$$uv$props === void 0 ? void 0 : _uni$$uv$props.sticky)
 };
 exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
@@ -12285,6 +12227,97 @@ module.exports = index_cjs;
 /***/ }),
 
 /***/ 342:
+/*!************************************************************************************************!*\
+  !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-sticky/components/uv-sticky/props.js ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _uni$$uv, _uni$$uv$props;
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+var _default = {
+  props: _objectSpread({
+    // 吸顶容器到顶部某个距离的时候，进行吸顶，在H5平台，NavigationBar为44px
+    offsetTop: {
+      type: [String, Number],
+      default: 0
+    },
+    // 自定义导航栏的高度
+    customNavHeight: {
+      type: [String, Number],
+      default: 0
+    },
+    // 是否禁用吸顶功能
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    // 吸顶区域的背景颜色
+    bgColor: {
+      type: String,
+      default: 'transparent'
+    },
+    // z-index值
+    zIndex: {
+      type: [String, Number],
+      default: ''
+    },
+    // 列表中的索引值
+    index: {
+      type: [String, Number],
+      default: ''
+    }
+  }, (_uni$$uv = uni.$uv) === null || _uni$$uv === void 0 ? void 0 : (_uni$$uv$props = _uni$$uv.props) === null || _uni$$uv$props === void 0 ? void 0 : _uni$$uv$props.sticky)
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+
+/***/ 35:
+/*!******************************************************************!*\
+  !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/store/modules/user.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  //命名空间
+  namespaced: true,
+  state: {
+    openid: '',
+    username: ''
+  },
+  mutations: {
+    setUsername: function setUsername(state, username) {
+      state.username = username;
+    }
+  },
+  getters: {},
+  actions: {}
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 350:
 /*!**********************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-badge/components/uv-badge/props.js ***!
   \**********************************************************************************************/
@@ -12382,7 +12415,7 @@ exports.default = _default2;
 
 /***/ }),
 
-/***/ 343:
+/***/ 351:
 /*!********************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-tabs/components/uv-tabs/props.js ***!
   \********************************************************************************************/
@@ -12484,40 +12517,7 @@ exports.default = _default2;
 
 /***/ }),
 
-/***/ 35:
-/*!******************************************************************!*\
-  !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/store/modules/user.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  //命名空间
-  namespaced: true,
-  state: {
-    openid: '',
-    username: ''
-  },
-  mutations: {
-    setUsername: function setUsername(state, username) {
-      state.username = username;
-    }
-  },
-  getters: {},
-  actions: {}
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ 360:
+/***/ 359:
 /*!******************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-waterfall/components/uv-waterfall/props.js ***!
   \******************************************************************************************************/
@@ -12604,7 +12604,7 @@ exports.default = _default2;
 
 /***/ }),
 
-/***/ 368:
+/***/ 367:
 /*!******************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-load-more/components/uv-load-more/props.js ***!
   \******************************************************************************************************/
@@ -12722,7 +12722,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 376:
+/***/ 375:
 /*!************************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-loading-page/components/uv-loading-page/props.js ***!
   \************************************************************************************************************/
@@ -12800,7 +12800,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 398:
+/***/ 397:
 /*!********************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-icon/components/uv-icon/icons.js ***!
   \********************************************************************************************/
@@ -12978,7 +12978,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 399:
+/***/ 398:
 /*!********************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-icon/components/uv-icon/props.js ***!
   \********************************************************************************************/
@@ -13107,7 +13107,7 @@ module.exports = _interopRequireDefault, module.exports.__esModule = true, modul
 
 /***/ }),
 
-/***/ 407:
+/***/ 406:
 /*!***************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-ui-tools/libs/function/colorGradient.js ***!
   \***************************************************************************************************/
@@ -13259,7 +13259,7 @@ function colorToRgba(color, alpha) {
 
 /***/ }),
 
-/***/ 408:
+/***/ 407:
 /*!************************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-loading-icon/components/uv-loading-icon/props.js ***!
   \************************************************************************************************************/
@@ -13349,7 +13349,7 @@ exports.default = _default2;
 
 /***/ }),
 
-/***/ 416:
+/***/ 415:
 /*!**********************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-swiper/components/uv-swiper-indicator/props.js ***!
   \**********************************************************************************************************/
@@ -13416,7 +13416,7 @@ module.exports = runtime;
 
 /***/ }),
 
-/***/ 424:
+/***/ 423:
 /*!***********************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-notice-bar/components/uv-column-notice/props.js ***!
   \***********************************************************************************************************/
@@ -13822,7 +13822,7 @@ module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.e
 
 /***/ }),
 
-/***/ 432:
+/***/ 431:
 /*!********************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-notice-bar/components/uv-row-notice/props.js ***!
   \********************************************************************************************************/
@@ -13923,6 +13923,63 @@ function _asyncToGenerator(fn) {
   };
 }
 module.exports = _asyncToGenerator, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 446:
+/*!********************************************************************************************!*\
+  !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-line/components/uv-line/props.js ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _uni$$uv, _uni$$uv$props;
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+var _default = {
+  props: _objectSpread({
+    color: {
+      type: String,
+      default: '#d6d7d9'
+    },
+    // 长度，竖向时表现为高度，横向时表现为长度，可以为百分比，带px单位的值等
+    length: {
+      type: [String, Number],
+      default: '100%'
+    },
+    // 线条方向，col-竖向，row-横向
+    direction: {
+      type: String,
+      default: 'row'
+    },
+    // 是否显示细边框
+    hairline: {
+      type: Boolean,
+      default: true
+    },
+    // 线条与上下左右元素的间距，字符串形式，如"30px"、"20px 30px"
+    margin: {
+      type: [String, Number],
+      default: 0
+    },
+    // 是否虚线，true-虚线，false-实线
+    dashed: {
+      type: Boolean,
+      default: false
+    }
+  }, (_uni$$uv = uni.$uv) === null || _uni$$uv === void 0 ? void 0 : (_uni$$uv$props = _uni$$uv.props) === null || _uni$$uv$props === void 0 ? void 0 : _uni$$uv$props.line)
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 
@@ -14721,63 +14778,6 @@ function setConfig(_ref5) {
   uni.$uv.color = deepMerge(uni.$uv.color, color);
   uni.$uv.zIndex = deepMerge(uni.$uv.zIndex, zIndex);
 }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-
-/***/ 455:
-/*!********************************************************************************************!*\
-  !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-line/components/uv-line/props.js ***!
-  \********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _uni$$uv, _uni$$uv$props;
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-var _default = {
-  props: _objectSpread({
-    color: {
-      type: String,
-      default: '#d6d7d9'
-    },
-    // 长度，竖向时表现为高度，横向时表现为长度，可以为百分比，带px单位的值等
-    length: {
-      type: [String, Number],
-      default: '100%'
-    },
-    // 线条方向，col-竖向，row-横向
-    direction: {
-      type: String,
-      default: 'row'
-    },
-    // 是否显示细边框
-    hairline: {
-      type: Boolean,
-      default: true
-    },
-    // 线条与上下左右元素的间距，字符串形式，如"30px"、"20px 30px"
-    margin: {
-      type: [String, Number],
-      default: 0
-    },
-    // 是否虚线，true-虚线，false-实线
-    dashed: {
-      type: Boolean,
-      default: false
-    }
-  }, (_uni$$uv = uni.$uv) === null || _uni$$uv === void 0 ? void 0 : (_uni$$uv$props = _uni$$uv.props) === null || _uni$$uv$props === void 0 ? void 0 : _uni$$uv$props.line)
-};
-exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),

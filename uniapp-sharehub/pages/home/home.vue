@@ -73,8 +73,9 @@
 					<template v-slot:list1>
 						<!-- 为了磨平部分平台的BUG，必须套一层view -->
 						<view>
-							<view v-for="(item, index) in list1" :key="item.id" class="waterfall-item"
+							<view v-for="(item, index) in list1" :key="index" class="waterfall-item"
 								@longpress="longHandle(item)">
+
 								<view class="waterfall-item__image" :style="[imageStyle(item)]">
 									<image :src="item.image" mode="widthFix" :style="{width:item.width+'px'}"></image>
 								</view>
@@ -98,9 +99,9 @@
 					<template v-slot:list2>
 						<!-- 为了磨平部分平台的BUG，必须套一层view -->
 						<view>
-							<view v-for="(item, index) in list2" :key="item.id" class="waterfall-item" 
-							@longpress="longHandle(item)">
-								
+							<view v-for="(item, index) in list2" :key="index" class="waterfall-item"
+								@longpress="longHandle(item)">
+
 								<view class="waterfall-item__image" :style="[imageStyle(item)]">
 									<image :src="item.image" mode="widthFix" :style="{width:item.width+'px'}"></image>
 								</view>
@@ -116,8 +117,8 @@
 						</view>
 					</template>
 					<!-- 第二列数据 -->
-					
-					
+
+
 				</uv-waterfall>
 				<uv-load-more :status="loadStatus"></uv-load-more>
 			</view>
@@ -136,6 +137,7 @@
 	export default {
 		data() {
 			return {
+				token: '',
 				// 导航条
 				TabCur: '0',
 				scrollLeft: 0,
@@ -156,18 +158,6 @@
 				text: ['uv-ui众多组件覆盖开发过程的各个需求', '组件功能丰富，多端兼容', '让您快速集成，开箱即用'],
 				// 宫格列表
 				menuBaseUrl: 'https://cdn.uviewui.com/uview/menu/',
-				// 1	电子产品1
-				// 2	玩具1
-				// 3	图书1
-				// 4	家用电器1
-				// 5	家具1
-				// 6	体育用品1
-				// 7	宠物用品1
-				// 8	服装1
-				// 9	母婴用品1
-				// 10	健身器材1
-				// 11	美妆用品1
-				// 12	数码产品
 				menuArr: [
 					[{
 							name: '电子产品',
@@ -215,39 +205,10 @@
 				list: [], // 瀑布流全部数据
 				list1: [], // 瀑布流第一列数据
 				list2: [], // 瀑布流第二列数据
-				// list3: [], // 瀑布流第三列数据
-
 				loadStatus: 'loadmore',
 				leftGap: 10,
 				rightGap: 10,
 				columnGap: 10,
-
-				//导航条
-				tablist: [{
-						id: 1,
-						name: '导航条888'
-					},
-					{
-						id: 2,
-						name: '导航条2'
-					},
-					{
-						id: 3,
-						name: '导航条3'
-					},
-					{
-						id: 4,
-						name: '导航条4'
-					},
-					{
-						id: 5,
-						name: '导航条5'
-					},
-					{
-						id: 6,
-						name: '导航条6'
-					},
-				],
 				//end
 				//显示异常屏幕回到初始化位置开关
 				showTop: false, //异常
@@ -271,15 +232,16 @@
 				}
 			}
 		},
-		
-		//在这里初始化的进行后端请求
+
 		async onLoad() {
-			const {
-				data
-			} = await this.getData();
-			this.list = data;
+			try {
+				const data = await this.getData(); // 调用 getData() 函数获取数据
+				this.list = data; // 将返回的数据赋值给 list 数组
+			} catch (error) {
+				console.error('Failed to load data:', error);
+			}
 		},
-		
+
 		onHide() {
 			// #ifndef APP-NVUE
 			this.$refs.waterfall.clear();
@@ -301,13 +263,15 @@
 			})
 			uni.stopPullDownRefresh();
 		},
-		
+
 		// 触底加载更多
 		async onReachBottom() {
 			if (this.loadStatus == 'loadmore') {
+				console.log('触发加载')
 				this.init();
 			}
 		},
+
 		methods: {
 			clickImage(image) {
 				console.log(image)
@@ -384,13 +348,16 @@
 			// 这点非常重要：e.name在这里返回是list1或list2，要手动将数据追加到相应列
 			changeList(e) {
 				this[e.name].push(e.value);
+				console.log(e)
+
 			},
-			
+
 			async init() {
 				this.loadStatus = 'loading';
-				const {
-					data
-				} = await this.getData();
+				const data = await this.getData();
+
+
+				console.log(data)
 				this.list.push.apply(this.list, data);
 				this.loadStatus = 'loadmore';
 			},
@@ -434,96 +401,32 @@
 				}, 1000)
 			},
 
-
-			// 模拟的后端数据
+			// 替换原来的模拟数据获取函数
 			getData() {
-				return new Promise((resolve) => {
-					const imgs = [{
-							url: 'https://via.placeholder.com/100x110.png/3c9cff/fff',
-							width: 100,
-							height: 110
+				return new Promise((resolve, reject) => {
+					uni.request({
+						url: 'http://localhost:8080/items',
+						method: 'GET',
+						header: {
+							'token': this.token
 						},
-						{
-							url: 'https://via.placeholder.com/200x220.png/f9ae3d/fff',
-							width: 200,
-							height: 220
+						success: (res) => {
+							const data = res.data.data.map(item => ({
+								id: item.id,
+								allowEdit: false, // 暂时设置为 false，您可以根据实际需求进行修改
+								image: item.image,
+								w: item.image.width, // 这里暂时设置为 null，您可以根据实际需求进行修改
+								h: item.image.height, // 这里暂时设置为 null，您可以根据实际需求进行修改
+								title: item.itemTitle,
+								desc: item.itemDesc
+							}));
+							resolve(data); // 将处理后的数据返回给调用方
 						},
-						{
-							url: 'https://via.placeholder.com/300x340.png/5ac725/fff',
-							width: 300,
-							height: 340
-						},
-						{
-							url: 'https://via.placeholder.com/400x400.png/f56c6c/fff',
-							width: 400,
-							height: 400
-						},
-						{
-							url: 'https://via.placeholder.com/500x510.png/909399/fff',
-							width: 500,
-							height: 510
-						},
-						{
-							url: 'https://via.placeholder.com/600x606.png/3c9cff/fff',
-							width: 600,
-							height: 606
-						},
-						{
-							url: 'https://via.placeholder.com/310x422.png/f1a532/fff',
-							width: 310,
-							height: 422
-						},
-						{
-							url: 'https://via.placeholder.com/320x430.png/3c9cff/fff',
-							width: 320,
-							height: 430
-						},
-						{
-							url: 'https://via.placeholder.com/330x424.png/f9ae3d/fff',
-							width: 330,
-							height: 424
-						},
-						{
-							url: 'https://via.placeholder.com/340x435.png/5ac725/fff',
-							width: 340,
-							height: 435
-						},
-						{
-							url: 'https://via.placeholder.com/350x440.png/f56c6c/fff',
-							width: 350,
-							height: 440
-						},
-						{
-							url: 'https://via.placeholder.com/380x470.png/909399/fff',
-							width: 380,
-							height: 470
+						fail: (err) => {
+							reject(err);
 						}
-					];
-					let list = [];
-					const doFn = (i) => {
-						const randomIndex = Math.floor(Math.random() * 10);
-						return {
-							id: guid(),
-							allowEdit: i == 0,
-							image: imgs[randomIndex].url,
-							w: imgs[randomIndex].width,
-							h: imgs[randomIndex].height,
-							title: i % 2 == 0 ? `(${this.list.length + i + 1})体验uv-ui框架` :
-								`(${this.list.length + i +1})uv-ui支持多平台`,
-							desc: i % 2 == 0 ? `(${this.list.length + i + 1})欢迎使用uv-ui，uni-app生态专用的UI框架` :
-								`(${this.list.length + i})开发者编写一套代码， 可发布到iOS、Android、H5、以及各种小程序`
-						}
-					};
-					// 模拟异步
-					setTimeout(() => {
-						for (let i = 0; i < 20; i++) {
-							list.push(doFn(i));
-						}
-						resolve({
-							data: list
-						});
-					}, 200)
-				})
+					});
+				});
 			}
 
 		}

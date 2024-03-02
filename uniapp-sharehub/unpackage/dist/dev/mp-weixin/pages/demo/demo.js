@@ -96,10 +96,67 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
+try {
+  components = {
+    uvSticky: function () {
+      return Promise.all(/*! import() | uni_modules/uv-sticky/components/uv-sticky/uv-sticky */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-sticky/components/uv-sticky/uv-sticky")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-sticky/components/uv-sticky/uv-sticky.vue */ 337))
+    },
+    uvTabs: function () {
+      return Promise.all(/*! import() | uni_modules/uv-tabs/components/uv-tabs/uv-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-tabs/components/uv-tabs/uv-tabs")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-tabs/components/uv-tabs/uv-tabs.vue */ 345))
+    },
+    uvWaterfall: function () {
+      return Promise.all(/*! import() | uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall.vue */ 354))
+    },
+    uvLoadMore: function () {
+      return Promise.all(/*! import() | uni_modules/uv-load-more/components/uv-load-more/uv-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-load-more/components/uv-load-more/uv-load-more")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-load-more/components/uv-load-more/uv-load-more.vue */ 362))
+    },
+  }
+} catch (e) {
+  if (
+    e.message.indexOf("Cannot find module") !== -1 &&
+    e.message.indexOf(".vue") !== -1
+  ) {
+    console.error(e.message)
+    console.error("1. 排查组件名称拼写是否正确")
+    console.error(
+      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
+    )
+    console.error(
+      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
+    )
+  } else {
+    throw e
+  }
+}
 var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.list1, function (item, index) {
+    var $orig = _vm.__get_orig(item)
+    var s0 = _vm.__get_style([_vm.imageStyle(item)])
+    return {
+      $orig: $orig,
+      s0: s0,
+    }
+  })
+  var l1 = _vm.__map(_vm.list2, function (item, index) {
+    var $orig = _vm.__get_orig(item)
+    var s1 = _vm.__get_style([_vm.imageStyle(item)])
+    return {
+      $orig: $orig,
+      s1: s1,
+    }
+  })
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0,
+        l1: l1,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -133,12 +190,16 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 42));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 44));
+var _index = __webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/function/index.js */ 45);
 //
 //
 //
@@ -148,25 +209,263 @@ exports.default = void 0;
 //
 //
 //
-// this.$store.state.模块名.变量
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
-      username: this.$store.state.user.openid
+      token: '',
+      //瀑布流数据
+      list: [],
+      // 瀑布流全部数据
+      list1: [],
+      // 瀑布流第一列数据
+      list2: [],
+      // 瀑布流第二列数据
+      loadStatus: 'loadmore',
+      leftGap: 10,
+      rightGap: 10,
+      columnGap: 10
+      //end
     };
   },
+
   computed: {
-    count: function count() {
-      return this.$store.state.user.username;
+    waterfallHeight: function waterfallHeight() {
+      return (0, _index.sys)().windowHeight - (0, _index.getPx)('120rpx');
+    },
+    imageStyle: function imageStyle(item) {
+      var _this = this;
+      return function (item) {
+        var v = uni.upx2px(750) - _this.leftGap - _this.rightGap - _this.columnGap;
+        var w = v / 2;
+        var rate = w / item.w;
+        var h = rate * item.h;
+        return {
+          width: w + 'px',
+          height: h + 'px'
+        };
+      };
     }
   },
+  //在这里初始化的进行后端请求
+  onLoad: function onLoad() {
+    var _this2 = this;
+    return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+      var _yield$_this2$getData, data;
+      return _regenerator.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this2.getData();
+            case 2:
+              _yield$_this2$getData = _context.sent;
+              data = _yield$_this2$getData.data;
+              _this2.list = data;
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  onHide: function onHide() {
+    this.$refs.waterfall.clear();
+  },
+  // 触底加载更多
+  onReachBottom: function onReachBottom() {
+    var _this3 = this;
+    return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+      return _regenerator.default.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              if (_this3.loadStatus == 'loadmore') {
+                _this3.init();
+              }
+            case 1:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
   methods: {
-    update: function update() {
-      this.$store.commit('user/setUsername', 'yanzihao');
+    //瀑布流
+    // 选项卡切换
+    tabChange: function tabChange(index) {
+      this.$refs.waterfall.clear();
+      this.list = [];
+      this.list1 = [];
+      this.list2 = [];
+      this.init();
+    },
+    // 这点非常重要：e.name在这里返回是list1或list2，要手动将数据追加到相应列
+    changeList: function changeList(e) {
+      this[e.name].push(e.value);
+    },
+    init: function init() {
+      var _this4 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var _yield$_this4$getData, data;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this4.loadStatus = 'loading';
+                _context3.next = 3;
+                return _this4.getData();
+              case 3:
+                _yield$_this4$getData = _context3.sent;
+                data = _yield$_this4$getData.data;
+                _this4.list.push.apply(_this4.list, data);
+                _this4.loadStatus = 'loadmore';
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    // 长按某项执行删除操作
+    longHandle: function longHandle(item) {
+      var that = this;
+      uni.showModal({
+        title: '提示',
+        content: '你确定删除该项？',
+        success: function success(res) {
+          if (res.confirm) {
+            that.$refs.waterfall.remove(item.id);
+          }
+        }
+      });
+    },
+    // 删除某项后返回对应id，根据id标识在列数据中手动删除该项数据
+    remove: function remove(id) {
+      var _this5 = this;
+      this.list1.forEach(function (item, index) {
+        if (item.id == id) {
+          _this5.list1.splice(index, 1);
+        }
+      });
+      this.list2.forEach(function (item, index) {
+        if (item.id == id) {
+          _this5.list2.splice(index, 1);
+        }
+      });
+    },
+    // 修改某项数据
+    edit: function edit(item) {
+      uni.showLoading({
+        title: '修改中'
+      });
+      setTimeout(function () {
+        item.title = 'uv-ui1.0';
+        item.desc = '修改后的文本';
+        uni.hideLoading();
+      }, 1000);
+    },
+    // 替换原来的模拟数据获取函数
+    getData: function getData() {
+      var _this6 = this;
+      return new Promise(function (resolve, reject) {
+        // 发送 GET 请求到后端接口
+        axios.get('http://localhost:8080/items', {
+          headers: {
+            'token': _this6.token // 如果需要 token，请在这里填写 token 值
+          }
+        }).then(function (response) {
+          // 请求成功，将接口返回的数据格式化为前端需要的格式
+          var data = response.data.data.map(function (item) {
+            return {
+              id: item.id,
+              allowEdit: false,
+              // 暂时设置为 false，您可以根据实际需求进行修改
+              image: item.image,
+              w: item.image.width,
+              // 这里暂时设置为 null，您可以根据实际需求进行修改
+              h: item.image.height,
+              // 这里暂时设置为 null，您可以根据实际需求进行修改
+              title: item.itemTitle,
+              desc: item.itemDesc
+            };
+          });
+          resolve(data);
+        }).catch(function (error) {
+          // 请求失败，返回错误信息
+          reject(error);
+        });
+      });
     }
   }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ })
 

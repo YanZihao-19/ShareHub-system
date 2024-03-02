@@ -228,11 +228,13 @@
 				this.formMsg.address = coordinateString;
 				// console.log('转换后的坐标字符串:', coordinateString);
 			},
+			
 			//滑动地址列表，其他列改变对应值
 			MultiColumnChange(e) {
 				var that = this;
 				allSchool.all(e, that);
 			},
+			
 			// 定义坐标转换函数
 			coordinateToString(coordinate) {
 				return coordinate.join(',');
