@@ -1,7 +1,9 @@
 package com.yzh.controller;
 
 import com.yzh.pojo.Item;
+
 import java.util.*;
+
 import com.yzh.pojo.Result;
 import com.yzh.service.ItemService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,8 +30,10 @@ public class ItemController {
 
     //展示小程序注意(推荐)物品
     @GetMapping
-    public Result itemList(@RequestHeader("token") String token) {
-        List<Item> itemList = itemService.getItemList(token);
+    public Result itemList(@RequestHeader("token") String token, @RequestParam Integer mode) {
+        //mode是表示物品的发行方式
+        System.out.println(mode);
+        List<Item> itemList = itemService.getItemList(token,mode);
         return Result.success(itemList);
     }
 }

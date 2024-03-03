@@ -40,7 +40,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<Item> getItemList(String token) {
+    public List<Item> getItemList(String token,Integer mode) {
         List<Item> itemList;
         //暂时不写
 //        if (token != null) {
@@ -51,8 +51,7 @@ public class ItemServiceImpl implements ItemService {
 //        }
 
         //下面是默认token为null,即用户未登录时，随机获取6条物品数据
-        itemList = itemMapper.getItemList();
-        System.out.println(itemList);
+        itemList = itemMapper.getItemList(mode);
         return itemList;
     }
 }

@@ -76,6 +76,23 @@
   font-size: 12px;
   margin-top: 5px;
 }
+.scroll-list .address.data-v-92bb8f34 {
+  float: right;
+}
+.scroll-list .demo-layout.data-v-92bb8f34 {
+  text-align: center;
+  height: 25px;
+  border-radius: 4px;
+}
+.scroll-list .bg-purple.data-v-92bb8f34 {
+  background: #CED7E1;
+}
+.scroll-list .bg-purple-light.data-v-92bb8f34 {
+  background: #e5e9f2;
+}
+.scroll-list .bg-purple-dark.data-v-92bb8f34 {
+  background: #99a9bf;
+}
 .scroll-list__show-more.data-v-92bb8f34 {
   background-color: #fff0f0;
   border-radius: 3px;

@@ -73,27 +73,60 @@
 					<template v-slot:list1>
 						<!-- 为了磨平部分平台的BUG，必须套一层view -->
 						<view>
+							<!-- 使用 v-for 遍历 list1 数组中的数据 -->
 							<view v-for="(item, index) in list1" :key="index" class="waterfall-item"
 								@longpress="longHandle(item)">
-
+								<!-- 每个瀑布流项的图片部分 -->
 								<view class="waterfall-item__image" :style="[imageStyle(item)]">
+									<!-- 图片展示，根据 item.image 设置 src -->
 									<image :src="item.image" mode="widthFix" :style="{width:item.width+'px'}"></image>
 								</view>
+
+								<!-- 每个瀑布流项的内容部分 -->
 								<view class="waterfall-item__ft">
-									<view class="waterfall-item__ft__title">
+									<!-- 交易方式和交易途径标签 -->
+									<view>
+										<uv-row justify="space-between" gutter="4">
+											<uv-col span="6">
+												<view class="uv-page__tag-item">
+													<uv-tags :text="getModeText(item.mode)"
+														:type="getModeType(item.mode)"></uv-tags>
+												</view>
+											</uv-col>
+											<uv-col span="4">
+												<view class="uv-page__tag-item">
+													<uv-tags class="experss" :text="getDeliveryText(item.delivery)"
+														plain type="error" shape="circle"></uv-tags>
+												</view>
+											</uv-col>
+										</uv-row>
+									</view>
+									<!-- 标题部分 -->
+									<view class="waterfall-item__ft__title uv-line-2">
 										<text class="value">{{item.title}}</text>
 									</view>
-									<view class="waterfall-item__ft__desc uv-line-2">
+
+									<!-- 描述部分，最多显示两行 -->
+									<view class="waterfall-item__ft__desc uv-line-1">
 										<text class="value">{{item.desc}}</text>
 									</view>
-									<view class="waterfall-item__ft__btn" v-if="index==0">
-										<button type="primary"
+									<!-- 物品所在地标签，暂未实现！！！！ -->
+									<uv-col span="4">
+										<view>
+											<view class='cu-tag light bg-cyan radius'>成都</view>
+										</view>
+									</uv-col>
+									<!-- 第一个项特有的按钮部分 -->
+									<!-- <view class="waterfall-item__ft__btn" v-if="index==0"> -->
+									<!-- 点击按钮触发 edit 方法 -->
+									<!-- 	<button type="primary"
 											style="height: 60rpx;line-height: 60rpx;font-size: 28rpx;"
 											@click="edit(item)">异步修改</button>
-									</view>
+									</view> -->
 								</view>
 							</view>
 						</view>
+
 					</template>
 					<!-- 第二列数据 -->
 					<template v-slot:list2>
@@ -106,12 +139,45 @@
 									<image :src="item.image" mode="widthFix" :style="{width:item.width+'px'}"></image>
 								</view>
 								<view class="waterfall-item__ft">
-									<view class="waterfall-item__ft__title">
+									<!-- 交易方式和交易途径标签 -->
+									<view>
+										<uv-row justify="space-between" gutter="4">
+											<uv-col span="6">
+												<view class="uv-page__tag-item">
+													<uv-tags :text="getModeText(item.mode)"
+														:type="getModeType(item.mode)"></uv-tags>
+												</view>
+											</uv-col>
+											<uv-col span="4">
+												<view class="uv-page__tag-item">
+													<uv-tags class="experss" :text="getDeliveryText(item.delivery)"
+														plain type="error" shape="circle"></uv-tags>
+												</view>
+											</uv-col>
+										</uv-row>
+									</view>
+									<!-- 标题部分 -->
+									<view class="waterfall-item__ft__title uv-line-2">
 										<text class="value">{{item.title}}</text>
 									</view>
-									<view class="waterfall-item__ft__desc uv-line-2">
+
+									<!-- 描述部分，最多显示两行 -->
+									<view class="waterfall-item__ft__desc uv-line-1">
 										<text class="value">{{item.desc}}</text>
 									</view>
+									<!-- 物品所在地标签，暂未实现！！！！ -->
+									<uv-col span="4">
+										<view>
+											<view class='cu-tag light bg-cyan radius'>成都</view>
+										</view>
+									</uv-col>
+									<!-- 第一个项特有的按钮部分 -->
+									<!-- <view class="waterfall-item__ft__btn" v-if="index==0"> -->
+									<!-- 点击按钮触发 edit 方法 -->
+									<!-- 	<button type="primary"
+										style="height: 60rpx;line-height: 60rpx;font-size: 28rpx;"
+										@click="edit(item)">异步修改</button>
+								</view> -->
 								</view>
 							</view>
 						</view>
@@ -137,6 +203,7 @@
 	export default {
 		data() {
 			return {
+				mode: '3', //表示物品的类型，0免费，1易物，2二手
 				token: '',
 				// 导航条
 				TabCur: '0',
@@ -241,7 +308,7 @@
 				console.error('Failed to load data:', error);
 			}
 		},
-
+	
 		onHide() {
 			// #ifndef APP-NVUE
 			this.$refs.waterfall.clear();
@@ -273,15 +340,52 @@
 		},
 
 		methods: {
+			//瀑布流中根据后端数据展示不同文本和样式
+			getModeText(mode) {
+				switch (mode) {
+					case 0:
+						return '免费共享';
+					case 1:
+						return '以物换物';
+					case 2:
+						return '二手交易';
+					default:
+						return '';
+				}
+			},
+			getModeType(mode) {
+				switch (mode) {
+					case 0:
+						return 'success';
+					case 1:
+						return 'warning';
+					case 2:
+						return 'error';
+					default:
+						return '';
+				}
+			},
+			getDeliveryText(delivery) {
+				switch (delivery) {
+					case 0:
+						return '自提';
+					case 1:
+						return '面交';
+					case 2:
+						return '邮寄';
+					default:
+						return '';
+				}
+			},
 			clickImage(image) {
-				console.log(image)
+				// console.log(image)
 			},
 			clickSwiper(index) {
-				console.log(index)
+				// console.log(index)
 			},
 
 			clickNotice(index) {
-				console.log(index)
+				// console.log(index)
 			},
 			//  导航条点击end
 			// 点击回到顶部
@@ -314,7 +418,7 @@
 				query.select('#navTab').boundingClientRect()
 				query.selectViewport().scrollOffset()
 				query.exec(function(res) {
-					console.log(res);
+					// console.log(res);
 					// ceil_top: res[0].top - res[0].height - res[0].height
 
 				})
@@ -327,7 +431,7 @@
 				query.select('#TabCurTab').boundingClientRect()
 				query.selectViewport().scrollOffset()
 				query.exec(function(res) {
-					console.log(res)
+					// console.log(res)
 					this.TabCurTab = res[0].bottom - res[0].height - 4;
 				})
 			},
@@ -335,32 +439,59 @@
 			//瀑布流
 
 			// 选项卡切换
-			tabChange(index) {
+			tabChange(obj) {
+				console.log(obj.index)
 				// #ifndef APP-NVUE
 				this.$refs.waterfall.clear();
 				// #endif
 				this.list = [];
 				this.list1 = [];
 				this.list2 = [];
+				// 根据不同的选项卡索引设置 mode 的值
+				switch (obj.index) {
+					case 0:
+						this.mode = '3'; // 点击全部时 mode=3
+						break;
+					case 1:
+						this.mode = '0'; // 点击免费共享时 mode=0
+						break;
+					case 2:
+						this.mode = '1'; // 点击以物换物时 mode=1
+						break;
+					case 3:
+						this.mode = '2'; // 点击二手出售时 mode=2
+						break;
+					default:
+						break;
+				}
 				this.init();
 			},
 
 			// 这点非常重要：e.name在这里返回是list1或list2，要手动将数据追加到相应列
 			changeList(e) {
 				this[e.name].push(e.value);
-				console.log(e)
 
 			},
 
 			async init() {
 				this.loadStatus = 'loading';
-				const data = await this.getData();
-
-
-				console.log(data)
-				this.list.push.apply(this.list, data);
+				const newData = await this.getData();
+				const mergedData = [...this.list, ...newData];
+				//数组去重，可能会影响性能?????
+				const uniqueData = mergedData.filter((item, index) => mergedData.findIndex(i => i.id === item.id) ===
+					index);
+				this.list = uniqueData;
 				this.loadStatus = 'loadmore';
 			},
+
+			//不去重
+			// async init() {
+			// 	this.loadStatus = 'loading';
+			// 	const data = await this.getData();
+			// 	console.log(data)
+			// 	this.list.push.apply(this.list, data);
+			// 	this.loadStatus = 'loadmore';
+			// },
 
 
 			// 长按某项执行删除操作
@@ -405,20 +536,21 @@
 			getData() {
 				return new Promise((resolve, reject) => {
 					uni.request({
-						url: 'http://localhost:8080/items',
+						url: 'http://localhost:8080/items?mode=' + this.mode,
 						method: 'GET',
 						header: {
 							'token': this.token
 						},
 						success: (res) => {
 							const data = res.data.data.map(item => ({
-								id: item.id,
-								allowEdit: false, // 暂时设置为 false，您可以根据实际需求进行修改
-								image: item.image,
-								w: item.image.width, // 这里暂时设置为 null，您可以根据实际需求进行修改
-								h: item.image.height, // 这里暂时设置为 null，您可以根据实际需求进行修改
-								title: item.itemTitle,
-								desc: item.itemDesc
+								id: item.id, //物品id
+								allowEdit: false, // 暂时设置为 false，根据实际需求进行修改
+								image: item.image, //物品图片卡图像
+								title: item.itemTitle, //物品标题
+								desc: item.itemDesc, //物品描述
+								address: item.address, //物品地址
+								mode: item.tradeMode, //物品交易模式
+								delivery: item.deliveryStyle //物品交付方式
 							}));
 							resolve(data); // 将处理后的数据返回给调用方
 						},
@@ -457,6 +589,30 @@
 				margin-top: 5px;
 			}
 		}
+
+		// 卡片分栏布局
+		.address {
+			float: right;
+		}
+
+		.demo-layout {
+			text-align: center;
+			height: 25px;
+			border-radius: 4px;
+		}
+
+		.bg-purple {
+			background: #CED7E1;
+		}
+
+		.bg-purple-light {
+			background: #e5e9f2;
+		}
+
+		.bg-purple-dark {
+			background: #99a9bf;
+		}
+
 
 		&__show-more {
 			background-color: #fff0f0;

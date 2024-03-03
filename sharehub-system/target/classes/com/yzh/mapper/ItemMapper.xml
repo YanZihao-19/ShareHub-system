@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzh.mapper.ItemMapper">
+
+    <select id="getItemList" resultType="com.yzh.pojo.Item">
+        SELECT * FROM item
+        <where>
+            <if test="mode == 0 or mode == 1 or mode ==2">
+                trade_mode = #{mode}
+            </if>
+        </where>
+        order by RAND() LIMIT 8
+    </select>
+</mapper>

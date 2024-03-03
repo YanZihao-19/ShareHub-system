@@ -108,7 +108,7 @@ try {
       return Promise.all(/*! import() | uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall.vue */ 354))
     },
     uvLoadMore: function () {
-      return Promise.all(/*! import() | uni_modules/uv-load-more/components/uv-load-more/uv-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-load-more/components/uv-load-more/uv-load-more")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-load-more/components/uv-load-more/uv-load-more.vue */ 362))
+      return Promise.all(/*! import() | uni_modules/uv-load-more/components/uv-load-more/uv-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-load-more/components/uv-load-more/uv-load-more")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-load-more/components/uv-load-more/uv-load-more.vue */ 370))
     },
   }
 } catch (e) {

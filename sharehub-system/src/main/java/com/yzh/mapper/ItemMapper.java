@@ -26,7 +26,6 @@ public interface ItemMapper {
     @Insert("insert into item_images (url, item_id) values (#{url}, #{itemId})")
     void insertImage(String url, Integer itemId);
 
-    //物品列表随机获取6条数据
-    @Select("SELECT * FROM item ORDER BY RAND() LIMIT 6")
-    List<Item> getItemList();
+    //不同交易模式的物品列表随机获取6条数据
+    List<Item> getItemList(Integer mode);
 }

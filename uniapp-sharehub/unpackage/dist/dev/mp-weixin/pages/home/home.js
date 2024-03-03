@@ -130,8 +130,11 @@ try {
     uvWaterfall: function () {
       return Promise.all(/*! import() | uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall.vue */ 354))
     },
+    uvTags: function () {
+      return Promise.all(/*! import() | uni_modules/uv-tags/components/uv-tags/uv-tags */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-tags/components/uv-tags/uv-tags")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-tags/components/uv-tags/uv-tags.vue */ 362))
+    },
     uvLoadMore: function () {
-      return Promise.all(/*! import() | uni_modules/uv-load-more/components/uv-load-more/uv-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-load-more/components/uv-load-more/uv-load-more")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-load-more/components/uv-load-more/uv-load-more.vue */ 362))
+      return Promise.all(/*! import() | uni_modules/uv-load-more/components/uv-load-more/uv-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-load-more/components/uv-load-more/uv-load-more")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-load-more/components/uv-load-more/uv-load-more.vue */ 370))
     },
   }
 } catch (e) {
@@ -174,17 +177,29 @@ var render = function () {
   var l2 = _vm.__map(_vm.list1, function (item, index) {
     var $orig = _vm.__get_orig(item)
     var s0 = _vm.__get_style([_vm.imageStyle(item)])
+    var m0 = _vm.getModeText(item.mode)
+    var m1 = _vm.getModeType(item.mode)
+    var m2 = _vm.getDeliveryText(item.delivery)
     return {
       $orig: $orig,
       s0: s0,
+      m0: m0,
+      m1: m1,
+      m2: m2,
     }
   })
   var l3 = _vm.__map(_vm.list2, function (item, index) {
     var $orig = _vm.__get_orig(item)
     var s1 = _vm.__get_style([_vm.imageStyle(item)])
+    var m3 = _vm.getModeText(item.mode)
+    var m4 = _vm.getModeType(item.mode)
+    var m5 = _vm.getDeliveryText(item.delivery)
     return {
       $orig: $orig,
       s1: s1,
+      m3: m3,
+      m4: m4,
+      m5: m5,
     }
   })
   _vm.$mp.data = Object.assign(
@@ -238,8 +253,75 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 42));
+var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ 18));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 44));
 var _index = __webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/function/index.js */ 45);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -373,6 +455,8 @@ var _index = __webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/function/ind
 var _default = {
   data: function data() {
     return {
+      mode: '3',
+      //表示物品的类型，0免费，1易物，2二手
       token: '',
       // 导航条
       TabCur: '0',
@@ -544,14 +628,51 @@ var _default = {
     }))();
   },
   methods: {
+    //瀑布流中根据后端数据展示不同文本和样式
+    getModeText: function getModeText(mode) {
+      switch (mode) {
+        case 0:
+          return '免费共享';
+        case 1:
+          return '以物换物';
+        case 2:
+          return '二手交易';
+        default:
+          return '';
+      }
+    },
+    getModeType: function getModeType(mode) {
+      switch (mode) {
+        case 0:
+          return 'success';
+        case 1:
+          return 'warning';
+        case 2:
+          return 'error';
+        default:
+          return '';
+      }
+    },
+    getDeliveryText: function getDeliveryText(delivery) {
+      switch (delivery) {
+        case 0:
+          return '自提';
+        case 1:
+          return '面交';
+        case 2:
+          return '邮寄';
+        default:
+          return '';
+      }
+    },
     clickImage: function clickImage(image) {
-      console.log(image);
+      // console.log(image)
     },
     clickSwiper: function clickSwiper(index) {
-      console.log(index);
+      // console.log(index)
     },
     clickNotice: function clickNotice(index) {
-      console.log(index);
+      // console.log(index)
     },
     //  导航条点击end
     // 点击回到顶部
@@ -582,11 +703,10 @@ var _default = {
       query.select('#navTab').boundingClientRect();
       query.selectViewport().scrollOffset();
       query.exec(function (res) {
-        console.log(res);
+        // console.log(res);
         // ceil_top: res[0].top - res[0].height - res[0].height
       });
     },
-
     //搜索框的高度
     selectTab: function selectTab() {
       var that = this;
@@ -594,28 +714,45 @@ var _default = {
       query.select('#TabCurTab').boundingClientRect();
       query.selectViewport().scrollOffset();
       query.exec(function (res) {
-        console.log(res);
+        // console.log(res)
         this.TabCurTab = res[0].bottom - res[0].height - 4;
       });
     },
     //瀑布流
     // 选项卡切换
-    tabChange: function tabChange(index) {
+    tabChange: function tabChange(obj) {
+      console.log(obj.index);
       this.$refs.waterfall.clear();
       this.list = [];
       this.list1 = [];
       this.list2 = [];
+      // 根据不同的选项卡索引设置 mode 的值
+      switch (obj.index) {
+        case 0:
+          this.mode = '3'; // 点击全部时 mode=3
+          break;
+        case 1:
+          this.mode = '0'; // 点击免费共享时 mode=0
+          break;
+        case 2:
+          this.mode = '1'; // 点击以物换物时 mode=1
+          break;
+        case 3:
+          this.mode = '2'; // 点击二手出售时 mode=2
+          break;
+        default:
+          break;
+      }
       this.init();
     },
     // 这点非常重要：e.name在这里返回是list1或list2，要手动将数据追加到相应列
     changeList: function changeList(e) {
       this[e.name].push(e.value);
-      console.log(e);
     },
     init: function init() {
       var _this5 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
-        var data;
+        var newData, mergedData, uniqueData;
         return _regenerator.default.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
@@ -624,11 +761,16 @@ var _default = {
                 _context4.next = 3;
                 return _this5.getData();
               case 3:
-                data = _context4.sent;
-                console.log(data);
-                _this5.list.push.apply(_this5.list, data);
+                newData = _context4.sent;
+                mergedData = [].concat((0, _toConsumableArray2.default)(_this5.list), (0, _toConsumableArray2.default)(newData)); //数组去重，可能会影响性能?????
+                uniqueData = mergedData.filter(function (item, index) {
+                  return mergedData.findIndex(function (i) {
+                    return i.id === item.id;
+                  }) === index;
+                });
+                _this5.list = uniqueData;
                 _this5.loadStatus = 'loadmore';
-              case 7:
+              case 8:
               case "end":
                 return _context4.stop();
             }
@@ -636,6 +778,14 @@ var _default = {
         }, _callee4);
       }))();
     },
+    //不去重
+    // async init() {
+    // 	this.loadStatus = 'loading';
+    // 	const data = await this.getData();
+    // 	console.log(data)
+    // 	this.list.push.apply(this.list, data);
+    // 	this.loadStatus = 'loadmore';
+    // },
     // 长按某项执行删除操作
     longHandle: function longHandle(item) {
       var that = this;
@@ -679,7 +829,7 @@ var _default = {
       var _this7 = this;
       return new Promise(function (resolve, reject) {
         uni.request({
-          url: 'http://localhost:8080/items',
+          url: 'http://localhost:8080/items?mode=' + _this7.mode,
           method: 'GET',
           header: {
             'token': _this7.token
@@ -688,17 +838,23 @@ var _default = {
             var data = res.data.data.map(function (item) {
               return {
                 id: item.id,
+                //物品id
                 allowEdit: false,
-                // 暂时设置为 false，您可以根据实际需求进行修改
+                // 暂时设置为 false，根据实际需求进行修改
                 image: item.image,
-                w: item.image.width,
-                // 这里暂时设置为 null，您可以根据实际需求进行修改
-                h: item.image.height,
-                // 这里暂时设置为 null，您可以根据实际需求进行修改
+                //物品图片卡图像
                 title: item.itemTitle,
-                desc: item.itemDesc
+                //物品标题
+                desc: item.itemDesc,
+                //物品描述
+                address: item.address,
+                //物品地址
+                mode: item.tradeMode,
+                //物品交易模式
+                delivery: item.deliveryStyle //物品交付方式
               };
             });
+
             resolve(data); // 将处理后的数据返回给调用方
           },
 

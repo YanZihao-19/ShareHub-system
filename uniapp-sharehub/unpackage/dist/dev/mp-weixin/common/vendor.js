@@ -12605,6 +12605,124 @@ exports.default = _default2;
 /***/ }),
 
 /***/ 367:
+/*!********************************************************************************************!*\
+  !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-tags/components/uv-tags/props.js ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _uni$$uv, _uni$$uv$props;
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+var _default = {
+  props: _objectSpread({
+    // 标签类型info、primary、success、warning、error
+    type: {
+      type: String,
+      default: 'primary'
+    },
+    // 不可用
+    disabled: {
+      type: [Boolean, String],
+      default: false
+    },
+    // 标签的大小，large，medium，mini
+    size: {
+      type: String,
+      default: 'medium'
+    },
+    // tag的形状，circle（两边半圆形）, square（方形，带圆角）
+    shape: {
+      type: String,
+      default: 'square'
+    },
+    // 标签文字
+    text: {
+      type: [String, Number],
+      default: ''
+    },
+    // 背景颜色，默认为空字符串，即不处理
+    bgColor: {
+      type: String,
+      default: ''
+    },
+    // 标签字体颜色，默认为空字符串，即不处理
+    color: {
+      type: String,
+      default: ''
+    },
+    // 标签的边框颜色
+    borderColor: {
+      type: String,
+      default: ''
+    },
+    // 点击时返回的索引值，用于区分例遍的数组哪个元素被点击了
+    name: {
+      type: [String, Number],
+      default: ''
+    },
+    // 镂空时是否填充背景色
+    plainFill: {
+      type: Boolean,
+      default: false
+    },
+    // 是否镂空
+    plain: {
+      type: Boolean,
+      default: false
+    },
+    // 是否可关闭
+    closable: {
+      type: Boolean,
+      default: false
+    },
+    // 关闭按钮图标的颜色
+    closeColor: {
+      type: String,
+      default: '#C6C7CB'
+    },
+    // 关闭按钮图标的位置 right（右边）right-top（右上） 默认right-top
+    closePlace: {
+      type: String,
+      default: 'right-top'
+    },
+    // 是否显示
+    show: {
+      type: Boolean,
+      default: true
+    },
+    // 内置图标，或绝对路径的图片
+    icon: {
+      type: String,
+      default: ''
+    },
+    // 图标颜色
+    iconColor: {
+      type: String,
+      default: ''
+    },
+    // nvue模式下 是否直接显示，在uv-list等cell下面使用就需要设置
+    cellChild: {
+      type: Boolean,
+      default: false
+    }
+  }, (_uni$$uv = uni.$uv) === null || _uni$$uv === void 0 ? void 0 : (_uni$$uv$props = _uni$$uv.props) === null || _uni$$uv$props === void 0 ? void 0 : _uni$$uv$props.tags)
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+
+/***/ 375:
 /*!******************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-load-more/components/uv-load-more/props.js ***!
   \******************************************************************************************************/
@@ -12722,7 +12840,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 375:
+/***/ 383:
 /*!************************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-loading-page/components/uv-loading-page/props.js ***!
   \************************************************************************************************************/
@@ -12800,7 +12918,23 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 397:
+/***/ 4:
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+module.exports = _interopRequireDefault, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 405:
 /*!********************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-icon/components/uv-icon/icons.js ***!
   \********************************************************************************************/
@@ -12978,7 +13112,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 398:
+/***/ 406:
 /*!********************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-icon/components/uv-icon/props.js ***!
   \********************************************************************************************/
@@ -13091,23 +13225,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 4:
-/*!**********************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    "default": obj
-  };
-}
-module.exports = _interopRequireDefault, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ 406:
+/***/ 414:
 /*!***************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-ui-tools/libs/function/colorGradient.js ***!
   \***************************************************************************************************/
@@ -13259,7 +13377,7 @@ function colorToRgba(color, alpha) {
 
 /***/ }),
 
-/***/ 407:
+/***/ 415:
 /*!************************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-loading-icon/components/uv-loading-icon/props.js ***!
   \************************************************************************************************************/
@@ -13349,7 +13467,21 @@ exports.default = _default2;
 
 /***/ }),
 
-/***/ 415:
+/***/ 42:
+/*!************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/@babel/runtime/regenerator/index.js ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// TODO(Babel 8): Remove this file.
+
+var runtime = __webpack_require__(/*! @babel/runtime/helpers/regeneratorRuntime */ 43)();
+module.exports = runtime;
+
+/***/ }),
+
+/***/ 423:
 /*!**********************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-swiper/components/uv-swiper-indicator/props.js ***!
   \**********************************************************************************************************/
@@ -13396,104 +13528,6 @@ var _default = {
       default: ''
     }
   }, (_uni$$uv = uni.$uv) === null || _uni$$uv === void 0 ? void 0 : (_uni$$uv$props = _uni$$uv.props) === null || _uni$$uv$props === void 0 ? void 0 : _uni$$uv$props.swiperIndicator)
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-
-/***/ 42:
-/*!************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/@babel/runtime/regenerator/index.js ***!
-  \************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// TODO(Babel 8): Remove this file.
-
-var runtime = __webpack_require__(/*! @babel/runtime/helpers/regeneratorRuntime */ 43)();
-module.exports = runtime;
-
-/***/ }),
-
-/***/ 423:
-/*!***********************************************************************************************************!*\
-  !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-notice-bar/components/uv-column-notice/props.js ***!
-  \***********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _uni$$uv, _uni$$uv$props;
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-var _default = {
-  props: _objectSpread({
-    // 显示的内容，字符串
-    text: {
-      type: [Array],
-      default: ''
-    },
-    // 是否显示左侧的音量图标
-    icon: {
-      type: [String, Boolean, null],
-      default: 'volume'
-    },
-    // 通告模式，link-显示右箭头，closable-显示右侧关闭图标
-    mode: {
-      type: String,
-      default: ''
-    },
-    // 文字颜色，各图标也会使用文字颜色
-    color: {
-      type: String,
-      default: '#f9ae3d'
-    },
-    // 背景颜色
-    bgColor: {
-      type: String,
-      default: '#fdf6ec'
-    },
-    // 字体大小，单位px
-    fontSize: {
-      type: [String, Number],
-      default: 14
-    },
-    // 水平滚动时的滚动速度，即每秒滚动多少px(px)，这有利于控制文字无论多少时，都能有一个恒定的速度
-    speed: {
-      type: [String, Number],
-      default: 80
-    },
-    // direction = row时，是否使用步进形式滚动
-    step: {
-      type: Boolean,
-      default: false
-    },
-    // 滚动一个周期的时间长，单位ms
-    duration: {
-      type: [String, Number],
-      default: 1500
-    },
-    // 是否禁止用手滑动切换，仅`direction="column"生效`
-    // 目前HX2.6.11，只支持App 2.5.5+、H5 2.5.5+、支付宝小程序、字节跳动小程序
-    disableTouch: {
-      type: Boolean,
-      default: true
-    },
-    // 是否禁止滚动，仅`direction="column"生效`
-    disableScroll: {
-      type: Boolean,
-      default: false
-    }
-  }, (_uni$$uv = uni.$uv) === null || _uni$$uv === void 0 ? void 0 : (_uni$$uv$props = _uni$$uv.props) === null || _uni$$uv$props === void 0 ? void 0 : _uni$$uv$props.columnNotice)
 };
 exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
@@ -13823,6 +13857,90 @@ module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.e
 /***/ }),
 
 /***/ 431:
+/*!***********************************************************************************************************!*\
+  !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-notice-bar/components/uv-column-notice/props.js ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _uni$$uv, _uni$$uv$props;
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+var _default = {
+  props: _objectSpread({
+    // 显示的内容，字符串
+    text: {
+      type: [Array],
+      default: ''
+    },
+    // 是否显示左侧的音量图标
+    icon: {
+      type: [String, Boolean, null],
+      default: 'volume'
+    },
+    // 通告模式，link-显示右箭头，closable-显示右侧关闭图标
+    mode: {
+      type: String,
+      default: ''
+    },
+    // 文字颜色，各图标也会使用文字颜色
+    color: {
+      type: String,
+      default: '#f9ae3d'
+    },
+    // 背景颜色
+    bgColor: {
+      type: String,
+      default: '#fdf6ec'
+    },
+    // 字体大小，单位px
+    fontSize: {
+      type: [String, Number],
+      default: 14
+    },
+    // 水平滚动时的滚动速度，即每秒滚动多少px(px)，这有利于控制文字无论多少时，都能有一个恒定的速度
+    speed: {
+      type: [String, Number],
+      default: 80
+    },
+    // direction = row时，是否使用步进形式滚动
+    step: {
+      type: Boolean,
+      default: false
+    },
+    // 滚动一个周期的时间长，单位ms
+    duration: {
+      type: [String, Number],
+      default: 1500
+    },
+    // 是否禁止用手滑动切换，仅`direction="column"生效`
+    // 目前HX2.6.11，只支持App 2.5.5+、H5 2.5.5+、支付宝小程序、字节跳动小程序
+    disableTouch: {
+      type: Boolean,
+      default: true
+    },
+    // 是否禁止滚动，仅`direction="column"生效`
+    disableScroll: {
+      type: Boolean,
+      default: false
+    }
+  }, (_uni$$uv = uni.$uv) === null || _uni$$uv === void 0 ? void 0 : (_uni$$uv$props = _uni$$uv.props) === null || _uni$$uv$props === void 0 ? void 0 : _uni$$uv$props.columnNotice)
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+
+/***/ 439:
 /*!********************************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-notice-bar/components/uv-row-notice/props.js ***!
   \********************************************************************************************************/
@@ -13923,63 +14041,6 @@ function _asyncToGenerator(fn) {
   };
 }
 module.exports = _asyncToGenerator, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ 446:
-/*!********************************************************************************************!*\
-  !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-line/components/uv-line/props.js ***!
-  \********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _uni$$uv, _uni$$uv$props;
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-var _default = {
-  props: _objectSpread({
-    color: {
-      type: String,
-      default: '#d6d7d9'
-    },
-    // 长度，竖向时表现为高度，横向时表现为长度，可以为百分比，带px单位的值等
-    length: {
-      type: [String, Number],
-      default: '100%'
-    },
-    // 线条方向，col-竖向，row-横向
-    direction: {
-      type: String,
-      default: 'row'
-    },
-    // 是否显示细边框
-    hairline: {
-      type: Boolean,
-      default: true
-    },
-    // 线条与上下左右元素的间距，字符串形式，如"30px"、"20px 30px"
-    margin: {
-      type: [String, Number],
-      default: 0
-    },
-    // 是否虚线，true-虚线，false-实线
-    dashed: {
-      type: Boolean,
-      default: false
-    }
-  }, (_uni$$uv = uni.$uv) === null || _uni$$uv === void 0 ? void 0 : (_uni$$uv$props = _uni$$uv.props) === null || _uni$$uv$props === void 0 ? void 0 : _uni$$uv$props.line)
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 
@@ -14782,6 +14843,141 @@ function setConfig(_ref5) {
 
 /***/ }),
 
+/***/ 454:
+/*!******************************************************************************************************************!*\
+  !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-transition/components/uv-transition/createAnimation.js ***!
+  \******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createAnimation = createAnimation;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+// const defaultOption = {
+// 	duration: 300,
+// 	timingFunction: 'linear',
+// 	delay: 0,
+// 	transformOrigin: '50% 50% 0'
+// }
+var MPAnimation = /*#__PURE__*/function () {
+  function MPAnimation(options, _this) {
+    (0, _classCallCheck2.default)(this, MPAnimation);
+    this.options = options;
+    // 在iOS10+QQ小程序平台下，传给原生的对象一定是个普通对象而不是Proxy对象，否则会报parameter should be Object instead of ProxyObject的错误
+    this.animation = uni.createAnimation(_objectSpread({}, options));
+    this.currentStepAnimates = {};
+    this.next = 0;
+    this.$ = _this;
+  }
+  (0, _createClass2.default)(MPAnimation, [{
+    key: "_nvuePushAnimates",
+    value: function _nvuePushAnimates(type, args) {
+      var aniObj = this.currentStepAnimates[this.next];
+      var styles = {};
+      if (!aniObj) {
+        styles = {
+          styles: {},
+          config: {}
+        };
+      } else {
+        styles = aniObj;
+      }
+      if (animateTypes1.includes(type)) {
+        if (!styles.styles.transform) {
+          styles.styles.transform = '';
+        }
+        var unit = '';
+        if (type === 'rotate') {
+          unit = 'deg';
+        }
+        styles.styles.transform += "".concat(type, "(").concat(args + unit, ") ");
+      } else {
+        styles.styles[type] = "".concat(args);
+      }
+      this.currentStepAnimates[this.next] = styles;
+    }
+  }, {
+    key: "_animateRun",
+    value: function _animateRun() {
+      var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var ref = this.$.$refs['ani'].ref;
+      if (!ref) return;
+      return new Promise(function (resolve, reject) {
+        nvueAnimation.transition(ref, _objectSpread({
+          styles: styles
+        }, config), function (res) {
+          resolve();
+        });
+      });
+    }
+  }, {
+    key: "_nvueNextAnimate",
+    value: function _nvueNextAnimate(animates) {
+      var _this2 = this;
+      var step = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var fn = arguments.length > 2 ? arguments[2] : undefined;
+      var obj = animates[step];
+      if (obj) {
+        var styles = obj.styles,
+          config = obj.config;
+        this._animateRun(styles, config).then(function () {
+          step += 1;
+          _this2._nvueNextAnimate(animates, step, fn);
+        });
+      } else {
+        this.currentStepAnimates = {};
+        typeof fn === 'function' && fn();
+        this.isEnd = true;
+      }
+    }
+  }, {
+    key: "step",
+    value: function step() {
+      var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      this.animation.step(config);
+      return this;
+    }
+  }, {
+    key: "run",
+    value: function run(fn) {
+      this.$.animationData = this.animation.export();
+      this.$.timer = setTimeout(function () {
+        typeof fn === 'function' && fn();
+      }, this.$.durationTime);
+    }
+  }]);
+  return MPAnimation;
+}();
+var animateTypes1 = ['matrix', 'matrix3d', 'rotate', 'rotate3d', 'rotateX', 'rotateY', 'rotateZ', 'scale', 'scale3d', 'scaleX', 'scaleY', 'scaleZ', 'skew', 'skewX', 'skewY', 'translate', 'translate3d', 'translateX', 'translateY', 'translateZ'];
+var animateTypes2 = ['opacity', 'backgroundColor'];
+var animateTypes3 = ['width', 'height', 'left', 'right', 'top', 'bottom'];
+animateTypes1.concat(animateTypes2, animateTypes3).forEach(function (type) {
+  MPAnimation.prototype[type] = function () {
+    var _this$animation;
+    (_this$animation = this.animation)[type].apply(_this$animation, arguments);
+    return this;
+  };
+});
+function createAnimation(option, _this) {
+  if (!_this) return;
+  clearTimeout(_this.timer);
+  return new MPAnimation(option, _this);
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+
 /***/ 46:
 /*!******************************************************************************************!*\
   !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-ui-tools/libs/function/test.js ***!
@@ -15080,6 +15276,63 @@ function video(value) {
 function regExp(o) {
   return o && Object.prototype.toString.call(o) === '[object RegExp]';
 }
+
+/***/ }),
+
+/***/ 460:
+/*!********************************************************************************************!*\
+  !*** D:/.0学习/.毕设/ShareHub/uniapp-sharehub/uni_modules/uv-line/components/uv-line/props.js ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _uni$$uv, _uni$$uv$props;
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+var _default = {
+  props: _objectSpread({
+    color: {
+      type: String,
+      default: '#d6d7d9'
+    },
+    // 长度，竖向时表现为高度，横向时表现为长度，可以为百分比，带px单位的值等
+    length: {
+      type: [String, Number],
+      default: '100%'
+    },
+    // 线条方向，col-竖向，row-横向
+    direction: {
+      type: String,
+      default: 'row'
+    },
+    // 是否显示细边框
+    hairline: {
+      type: Boolean,
+      default: true
+    },
+    // 线条与上下左右元素的间距，字符串形式，如"30px"、"20px 30px"
+    margin: {
+      type: [String, Number],
+      default: 0
+    },
+    // 是否虚线，true-虚线，false-实线
+    dashed: {
+      type: Boolean,
+      default: false
+    }
+  }, (_uni$$uv = uni.$uv) === null || _uni$$uv === void 0 ? void 0 : (_uni$$uv$props = _uni$$uv.props) === null || _uni$$uv$props === void 0 ? void 0 : _uni$$uv$props.line)
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

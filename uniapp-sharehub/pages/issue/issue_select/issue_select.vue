@@ -1,9 +1,9 @@
 <template>
 	<view class="flex flex-wrap justify-center " style="height: 300rpx;">
 
-		<butto class="basis-xl bg-grey margin-xs padding-sm radius" @tap="toShare">共享物品</butto>
-		<butto class="basis-xl bg-grey margin-xs padding-sm radius" @tap="toExchange">以物换物</butto>
-		<butto class="basis-xl bg-grey margin-xs padding-sm radius" @tap="toSale">二手出售</butto>
+		<button class="basis-xl bg-grey margin-xs padding-sm radius" @tap="toShare">共享物品</button>
+		<button class="basis-xl bg-grey margin-xs padding-sm radius" @tap="toExchange">以物换物</button>
+		<button class="basis-xl bg-grey margin-xs padding-sm radius" @tap="toSale">二手出售</button>
 
 	</view>
 </template>
