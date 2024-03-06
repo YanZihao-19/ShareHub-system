@@ -1,26 +1,31 @@
-spring:
-    datasource:
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        password: 123456
-        url: jdbc:mysql://localhost:3306/showhub
-        username: root
-
-mybatis:
-    configuration:
-        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-        map-underscore-to-camel-case: true
-wx:
-    appId: wx841c396b1440b81c
-    secret: 37e2a7e7399da64f83095ee01315c81a
-
-
 aliyun:
-    oss:
-        accessKeyId: LTAI5tN5P5JRtsrcAJS6Yjpr
-        accessKeySecret: iV4jEHc944LbZBp1jFne5VC8xgp2oV
-        bucketName: web-showhub
-        endpoint: https://oss-cn-beijing.aliyuncs.com
-
+  oss:
+    accessKeyId: LTAI5tN5P5JRtsrcAJS6Yjpr
+    accessKeySecret: iV4jEHc944LbZBp1jFne5VC8xgp2oV
+    bucketName: web-showhub
+    endpoint: https://oss-cn-beijing.aliyuncs.com
 logging:
-    level:
-        org.springframework.jdbc.support.JdbcTransactionManager: debug
+  level:
+    org:
+      springframework:
+        jdbc:
+          support:
+            JdbcTransactionManager: debug
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: 123456
+    url: jdbc:mysql://localhost:3306/showhub
+    username: root
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 50MB
+wx:
+  appId: wx841c396b1440b81c
+  secret: 37e2a7e7399da64f83095ee01315c81a

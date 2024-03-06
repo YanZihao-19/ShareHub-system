@@ -2,16 +2,22 @@ package com.yzh.service.impl;
 
 import com.yzh.mapper.ItemMapper;
 import com.yzh.pojo.Item;
+import com.yzh.pojo.UserTagsScore;
 import com.yzh.service.ItemService;
+import com.yzh.utils.CosineSimilarity;
+import com.yzh.utils.ItemTagsArray;
+
+import java.util.*;
+
 import com.yzh.utils.JwtUtils;
+import com.yzh.utils.UserTagsArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Author: 燕子豪
@@ -40,17 +46,62 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<Item> getItemList(String token,Integer mode) {
-        List<Item> itemList;
-        //暂时不写
-//        if (token != null) {
-//            //解析前端token,获取用户openid,进行具体推荐
-//            Map<String, Object> itemUser = JwtUtils.parseJWT(token);
-//            String openId = (String) itemUser.get("openId");
-//            //推荐算法获取到对于用户的itemList
-//        }
+    public List<Item> getItemList(String token, Integer mode) {
+        List<Item> itemList = new ArrayList<>();
 
-        //下面是默认token为null,即用户未登录时，随机获取6条物品数据
+        //用户登陆了就使用推荐
+        if (token != null && !token.equals("")) {
+            //解析前端token,获取用户openid
+            Map<String, Object> itemUser = JwtUtils.parseJWT(token);
+            String openId = (String) itemUser.get("openId");
+
+            //根据用户的openid在user_tags_score表中数据
+            UserTagsScore userTagsScore = itemMapper.getUserTagsScore(openId);
+
+            //获取到当前用户的偏好向量
+            Integer[] userTagsArray = new Integer[0];
+            try {
+                userTagsArray = UserTagsArray.getUserTagsArray(userTagsScore);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            System.out.println("用户的喜好向量：" + Arrays.toString(userTagsArray));
+
+            //数据库中随机获取itemRandomList
+            List<Item> itemRandomList = itemMapper.getItemList(mode);
+            System.out.println("打印算法过滤前获取到的items" + itemRandomList);
+
+            //每个物品与当前用户的相似度，key是当前物品的index,value是相似度
+            Map<Integer, Double> userItemSimilarity = new HashMap<>();
+
+            for (int i = 0; i < itemRandomList.size(); i++) {
+                //将itemRandomList中的每一个item转化为物品标签向量
+                Integer[] itemTagsArray = ItemTagsArray.getItemTagsArray(itemRandomList.get(i));
+//                System.out.println("物品" + i + "的tags标签向量：" + Arrays.toString(itemTagsArray));
+
+                // item标签向量与用户的偏好向量计算相似性，存到map中
+                userItemSimilarity.put(i, CosineSimilarity.cosineSimilarity(userTagsArray, itemTagsArray));
+            }
+            System.out.println("tags——similar中map对象的相似度" + userItemSimilarity);
+
+            //根Map中key获取map中相似度最高的物品
+            // 按照 Map 的 value 值从大到小排序并返回前三个最大的 value对应的key(index)
+            List<Integer> top3Index = userItemSimilarity.entrySet().stream()
+                    .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                    .limit(3)
+                    .map(Map.Entry::getKey)
+                    .collect(Collectors.toList());
+            System.out.println("相似度最近的物品index" + top3Index);
+
+            //取相似度最高的4个产品，返回给后端
+            for (Integer i : top3Index) {
+                itemList.add(itemRandomList.get(i));
+            }
+            System.out.println("打印经推荐算法过滤后返回给后端的items" + itemList);
+            return itemList;
+        }
+
+        // 下面是默认token为null,即用户未登录时，随机获取6条物品数据
         itemList = itemMapper.getItemList(mode);
         return itemList;
     }

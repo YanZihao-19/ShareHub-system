@@ -111,11 +111,13 @@
 										<text class="value">{{item.desc}}</text>
 									</view>
 									<!-- 物品所在地标签，暂未实现！！！！ -->
-									<uv-col span="4">
-										<view>
-											<view class='cu-tag light bg-cyan radius'>成都</view>
-										</view>
-									</uv-col>
+									<uv-row justify="space-between" gutter="4">
+										<uv-col span="4">
+											<view>
+												<view class='cu-tag light bg-cyan radius'>成都</view>
+											</view>
+										</uv-col>
+									</uv-row>
 									<!-- 第一个项特有的按钮部分 -->
 									<!-- <view class="waterfall-item__ft__btn" v-if="index==0"> -->
 									<!-- 点击按钮触发 edit 方法 -->
@@ -166,11 +168,13 @@
 										<text class="value">{{item.desc}}</text>
 									</view>
 									<!-- 物品所在地标签，暂未实现！！！！ -->
-									<uv-col span="4">
-										<view>
-											<view class='cu-tag light bg-cyan radius'>成都</view>
-										</view>
-									</uv-col>
+									<uv-row justify="space-between" gutter="4">
+										<uv-col span="4">
+											<view>
+												<view class='cu-tag light bg-cyan radius'>成都</view>
+											</view>
+										</uv-col>
+									</uv-row>
 									<!-- 第一个项特有的按钮部分 -->
 									<!-- <view class="waterfall-item__ft__btn" v-if="index==0"> -->
 									<!-- 点击按钮触发 edit 方法 -->
@@ -302,13 +306,41 @@
 
 		async onLoad() {
 			try {
+
 				const data = await this.getData(); // 调用 getData() 函数获取数据
 				this.list = data; // 将返回的数据赋值给 list 数组
 			} catch (error) {
 				console.error('Failed to load data:', error);
 			}
 		},
-	
+		onTabItemTap: function(e) {
+			// #ifndef APP-NVUE
+			this.$refs.waterfall.clear();
+			// #endif
+			this.list = [];
+			this.list1 = [];
+			this.list2 = [];
+			// 根据不同的选项卡索引设置 mode 的值
+			this.init();
+		},
+
+		// // 在“导航”页内写入该方法
+		// onTabItemTap() {
+		// 	 // 在页面显示时重新初始化数据
+		// 	    this.list = [];
+
+		// },
+		// onTabItemTap(item) {
+		//   // 判断点击的 Tab Bar 的页面路径是否为当前页面
+		//   if (item.pagePath === this.route) {
+		//     // 清空 list 数组
+		//     this.list = [];
+		// 	this.init();
+
+		//   }
+		// },
+
+
 		onHide() {
 			// #ifndef APP-NVUE
 			this.$refs.waterfall.clear();
@@ -368,10 +400,12 @@
 			getDeliveryText(delivery) {
 				switch (delivery) {
 					case 0:
-						return '自提';
+						return '任意';
 					case 1:
-						return '面交';
+						return '自提';
 					case 2:
+						return '面交';
+					case 3:
 						return '邮寄';
 					default:
 						return '';
@@ -535,6 +569,10 @@
 			// 替换原来的模拟数据获取函数
 			getData() {
 				return new Promise((resolve, reject) => {
+					//获取token
+					this.token = uni.getStorageSync('token')
+					console.log('发送给后端的token值：', this.token)
+					
 					uni.request({
 						url: 'http://localhost:8080/items?mode=' + this.mode,
 						method: 'GET',

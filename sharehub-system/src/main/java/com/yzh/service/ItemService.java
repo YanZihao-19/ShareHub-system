@@ -15,5 +15,5 @@ public interface ItemService {
      */
     void addItem(Item item);
 
-    List<Item> getItemList(String token,Integer mode);
+    List<Item> getItemList(String token,Integer mode) throws IllegalAccessException;
 }

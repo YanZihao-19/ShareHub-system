@@ -84,14 +84,33 @@
 				<button class="cu-btn  bg-green" role="button" aria-disabled="false" @tap="newState">选择</button>
 			</view>
 			<!-- end -->
+			<view class="cu-form-group">
+				<view class="title">适合人群： </view>
+				<!-- <radio-group name="means" @change="radioChange">
+					<radio value="0">任意</radio>
+					<radio value="1">儿童</radio>
+					<radio value="2">成年人</radio>
+					<radio value="3">老年人</radio>
+				</radio-group> -->
+				<uv-radio-group v-model="formMsg.suit">
+					<uv-radio :customStyle="{marginRight: '10px'}" v-for="(item, index) in radioSuit" :key="index"
+						:label="item.name" :name="item.value">
+					</uv-radio>
+				</uv-radio-group>
+			</view>
 
 			<view class="cu-form-group">
-				<view class="title">交易方式</view>
-				<radio-group name="means" @change="radioChange">
+				<view class="title">交易方式：</view>
+				<!-- <radio-group name="means" @change="radioChange">
 					<radio value="0">自提</radio>
 					<radio value="1">同城面交</radio>
 					<radio value="2">邮寄</radio>
-				</radio-group>
+				</radio-group> -->
+				<uv-radio-group v-model="formMsg.deliveryStyle">
+					<uv-radio :customStyle="{marginRight: '10rpx'}" v-for="(item, index) in radioTrade" :key="index"
+						:label="item.name" :name="item.value">
+					</uv-radio>
+				</uv-radio-group>
 			</view>
 			<!-- end -->
 
@@ -144,19 +163,47 @@
 
 				itemLists: ['全新', '99新', '95新', '85新', '8新'], //几次新
 				modalName: '', //模态框开关
-				// 交易方式
-				radioOptions: [{
-						value: "自提",
-						style: 0,
+				radioTrade: [{
+						name: "任意",
+						value: 0,
+						disabled: false
 					},
 					{
-						value: "同城面交",
-						style: 1,
+						name: "自提",
+						value: 1,
+						disabled: false
 					},
 					{
-						value: "邮寄",
-						style: 2,
+						name: "面交",
+						value: 2,
+						disabled: false
 					},
+					{
+						name: "邮寄",
+						value: 3,
+						disabled: false
+					}
+				],
+				radioSuit: [{
+						name: '任意',
+						value: 0,
+						disabled: false
+					},
+					{
+						name: '儿童',
+						value: 1,
+						disabled: false
+					},
+					{
+						name: '成人',
+						value: 2,
+						disabled: false
+					},
+					{
+						name: '老人',
+						value: 3,
+						disabled: false
+					}
 				],
 				classify: '其他闲置', //分类选择默认
 				picker: [{
@@ -164,37 +211,43 @@
 					classify_name: '电子产品'
 				}, {
 					tag: 2,
-					classify_name: '儿童玩具'
-				}, {
-					tag: 2,
-					classify_name: '图书'
-				}, {
-					tag: 2,
-					classify_name: '数码产品'
-				}, {
-					tag: 2,
-					classify_name: '家具'
-				}, {
-					tag: 2,
-					classify_name: '体育用品'
-				}, {
-					tag: 2,
-					classify_name: '宠物用品'
-				}, {
-					tag: 2,
-					classify_name: '服装'
-				}, {
-					tag: 2,
-					classify_name: '母婴用品'
-				}, {
-					tag: 2,
-					classify_name: '健身器材'
-				}, {
-					tag: 2,
 					classify_name: '美妆用品'
 				}, {
-					tag: 2,
+					tag: 3,
+					classify_name: '图书'
+				}, {
+					tag: 4,
+					classify_name: '数码影音'
+				}, {
+					tag: 5,
+					classify_name: '家居日用'
+				}, {
+					tag: 6,
+					classify_name: '儿童玩具'
+				}, {
+					tag: 7,
+					classify_name: '宠物用品'
+				}, {
+					tag: 8,
+					classify_name: '男装'
+				}, {
+					tag: 9,
+					classify_name: '女装'
+				}, {
+					tag: 10,
+					classify_name: '母婴用品'
+				}, {
+					tag: 11,
+					classify_name: '运动户外'
+				}, {
+					tag: 12,
 					classify_name: '家用电器'
+				}, {
+					tag: 13,
+					classify_name: '家纺家具'
+				}, {
+					tag: 14,
+					classify_name: '其他'
 				}],
 				multiArray: [
 					['北京市', '重庆市', '福建省', '江苏省', '广东省', '辽宁省', '内蒙古', '山西省', '青海省', '四川省', '贵州省', '云南省', '陕西省', '西藏',

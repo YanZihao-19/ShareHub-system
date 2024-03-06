@@ -1,5 +1,8 @@
 {
   "navigationBarTitleText": "物品共享",
   "enablePullDownRefresh": false,
-  "usingComponents": {}
+  "usingComponents": {
+    "uv-radio-group": "/uni_modules/uv-radio/components/uv-radio-group/uv-radio-group",
+    "uv-radio": "/uni_modules/uv-radio/components/uv-radio/uv-radio"
+  }
 }

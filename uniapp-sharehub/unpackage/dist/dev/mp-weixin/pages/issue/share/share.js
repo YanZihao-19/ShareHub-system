@@ -98,6 +98,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
+try {
+  components = {
+    uvRadioGroup: function () {
+      return Promise.all(/*! import() | uni_modules/uv-radio/components/uv-radio-group/uv-radio-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-radio/components/uv-radio-group/uv-radio-group")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-radio/components/uv-radio-group/uv-radio-group.vue */ 400))
+    },
+    uvRadio: function () {
+      return Promise.all(/*! import() | uni_modules/uv-radio/components/uv-radio/uv-radio */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-radio/components/uv-radio/uv-radio")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-radio/components/uv-radio/uv-radio.vue */ 408))
+    },
+  }
+} catch (e) {
+  if (
+    e.message.indexOf("Cannot find module") !== -1 &&
+    e.message.indexOf(".vue") !== -1
+  ) {
+    console.error(e.message)
+    console.error("1. 排查组件名称拼写是否正确")
+    console.error(
+      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
+    )
+    console.error(
+      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
+    )
+  } else {
+    throw e
+  }
+}
 var render = function () {
   var _vm = this
   var _h = _vm.$createElement
@@ -276,6 +302,25 @@ var _allSchool = _interopRequireDefault(__webpack_require__(/*! ../../../common/
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
@@ -312,16 +357,39 @@ var _default = {
       //几次新
       modalName: '',
       //模态框开关
-      // 交易方式
-      radioOptions: [{
-        value: "自提",
-        style: 0
+      radioTrade: [{
+        name: "任意",
+        value: 0,
+        disabled: false
       }, {
-        value: "同城面交",
-        style: 1
+        name: "自提",
+        value: 1,
+        disabled: false
       }, {
-        value: "邮寄",
-        style: 2
+        name: "面交",
+        value: 2,
+        disabled: false
+      }, {
+        name: "邮寄",
+        value: 3,
+        disabled: false
+      }],
+      radioSuit: [{
+        name: '任意',
+        value: 0,
+        disabled: false
+      }, {
+        name: '儿童',
+        value: 1,
+        disabled: false
+      }, {
+        name: '成人',
+        value: 2,
+        disabled: false
+      }, {
+        name: '老人',
+        value: 3,
+        disabled: false
       }],
       classify: '其他闲置',
       //分类选择默认
@@ -330,37 +398,43 @@ var _default = {
         classify_name: '电子产品'
       }, {
         tag: 2,
-        classify_name: '儿童玩具'
-      }, {
-        tag: 2,
-        classify_name: '图书'
-      }, {
-        tag: 2,
-        classify_name: '数码产品'
-      }, {
-        tag: 2,
-        classify_name: '家具'
-      }, {
-        tag: 2,
-        classify_name: '体育用品'
-      }, {
-        tag: 2,
-        classify_name: '宠物用品'
-      }, {
-        tag: 2,
-        classify_name: '服装'
-      }, {
-        tag: 2,
-        classify_name: '母婴用品'
-      }, {
-        tag: 2,
-        classify_name: '健身器材'
-      }, {
-        tag: 2,
         classify_name: '美妆用品'
       }, {
-        tag: 2,
+        tag: 3,
+        classify_name: '图书'
+      }, {
+        tag: 4,
+        classify_name: '数码影音'
+      }, {
+        tag: 5,
+        classify_name: '家居日用'
+      }, {
+        tag: 6,
+        classify_name: '儿童玩具'
+      }, {
+        tag: 7,
+        classify_name: '宠物用品'
+      }, {
+        tag: 8,
+        classify_name: '男装'
+      }, {
+        tag: 9,
+        classify_name: '女装'
+      }, {
+        tag: 10,
+        classify_name: '母婴用品'
+      }, {
+        tag: 11,
+        classify_name: '运动户外'
+      }, {
+        tag: 12,
         classify_name: '家用电器'
+      }, {
+        tag: 13,
+        classify_name: '家纺家具'
+      }, {
+        tag: 14,
+        classify_name: '其他'
       }],
       multiArray: [['北京市', '重庆市', '福建省', '江苏省', '广东省', '辽宁省', '内蒙古', '山西省', '青海省', '四川省', '贵州省', '云南省', '陕西省', '西藏', '宁夏', '新疆', '广西', '海南省', '湖南省', '湖北省', '河南省', '山东省', '江西省', '安徽省', '浙江省', '上海', '黑龙江省', '吉林省', '甘肃省', '天津市', '河北省'], ['北京市'], ['北京大学', '中国人民大学', '清华大学', '北京交通大学', '北京工业大学', '北京航空航天大学', '北京理工大学', '北京科技大学', '北方工业大学', '北京化工大学', '北京工商大学', '北京服装学院', '北京邮电大学', '北京印刷学院', '北京建筑大学', '北京石油化工学院', '北京电子科技学院', '中国农业大学', '北京农学院', '北京林业大学', '北京协和医学院', '首都医科大学', '北京中医药大学', '北京师范大学', '首都师范大学', '首都体育学院', '北京外国语大学', '北京第二外国语学院', '北京语言大学', '中国传媒大学', '中央财经大学', '对外经济贸易大学', '北京物资学院', '首都经济贸易大学', '外交学院', '中国人民公安大学', '国际关系学院', '北京体育大学', '中央音乐学院', '中国音乐学院', '中央美术学院', '中央戏剧学院', '中国戏曲学院', '北京电影学院', '北京舞蹈学院', '中央民族大学', '中国政法大学', '华北电力大学', '中华女子学院', '北京信息科技大学', '中国矿业大学（北京）', '中国石油大学（北京）', '中国地质大学（北京）', '北京联合大学', '北京城市学院', '中国青年政治学院', '首钢工学院', '中国劳动关系学院', '北京吉利学院', '首都师范大学科德学院', '北京工商大学嘉华学院', '北京邮电大学世纪学院', '北京工业大学耿丹学院', '北京警察学院', '北京第二外国语学院中瑞酒店管理学院', '北京工业职业技术学院', '北京信息职业技术学院', '北京电子科技职业学院', '北京京北职业技术学院', '北京交通职业技术学院', '北京青年政治学院', '北京农业职业学院', '北京政法职业学院', '北京财贸职业学院', '北京北大方正软件职业技术学院', '北京经贸职业学院', '北京经济技术职业学院', '北京戏曲艺术职业学院', '北京汇佳职业学院', '北京科技经营管理学院', '北京科技职业学院', '北京培黎职业学院', '北京经济管理职业学院', '北京劳动保障职业学院', '北京社会管理职业学院', '北京艺术传媒职业学院', '北京体育职业学院', '北京交通运输职业学院', '北京卫生职业学院', '北京网络职业学院', '其他']],
       //默认选择地址

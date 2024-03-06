@@ -24,15 +24,16 @@ public class ItemController {
     //新增(免费、易物、二手)物品
     @PostMapping
     public Result addItem(@RequestBody Item item) {
+        System.out.println("获取item的suit"+item.getSuit());
         itemService.addItem(item);
         return Result.success();
     }
 
     //展示小程序注意(推荐)物品
     @GetMapping
-    public Result itemList(@RequestHeader("token") String token, @RequestParam Integer mode) {
+    public Result itemList(@RequestHeader("token") String token, @RequestParam Integer mode) throws IllegalAccessException {
         //mode是表示物品的发行方式
-        System.out.println(mode);
+//        System.out.println(mode);
         List<Item> itemList = itemService.getItemList(token,mode);
         return Result.success(itemList);
     }
