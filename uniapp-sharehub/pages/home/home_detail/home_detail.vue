@@ -1,51 +1,70 @@
 <template>
 	<view>
 		<!-- 商家信息 -->
-
 		<view class="bg-white ">
 			<view class=" cf padding-sm">
 				<view class="radius fl padding-sm ">
-					<image src='http://k.zol-img.com.cn/sjbbs/7692/a7691515_s.jpg'></image>
+					<image :src='user.image'></image>
 					<view class="fr padding-name">
-						<view>Amibition</view>
-						<view>
-							<text>发布于毕节</text>
+						<view>{{user.username}}</view>
+						<view class="padding-time ">
+							<text>{{item.createTime}}</text>
 						</view>
 					</view>
 				</view>
-				<view class=" fr padding-time ">
-					<text>35分钟前来过</text>
+
+				<!-- 举报功能待完善！！！！！！！！！！！！！！！！！！ -->
+				<view class=" fr padding-button">
+					<text>举报</text>
 				</view>
 			</view>
 		</view>
-
 		<!-- 商家信息end -->
 
 		<!-- 商品内容 -->
 		<view class='contanier bg-white padding-sm top-20'>
 			<view class='price'>
 				<text class='price-symbol'>￥</text>
-				<text class='price-size'>2500</text>
-				<text class='price-ori'>￥1221</text>
-				<view class="cu-tag">不讲价</view>
+				<text class='price-size'>{{item.sellPrice}}</text>
+				<text class='price-ori'>￥{{item.originalPrice}}</text>
+				<!-- <view class="cu-tag">不讲价</view> -->
 			</view>
-
+			<!-- 物品标题 -->
 			<view class='bg-white top-20 font-size'>
 				<text>
-					123百度图片-发现多彩世界百度图片 - 百度快照 - 745条评价先锋图片百度图片使用世界前沿的人工智能技术，为用户甄选海量的高清美图，用更流畅、更快捷、更精准的搜索体验，带你去发现多彩的世界。
+					{{item.itemTitle}}
+				</text>
+			</view>
+
+			<!-- 物品描述 -->
+			<view class='bg-white top-20  '>
+				<text class="text-xl ">
+					{{item.itemDesc}}
 				</text>
 			</view>
 
 			<!-- 交易方式 -->
 			<view class='hint'>
-				<text>本交易仅支持自提、当面交易、邮寄</text>
+				<text>该物品支持
+					<template v-if="item.deliveryStyle === 0"><b>任意</b></template>
+					<template v-else-if="item.deliveryStyle === 1"><b>自提</b></template>
+					<template v-else-if="item.deliveryStyle === 2"><b>同城面交</b></template>
+					<template v-else-if="item.deliveryStyle === 3"><b>邮寄</b></template>
+					交易方式。
+				</text>
+
 			</view>
 			<!-- end -->
 
 			<!-- 图片位置 -->
-			<block v-for="(item,index) in 6" :key="index">
-				<image class='img' src='../../../static/img/qiu.jpeg'></image>
-			</block>
+			<view>
+				<block>
+					<image class='img' :src="item.image" @tap="previewImage(item.image)"></image>
+				</block>
+				<block v-for="(item,index) in itemImages" :key="index">
+					<image class='img' :src="item" @tap="previewImage(item)"></image>
+				</block>
+			</view>
 			<!--图片位置end  -->
 
 			<view class='browse'>
@@ -53,11 +72,11 @@
 					<text></text>
 					<!-- <text>担保交易</text> -->
 				</view>
-				<view class="text-gray text-sm text-right padding-browse">
+				<!-- 	<view class="text-gray text-sm text-right padding-browse">
 					<text class="cuIcon-attentionfill margin-lr-xs"></text> 10
 					<text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
 					<text class="cuIcon-messagefill margin-lr-xs"></text> 30
-				</view>
+				</view> -->
 
 			</view>
 
@@ -253,17 +272,132 @@
 	export default {
 		data() {
 			return {
+				user: {
+					username: '', //用户名
+					credibility: '', //信誉
+					role: '', //角色
+					image: '', //头像
+					identifyId: '', //实名认证
+				},
+				item: {
+					createTime: '', //创建时间
+					image: '', //物品首页图
+					itemTitle: '', //物品名称
+					itemDesc: '', //物品描述
+					tradeMode: '', //物品交易模式(共享/换物/二手)
+					sellPrice: '', //现价
+					originalPrice: '', //原价
+					usageLevel: '', //物品磨损度
+					deliveryStyle: '', //物品交易方式
+					ownerUid: '' //用户openID
+				},
+				itemImages: [], //物品详情图
+
 				url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg',
 			}
 		},
+		async onLoad() {
+			try {
+				//获取上个页面传来的item.id
+				const pages = getCurrentPages();
+				const currentPage = pages[pages.length - 1];
+				const {
+					id
+				} = currentPage.options;
+
+				// 初始化函数获取数据
+				this.getItemData(id);
+
+			} catch (error) {
+				console.error('Failed to load data:', error);
+			}
+		},
 		methods: {
+			getUser(openId) {
+				return new Promise((resolve, reject) => {
+					//获取token
+					this.token = uni.getStorageSync('token')
+					// console.log('发送给后端的token值：', this.token)
+
+					uni.request({
+						url: 'http://localhost:8080/users/user?openId=' + openId,
+						method: 'GET',
+						header: {
+							'token': this.token
+						},
+						success: (res) => {
+							// 请求成功的回调函数，处理后端返回的数据
+							if (res.data && res.data.code === 1) {
+								//赋值给前端的 item 数据
+								this.user = res.data.data;
+								console.log('this.user的数据：', this.user)
+							} else {
+								console.error('请求数据失败或返回数据格式不符合预期');
+							}
+						},
+						fail: (err) => {
+							// 请求失败的回调函数，处理错误情况
+							console.error('请求数据失败', err);
+						}
+
+					});
+				});
+			},
+			getItemData(id) {
+				return new Promise((resolve, reject) => {
+					//获取token
+					this.token = uni.getStorageSync('token')
+					// console.log('发送给后端的token值：', this.token)
+
+					uni.request({
+						url: 'http://localhost:8080/items/' + id,
+						method: 'GET',
+						header: {
+							'token': this.token
+						},
+						success: (res) => {
+							// 请求成功的回调函数，处理后端返回的数据
+							if (res.data && res.data.code === 1) {
+								//赋值给前端的 item 数据
+								this.item = res.data.data.item;
+								this.itemImages = res.data.data.itemImages
+								console.log('this.item的数据：', this.item)
+								//修改日期格式
+								this.item.createTime = this.item.createTime.replace('T', ' ');
+								console.log('this.item.time的数据：', this.item.createTime)
+
+								this.getUser(this.item.ownerUid);
+							} else {
+								console.error('请求数据失败或返回数据格式不符合预期');
+							}
+						},
+						fail: (err) => {
+							// 请求失败的回调函数，处理错误情况
+							console.error('请求数据失败', err);
+						}
+
+					});
+				});
+			},
+
+
 			// 点击跳转订单详细页面
 			buy: function(e) {
-				console.log(e);
+				// console.log(e);
 				uni.navigateTo({
 					url: '/pages/home/confirm_order/confirm_order'
 				});
-			}
+			},
+
+			// //放大图片
+			// previewImage(url) {
+			// 	uni.previewImage({
+			// 		current: url, // 当前显示图片的链接
+			// 		urls: [url] // 需要预览的图片链接列表
+			// 	});
+			// },
+			
+			
 		}
 	}
 </script>
@@ -272,13 +406,19 @@
 	/* 商家信息 */
 
 	.padding-name {
-		padding-top: 25rpx;
+		padding-top: 7rpx;
 		padding-left: 20rpx;
+		font-size: 35rpx;
 	}
 
 	.padding-name text {
 		color: gray;
-		font-size: 20rpx;
+		font-size: 25rpx;
+	}
+
+	.padding-button {
+		padding-top: 75rpx;
+		font-size: 25rpx;
 	}
 
 	.fl image {
@@ -288,7 +428,8 @@
 	}
 
 	.padding-time {
-		padding-top: 45rpx;
+		padding-top: 30rpx;
+		font-size: 25rpx;
 	}
 
 	text-title-size {
@@ -319,12 +460,14 @@
 	}
 
 	.font-size text {
+		font-weight: bold;
 		font-size: 35rpx;
 		color: black;
+
 	}
 
 	.hint {
-		margin-top: 20rpx;
+		margin-top: 60rpx;
 		color: black;
 		font-size: 35rpx;
 	}

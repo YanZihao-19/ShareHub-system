@@ -26,7 +26,7 @@ public class Item extends AbstractEntity {
     private Integer status;
     //适合人群：0任意、1儿童、2成人、3老年人
     private Integer suit;
-    //租借/出售价格（共享的话默认为0）
+    //物品所有者id
     private String ownerUid;
     //租借/出售价格（共享的话默认为0）
     private Integer sellPrice;

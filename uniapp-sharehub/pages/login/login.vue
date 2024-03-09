@@ -123,7 +123,8 @@
 									// console.log('后端请求到的token：', token);
 									// 解析 JWT
 									const decoded = jwtDecode(token);
-									// console.log(decoded);
+									console.log('解析jwt中的数据：' + decoded.username);
+									console.log('解析jwt中的数据：' + decoded.openId);
 									//赋值
 									that.nickName = decoded.username
 									that.headerUrl = decoded.image
@@ -136,7 +137,9 @@
 
 									//用户信息存储到vuex中
 									that.$store.commit('user/setUsername', decoded.username);
+									that.$store.commit('user/setOpenid', decoded.openId);
 									console.log('Vuex中存储的用户姓名：', that.$store.state.user.username);
+									console.log('Vuex中存储的openid：', that.$store.state.user.openid);
 
 									//打开显示进入主页按钮
 									that.loggedIn = true;

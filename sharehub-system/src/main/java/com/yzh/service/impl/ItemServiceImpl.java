@@ -11,6 +11,7 @@ import java.util.*;
 
 import com.yzh.utils.JwtUtils;
 import com.yzh.utils.UserTagsArray;
+import com.yzh.vo.ItemVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,7 +47,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<Item> getItemList(String token, Integer mode) {
+    public List<Item> getItemList(String token, Integer mode, Integer tag) {
         List<Item> itemList = new ArrayList<>();
 
         //用户登陆了就使用推荐
@@ -68,7 +69,7 @@ public class ItemServiceImpl implements ItemService {
             System.out.println("用户的喜好向量：" + Arrays.toString(userTagsArray));
 
             //数据库中随机获取itemRandomList
-            List<Item> itemRandomList = itemMapper.getItemList(mode);
+            List<Item> itemRandomList = itemMapper.getItemList(mode, tag);
             System.out.println("打印算法过滤前获取到的items" + itemRandomList);
 
             //每个物品与当前用户的相似度，key是当前物品的index,value是相似度
@@ -102,7 +103,15 @@ public class ItemServiceImpl implements ItemService {
         }
 
         // 下面是默认token为null,即用户未登录时，随机获取6条物品数据
-        itemList = itemMapper.getItemList(mode);
+        itemList = itemMapper.getItemList(mode, tag);
         return itemList;
+    }
+
+    @Override
+    public ItemVO getItemDetail(String token, Integer itemId) {
+        //获取物品信息和图片
+        Item itemDetail = itemMapper.getItemDetail(itemId);
+        List<String> itemImages = itemMapper.getItemImages(itemId);
+        return new ItemVO(itemDetail, itemImages);
     }
 }

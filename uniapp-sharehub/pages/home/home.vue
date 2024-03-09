@@ -30,16 +30,26 @@
 		<!-- end -->
 
 		<!-- 宫格列表 -->
-		<view class="uv-page">
+		<!-- 视图容器，设置背景颜色 -->
+		<view class="uv-page" style="background-color: #FEFEFE;">
+			<!-- 示例区块容器 -->
 			<view class="uv-demo-block">
+				<!-- 自定义滚动列表组件 -->
 				<uv-scroll-list>
+					<!-- 滚动列表容器 -->
 					<view class="scroll-list">
+						<!-- 遍历 menuArr 数组，渲染每一行 -->
 						<view class="scroll-list__line" v-for="(item, index) in menuArr" :key="index">
+							<!-- 遍历当前行的每个项目 ,根据条件添加类名，控制样式 -->
 							<view class="scroll-list__line__item" v-for="(item1, index1) in item" :key="index1"
-								:class="[(index1 === item.length - 1) && 'scroll-list__line__item--no-margin-right']">
+								:class="[(index1 === item.length - 1) && 'scroll-list__line__item--last']"
+								@tap="itemClick(item1.tap)">
 
+								<!-- 显示项目图标 -->
 								<image class="scroll-list__line__item__image" :src="item1.icon" mode="heightFix">
 								</image>
+
+								<!-- 显示项目名称 -->
 								<text class="scroll-list__line__item__text">{{ item1.name }}</text>
 							</view>
 						</view>
@@ -47,6 +57,7 @@
 				</uv-scroll-list>
 			</view>
 		</view>
+
 		<!-- 宫格列表end -->
 
 		<!-- 点击回到顶部 -->
@@ -76,56 +87,54 @@
 							<!-- 使用 v-for 遍历 list1 数组中的数据 -->
 							<view v-for="(item, index) in list1" :key="index" class="waterfall-item"
 								@longpress="longHandle(item)">
-								<!-- 每个瀑布流项的图片部分 -->
-								<view class="waterfall-item__image" :style="[imageStyle(item)]">
-									<!-- 图片展示，根据 item.image 设置 src -->
-									<image :src="item.image" mode="widthFix" :style="{width:item.width+'px'}"></image>
-								</view>
+								<view class="waterfall-item-wrapper" @tap="goToDetail(item)">
+									<!-- 每个瀑布流项的图片部分 -->
+									<view class="waterfall-item__image" :style="[imageStyle(item)]">
+										<!-- 图片展示，根据 item.image 设置 src -->
+										<image :src="item.image" mode="widthFix" :style="{width:item.width+'px'}">
+										</image>
+									</view>
 
-								<!-- 每个瀑布流项的内容部分 -->
-								<view class="waterfall-item__ft">
-									<!-- 交易方式和交易途径标签 -->
-									<view>
+									<!-- 每个瀑布流项的内容部分 -->
+									<view class="waterfall-item__ft">
+										<!-- 交易方式和交易途径标签 -->
+										<view>
+											<uv-row justify="space-between" gutter="4">
+												<uv-col span="6">
+													<view class="uv-page__tag-item">
+														<uv-tags :text="getModeText(item.mode)"
+															:type="getModeType(item.mode)"></uv-tags>
+													</view>
+												</uv-col>
+												<uv-col span="4">
+													<view class="uv-page__tag-item">
+														<uv-tags class="experss" :text="getDeliveryText(item.delivery)"
+															plain type="error" shape="circle"></uv-tags>
+													</view>
+												</uv-col>
+											</uv-row>
+										</view>
+										<!-- 标题部分 -->
+										<view class="waterfall-item__ft__title uv-line-2">
+											<text class="value">{{item.title}}</text>
+										</view>
+
+										<!-- 描述部分，最多显示两行 -->
+										<view class="waterfall-item__ft__desc uv-line-1">
+											<text class="value">{{item.desc}}</text>
+										</view>
+										<!-- 物品所在地标签，暂未实现！！！！ -->
 										<uv-row justify="space-between" gutter="4">
-											<uv-col span="6">
-												<view class="uv-page__tag-item">
-													<uv-tags :text="getModeText(item.mode)"
-														:type="getModeType(item.mode)"></uv-tags>
-												</view>
-											</uv-col>
 											<uv-col span="4">
-												<view class="uv-page__tag-item">
-													<uv-tags class="experss" :text="getDeliveryText(item.delivery)"
-														plain type="error" shape="circle"></uv-tags>
+												<view>
+													<view class='cu-tag light bg-cyan radius'>成都</view>
 												</view>
 											</uv-col>
 										</uv-row>
 									</view>
-									<!-- 标题部分 -->
-									<view class="waterfall-item__ft__title uv-line-2">
-										<text class="value">{{item.title}}</text>
-									</view>
-
-									<!-- 描述部分，最多显示两行 -->
-									<view class="waterfall-item__ft__desc uv-line-1">
-										<text class="value">{{item.desc}}</text>
-									</view>
-									<!-- 物品所在地标签，暂未实现！！！！ -->
-									<uv-row justify="space-between" gutter="4">
-										<uv-col span="4">
-											<view>
-												<view class='cu-tag light bg-cyan radius'>成都</view>
-											</view>
-										</uv-col>
-									</uv-row>
-									<!-- 第一个项特有的按钮部分 -->
-									<!-- <view class="waterfall-item__ft__btn" v-if="index==0"> -->
-									<!-- 点击按钮触发 edit 方法 -->
-									<!-- 	<button type="primary"
-											style="height: 60rpx;line-height: 60rpx;font-size: 28rpx;"
-											@click="edit(item)">异步修改</button>
-									</view> -->
 								</view>
+
+
 							</view>
 						</view>
 
@@ -136,52 +145,47 @@
 						<view>
 							<view v-for="(item, index) in list2" :key="index" class="waterfall-item"
 								@longpress="longHandle(item)">
+								<view class="waterfall-item-wrapper" @tap="goToDetail(item)">
+									<view class="waterfall-item__image" :style="[imageStyle(item)]">
+										<image :src="item.image" mode="widthFix" :style="{width:item.width+'px'}">
+										</image>
+									</view>
+									<view class="waterfall-item__ft">
+										<!-- 交易方式和交易途径标签 -->
+										<view>
+											<uv-row justify="space-between" gutter="4">
+												<uv-col span="6">
+													<view class="uv-page__tag-item">
+														<uv-tags :text="getModeText(item.mode)"
+															:type="getModeType(item.mode)"></uv-tags>
+													</view>
+												</uv-col>
+												<uv-col span="4">
+													<view class="uv-page__tag-item">
+														<uv-tags class="experss" :text="getDeliveryText(item.delivery)"
+															plain type="error" shape="circle"></uv-tags>
+													</view>
+												</uv-col>
+											</uv-row>
+										</view>
+										<!-- 标题部分 -->
+										<view class="waterfall-item__ft__title uv-line-2">
+											<text class="value">{{item.title}}</text>
+										</view>
 
-								<view class="waterfall-item__image" :style="[imageStyle(item)]">
-									<image :src="item.image" mode="widthFix" :style="{width:item.width+'px'}"></image>
-								</view>
-								<view class="waterfall-item__ft">
-									<!-- 交易方式和交易途径标签 -->
-									<view>
+										<!-- 描述部分，最多显示两行 -->
+										<view class="waterfall-item__ft__desc uv-line-1">
+											<text class="value">{{item.desc}}</text>
+										</view>
+										<!-- 物品所在地标签，暂未实现！！！！ -->
 										<uv-row justify="space-between" gutter="4">
-											<uv-col span="6">
-												<view class="uv-page__tag-item">
-													<uv-tags :text="getModeText(item.mode)"
-														:type="getModeType(item.mode)"></uv-tags>
-												</view>
-											</uv-col>
 											<uv-col span="4">
-												<view class="uv-page__tag-item">
-													<uv-tags class="experss" :text="getDeliveryText(item.delivery)"
-														plain type="error" shape="circle"></uv-tags>
+												<view>
+													<view class='cu-tag light bg-cyan radius'>成都</view>
 												</view>
 											</uv-col>
 										</uv-row>
 									</view>
-									<!-- 标题部分 -->
-									<view class="waterfall-item__ft__title uv-line-2">
-										<text class="value">{{item.title}}</text>
-									</view>
-
-									<!-- 描述部分，最多显示两行 -->
-									<view class="waterfall-item__ft__desc uv-line-1">
-										<text class="value">{{item.desc}}</text>
-									</view>
-									<!-- 物品所在地标签，暂未实现！！！！ -->
-									<uv-row justify="space-between" gutter="4">
-										<uv-col span="4">
-											<view>
-												<view class='cu-tag light bg-cyan radius'>成都</view>
-											</view>
-										</uv-col>
-									</uv-row>
-									<!-- 第一个项特有的按钮部分 -->
-									<!-- <view class="waterfall-item__ft__btn" v-if="index==0"> -->
-									<!-- 点击按钮触发 edit 方法 -->
-									<!-- 	<button type="primary"
-										style="height: 60rpx;line-height: 60rpx;font-size: 28rpx;"
-										@click="edit(item)">异步修改</button>
-								</view> -->
 								</view>
 							</view>
 						</view>
@@ -207,6 +211,7 @@
 	export default {
 		data() {
 			return {
+				tap: '0', //表示物品种类
 				mode: '3', //表示物品的类型，0免费，1易物，2二手
 				token: '',
 				// 导航条
@@ -231,45 +236,67 @@
 				menuBaseUrl: 'https://cdn.uviewui.com/uview/menu/',
 				menuArr: [
 					[{
-							name: '电子产品',
-							icon: require('@/static/itemImages/电子产品.png')
+						tap: '1',
+						name: '电子产品',
+						icon: require('@/static/itemImages/电子产品.jpg')
+					}, {
+						tap: '8',
+						name: '男装',
+						icon: require('@/static/itemImages/男装.jpg')
+					}, {
+						tap: '4',
+						name: '数码影音',
+						icon: require('@/static/itemImages/数码影音.jpg')
+					}, {
+						tap: '11',
+						name: '运动户外',
+						icon: require('@/static/itemImages/运动户外.jpg')
+					}, {
+						tap: '5',
+						name: '家居日用',
+						icon: require('@/static/itemImages/家居日用.jpg')
+					}, {
+						tap: '6',
+						name: '儿童玩具',
+						icon: require('@/static/itemImages/儿童玩具.jpg')
+					}, {
+						tap: '7',
+						name: '宠物用品',
+						icon: require('@/static/itemImages/宠物用品.jpg')
+					}],
+					[{
+							tap: '9',
+							name: '女装',
+							icon: require('@/static/itemImages/女装.jpg')
 						},
 						{
-							name: '儿童玩具',
-							icon: require('@/static/itemImages/儿童玩具.png')
+							tap: '2',
+							name: '美妆用品',
+							icon: require('@/static/itemImages/美妆用品.jpg')
 						}, {
+							tap: '10',
+							name: '母婴用品',
+							icon: require('@/static/itemImages/母婴用品.jpg')
+						}, {
+							tap: '12',
+							name: '家用电器',
+							icon: require('@/static/itemImages/家用电器.jpg')
+						}, {
+							tap: '3',
 							name: '图书',
-							icon: require('@/static/itemImages/图书.png')
+							icon: require('@/static/itemImages/图书.jpg')
 						}, {
-							name: '数码产品',
-							icon: require('@/static/itemImages/数码产品.png')
+							tap: '13',
+							name: '家纺家居',
+							icon: require('@/static/itemImages/家纺家居.jpg')
 						}, {
-							name: '家具',
-							icon: require('@/static/itemImages/家具.png')
-						}, {
-							name: '体育用品',
-							icon: require('@/static/itemImages/体育用品.png')
-						}
-					],
-					[{
-						name: '宠物用品',
-						icon: require('@/static/itemImages/宠物用品.png')
-					}, {
-						name: '服装',
-						icon: require('@/static/itemImages/服装.png')
-					}, {
-						name: '母婴用品',
-						icon: require('@/static/itemImages/母婴用品.png')
-					}, {
-						name: '健身器材',
-						icon: require('@/static/itemImages/健身器材.png')
-					}, {
-						name: '美妆用品',
-						icon: require('@/static/itemImages/美妆用品.png')
-					}, {
-						name: '家用电器',
-						icon: require('@/static/itemImages/家用电器.png')
-					}]
+							tap: '14',
+							name: '其他',
+							icon: require('@/static/itemImages/其他.jpg')
+						},
+
+
+					]
 				],
 
 				//瀑布流数据
@@ -306,13 +333,13 @@
 
 		async onLoad() {
 			try {
-
 				const data = await this.getData(); // 调用 getData() 函数获取数据
 				this.list = data; // 将返回的数据赋值给 list 数组
 			} catch (error) {
 				console.error('Failed to load data:', error);
 			}
 		},
+
 		onTabItemTap: function(e) {
 			// #ifndef APP-NVUE
 			this.$refs.waterfall.clear();
@@ -372,6 +399,17 @@
 		},
 
 		methods: {
+			//选择物品种类
+			itemClick(tap) {
+				//获取点击的物品种类
+				this.tap = tap
+				//重新获取对应物品种类和交易方式的物品列表
+				this.list = [];
+				this.list1 = [];
+				this.list2 = [];
+				this.init()
+			},
+
 			//瀑布流中根据后端数据展示不同文本和样式
 			getModeText(mode) {
 				switch (mode) {
@@ -421,13 +459,7 @@
 			clickNotice(index) {
 				// console.log(index)
 			},
-			//  导航条点击end
-			// 点击回到顶部
 			onPageScroll: function(e) {
-				// console.log(e)
-				// this.setData({
-				//   scrollTop: e.scrollTop
-				// })
 				this.scrollTop = e.scrollTop
 
 				if (e.scrollTop > 500) {
@@ -501,12 +533,22 @@
 				this.init();
 			},
 
-			// 这点非常重要：e.name在这里返回是list1或list2，要手动将数据追加到相应列
+			//点击物品跳转到详情页
+			goToDetail(item) {
+				// 在这里进行页面跳转，比如跳转到详情页，并传递参数
+				console.log('准备执行跳转了！')
+				uni.navigateTo({
+					url: '/pages/home/home_detail/home_detail?id=' + item.id
+				});
+			},
+
+			// 瀑布流：这点非常重要：e.name在这里返回是list1或list2，要手动将数据追加到相应列
 			changeList(e) {
 				this[e.name].push(e.value);
 
 			},
 
+			//获取数据并且进行数组去重
 			async init() {
 				this.loadStatus = 'loading';
 				const newData = await this.getData();
@@ -533,10 +575,12 @@
 				let that = this;
 				uni.showModal({
 					title: '提示',
-					content: '你确定删除该项？',
+					content: '你不喜欢该物品吗？',
 					success(res) {
 						if (res.confirm) {
 							that.$refs.waterfall.remove(item.id);
+							//推家算法！！！！！向后端发送请求，降低该物品的期望值
+
 						}
 					}
 				})
@@ -554,27 +598,16 @@
 					}
 				})
 			},
-			// 修改某项数据
-			edit(item) {
-				uni.showLoading({
-					title: '修改中'
-				})
-				setTimeout(() => {
-					item.title = 'uv-ui1.0';
-					item.desc = '修改后的文本';
-					uni.hideLoading();
-				}, 1000)
-			},
 
-			// 替换原来的模拟数据获取函数
+			// 发送请求获取数据
 			getData() {
 				return new Promise((resolve, reject) => {
 					//获取token
 					this.token = uni.getStorageSync('token')
 					console.log('发送给后端的token值：', this.token)
-					
+
 					uni.request({
-						url: 'http://localhost:8080/items?mode=' + this.mode,
+						url: 'http://localhost:8080/items?mode=' + this.mode + '&tap=' + this.tap,
 						method: 'GET',
 						header: {
 							'token': this.token
@@ -626,6 +659,28 @@
 				font-size: 12px;
 				margin-top: 5px;
 			}
+		}
+
+		/* 设置图标高度 宽度*/
+		.scroll-list__line__item__image {
+			width: 100rpx;
+			height: 100rpx;
+		}
+
+		/* 添加通用的间距 */
+		.scroll-list__line__item {
+			margin-right: 50px;
+			text-align: center
+		}
+
+		/* 设置第一个项目的左间距 */
+		.scroll-list__line__item:first-child {
+			margin-left: 15px;
+		}
+
+		/* 最后一个项目的右侧间距 */
+		.scroll-list__line__item--last {
+			margin-right: 15px;
 		}
 
 		// 卡片分栏布局

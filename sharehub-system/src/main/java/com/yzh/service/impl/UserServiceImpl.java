@@ -6,6 +6,7 @@ import com.yzh.mapper.UserMapper;
 import com.yzh.pojo.PageBean;
 import com.yzh.pojo.User;
 import com.yzh.service.UserService;
+import com.yzh.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -81,4 +82,8 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectOpenId(openId);
     }
 
+    @Override
+    public User selectByToken(String openId) {
+        return userMapper.selectOpenId(openId);
+    }
 }

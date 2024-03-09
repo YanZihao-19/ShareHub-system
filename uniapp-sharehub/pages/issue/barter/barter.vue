@@ -411,7 +411,7 @@
 			formSubmit() {
 				console.log(this.formMsg)
 				//最后处理form数据
-				this.formMsg.ownerUid = this.$store.state.user.username
+				this.formMsg.ownerUid = this.$store.state.user.openid
 				//设置物品待交易
 				this.formMsg.status = '0'
 

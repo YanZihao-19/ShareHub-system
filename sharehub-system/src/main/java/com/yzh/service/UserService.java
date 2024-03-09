@@ -46,9 +46,11 @@ public interface UserService {
      */
     User selectOpenId(String openid);
 
+
     /**
-     * 新增小程序端用户
+     * 根据token返回用户
      */
+    User selectByToken(String token);
 
 
 }

@@ -8,6 +8,9 @@ export default {
 	mutations: {
 		setUsername(state, username) {
 			state.username = username;
+		},
+		setOpenid(state, openid) {
+			state.openid = openid;
 		}
 	},
 	

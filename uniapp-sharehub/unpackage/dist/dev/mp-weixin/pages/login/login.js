@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uvLoadingPage: function () {
-      return Promise.all(/*! import() | uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page.vue */ 272))
+      return Promise.all(/*! import() | uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page.vue */ 274))
     },
   }
 } catch (e) {
@@ -281,7 +281,8 @@ var _default = {
                 // console.log('后端请求到的token：', token);
                 // 解析 JWT
                 var decoded = (0, _jwtDecode.jwtDecode)(token);
-                // console.log(decoded);
+                console.log('解析jwt中的数据：' + decoded.username);
+                console.log('解析jwt中的数据：' + decoded.openId);
                 //赋值
                 that.nickName = decoded.username;
                 that.headerUrl = decoded.image;
@@ -294,7 +295,9 @@ var _default = {
 
                 //用户信息存储到vuex中
                 that.$store.commit('user/setUsername', decoded.username);
+                that.$store.commit('user/setOpenid', decoded.openId);
                 console.log('Vuex中存储的用户姓名：', that.$store.state.user.username);
+                console.log('Vuex中存储的openid：', that.$store.state.user.openid);
 
                 //打开显示进入主页按钮
                 that.loggedIn = true;

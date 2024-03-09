@@ -74,4 +74,14 @@ public class UserController {
         return Result.success();
     }
 
+    /**
+     * 根据用户的openID获取用户信息
+     */
+    @GetMapping("/user")
+    public Result findUser(@RequestParam String openId) {
+        User user = userService.selectByToken(openId);
+        return Result.success(user);
+    }
+
+
 }

@@ -269,14 +269,138 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	/* 商家信息 */
 .padding-name {
-		padding-top: 25rpx;
+		padding-top: 7rpx;
 		padding-left: 20rpx;
+		font-size: 35rpx;
 }
 .padding-name text {
 		color: gray;
-		font-size: 20rpx;
+		font-size: 25rpx;
+}
+.padding-button {
+		padding-top: 75rpx;
+		font-size: 25rpx;
 }
 .fl image {
 		width: 100rpx;
@@ -284,7 +408,8 @@
 		border-radius: 100%;
 }
 .padding-time {
-		padding-top: 45rpx;
+		padding-top: 30rpx;
+		font-size: 25rpx;
 }
 text-title-size {
 		font-size: 50rpx;

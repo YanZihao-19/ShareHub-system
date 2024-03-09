@@ -1,6 +1,6 @@
 package com.yzh.controller;
 
-import com.yzh.pojo.LoginDTO;
+import com.yzh.vo.LoginVO;
 import com.yzh.pojo.Result;
 import com.yzh.pojo.User;
 import com.yzh.service.IMemberLoginService;
@@ -54,13 +54,14 @@ public class LoginController {
 
     //小程序端用户登录/注册
     @PostMapping("/user/login")
-    public Result getWxUser(@RequestBody LoginDTO loginDTO) {
-        User user1 = iMemberLoginService.getUserOpenId(loginDTO.getCode());
+    public Result getWxUser(@RequestBody LoginVO loginVO) {
+        User user1 = iMemberLoginService.getUserOpenId(loginVO.getCode());
         if (user1 != null) { //用户不为空
             Map<String, Object> claims = new HashMap<>();
             claims.put("openId", user1.getOpenId());
             claims.put("username", user1.getUsername());
             claims.put("image", user1.getImage());
+
             return Result.success(JwtUtils.generateJwt(claims));
         }
         return Result.success("登录失败！");

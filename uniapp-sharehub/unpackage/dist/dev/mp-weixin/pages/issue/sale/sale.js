@@ -101,10 +101,10 @@ var components
 try {
   components = {
     uvRadioGroup: function () {
-      return Promise.all(/*! import() | uni_modules/uv-radio/components/uv-radio-group/uv-radio-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-radio/components/uv-radio-group/uv-radio-group")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-radio/components/uv-radio-group/uv-radio-group.vue */ 400))
+      return Promise.all(/*! import() | uni_modules/uv-radio/components/uv-radio-group/uv-radio-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-radio/components/uv-radio-group/uv-radio-group")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-radio/components/uv-radio-group/uv-radio-group.vue */ 402))
     },
     uvRadio: function () {
-      return Promise.all(/*! import() | uni_modules/uv-radio/components/uv-radio/uv-radio */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-radio/components/uv-radio/uv-radio")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-radio/components/uv-radio/uv-radio.vue */ 408))
+      return Promise.all(/*! import() | uni_modules/uv-radio/components/uv-radio/uv-radio */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-radio/components/uv-radio/uv-radio")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-radio/components/uv-radio/uv-radio.vue */ 410))
     },
   }
 } catch (e) {
@@ -309,23 +309,11 @@ var _allSchool = _interopRequireDefault(__webpack_require__(/*! ../../../common/
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var _default = {
   data: function data() {
     return {
       formMsg: {
-        ownerUid: 'opwm66yu9D_BIoZcSaF4Pjdv8VuA',
+        ownerUid: '',
         //暂时还未设置新增用户，故先默认设置
         itemTitle: '',
         //物品标题
@@ -583,7 +571,7 @@ var _default = {
     formSubmit: function formSubmit() {
       console.log(this.formMsg);
       //最后处理form数据
-      this.formMsg.ownerUid = this.$store.state.user.username;
+      this.formMsg.ownerUid = this.$store.state.user.openid;
       this.formMsg.status = '0';
 
       // 发送异步请求

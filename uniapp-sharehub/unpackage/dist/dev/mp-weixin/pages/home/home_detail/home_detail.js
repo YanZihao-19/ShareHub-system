@@ -137,10 +137,27 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 57));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 59));
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -395,13 +412,140 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
+      user: {
+        username: '',
+        //用户名
+        credibility: '',
+        //信誉
+        role: '',
+        //角色
+        image: '',
+        //头像
+        identifyId: '' //实名认证
+      },
+
+      item: {
+        createTime: '',
+        //创建时间
+        image: '',
+        //物品首页图
+        itemTitle: '',
+        //物品名称
+        itemDesc: '',
+        //物品描述
+        tradeMode: '',
+        //物品交易模式(共享/换物/二手)
+        sellPrice: '',
+        //现价
+        originalPrice: '',
+        //原价
+        usageLevel: '',
+        //物品磨损度
+        deliveryStyle: '',
+        //物品交易方式
+        ownerUid: '' //用户openID
+      },
+
+      itemImages: [],
+      //物品详情图
+
       url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg'
     };
   },
+  onLoad: function onLoad() {
+    var _this = this;
+    return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+      var pages, currentPage, id;
+      return _regenerator.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              try {
+                //获取上个页面传来的item.id
+                pages = getCurrentPages();
+                currentPage = pages[pages.length - 1];
+                id = currentPage.options.id; // 初始化函数获取数据
+                _this.getItemData(id);
+              } catch (error) {
+                console.error('Failed to load data:', error);
+              }
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
   methods: {
+    getUser: function getUser(openId) {
+      var _this2 = this;
+      return new Promise(function (resolve, reject) {
+        //获取token
+        _this2.token = uni.getStorageSync('token');
+        // console.log('发送给后端的token值：', this.token)
+
+        uni.request({
+          url: 'http://localhost:8080/users/user?openId=' + openId,
+          method: 'GET',
+          header: {
+            'token': _this2.token
+          },
+          success: function success(res) {
+            // 请求成功的回调函数，处理后端返回的数据
+            if (res.data && res.data.code === 1) {
+              //赋值给前端的 item 数据
+              _this2.user = res.data.data;
+              console.log('this.user的数据：', _this2.user);
+            } else {
+              console.error('请求数据失败或返回数据格式不符合预期');
+            }
+          },
+          fail: function fail(err) {
+            // 请求失败的回调函数，处理错误情况
+            console.error('请求数据失败', err);
+          }
+        });
+      });
+    },
+    getItemData: function getItemData(id) {
+      var _this3 = this;
+      return new Promise(function (resolve, reject) {
+        //获取token
+        _this3.token = uni.getStorageSync('token');
+        // console.log('发送给后端的token值：', this.token)
+
+        uni.request({
+          url: 'http://localhost:8080/items/' + id,
+          method: 'GET',
+          header: {
+            'token': _this3.token
+          },
+          success: function success(res) {
+            // 请求成功的回调函数，处理后端返回的数据
+            if (res.data && res.data.code === 1) {
+              //赋值给前端的 item 数据
+              _this3.item = res.data.data.item;
+              _this3.itemImages = res.data.data.itemImages;
+              console.log('this.item的数据：', _this3.item);
+              //修改日期格式
+              _this3.item.createTime = _this3.item.createTime.replace('T', ' ');
+              console.log('this.item.time的数据：', _this3.item.createTime);
+              _this3.getUser(_this3.item.ownerUid);
+            } else {
+              console.error('请求数据失败或返回数据格式不符合预期');
+            }
+          },
+          fail: function fail(err) {
+            // 请求失败的回调函数，处理错误情况
+            console.error('请求数据失败', err);
+          }
+        });
+      });
+    },
     // 点击跳转订单详细页面
     buy: function buy(e) {
-      console.log(e);
+      // console.log(e);
       uni.navigateTo({
         url: '/pages/home/confirm_order/confirm_order'
       });

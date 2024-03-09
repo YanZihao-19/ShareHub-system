@@ -8,8 +8,11 @@
     <select id="getItemList" resultType="com.yzh.pojo.Item">
         SELECT * FROM item
         <where>
-            <if test="mode == 0 or mode == 1 or mode ==2">
+            <if test="mode == 0 or mode == 1 or mode == 2">
                 trade_mode = #{mode}
+            </if>
+            <if test="tag != 0">
+                and tag = #{tag}
             </if>
         </where>
         order by RAND() LIMIT 8

@@ -50,7 +50,6 @@
 					:range="multiArray">
 					<view class="picker">
 						{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}，{{multiArray[2][multiIndex[2]]}}
-
 					</view>
 				</picker>
 			</view>
@@ -86,12 +85,6 @@
 			<!-- end -->
 			<view class="cu-form-group">
 				<view class="title">适合人群： </view>
-				<!-- <radio-group name="means" @change="radioChange">
-					<radio value="0">任意</radio>
-					<radio value="1">儿童</radio>
-					<radio value="2">成年人</radio>
-					<radio value="3">老年人</radio>
-				</radio-group> -->
 				<uv-radio-group v-model="formMsg.suit">
 					<uv-radio :customStyle="{marginRight: '10px'}" v-for="(item, index) in radioSuit" :key="index"
 						:label="item.name" :name="item.value">
@@ -101,11 +94,6 @@
 
 			<view class="cu-form-group">
 				<view class="title">交易方式：</view>
-				<!-- <radio-group name="means" @change="radioChange">
-					<radio value="0">自提</radio>
-					<radio value="1">同城面交</radio>
-					<radio value="2">邮寄</radio>
-				</radio-group> -->
 				<uv-radio-group v-model="formMsg.deliveryStyle">
 					<uv-radio :customStyle="{marginRight: '10rpx'}" v-for="(item, index) in radioTrade" :key="index"
 						:label="item.name" :name="item.value">
@@ -145,7 +133,7 @@
 		data() {
 			return {
 				formMsg: {
-					ownerUid: 'opwm66yu9D_BIoZcSaF4Pjdv8VuA', //暂时还未设置新增用户，故先默认设置
+					ownerUid: '', //暂时还未设置新增用户，故先默认设置
 					itemTitle: '', //物品标题
 					itemDesc: '', //物品描述
 					imgList: [], //图片列表
@@ -269,7 +257,8 @@
 						'北京经贸职业学院', '北京经济技术职业学院', '北京戏曲艺术职业学院', '北京汇佳职业学院', '北京科技经营管理学院', '北京科技职业学院', '北京培黎职业学院',
 						'北京经济管理职业学院', '北京劳动保障职业学院', '北京社会管理职业学院', '北京艺术传媒职业学院', '北京体育职业学院', '北京交通运输职业学院', '北京卫生职业学院',
 						'北京网络职业学院', '其他'
-					]
+					],
+
 				], //默认选择地址
 				region: ['四川省', '成都市', '成都大学'], //选择地址
 			}
@@ -288,6 +277,7 @@
 				var that = this;
 				allSchool.all(e, that);
 			},
+
 			// 定义坐标转换函数
 			coordinateToString(coordinate) {
 				return coordinate.join(',');
@@ -415,7 +405,7 @@
 			formSubmit() {
 				console.log(this.formMsg)
 				//最后处理form数据
-				this.formMsg.ownerUid = this.$store.state.user.username
+				this.formMsg.ownerUid = this.$store.state.user.openid
 				this.formMsg.status = '0'
 
 				// 发送异步请求
