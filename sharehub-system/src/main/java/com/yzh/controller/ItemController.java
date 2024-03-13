@@ -1,8 +1,10 @@
 package com.yzh.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.yzh.pojo.Item;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.yzh.pojo.Result;
 import com.yzh.service.ItemService;
@@ -31,14 +33,22 @@ public class ItemController {
     }
 
     //展示小程序注意(推荐)物品
-    @GetMapping
-    public Result itemList(@RequestHeader("token") String token, @RequestParam Integer mode, @RequestParam Integer tap) throws IllegalAccessException {
-//        System.out.println(tap);
-        List<Item> itemList = itemService.getItemList(token, mode, tap);
-        return Result.success(itemList);
+    @PostMapping("/recommendItems")
+    public Result itemList(@RequestHeader("token") String token, @RequestBody List<Item> itemList, @RequestParam Integer mode, @RequestParam Integer tap) throws IllegalAccessException {
+
+        List<Item> itemListResult = itemService.getItemList(token, itemList, mode, tap);
+        return Result.success(itemListResult);
     }
 
-    //展示小程序注意(推荐)物品
+    @PostMapping("/presentItemList")
+    public Result addItemList(@RequestHeader("token") String token, @RequestBody List<Item> itemList) {
+        // 在这里处理接收到的物品列表 itemList
+        System.out.println("前端发来的List" + itemList);
+        System.out.println("-----------------------------------");
+        return Result.success("Items added successfully");
+    }
+
+    //展示物品详情
     @GetMapping("/{itemId}")
     public Result itemDetail(@RequestHeader("token") String token, @PathVariable Integer itemId) {
         //mode是表示物品的发行方式

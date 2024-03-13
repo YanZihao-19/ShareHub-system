@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
+
 /**
  * @Author: 燕子豪
  * @Date: 2024/2/16 14:24
@@ -44,4 +46,28 @@ public class Item extends AbstractEntity {
     private Integer deliveryStyle;
 //    //租借/共享押金
 //    private Integer deposit;
+
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", image='" + image + '\'' +
+                ", itemTitle='" + itemTitle + '\'' +
+                ", itemDesc='" + itemDesc + '\'' +
+                ", tag=" + tag +
+                ", tradeMode=" + tradeMode +
+                ", status=" + status +
+                ", suit=" + suit +
+                ", ownerUid='" + ownerUid + '\'' +
+                ", sellPrice=" + sellPrice +
+                ", originalPrice=" + originalPrice +
+                ", imgList=" + Arrays.toString(imgList) +
+                ", usageLevel=" + usageLevel +
+                ", address='" + address + '\'' +
+                ", deliveryStyle=" + deliveryStyle +
+                '}';
+    }
 }

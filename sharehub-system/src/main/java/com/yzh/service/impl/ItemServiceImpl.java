@@ -47,9 +47,17 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<Item> getItemList(String token, Integer mode, Integer tag) {
-        List<Item> itemList = new ArrayList<>();
+    public List<Item> getItemList(String token, List<Item> itemList, Integer mode, Integer tag) {
+        //获取到前端已有物品的id的list
+        Set<Integer> idSet = null;
+        if (itemList != null && itemList.size() != 0) {
+            idSet = itemList.stream()
+                    .map(Item::getId)
+                    .collect(Collectors.toSet());
+            System.out.println("Set集合中的id属性值：" + idSet);
+        }
 
+        List<Item> itemListResult = new ArrayList<>();
         //用户登陆了就使用推荐
         if (token != null && !token.equals("")) {
             //解析前端token,获取用户openid
@@ -69,7 +77,7 @@ public class ItemServiceImpl implements ItemService {
             System.out.println("用户的喜好向量：" + Arrays.toString(userTagsArray));
 
             //数据库中随机获取itemRandomList
-            List<Item> itemRandomList = itemMapper.getItemList(mode, tag);
+            List<Item> itemRandomList = itemMapper.getItemList(mode, tag, idSet);
             System.out.println("打印算法过滤前获取到的items" + itemRandomList);
 
             //每个物品与当前用户的相似度，key是当前物品的index,value是相似度
@@ -86,25 +94,25 @@ public class ItemServiceImpl implements ItemService {
             System.out.println("tags——similar中map对象的相似度" + userItemSimilarity);
 
             //根Map中key获取map中相似度最高的物品
-            // 按照 Map 的 value 值从大到小排序并返回前三个最大的 value对应的key(index)
+            // 按照 Map 的 value 值从大到小排序并返回前5个最大的 value对应的key(index)
             List<Integer> top3Index = userItemSimilarity.entrySet().stream()
                     .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                    .limit(3)
+                    .limit(5)
                     .map(Map.Entry::getKey)
                     .collect(Collectors.toList());
             System.out.println("相似度最近的物品index" + top3Index);
 
-            //取相似度最高的4个产品，返回给后端
+            //取相似度最高的5个产品，返回给后端
             for (Integer i : top3Index) {
-                itemList.add(itemRandomList.get(i));
+                itemListResult.add(itemRandomList.get(i));
             }
-            System.out.println("打印经推荐算法过滤后返回给后端的items" + itemList);
-            return itemList;
+            System.out.println("打印经推荐算法过滤后返回给后端的items" + itemListResult);
+            return itemListResult;
         }
 
         // 下面是默认token为null,即用户未登录时，随机获取6条物品数据
-        itemList = itemMapper.getItemList(mode, tag);
-        return itemList;
+        itemListResult = itemMapper.getItemList(mode, tag,idSet);
+        return itemListResult;
     }
 
     @Override

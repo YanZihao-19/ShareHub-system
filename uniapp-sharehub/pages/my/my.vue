@@ -1,24 +1,21 @@
 <template>
 	<view>
+		<!-- 用户信息 -->
 		<view class="UCenter-bg" catchtap='toMy_detail'>
-			<image src="https://image.weilanwl.com/color2.0/plugin/sylb2244.jpg" class="png"></image>
-			<view class="text-xl">
-				<!-- <text>Amibition</text>   -->
-			</view>
+			<image src="http://web-showhub.oss-cn-beijing.aliyuncs.com/users/default.jpg" class="png"></image>
+			<!-- 用户名 -->
 			<view class="margin-top-sm">
 				<text>Amibition</text>
 			</view>
+			<!-- 背景波浪图 -->
 			<image src="https://raw.githubusercontent.com/weilanwl/ColorUI/master/demo/images/wave.gif"
 				mode="scaleToFill" class="gif-wave"></image>
 		</view>
-		<!-- 用户信息end -->
-
 		<view class="padding flex text-center text-grey bg-white shadow-warp">
-
 			<view class="flex flex-sub flex-direction solid-right" bindtap='toPraise'>
 				<view class="text-xxl text-orange">0</view>
 				<view class="margin-top-sm">
-					<text class="cuIcon-attentionfill"></text> 超赞
+					<text class="cuIcon-attentionfill"></text> 信誉等级
 				</view>
 			</view>
 			<view class="flex flex-sub flex-direction solid-right" bindtap='toAttention'>
@@ -27,14 +24,17 @@
 					<text class="cuIcon-favorfill"></text>关注数
 				</view>
 			</view>
-			<view class="flex flex-sub flex-direction" bindtap='toFans'>
+			<!-- <view class="flex flex-sub flex-direction" bindtap='toFans'>
 				<view class="text-xxl text-green">0</view>
 				<view class="margin-top-sm">
 					<text class="cuIcon-fork"></text>粉丝数
 				</view>
-			</view>
-
+			</view> -->
 		</view>
+		<!-- 用户信息end -->
+
+
+
 
 
 		<!-- 设置详细 -->

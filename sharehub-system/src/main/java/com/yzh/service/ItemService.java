@@ -23,7 +23,7 @@ public interface ItemService {
      *
      * @param mode
      */
-    List<Item> getItemList(String token, Integer mode, Integer tag) throws IllegalAccessException;
+    List<Item> getItemList(String token, List<Item> itemList, Integer mode, Integer tag) throws IllegalAccessException;
 
     /**
      * 获取物品详情

@@ -61,6 +61,10 @@
 .scroll-list.data-v-92bb8f34 {
   display: flex;
   flex-direction: column;
+  /* 设置图标高度 宽度*/
+  /* 添加通用的间距 */
+  /* 设置第一个项目的左间距 */
+  /* 最后一个项目的右侧间距 */
 }
 .scroll-list__goods-item.data-v-92bb8f34 {
   margin-right: 20px;
@@ -75,6 +79,20 @@
   text-align: center;
   font-size: 12px;
   margin-top: 5px;
+}
+.scroll-list .scroll-list__line__item__image.data-v-92bb8f34 {
+  width: 100rpx;
+  height: 100rpx;
+}
+.scroll-list .scroll-list__line__item.data-v-92bb8f34 {
+  margin-right: 50px;
+  text-align: center;
+}
+.scroll-list .scroll-list__line__item.data-v-92bb8f34:first-child {
+  margin-left: 15px;
+}
+.scroll-list .scroll-list__line__item--last.data-v-92bb8f34 {
+  margin-right: 15px;
 }
 .scroll-list .address.data-v-92bb8f34 {
   float: right;

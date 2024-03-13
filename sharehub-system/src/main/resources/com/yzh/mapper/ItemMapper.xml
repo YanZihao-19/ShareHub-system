@@ -14,7 +14,14 @@
             <if test="tag != 0">
                 and tag = #{tag}
             </if>
+            <if test="idSet != null and idSet.size() > 0">
+                and id not in
+                <foreach collection="idSet" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
         </where>
-        order by RAND() LIMIT 8
+        order by RAND() LIMIT 20
     </select>
+
 </mapper>

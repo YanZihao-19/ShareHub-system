@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AbstractEntity {
     //ID
-    private int id;
+    int id;
     //创建时间
-    private LocalDateTime createTime;
+    LocalDateTime createTime;
     //修改时间
-    private LocalDateTime updateTime;
+    LocalDateTime updateTime;
 }

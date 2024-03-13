@@ -388,6 +388,21 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	/* 商家信息 */
 .padding-name {
 		padding-top: 7rpx;
@@ -435,11 +450,12 @@ text-title-size {
 		text-decoration: line-through;
 }
 .font-size text {
+		font-weight: bold;
 		font-size: 35rpx;
 		color: black;
 }
 .hint {
-		margin-top: 20rpx;
+		margin-top: 60rpx;
 		color: black;
 		font-size: 35rpx;
 }

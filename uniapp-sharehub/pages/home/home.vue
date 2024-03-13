@@ -116,12 +116,12 @@
 										</view>
 										<!-- 标题部分 -->
 										<view class="waterfall-item__ft__title uv-line-2">
-											<text class="value">{{item.title}}</text>
+											<text class="value">{{item.itemTitle}}</text>
 										</view>
 
 										<!-- 描述部分，最多显示两行 -->
 										<view class="waterfall-item__ft__desc uv-line-1">
-											<text class="value">{{item.desc}}</text>
+											<text class="value">{{item.itemDesc}}</text>
 										</view>
 										<!-- 物品所在地标签，暂未实现！！！！ -->
 										<uv-row justify="space-between" gutter="4">
@@ -170,12 +170,12 @@
 										</view>
 										<!-- 标题部分 -->
 										<view class="waterfall-item__ft__title uv-line-2">
-											<text class="value">{{item.title}}</text>
+											<text class="value">{{item.itemTitle}}</text>
 										</view>
 
 										<!-- 描述部分，最多显示两行 -->
 										<view class="waterfall-item__ft__desc uv-line-1">
-											<text class="value">{{item.desc}}</text>
+											<text class="value">{{item.itemDesc}}</text>
 										</view>
 										<!-- 物品所在地标签，暂未实现！！！！ -->
 										<uv-row justify="space-between" gutter="4">
@@ -549,25 +549,25 @@
 			},
 
 			//获取数据并且进行数组去重
-			async init() {
-				this.loadStatus = 'loading';
-				const newData = await this.getData();
-				const mergedData = [...this.list, ...newData];
-				//数组去重，可能会影响性能?????
-				const uniqueData = mergedData.filter((item, index) => mergedData.findIndex(i => i.id === item.id) ===
-					index);
-				this.list = uniqueData;
-				this.loadStatus = 'loadmore';
-			},
-
-			//不去重
 			// async init() {
 			// 	this.loadStatus = 'loading';
-			// 	const data = await this.getData();
-			// 	console.log(data)
-			// 	this.list.push.apply(this.list, data);
+			// 	const newData = await this.getData();
+			// 	const mergedData = [...this.list, ...newData];
+			// 	//数组去重，可能会影响性能?????
+			// 	const uniqueData = mergedData.filter((item, index) => mergedData.findIndex(i => i.id === item.id) ===
+			// 		index);
+			// 	this.list = uniqueData;
 			// 	this.loadStatus = 'loadmore';
 			// },
+
+			//不去重
+			async init() {
+				this.loadStatus = 'loading';
+				const data = await this.getData();
+				console.log(data)
+				this.list.push.apply(this.list, data);
+				this.loadStatus = 'loadmore';
+			},
 
 
 			// 长按某项执行删除操作
@@ -599,26 +599,30 @@
 				})
 			},
 
-			// 发送请求获取数据
+			// 获取数据
 			getData() {
 				return new Promise((resolve, reject) => {
 					//获取token
 					this.token = uni.getStorageSync('token')
-					console.log('发送给后端的token值：', this.token)
-
+					// console.log('发送给后端的token值：', this.token)
+					console.log('发送给后端的list值：', this.list)
+					//发送请求将前端itemList发给后端
+					let itemList = this.list
 					uni.request({
-						url: 'http://localhost:8080/items?mode=' + this.mode + '&tap=' + this.tap,
-						method: 'GET',
+						url: 'http://localhost:8080/items/recommendItems?tap='+this.tap+'&mode='+this.mode,
+						method: 'POST',
 						header: {
+							'content-type': 'application/json', // 设置请求头为 JSON 类型
 							'token': this.token
 						},
+						data: JSON.stringify(itemList),
 						success: (res) => {
 							const data = res.data.data.map(item => ({
 								id: item.id, //物品id
 								allowEdit: false, // 暂时设置为 false，根据实际需求进行修改
 								image: item.image, //物品图片卡图像
-								title: item.itemTitle, //物品标题
-								desc: item.itemDesc, //物品描述
+								itemTitle: item.itemTitle, //物品标题
+								itemDesc: item.itemDesc, //物品描述
 								address: item.address, //物品地址
 								mode: item.tradeMode, //物品交易模式
 								delivery: item.deliveryStyle //物品交付方式
