@@ -71,7 +71,7 @@ public class UserController {
      */
     @Log
     @DeleteMapping("/{ids}")
-    public Result updateUser(@PathVariable List<Integer> ids) {
+    public Result deleteUser(@PathVariable List<Integer> ids) {
         userService.delUser(ids);
         return Result.success();
     }
@@ -81,9 +81,20 @@ public class UserController {
      */
     @GetMapping("/user")
     public Result findUser(@RequestParam String openId) {
-        User user = userService.selectByToken(openId);
+        User user = userService.selectByOpenId(openId);
         return Result.success(user);
     }
+
+    /**
+     * 根据用户的token获取用户信息
+     */
+    @GetMapping("/token")
+    public Result getUser(@RequestHeader("token") String token) {
+//        System.out.println("后端发来的token:"+token);
+        User user = userService.selectByToken(token);
+        return Result.success(user);
+    }
+
 
     /**
      * 初始化用户偏好
@@ -93,4 +104,6 @@ public class UserController {
         userService.initUserPreference(token, preferenceVO);
         return Result.success("success");
     }
+
+
 }

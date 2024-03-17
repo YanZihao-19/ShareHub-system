@@ -145,10 +145,63 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* pages/my/my.wxss */
 /* 用户信息 */
 .UCenter-bg {
-	background-image: url(https://image.weilanwl.com/color2.0/index.jpg);
 	background-size: cover;
 	height: 450rpx;
 	display: flex;

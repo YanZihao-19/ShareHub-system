@@ -60,6 +60,7 @@ public class MemberLoginServiceImpl implements IMemberLoginService {
             user.setCreateTime(LocalDateTime.now());
             //初始化默认头像
             user.setImage("http://web-showhub.oss-cn-beijing.aliyuncs.com/users/default.jpg");
+            user.setBgImage("http://web-showhub.oss-cn-beijing.aliyuncs.com/common/userBackground.png");
             //初始化用户名,"wxUser_"开头并且拼接openId的后7位
             user.setUsername("sharer_" + openId.substring(openId.length() - 7));
             userMapper.insertUserOpenId(user);

@@ -51,10 +51,12 @@ public interface UserService {
     /**
      * 根据token返回用户
      */
-    User selectByToken(String token);
+    User selectByOpenId(String token);
 
 
     Integer getTagsPrefer(String openId);
 
     Integer initUserPreference(String token, PreferenceVO preferenceVO);
+
+    User selectByToken(String token);
 }

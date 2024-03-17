@@ -1,11 +1,12 @@
 <template>
 	<view>
 		<!-- 用户信息 -->
-		<view class="UCenter-bg" catchtap='toMy_detail'>
-			<image src="http://web-showhub.oss-cn-beijing.aliyuncs.com/users/default.jpg" class="png"></image>
+		<view class="UCenter-bg" :style="{ 'background-image': 'url(' + userInfo.bgImage + ')' }"
+			catchtap='toMy_detail'>
+			<image :src="userInfo.image"></image>
 			<!-- 用户名 -->
 			<view class="margin-top-sm">
-				<text>Amibition</text>
+				<text>{{userInfo.username}}</text>
 			</view>
 			<!-- 背景波浪图 -->
 			<image src="https://raw.githubusercontent.com/weilanwl/ColorUI/master/demo/images/wave.gif"
@@ -13,7 +14,11 @@
 		</view>
 		<view class="padding flex text-center text-grey bg-white shadow-warp">
 			<view class="flex flex-sub flex-direction solid-right" bindtap='toPraise'>
-				<view class="text-xxl text-orange">0</view>
+				<view class="text-xxl"
+					:class="{'text-green': userInfo.credibility >= 6, 'text-blue': userInfo.credibility >= 1 && userInfo.credibility <= 5, 'text-red': userInfo.credibility == 0}">
+					{{ credibilityText }}
+				</view>
+
 				<view class="margin-top-sm">
 					<text class="cuIcon-attentionfill"></text> 信誉等级
 				</view>
@@ -21,7 +26,8 @@
 			<view class="flex flex-sub flex-direction solid-right" bindtap='toAttention'>
 				<view class="text-xxl text-blue">5</view>
 				<view class="margin-top-sm">
-					<text class="cuIcon-favorfill"></text>关注数
+					<!-- 暂时未对接！！！！！！！！！！！！！！！！ -->
+					<text class="cuIcon-favorfill">关注数</text>
 				</view>
 			</view>
 			<!-- <view class="flex flex-sub flex-direction" bindtap='toFans'>
@@ -99,8 +105,56 @@
 	export default {
 		data() {
 			return {
-
+				token: '',
+				userInfo: {
+					openId: '',
+					createTime: '',
+					updateTime: '',
+					username: '', //用户姓名
+					gender: '', //用户性别
+					credibility: '', //信誉分
+					phone: '', //手机号
+					role: '', //用户角色
+					image: '', //用户头像
+					identifyId: '', //实名认证编号
+					bgImage: '', //用户背景图
+				},
 			}
+		},
+		computed: {
+			credibilityText() {
+				if (this.userInfo.credibility >= 6) {
+					return '优秀';
+				} else if (this.userInfo.credibility >= 1 && this.userInfo.credibility <= 5) {
+					return '中等';
+				} else {
+					return '极差';
+				}
+			}
+		},
+		mounted() {
+			//获取本地存储的token
+			this.token = uni.getStorageSync('token')
+			uni.request({
+				url: 'http://localhost:8080/users/token',
+				method: 'GET',
+				header: {
+					'content-type': 'application/json', // 设置请求头为 JSON 类型
+					'token': this.token
+				},
+				success: (res) => {
+					if (res.data.code === 1) {
+						// 如果接口返回的数据正常，将数据存储到 userInfo 中
+						this.userInfo = res.data.data;
+						console.log('返回的用户信息：', this.userInfo)
+					} else {
+						console.error('接口返回错误：', res.data.msg);
+					}
+				},
+				fail: (err) => {
+					console.error('请求失败：', err);
+				}
+			});
 		},
 		methods: {
 			// 清除全部缓存
@@ -150,7 +204,6 @@
 
 
 	.UCenter-bg {
-		background-image: url(https://image.weilanwl.com/color2.0/index.jpg);
 		background-size: cover;
 		height: 450rpx;
 		display: flex;

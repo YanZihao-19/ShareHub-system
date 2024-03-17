@@ -28,6 +28,8 @@ public class User extends AbstractEntity {
     private Short role;
     //图像url
     private String image;
+    //用户资料背景图
+    private String bgImage;
     //实名认证编号
     private Integer identifyId;
 }

@@ -21,7 +21,6 @@ import java.util.*;
  */
 @Service
 public class UserServiceImpl implements UserService {
-
     @Autowired
     private UserMapper userMapper;
 
@@ -48,6 +47,9 @@ public class UserServiceImpl implements UserService {
         //给时间属性赋值
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
+        //给用户头像和背景设置默认图
+        user.setImage("http://web-showhub.oss-cn-beijing.aliyuncs.com/users/5a2ca45d-85f3-48a6-86a7-4eb69ba9dce2.jpg");
+        user.setBgImage("http://web-showhub.oss-cn-beijing.aliyuncs.com/common/userBackground.png");
         userMapper.insertUser(user);
     }
 
@@ -85,7 +87,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User selectByToken(String openId) {
+    public User selectByOpenId(String openId) {
         return userMapper.selectOpenId(openId);
     }
 
@@ -183,5 +185,14 @@ public class UserServiceImpl implements UserService {
         }
         System.out.println("用户初始偏好值:" + userTagsScore);
         return userMapper.insertUserPreference(userTagsScore);
+    }
+
+    @Override
+    public User selectByToken(String token) {
+        //解析前端token,获取用户openid
+        Map<String, Object> itemUser = JwtUtils.parseJWT(token);
+        String openId = (String) itemUser.get("openId");
+
+        return userMapper.selectOpenId(openId);
     }
 }

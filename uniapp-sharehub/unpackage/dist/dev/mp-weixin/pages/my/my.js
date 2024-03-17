@@ -238,9 +238,75 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
-    return {};
+    return {
+      token: '',
+      userInfo: {
+        openId: '',
+        createTime: '',
+        updateTime: '',
+        username: '',
+        //用户姓名
+        gender: '',
+        //用户性别
+        credibility: '',
+        //信誉分
+        phone: '',
+        //手机号
+        role: '',
+        //用户角色
+        image: '',
+        //用户头像
+        identifyId: '',
+        //实名认证编号
+        bgImage: '' //用户背景图
+      }
+    };
+  },
+
+  computed: {
+    credibilityText: function credibilityText() {
+      if (this.userInfo.credibility >= 6) {
+        return '优秀';
+      } else if (this.userInfo.credibility >= 1 && this.userInfo.credibility <= 5) {
+        return '中等';
+      } else {
+        return '极差';
+      }
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+    //获取本地存储的token
+    this.token = uni.getStorageSync('token');
+    uni.request({
+      url: 'http://localhost:8080/users/token',
+      method: 'GET',
+      header: {
+        'content-type': 'application/json',
+        // 设置请求头为 JSON 类型
+        'token': this.token
+      },
+      success: function success(res) {
+        if (res.data.code === 1) {
+          // 如果接口返回的数据正常，将数据存储到 userInfo 中
+          _this.userInfo = res.data.data;
+          console.log('返回的用户信息：', _this.userInfo);
+        } else {
+          console.error('接口返回错误：', res.data.msg);
+        }
+      },
+      fail: function fail(err) {
+        console.error('请求失败：', err);
+      }
+    });
   },
   methods: {
     // 清除全部缓存
