@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uvLoadingPage: function () {
-      return Promise.all(/*! import() | uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page.vue */ 276))
+      return Promise.all(/*! import() | uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page.vue */ 284))
     },
   }
 } catch (e) {
@@ -185,12 +185,6 @@ var _jwtDecode = __webpack_require__(/*! jwt-decode */ 42);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 var _default = {
   data: function data() {
     return {
@@ -200,7 +194,9 @@ var _default = {
       //加载页
       nickName: '未登录',
       //昵称
-      headerUrl: 'http://web-showhub.oss-cn-beijing.aliyuncs.com/users/default.png' //默认头像
+      headerUrl: 'http://web-showhub.oss-cn-beijing.aliyuncs.com/users/default.png',
+      //默认头像
+      userTagsPreferId: '' //用于是否展示偏好选择页面的逻辑判断
     };
   },
   onLoad: function onLoad() {},
@@ -281,11 +277,13 @@ var _default = {
                 // console.log('后端请求到的token：', token);
                 // 解析 JWT
                 var decoded = (0, _jwtDecode.jwtDecode)(token);
-                console.log('解析jwt中的数据：' + decoded.username);
-                console.log('解析jwt中的数据：' + decoded.openId);
+                // console.log('解析jwt中的数据：' + decoded.username);
+                // console.log('解析jwt中的数据：' + decoded.openId);
+                // console.log('解析jwt中的数据：' + decoded.userTagsPreferId);
                 //赋值
                 that.nickName = decoded.username;
                 that.headerUrl = decoded.image;
+                that.userTagsPreferId = decoded.userTagsPreferId;
                 //token存储到LocalStorage中
                 uni.setStorage({
                   key: 'token',
@@ -325,14 +323,20 @@ var _default = {
       });
     },
     switchTab: function switchTab() {
-      uni.switchTab({
-        url: '/pages/home/home'
-      });
-    },
-    switchvue: function switchvue() {
-      uni.navigateTo({
-        url: '/pages/demo/demo'
-      });
+      var url = '';
+      if (this.userTagsPreferId !== null && this.userTagsPreferId !== '') {
+        // 如果 userTagsPreferId 不为 null 或者 ''，则跳转到 '/pages/home/home'导航页
+        url = '/pages/home/home';
+        uni.switchTab({
+          url: url
+        });
+      } else {
+        // 否则跳转到 '/pages/home/home_prefer/home_prefer'非导航页
+        url = '/pages/home/home_prefer/home_prefer';
+        uni.navigateTo({
+          url: url
+        });
+      }
     }
   }
 };

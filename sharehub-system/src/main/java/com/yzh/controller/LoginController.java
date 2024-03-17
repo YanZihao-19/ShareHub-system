@@ -56,11 +56,16 @@ public class LoginController {
     @PostMapping("/user/login")
     public Result getWxUser(@RequestBody LoginVO loginVO) {
         User user1 = iMemberLoginService.getUserOpenId(loginVO.getCode());
+
         if (user1 != null) { //用户不为空
+            //查询该user的偏好数据是否已经存在(用于全都是否展示偏好选择的逻辑判断)
+            Integer userTagsPreferId = userService.getTagsPrefer(user1.getOpenId());
+
             Map<String, Object> claims = new HashMap<>();
             claims.put("openId", user1.getOpenId());
             claims.put("username", user1.getUsername());
             claims.put("image", user1.getImage());
+            claims.put("userTagsPreferId", userTagsPreferId);
 
             return Result.success(JwtUtils.generateJwt(claims));
         }

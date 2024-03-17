@@ -5,9 +5,11 @@ import com.yzh.pojo.PageBean;
 import com.yzh.pojo.Result;
 import com.yzh.pojo.User;
 import com.yzh.service.UserService;
+import com.yzh.vo.PreferenceVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 /**
@@ -83,5 +85,12 @@ public class UserController {
         return Result.success(user);
     }
 
-
+    /**
+     * 初始化用户偏好
+     */
+    @PostMapping("/preference")
+    public Result initUserPreference(@RequestHeader("token") String token, @RequestBody PreferenceVO preferenceVO) {
+        userService.initUserPreference(token, preferenceVO);
+        return Result.success("success");
+    }
 }

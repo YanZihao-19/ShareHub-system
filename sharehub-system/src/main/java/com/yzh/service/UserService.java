@@ -2,6 +2,7 @@ package com.yzh.service;
 
 import com.yzh.pojo.PageBean;
 import com.yzh.pojo.User;
+import com.yzh.vo.PreferenceVO;
 
 import java.util.*;
 
@@ -53,4 +54,7 @@ public interface UserService {
     User selectByToken(String token);
 
 
+    Integer getTagsPrefer(String openId);
+
+    Integer initUserPreference(String token, PreferenceVO preferenceVO);
 }

@@ -52,7 +52,6 @@ public class ItemController {
     @GetMapping("/{itemId}")
     public Result itemDetail(@RequestHeader("token") String token, @PathVariable Integer itemId) {
         //mode是表示物品的发行方式
-//        System.out.println(itemId);
         ItemVO itemDetail = itemService.getItemDetail(token, itemId);
         return Result.success(itemDetail);
     }

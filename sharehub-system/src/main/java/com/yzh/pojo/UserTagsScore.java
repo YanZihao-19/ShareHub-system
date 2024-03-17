@@ -29,25 +29,28 @@ public class UserTagsScore {
     private Integer appliance;
     private Integer furniture;
     private Integer other;
+
     //物品交易模式
     private Integer share;
     private Integer exchange;
     private Integer trade;
+
     //物品受众
     private Integer allAge;
     private Integer child;
     private Integer adult;
     private Integer old;
+
     //物品损耗度
     private Integer anew;
     private Integer nnNew;
     private Integer nfNew;
     private Integer efNew;
+
     //物品交付方式
     private Integer selfPick;
     private Integer handDeliver;
     private Integer post;
-
 }
 
 

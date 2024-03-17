@@ -1,11 +1,5 @@
 <template>
 	<view class="content">
-		<!-- 	//测试
-		<view>
-			<button class="cu-btn bg-blue lg" @click="switchvue">进入demo</button>
-		</view>
-		 -->
-
 		<image class="logo" :src="headerUrl"></image>
 		<view :class="titleClass">
 			<text class="title">{{ nickName }}</text>
@@ -15,7 +9,7 @@
 		</view>
 		<view v-else>
 			<!-- 导航按钮 -->
-			<button class="cu-btn bg-blue lg" @click="switchTab">进入主页！</button>
+			<button class="cu-btn bg-blue lg" @click="switchTab">Let's Share！</button>
 		</view>
 
 		<template>
@@ -35,6 +29,7 @@
 				loading: false, //加载页
 				nickName: '未登录', //昵称
 				headerUrl: 'http://web-showhub.oss-cn-beijing.aliyuncs.com/users/default.png', //默认头像
+				userTagsPreferId: '', //用于是否展示偏好选择页面的逻辑判断
 			}
 		},
 		onLoad() {
@@ -123,11 +118,13 @@
 									// console.log('后端请求到的token：', token);
 									// 解析 JWT
 									const decoded = jwtDecode(token);
-									console.log('解析jwt中的数据：' + decoded.username);
-									console.log('解析jwt中的数据：' + decoded.openId);
+									// console.log('解析jwt中的数据：' + decoded.username);
+									// console.log('解析jwt中的数据：' + decoded.openId);
+									// console.log('解析jwt中的数据：' + decoded.userTagsPreferId);
 									//赋值
 									that.nickName = decoded.username
 									that.headerUrl = decoded.image
+									that.userTagsPreferId = decoded.userTagsPreferId
 									//token存储到LocalStorage中
 									uni.setStorage({
 										key: 'token',
@@ -170,17 +167,21 @@
 				});
 			},
 			switchTab() {
-				uni.switchTab({
-					url: '/pages/home/home'
-				})
-			},
-			switchvue() {
-				uni.navigateTo({
-					url: '/pages/demo/demo'
-				});
-			},
-
-
+				let url = '';
+				if (this.userTagsPreferId !== null && this.userTagsPreferId !== '') {
+					// 如果 userTagsPreferId 不为 null 或者 ''，则跳转到 '/pages/home/home'导航页
+					url = '/pages/home/home';
+					uni.switchTab({
+						url: url
+					});
+				} else {
+					// 否则跳转到 '/pages/home/home_prefer/home_prefer'非导航页
+					url = '/pages/home/home_prefer/home_prefer';
+					uni.navigateTo({
+						url: url
+					});
+				}
+			}
 		}
 	}
 </script>

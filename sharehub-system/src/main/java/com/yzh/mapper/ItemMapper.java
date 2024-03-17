@@ -4,10 +4,7 @@ import com.yzh.pojo.Item;
 
 import java.util.*;
 import com.yzh.pojo.UserTagsScore;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 /**
  * @Author: 燕子豪
@@ -37,4 +34,5 @@ public interface ItemMapper {
 
     @Select("SELECT url FROM item_images WHERE item_id = #{itemId}")
     List<String> getItemImages(Integer itemId);
+
 }
