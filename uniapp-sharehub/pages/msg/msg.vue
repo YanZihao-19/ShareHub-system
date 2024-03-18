@@ -14,21 +14,21 @@
 			<view class='kuai'>
 				<view class='interactive'>
 					<image class='imgs'
-						src='http://load1a.nipic.com/file/20190522/Nipic_29136573_20190522231419687462.png?v=20190522111311'>
+						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E4%BA%92%E5%8A%A8%E6%B6%88%E6%81%AF.png'>
 					</image>
 					<text>互动消息</text>
 				</view>
 				<view class='notice' @tap='notice'>
 					<image class='imgs'
-						src='http://load1a.nipic.com/file/20190522/Nipic_29136573_20190522231359364914.png?v=20190522111250'>
+						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E8%AE%A2%E5%8D%95%E6%B6%88%E6%81%AF.png'>
 					</image>
-					<text>通知消息</text>
+					<text>订单消息</text>
 				</view>
 				<view class='logistics' @tap='toLogistics'>
 					<image class='imgs'
-						src='http://load1a.nipic.com/file/20190522/Nipic_29136573_20190522231334886808.png?v=20190522111225'>
+						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E9%80%9A%E7%9F%A5%E6%B6%88%E6%81%AF.png'>
 					</image>
-					<text>交易物流</text>
+					<text>通知消息</text>
 				</view>
 			</view>
 		</view>

@@ -548,19 +548,7 @@
 
 			},
 
-			//获取数据并且进行数组去重
-			// async init() {
-			// 	this.loadStatus = 'loading';
-			// 	const newData = await this.getData();
-			// 	const mergedData = [...this.list, ...newData];
-			// 	//数组去重，可能会影响性能?????
-			// 	const uniqueData = mergedData.filter((item, index) => mergedData.findIndex(i => i.id === item.id) ===
-			// 		index);
-			// 	this.list = uniqueData;
-			// 	this.loadStatus = 'loadmore';
-			// },
-
-			//不去重
+			//重新获取数据
 			async init() {
 				this.loadStatus = 'loading';
 				const data = await this.getData();

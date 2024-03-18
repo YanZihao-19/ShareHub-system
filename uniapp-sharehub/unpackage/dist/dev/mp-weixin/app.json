@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/login/login",
+    "pages/my/my_issue/my_issue",
     "pages/home/home_prefer/home_prefer",
     "pages/home/home",
     "pages/disconver/disconver",
@@ -18,7 +19,6 @@
     "pages/msg/msg_inform/msg_inform",
     "pages/msg/msg_logistics_all/msg_logistics_all",
     "pages/msg/message_logistics/message_logistics",
-    "pages/my/my_issue/my_issue",
     "pages/issue/issue_edit/issue_edit",
     "pages/my/my_sale/my_sale",
     "pages/my/my_buy/my_buy",
@@ -44,12 +44,6 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/disconver/disconver",
-        "iconPath": "static/img/f1.png",
-        "selectedIconPath": "static/img/f2.png",
-        "text": "发现"
-      },
-      {
         "pagePath": "pages/issue/issue_select/issue_select",
         "iconPath": "static/img/e1.png",
         "selectedIconPath": "static/img/e2.png",
@@ -69,6 +63,7 @@
       }
     ]
   },
+  "permission": {},
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom"
   }

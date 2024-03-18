@@ -35,7 +35,6 @@ public class ItemController {
     //展示小程序注意(推荐)物品
     @PostMapping("/recommendItems")
     public Result itemList(@RequestHeader("token") String token, @RequestBody List<Item> itemList, @RequestParam Integer mode, @RequestParam Integer tap) throws IllegalAccessException {
-
         List<Item> itemListResult = itemService.getItemList(token, itemList, mode, tap);
         return Result.success(itemListResult);
     }
@@ -56,5 +55,10 @@ public class ItemController {
         return Result.success(itemDetail);
     }
 
-
+    //展示用户发布的物品
+    @GetMapping("/userItems")
+    public Result userItems(@RequestHeader("token") String token, @RequestParam Integer mode) throws IllegalAccessException {
+        List<Item> itemListResult = itemService.getUserItems(token, mode);
+        return Result.success(itemListResult);
+    }
 }

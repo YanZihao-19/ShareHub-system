@@ -3,6 +3,7 @@ package com.yzh.mapper;
 import com.yzh.pojo.Item;
 
 import java.util.*;
+
 import com.yzh.pojo.UserTagsScore;
 import org.apache.ibatis.annotations.*;
 
@@ -25,6 +26,9 @@ public interface ItemMapper {
 
     //不同交易模式的物品列表随机获取20条数据
     List<Item> getItemList(Integer mode, Integer tag, Set idSet);
+
+    //重载方法，根据用户id和mode获取itemList
+    List<Item> getUserItemList(String openId, Integer mode);
 
     @Select("SELECT * FROM user_tags_score WHERE uid = #{openId}")
     UserTagsScore getUserTagsScore(String openId);

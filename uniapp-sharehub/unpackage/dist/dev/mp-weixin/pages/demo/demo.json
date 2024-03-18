@@ -1,7 +1,5 @@
 {
   "navigationBarTitleText": "",
   "enablePullDownRefresh": false,
-  "usingComponents": {
-    "cc-select-dity": "/uni_modules/cc-selectDity/components/cc-selectDity/cc-selectDity"
-  }
+  "usingComponents": {}
 }

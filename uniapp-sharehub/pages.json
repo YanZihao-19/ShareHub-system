@@ -1,12 +1,15 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages{
-		 {
+		{
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "用户登录",
 				"enablePullDownRefresh": false
 			}
-		},{
+		}, {
+			"path": "pages/my/my_issue/my_issue",
+			"style": {}
+		}, {
 			"path": "pages/home/home_prefer/home_prefer",
 			"style": {
 				"navigationBarTitleText": "选择偏好",
@@ -69,9 +72,6 @@
 			"path": "pages/msg/message_logistics/message_logistics",
 			"style": {}
 		}, {
-			"path": "pages/my/my_issue/my_issue",
-			"style": {}
-		}, {
 			"path": "pages/issue/issue_edit/issue_edit",
 			"style": {}
 		}, {
@@ -128,12 +128,12 @@
 				"selectedIconPath": "static/img/h2.png",
 				"text": "首页"
 			},
-			{
-				"pagePath": "pages/disconver/disconver",
-				"iconPath": "static/img/f1.png",
-				"selectedIconPath": "static/img/f2.png",
-				"text": "发现"
-			},
+			// {
+			// 	"pagePath": "pages/disconver/disconver",
+			// 	"iconPath": "static/img/f1.png",
+			// 	"selectedIconPath": "static/img/f2.png",
+			// 	"text": "发现"
+			// },
 			{
 				"pagePath": "pages/issue/issue_select/issue_select",
 				"iconPath": "static/img/e1.png",

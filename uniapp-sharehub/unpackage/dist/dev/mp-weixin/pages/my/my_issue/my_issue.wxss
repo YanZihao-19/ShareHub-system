@@ -23,13 +23,30 @@
 		font-size: 32rpx;
 		color: black;
 		width: 75%;
-		margin-left: 20rpx;
+		margin-left: 10rpx;
+		margin-bottom: 10rpx;
 }
 .item-inline-1_1.data-v-1be8b445 {
 		width: 300rpx;
 }
-.item-inlines.data-v-1be8b445 {
+
+	/* .item-inlines {
 		display: inline-block;
+	} */
+.item-text.data-v-1be8b445 {
+		flex: 1;
+		margin-left: 10rpx;
+		/* 调整文字内容与图片之间的间距 */
+}
+.text-title.data-v-1be8b445 {
+		font-size: 28rpx;
+		color: #333;
+		/* 文字颜色 */
+}
+.text-description.data-v-1be8b445 {
+		font-size: 24rpx;
+		color: #666;
+		/* 文字颜色 */
 }
 .item-inline.data-v-1be8b445 {
 		display: inline-block;
@@ -39,7 +56,7 @@
 }
 .container-price_desc.data-v-1be8b445 {
 		display: flex;
-		margin-top: 20rpx;
+		margin-top: 10rpx;
 		align-items: center;
 }
 .view-width.data-v-1be8b445 {

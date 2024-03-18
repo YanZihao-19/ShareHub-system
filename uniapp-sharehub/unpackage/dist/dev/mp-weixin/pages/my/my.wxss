@@ -199,14 +199,37 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* pages/my/my.wxss */
 /* 用户信息 */
 .UCenter-bg {
 	background-size: cover;
-	height: 450rpx;
+	height: 380rpx;
 	display: flex;
 	justify-content: center;
-	padding-top: 40rpx;
+	padding-top: 0rpx;
 	overflow: hidden;
 	position: relative;
 	flex-direction: column;
@@ -251,9 +274,57 @@ map,
 
 	border-radius: 100%;
 }
-.num {
-	direction: rtl;
-	margin-left: 58%;
-	font-size: 25rpx;
+/* <!-- 头部消息 --> */
+/* .bc { */
+/* width: 100%; */
+/* height: 200rpx; */
+/* background: linear-gradient(10deg, #ffe1ff, #1cbbb4); */
+/* } */
+.kuai {
+	width: 680rpx;
+	height: 130rpx;
+	background-color: white;
+	margin-top: 10rpx;
+	margin-left: 40rpx;
+	border-radius: 50rpx;
+	box-shadow: 3rpx 3rpx 3rpx 3rpx rgba(128, 128, 128, 0.384);
+	display: flex;
+	flex-direction: row;
 }
+.imgs {
+	margin-left: 20rpx;
+	width: 50rpx;
+	height: 50rpx;
+}
+.interactive {
+	display: flex;
+	flex-direction: column;
+	font-size: 23rpx;
+	color: black;
+	width: 130rpx;
+	height: 150rpx;
+	margin-top: 27rpx;
+	margin-left: 90rpx;
+}
+.notice {
+	display: flex;
+	flex-direction: column;
+	font-size: 23rpx;
+	color: black;
+	width: 130rpx;
+	height: 150rpx;
+	margin-top: 27rpx;
+	margin-left: 90rpx;
+}
+.logistics {
+	display: flex;
+	flex-direction: column;
+	font-size: 23rpx;
+	color: black;
+	width: 130rpx;
+	height: 150rpx;
+	margin-top: 27rpx;
+	margin-left: 70rpx;
+}
+/* <!-- 头部消息end --> */
 

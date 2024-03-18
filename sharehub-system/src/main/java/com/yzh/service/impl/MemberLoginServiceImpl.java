@@ -58,6 +58,8 @@ public class MemberLoginServiceImpl implements IMemberLoginService {
             //初始化创建、更新时间
             user.setUpdateTime(LocalDateTime.now());
             user.setCreateTime(LocalDateTime.now());
+            //初始化，用户共享数量
+            user.setShareNum(3);
             //初始化默认头像
             user.setImage("http://web-showhub.oss-cn-beijing.aliyuncs.com/users/default.jpg");
             user.setBgImage("http://web-showhub.oss-cn-beijing.aliyuncs.com/common/userBackground.png");

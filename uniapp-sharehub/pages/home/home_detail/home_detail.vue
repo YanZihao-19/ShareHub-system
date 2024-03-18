@@ -93,7 +93,7 @@
 					<text class='in_regard_to_text'>关于卖家</text>
 				</view>
 			</view>
-
+			<!-- 
 			<navigator url='/pages/my/my_detail/my_detail'>
 				<view class="cu-list menu-avatar">
 					<view class="cu-item arrow ">
@@ -140,7 +140,7 @@
 					</view>
 				</view>
 
-			</view>
+			</view> -->
 
 
 
@@ -199,8 +199,6 @@
 
 		<!-- 相识商品 -->
 		<view class='bg-white top-20 '>
-
-
 			<view class='in_regard_to'>
 				<view>
 					<!-- <image src='../img/tiao.png'></image> -->
@@ -209,7 +207,6 @@
 					<text class='in_regard_to_text'>相似商品</text>
 				</view>
 			</view>
-
 
 			<!-- 内容 -->
 			<view class='container-flex '>
@@ -233,7 +230,6 @@
 				</view>
 			</view>
 			<!-- 内容end -->
-
 
 		</view>
 
@@ -260,10 +256,34 @@
 				</view>
 				点赞
 			</view>
+			<view class="bg-blue submit margin-right-20" @tap="handleAction(item)">
+				{{ item.tradeMode == 0 ? '立即申领' : (item.tradeMode == 1 ? '立即交换' : '立即购买') }}
+			</view>
 
-			<view class="bg-red submit margin-rigth-20" @tap="buy">立即购买</view>
+			<!-- 模态框 -->
+			<view v-if="showModal" class="modal">
+				<view class="modal-content">
+					<view class="uv-demo-block">
+						<text class="uv-demo-block__title">申领理由：</text>
+						<view class="uv-demo-block__content">
+							<uv-textarea v-model="reason" placeholder="诚恳的填写您想要的申领理由，可以大大增加成功几率哦~" :maxlength="200" count></uv-textarea>
+						</view>
+					</view>
+
+					<view class="uv-demo-block">
+						<text class="uv-demo-block__title">联系方式：</text>
+						<view class="uv-demo-block__content">
+							<uv-textarea v-model="contact" placeholder="请填写您的微信号或手机号等，方便赠送者联系到您哦~"></uv-textarea>
+						</view>
+					</view>
+					<!-- 将按钮放在第二个输入框下面 -->
+					<view class="modal-buttons">
+						<view class="modal-button cancel" @tap="cancel">取消</view>
+						<view class="modal-button confirm" @tap="confirm">提交</view>
+					</view>
+				</view>
+			</view>
 		</view>
-		<!-- end -->
 
 	</view>
 </template>
@@ -272,6 +292,9 @@
 	export default {
 		data() {
 			return {
+				showModal: false, // 控制模态框显示隐藏
+				reason: '', // 申请理由
+				contact: '', // 联系方式
 				user: {
 					username: '', //用户名
 					credibility: '', //信誉
@@ -313,6 +336,25 @@
 			}
 		},
 		methods: {
+			handleAction(item) {
+				if (item.tradeMode == 0) {
+					// 点击立即申领按钮显示模态框
+					this.showModal = true;
+
+				}
+			},
+			cancel() {
+				this.showModal = false; // 取消按钮关闭模态框
+			},
+			confirm() {
+				// 提交按钮关闭模态框
+				// 执行其他操作，例如提交数据
+				console.log('申请理由：', this.reason);
+				console.log('联系方式：', this.contact);
+				this.showModal = false;
+
+
+			},
 			getUser(openId) {
 				return new Promise((resolve, reject) => {
 					//获取token
@@ -396,15 +438,95 @@
 			// 		urls: [url] // 需要预览的图片链接列表
 			// 	});
 			// },
-			
-			
+
+
 		}
 	}
 </script>
 
-<style>
-	/* 商家信息 */
+<style lang="scss">
+	/* 模态框样式 */
+	.modal {
+		position: fixed;
+		// height: 380rpx;
+		// width: 300rpx;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 9999;
 
+		.modal-content {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 10px;
+		}
+
+		.modal-buttons {
+			display: flex;
+			justify-content: center;
+			/* 将按钮水平居中显示 */
+		}
+
+		.modal-content {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 10px;
+			width: 80%;
+			/* 设置模态框内容宽度为父容器的80% */
+		}
+
+		.uv-demo-block {
+			margin-bottom: 20px;
+			/* 设置每个 demo-block 之间的间距 */
+		}
+
+		.uv-demo-block__title {
+			font-size: 16px;
+			/* 设置标题字体大小 */
+			margin-bottom: 15px;
+			/* 设置标题和内容之间的间距 */
+		}
+
+		.uv-demo-block__content {
+			width: 100%;
+			/* 设置内容区域宽度为100% */
+		}
+
+		.uv-textarea {
+			width: calc(100% - 20px);
+			/* 设置文本框宽度为父容器宽度减去一定的间距，例如这里减去20px */
+			height: 120px;
+			/* 设置文本框高度为120px */
+			font-size: 12px;
+			/* 设置文本框字体大小 */
+		}
+
+		.modal-button {
+			flex: 1;
+			margin: 20rpx;
+			padding: 10px 0;
+			text-align: center;
+			font-size: 16px;
+			cursor: pointer;
+		}
+
+		.modal-button.confirm {
+			color: #fff;
+			background-color: #007bff;
+		}
+
+		.modal-button.cancel {
+			color: #fff;
+			background-color: #b0bbb9;
+		}
+	}
+
+	/* 商家信息 */
 	.padding-name {
 		padding-top: 7rpx;
 		padding-left: 20rpx;

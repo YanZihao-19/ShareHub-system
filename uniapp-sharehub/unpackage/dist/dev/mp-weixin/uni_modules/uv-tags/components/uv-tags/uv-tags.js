@@ -83,7 +83,7 @@ try {
       return Promise.all(/*! import() | uni_modules/uv-transition/components/uv-transition/uv-transition */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-transition/components/uv-transition/uv-transition")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-transition/components/uv-transition/uv-transition.vue */ 492))
     },
     uvIcon: function () {
-      return Promise.all(/*! import() | uni_modules/uv-icon/components/uv-icon/uv-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-icon/components/uv-icon/uv-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-icon/components/uv-icon/uv-icon.vue */ 452))
+      return Promise.all(/*! import() | uni_modules/uv-icon/components/uv-icon/uv-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-icon/components/uv-icon/uv-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-icon/components/uv-icon/uv-icon.vue */ 459))
     },
   }
 } catch (e) {
@@ -169,7 +169,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _test = __webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/function/test.js */ 69);
+var _test = __webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/function/test.js */ 77);
 var _mpMixin = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js */ 289));
 var _mixin = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/mixin.js */ 290));
 var _props = _interopRequireDefault(__webpack_require__(/*! ./props.js */ 394));

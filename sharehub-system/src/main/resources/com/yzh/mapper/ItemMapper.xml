@@ -20,8 +20,21 @@
                     #{id}
                 </foreach>
             </if>
+            and status = 0
         </where>
         order by RAND() LIMIT 20
     </select>
 
+
+    <select id="getUserItemList" resultType="com.yzh.pojo.Item">
+        SELECT * FROM item
+        <where>
+            <if test="mode == 0 or mode == 1 or mode == 2">
+                trade_mode = #{mode}
+            </if>
+            and owneruid = #{openId}
+            and status = 0
+        </where>
+        order by create_time
+    </select>
 </mapper>

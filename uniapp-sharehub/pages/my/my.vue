@@ -1,41 +1,67 @@
 <template>
 	<view>
-		<!-- 用户信息 -->
-		<view class="UCenter-bg" :style="{ 'background-image': 'url(' + userInfo.bgImage + ')' }"
-			catchtap='toMy_detail'>
-			<image :src="userInfo.image"></image>
-			<!-- 用户名 -->
-			<view class="margin-top-sm">
-				<text>{{userInfo.username}}</text>
-			</view>
-			<!-- 背景波浪图 -->
-			<image src="https://raw.githubusercontent.com/weilanwl/ColorUI/master/demo/images/wave.gif"
-				mode="scaleToFill" class="gif-wave"></image>
-		</view>
-		<view class="padding flex text-center text-grey bg-white shadow-warp">
-			<view class="flex flex-sub flex-direction solid-right" bindtap='toPraise'>
-				<view class="text-xxl"
-					:class="{'text-green': userInfo.credibility >= 6, 'text-blue': userInfo.credibility >= 1 && userInfo.credibility <= 5, 'text-red': userInfo.credibility == 0}">
-					{{ credibilityText }}
-				</view>
 
-				<view class="margin-top-sm">
-					<text class="cuIcon-attentionfill"></text> 信誉等级
+		<!-- 用户信息 -->
+		<view :style="{ 'background-image': 'url(' + userInfo.bgImage + ')' }" catchtap='toMy_detail'>
+			<!-- 头部消息 -->
+			<!-- <view class='bc '> -->
+			<view class='kuai'>
+				<view class='interactive'>
+					<image class='imgs'
+						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E4%BA%92%E5%8A%A8%E6%B6%88%E6%81%AF.png'>
+					</image>
+					<text>互动消息</text>
+				</view>
+				<view class='notice' @tap='notice'>
+					<image class='imgs'
+						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E8%AE%A2%E5%8D%95%E6%B6%88%E6%81%AF.png'>
+					</image>
+					<text>订单消息</text>
+				</view>
+				<view class='logistics' @tap='toLogistics'>
+					<image class='imgs'
+						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E9%80%9A%E7%9F%A5%E6%B6%88%E6%81%AF.png'>
+					</image>
+					<text>通知消息</text>
 				</view>
 			</view>
-			<view class="flex flex-sub flex-direction solid-right" bindtap='toAttention'>
-				<view class="text-xxl text-blue">5</view>
+
+			<!-- </view> -->
+			<!-- 头部消息end -->
+			<view class="UCenter-bg">
+				<image :src="userInfo.image"></image>
+				<!-- 用户名 -->
 				<view class="margin-top-sm">
-					<!-- 暂时未对接！！！！！！！！！！！！！！！！ -->
-					<text class="cuIcon-favorfill">关注数</text>
+					<text>{{userInfo.username}}</text>
 				</view>
+				<!-- 背景波浪图 -->
+				<image src="https://raw.githubusercontent.com/weilanwl/ColorUI/master/demo/images/wave.gif"
+					mode="scaleToFill" class="gif-wave"></image>
 			</view>
-			<!-- <view class="flex flex-sub flex-direction" bindtap='toFans'>
+			<view class="padding flex text-center text-grey bg-white shadow-warp">
+				<view class="flex flex-sub flex-direction solid-right" bindtap='toPraise'>
+					<view class="text-xxl"
+						:class="{'text-green': userInfo.credibility >= 6, 'text-blue': userInfo.credibility >= 1 && userInfo.credibility <= 5, 'text-red': userInfo.credibility == 0}">
+						{{ credibilityText }}
+					</view>
+
+					<view class="margin-top-sm">
+						<text class="cuIcon-attentionfill"></text> 信誉等级
+					</view>
+				</view>
+				<view class="flex flex-sub flex-direction solid-right" bindtap='toAttention'>
+					<view class="text-xxl text-blue">{{userInfo.shareNum}}</view>
+					<view class="margin-top-sm">
+						<text class="cuIcon-favorfill">可共享数</text>
+					</view>
+				</view>
+				<!-- <view class="flex flex-sub flex-direction" bindtap='toFans'>
 				<view class="text-xxl text-green">0</view>
 				<view class="margin-top-sm">
 					<text class="cuIcon-fork"></text>粉丝数
 				</view>
 			</view> -->
+			</view>
 		</view>
 		<!-- 用户信息end -->
 
@@ -46,7 +72,6 @@
 				<view class="content" @tap="toIssue_page">
 					<text class="cuIcon-moneybagfill text-red"></text>
 					<text class="text-grey">我的发布</text>
-					<text class='num'>19</text>
 				</view>
 			</view>
 
@@ -54,14 +79,12 @@
 				<navigator class="content" hover-class="none" url='/pages/my/my_sale/my_sale'>
 					<text class="cuIcon-titles text-green"></text>
 					<text class="text-grey">我的卖出</text>
-					<text class='num'>99</text>
 				</navigator>
 			</view>
 			<view class="cu-item arrow">
 				<navigator class="content" hover-class="none" url="/pages/my/my_buy/my_buy">
 					<text class="cuIcon-formfill text-green"></text>
 					<text class="text-grey">我买到的</text>
-					<text class='num'>1</text>
 				</navigator>
 			</view>
 			<view class="cu-item arrow">
@@ -74,7 +97,6 @@
 				<view class="content" bindtap="toCollect">
 					<text class="cuIcon-appreciatefill text-red"></text>
 					<text class="text-grey">我的收藏</text>
-					<text class='num'>39</text>
 				</view>
 			</view>
 			<view class="cu-item arrow">
@@ -116,6 +138,7 @@
 					phone: '', //手机号
 					role: '', //用户角色
 					image: '', //用户头像
+					shareNum: '', //用户的可共享数量
 					identifyId: '', //实名认证编号
 					bgImage: '', //用户背景图
 				},
@@ -201,14 +224,12 @@
 <style>
 	/* pages/my/my.wxss */
 	/* 用户信息 */
-
-
 	.UCenter-bg {
 		background-size: cover;
-		height: 450rpx;
+		height: 380rpx;
 		display: flex;
 		justify-content: center;
-		padding-top: 40rpx;
+		padding-top: 0rpx;
 		overflow: hidden;
 		position: relative;
 		flex-direction: column;
@@ -262,9 +283,65 @@
 	}
 
 
-	.num {
-		direction: rtl;
-		margin-left: 58%;
-		font-size: 25rpx;
+
+	/* <!-- 头部消息 --> */
+	/* .bc { */
+	/* width: 100%; */
+	/* height: 200rpx; */
+	/* background: linear-gradient(10deg, #ffe1ff, #1cbbb4); */
+	/* } */
+
+
+	.kuai {
+		width: 680rpx;
+		height: 130rpx;
+		background-color: white;
+		margin-top: 10rpx;
+		margin-left: 40rpx;
+		border-radius: 50rpx;
+		box-shadow: 3rpx 3rpx 3rpx 3rpx rgba(128, 128, 128, 0.384);
+		display: flex;
+		flex-direction: row;
 	}
+
+	.imgs {
+		margin-left: 20rpx;
+		width: 50rpx;
+		height: 50rpx;
+	}
+
+	.interactive {
+		display: flex;
+		flex-direction: column;
+		font-size: 23rpx;
+		color: black;
+		width: 130rpx;
+		height: 150rpx;
+		margin-top: 27rpx;
+		margin-left: 90rpx;
+	}
+
+	.notice {
+		display: flex;
+		flex-direction: column;
+		font-size: 23rpx;
+		color: black;
+		width: 130rpx;
+		height: 150rpx;
+		margin-top: 27rpx;
+		margin-left: 90rpx;
+	}
+
+	.logistics {
+		display: flex;
+		flex-direction: column;
+		font-size: 23rpx;
+		color: black;
+		width: 130rpx;
+		height: 150rpx;
+		margin-top: 27rpx;
+		margin-left: 70rpx;
+	}
+
+	/* <!-- 头部消息end --> */
 </style>

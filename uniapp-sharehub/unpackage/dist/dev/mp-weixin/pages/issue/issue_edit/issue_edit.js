@@ -153,7 +153,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _allSchool = _interopRequireDefault(__webpack_require__(/*! ../../../common/allSchool.js */ 102));
+var _allSchool = _interopRequireDefault(__webpack_require__(/*! ../../../common/allSchool.js */ 110));
 //
 //
 //

@@ -47,6 +47,8 @@ public class UserServiceImpl implements UserService {
         //给时间属性赋值
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
+        //初始化，用户共享数量
+        user.setShareNum(3);
         //给用户头像和背景设置默认图
         user.setImage("http://web-showhub.oss-cn-beijing.aliyuncs.com/users/5a2ca45d-85f3-48a6-86a7-4eb69ba9dce2.jpg");
         user.setBgImage("http://web-showhub.oss-cn-beijing.aliyuncs.com/common/userBackground.png");

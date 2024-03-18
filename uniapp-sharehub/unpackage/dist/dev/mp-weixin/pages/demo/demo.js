@@ -98,29 +98,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
-try {
-  components = {
-    ccSelectDity: function () {
-      return Promise.all(/*! import() | uni_modules/cc-selectDity/components/cc-selectDity/cc-selectDity */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/cc-selectDity/components/cc-selectDity/cc-selectDity")]).then(__webpack_require__.bind(null, /*! @/uni_modules/cc-selectDity/components/cc-selectDity/cc-selectDity.vue */ 435))
-    },
-  }
-} catch (e) {
-  if (
-    e.message.indexOf("Cannot find module") !== -1 &&
-    e.message.indexOf(".vue") !== -1
-  ) {
-    console.error(e.message)
-    console.error("1. 排查组件名称拼写是否正确")
-    console.error(
-      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
-    )
-    console.error(
-      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
-    )
-  } else {
-    throw e
-  }
-}
 var render = function () {
   var _vm = this
   var _h = _vm.$createElement
@@ -191,70 +168,28 @@ exports.default = void 0;
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var _default = {
   data: function data() {
     return {
-      colors: '#f23a3a',
-      show: false,
-      province: "四川省",
-      city: "成都市",
-      area: "龙泉驿区",
-      areaCode: "440106",
-      addressData: {
-        name: '',
-        phone: '',
-        address: '',
-        moreAddres: '',
-        isdefult: 0
-      },
-      isShow: true
+      modalVisible: false,
+      applyReason: '',
+      contactInfo: ''
     };
   },
   methods: {
-    openPicker: function openPicker() {
-      console.log('执行打开地址选择器');
-      this.show = true;
+    openModal: function openModal() {
+      this.modalVisible = true;
     },
-    changeClick: function changeClick(value, value2, value3, value4) {
-      console.log('地址选择器 = ' + value + value2 + value3 + value4);
-      this.province = value;
-      this.city = value2;
-      this.area = value3;
-      this.areaCode = value4;
+    closeModal: function closeModal() {
+      this.modalVisible = false;
     },
-    onhideShow: function onhideShow() {
-      this.show = false;
-      console.log('执行了关闭地址选择器');
-    },
-    //选中省市区
-    onsetCity: function onsetCity(e) {
-      var data = e.detail.target.dataset;
-      var address = data.province + data.city + data.area;
-      this.show = false;
-      this.addressData.address = address;
-    },
-    // 
-    switchChange: function switchChange(e) {}
+    submitApplication: function submitApplication() {
+      // 在这里处理提交申请的逻辑，可以将申请理由和联系方式发送给后端处理
+      console.log('申请理由:', this.applyReason);
+      console.log('联系方式:', this.contactInfo);
+      // 提交完成后关闭模态框
+      this.modalVisible = false;
+    }
   }
 };
 exports.default = _default;

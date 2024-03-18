@@ -31,4 +31,11 @@ public interface ItemService {
      * @param itemId
      */
     ItemVO getItemDetail(String token, Integer itemId);
+
+    /**
+     * 获取用户发布的物品
+     *
+     * @param mode
+     */
+    List<Item> getUserItems(String token, Integer mode);
 }

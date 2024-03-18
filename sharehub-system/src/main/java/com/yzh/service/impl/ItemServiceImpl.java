@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -129,5 +128,19 @@ public class ItemServiceImpl implements ItemService {
         userMapper.increaseTagsScore(userTagsScores);
 
         return new ItemVO(itemDetail, itemImages);
+    }
+
+    @Override
+    public List<Item> getUserItems(String token, Integer mode) {
+        List<Item> userItemList = new ArrayList<>();
+        if (token != null && !token.equals("")) {
+            //解析前端token,获取用户openid
+            Map<String, Object> itemUser = JwtUtils.parseJWT(token);
+            String openId = (String) itemUser.get("openId");
+
+            //获取物品列表
+            userItemList = itemMapper.getUserItemList(openId, mode);
+        }
+        return userItemList;
     }
 }
