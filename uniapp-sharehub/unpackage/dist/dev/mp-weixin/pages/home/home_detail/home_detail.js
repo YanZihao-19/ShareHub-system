@@ -457,15 +457,27 @@ var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/r
 //
 //
 //
+//
 var _default = {
   data: function data() {
     return {
+      token: '',
       showModal: false,
       // 控制模态框显示隐藏
-      reason: '',
-      // 申请理由
-      contact: '',
-      // 联系方式
+      order: {
+        itemId: '',
+        //当前物品id
+        reason: '',
+        // 申请理由
+        contact: '',
+        // 联系方式
+        mode: '',
+        //订单交易模式
+        otherItemId: '',
+        //另一个物品id（仅对以物换物生效）
+        image: '' //订单图片
+      },
+
       user: {
         username: '',
         //用户名
@@ -479,6 +491,7 @@ var _default = {
       },
 
       item: {
+        id: '',
         createTime: '',
         //创建时间
         image: '',
@@ -515,6 +528,8 @@ var _default = {
           switch (_context.prev = _context.next) {
             case 0:
               try {
+                //获取token
+                _this.token = uni.getStorageSync('token');
                 //获取上个页面传来的item.id
                 pages = getCurrentPages();
                 currentPage = pages[pages.length - 1];
@@ -533,28 +548,73 @@ var _default = {
   },
   methods: {
     handleAction: function handleAction(item) {
-      if (item.tradeMode == 0) {
-        // 点击立即申领按钮显示模态框
+      //如果交易模式是免费共享
+      if (this.item.tradeMode == 0) {
+        //展示模态框
         this.showModal = true;
       }
+
+      //如果交易模式是以物换物，发送对应的请求!!!!!!!!!!!!!
+      if (this.item.tradeMode == 1) {}
+
+      //如果交易模式是二手交易，发送对应的请求!!!!!!!!!!!!
+      if (this.item.tradeMode == 1) {}
     },
+    //取消模态框
     cancel: function cancel() {
       this.showModal = false; // 取消按钮关闭模态框
     },
+    //确定模态框
     confirm: function confirm() {
       // 提交按钮关闭模态框
-      // 执行其他操作，例如提交数据
-      console.log('申请理由：', this.reason);
-      console.log('联系方式：', this.contact);
       this.showModal = false;
+
+      //提交数据，发送请求
+      if (this.item.tradeMode == 0) {
+        // 赋值
+        this.order.itemId = this.item.id;
+        this.order.mode = this.item.mode;
+        this.order.image = this.item.image;
+        console.log('发送给后端的订单数据', this.order);
+
+        // 给后端发送请求
+        uni.request({
+          url: 'http://localhost:8080/orders/newOrder?mode=' + this.item.tradeMode,
+          method: 'POST',
+          header: {
+            'content-type': 'application/json',
+            // 设置请求头为 JSON 类型
+            'token': this.token
+          },
+          data: JSON.stringify(this.order),
+          success: function success(res) {
+            // 提示框，提醒用户是否申请共享成功，或者以及申请过了。！！！！！！！！！！！
+            // console.log(res.data.code);
+            if (res.data.code == 1) {
+              uni.showToast({
+                title: '申请成功！',
+                icon: 'success',
+                duration: 2000
+              });
+            } else if (res.data.code == 0) {
+              uni.showToast({
+                title: '不能重复申请哦~',
+                icon: 'error',
+                duration: 2000
+              });
+            }
+          },
+          fail: function fail(err) {
+            reject(err);
+          }
+        });
+      }
     },
     getUser: function getUser(openId) {
       var _this2 = this;
       return new Promise(function (resolve, reject) {
         //获取token
         _this2.token = uni.getStorageSync('token');
-        // console.log('发送给后端的token值：', this.token)
-
         uni.request({
           url: 'http://localhost:8080/users/user?openId=' + openId,
           method: 'GET',
@@ -583,8 +643,6 @@ var _default = {
       return new Promise(function (resolve, reject) {
         //获取token
         _this3.token = uni.getStorageSync('token');
-        // console.log('发送给后端的token值：', this.token)
-
         uni.request({
           url: 'http://localhost:8080/items/' + id,
           method: 'GET',

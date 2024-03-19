@@ -19,7 +19,7 @@ public class UpdatePreference {
     public static UserTagsScore increase(String token, Item item, Integer style) {
         UserTagsScore userTagsScore = new UserTagsScore(null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-        //style=1表示查看物品详情后的偏好调整
+        //style=1表示查看物品详情和申请共享后的偏好调整
         if (style == 1) {
             //解析前端token, 获取用户openid
             Map<String, Object> itemUser = JwtUtils.parseJWT(token);
