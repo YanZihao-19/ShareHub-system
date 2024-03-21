@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uvTextarea: function () {
-      return Promise.all(/*! import() | uni_modules/uv-textarea/components/uv-textarea/uv-textarea */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-textarea/components/uv-textarea/uv-textarea")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-textarea/components/uv-textarea/uv-textarea.vue */ 435))
+      return Promise.all(/*! import() | uni_modules/uv-textarea/components/uv-textarea/uv-textarea */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-textarea/components/uv-textarea/uv-textarea")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-textarea/components/uv-textarea/uv-textarea.vue */ 314))
     },
     uvActionSheet: function () {
       return Promise.all(/*! import() | uni_modules/uv-action-sheet/components/uv-action-sheet/uv-action-sheet */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-action-sheet/components/uv-action-sheet/uv-action-sheet")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-action-sheet/components/uv-action-sheet/uv-action-sheet.vue */ 443))

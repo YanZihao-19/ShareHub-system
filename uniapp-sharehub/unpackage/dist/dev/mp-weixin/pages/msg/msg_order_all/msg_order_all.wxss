@@ -17,8 +17,11 @@
 	width: 120rpx;
 	height: 120rpx;
 }
+.reason {
+	width: 70rpx;
+}
 .container-2_2_price {
-	padding-right: 50%;
+	padding-right: 25%;
 }
 .container-2_1 {
 	margin-bottom: 30rpx;
@@ -31,7 +34,7 @@
 	font-weight: 500rpx;
 }
 .container-2 {
-	width: 70%;
+	width: 45%;
 	margin-left: 20rpx;
 }
 

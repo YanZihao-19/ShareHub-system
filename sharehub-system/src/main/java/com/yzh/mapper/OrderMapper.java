@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 /**
  * @Author: 燕子豪
  * @Date: 2024/3/08 11:07
@@ -26,4 +28,7 @@ public interface OrderMapper {
 
     @Select("SELECT * FROM `order` WHERE item_id = #{itemId} AND need_uid = #{needOpenId}")
     Integer selectByItemidAndNuid(Integer itemId, String needOpenId);
+
+    //处理status,status=3时查询全部;status=0时,查询status为0的order;status=1时,查询status不为为0的order;
+    List<Order> getAllOrderList(String holderUid, Integer status);
 }

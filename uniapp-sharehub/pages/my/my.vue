@@ -3,9 +3,9 @@
 
 		<!-- 用户信息 -->
 		<view :style="{ 'background-image': 'url(' + userInfo.bgImage + ')' }" catchtap='toMy_detail'>
-			<!-- 头部消息 -->
+			<!-- 头部消息,暂时不用 -->
 			<!-- <view class='bc '> -->
-			<view class='kuai'>
+			<!-- <view class='kuai'>
 				<view class='interactive'>
 					<image class='imgs'
 						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E4%BA%92%E5%8A%A8%E6%B6%88%E6%81%AF.png'>
@@ -24,7 +24,7 @@
 					</image>
 					<text>通知消息</text>
 				</view>
-			</view>
+			</view> -->
 
 			<!-- </view> -->
 			<!-- 头部消息end -->

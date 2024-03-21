@@ -285,11 +285,12 @@ var _default = {
   data: function data() {
     return {};
   },
+  onLoad: function onLoad() {},
   methods: {
-    // 跳转到聊天界面
+    // 跳转到用户评论的物品详情界面
     toMsgChat: function toMsgChat(e) {
       uni.navigateTo({
-        url: "/pages/msg/msg_chat/msg_chat"
+        // url: "/pages/msg/msg_chat/msg_chat"
       });
     },
     // 通知消息点击
@@ -299,9 +300,9 @@ var _default = {
       });
     },
     // 跳转交易物流详细页面
-    toLogistics: function toLogistics() {
+    toOrder: function toOrder() {
       uni.navigateTo({
-        url: "/pages/msg/msg_logistics_all/msg_logistics_all"
+        url: "/pages/msg/msg_order_all/msg_order_all"
       });
     }
   }

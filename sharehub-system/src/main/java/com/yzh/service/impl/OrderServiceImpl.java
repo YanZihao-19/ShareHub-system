@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,9 +45,9 @@ public class OrderServiceImpl implements OrderService {
         //（0是未打分，分值1~5）
         order.setHScore(0);
         order.setNScore(0);
-//        订单完成时再设置时间
-//        order.setCreateTime(LocalDateTime.now());
-//        order.setUpdateTime(LocalDateTime.now());
+        //订单设置时间
+        order.setCreateTime(LocalDateTime.now());
+        order.setUpdateTime(LocalDateTime.now());
         //添加到数据库
         Integer result = orderMapper.insertOrder(order);
 
@@ -56,5 +57,16 @@ public class OrderServiceImpl implements OrderService {
             System.out.println("发起申请交易增加好感度！！！！！！");
         }
         return result;
+    }
+
+    @Override
+    public List<Order> getAllOrders(String token, Integer status) {
+        //解析前端token,获取需求用户openid
+        Map<String, Object> itemUser = JwtUtils.parseJWT(token);
+        String holderUid = (String) itemUser.get("openId");
+        //根据status的不同，动态获取获取orders
+        List<Order> orderList = orderMapper.getAllOrderList(holderUid, status);
+
+        return orderList;
     }
 }

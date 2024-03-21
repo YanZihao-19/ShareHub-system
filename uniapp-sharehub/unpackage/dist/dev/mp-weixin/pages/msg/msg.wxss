@@ -169,6 +169,11 @@
 
 
 
+
+
+
+
+
 /* pages/message/message.wxss */
 /* <!-- 头部消息 --> */
 .bc {
@@ -198,13 +203,23 @@
 	color: black;
 	width: 130rpx;
 	height: 150rpx;
-	margin-top: 60rpx;
-	margin-left: 100rpx;
+	margin-top: 50rpx;
+	margin-left: 80rpx;
 }
 .imgs {
-	margin-left: 10rpx;
+	margin-left: 15rpx;
 	width: 80rpx;
 	height: 80rpx;
+}
+.order {
+	display: flex;
+	flex-direction: column;
+	font-size: 30rpx;
+	color: black;
+	width: 130rpx;
+	height: 150rpx;
+	margin-top: 50rpx;
+	margin-left: 80rpx;
 }
 .notice {
 	display: flex;
@@ -213,18 +228,8 @@
 	color: black;
 	width: 130rpx;
 	height: 150rpx;
-	margin-top: 60rpx;
-	margin-left: 100rpx;
-}
-.logistics {
-	display: flex;
-	flex-direction: column;
-	font-size: 30rpx;
-	color: black;
-	width: 130rpx;
-	height: 150rpx;
-	margin-top: 60rpx;
-	margin-left: 80rpx;
+	margin-top: 50rpx;
+	margin-left: 75rpx;
 }
 /* <!-- 头部消息end --> */
 /* 聊天消息 */

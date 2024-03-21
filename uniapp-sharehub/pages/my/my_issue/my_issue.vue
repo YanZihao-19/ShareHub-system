@@ -197,6 +197,9 @@
 						this.itemList = res.data.data;
 						// console.log(this.itemList)
 					},
+					fail: (err) => {
+						reject(err);
+					},
 				})
 			},
 			//修改日期格式

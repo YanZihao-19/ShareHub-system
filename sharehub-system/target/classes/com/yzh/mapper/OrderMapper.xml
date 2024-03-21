@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzh.mapper.OrderMapper">
+
+    <select id="getAllOrderList" resultType="com.yzh.pojo.Order">
+        SELECT *
+        FROM `order`
+        <where>
+            holder_uid = #{holderUid}
+            <if test="status != null">
+                <choose>
+                    <when test="status == 0">
+                        AND status = 0
+                    </when>
+                    <when test="status == 1">
+                        AND status != 0
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+</mapper>

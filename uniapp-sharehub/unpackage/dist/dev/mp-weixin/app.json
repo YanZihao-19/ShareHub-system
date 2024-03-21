@@ -17,7 +17,7 @@
     "pages/disconver/discover_desc_more/discover_desc_more",
     "pages/msg/msg_chat/msg_chat",
     "pages/msg/msg_inform/msg_inform",
-    "pages/msg/msg_logistics_all/msg_logistics_all",
+    "pages/msg/msg_order_all/msg_order_all",
     "pages/msg/message_logistics/message_logistics",
     "pages/issue/issue_edit/issue_edit",
     "pages/my/my_sale/my_sale",

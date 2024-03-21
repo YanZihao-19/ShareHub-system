@@ -176,8 +176,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _mpMixin = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js */ 289));
 var _mixin = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/mixin.js */ 290));
-var _button = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/button.js */ 350));
-var _openType = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/openType.js */ 351));
+var _button = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/button.js */ 358));
+var _openType = _interopRequireDefault(__webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/mixin/openType.js */ 359));
 var _props = _interopRequireDefault(__webpack_require__(/*! ./props.js */ 448));
 //
 //

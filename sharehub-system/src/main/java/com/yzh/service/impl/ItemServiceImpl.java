@@ -82,7 +82,9 @@ public class ItemServiceImpl implements ItemService {
             //（0是未打分，分值1~5）
             order.setHScore(0);
             order.setNScore(0);
-            //关于订单的创建时间，在订单完成时，再设置
+            //订单设置时间
+            order.setCreateTime(LocalDateTime.now());
+            order.setUpdateTime(LocalDateTime.now());
             //最后插入order
             orderMapper.insertOrder(order);
             return 1;

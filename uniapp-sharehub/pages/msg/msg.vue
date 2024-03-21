@@ -2,10 +2,10 @@
 	<view>
 
 		<!-- 自定义导航栏 -->
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
+		<!-- 	<cu-custom bgColor="bg-gradual-blue" :isBack="true">
 			<block slot="backText">返回</block>
 			<block slot="content">cdu</block>
-		</cu-custom>
+		</cu-custom> -->
 		<!-- end -->
 
 		<!-- 头部消息 -->
@@ -18,13 +18,13 @@
 					</image>
 					<text>互动消息</text>
 				</view>
-				<view class='notice' @tap='notice'>
+				<view class='order' @tap='toOrder'>
 					<image class='imgs'
 						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E8%AE%A2%E5%8D%95%E6%B6%88%E6%81%AF.png'>
 					</image>
 					<text>订单消息</text>
 				</view>
-				<view class='logistics' @tap='toLogistics'>
+				<view class='notice' @tap='notice'>
 					<image class='imgs'
 						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E9%80%9A%E7%9F%A5%E6%B6%88%E6%81%AF.png'>
 					</image>
@@ -142,14 +142,19 @@
 	export default {
 		data() {
 			return {
+				
 
 			}
 		},
+		
+		onLoad() {
+
+		},
 		methods: {
-			// 跳转到聊天界面
+			// 跳转到用户评论的物品详情界面
 			toMsgChat: function(e) {
 				uni.navigateTo({
-					url: "/pages/msg/msg_chat/msg_chat"
+					// url: "/pages/msg/msg_chat/msg_chat"
 				})
 			},
 			// 通知消息点击
@@ -159,9 +164,9 @@
 				})
 			},
 			// 跳转交易物流详细页面
-			toLogistics: function() {
+			toOrder: function() {
 				uni.navigateTo({
-					url: "/pages/msg/msg_logistics_all/msg_logistics_all"
+					url: "/pages/msg/msg_order_all/msg_order_all"
 				})
 			}
 		}
@@ -201,14 +206,25 @@
 		color: black;
 		width: 130rpx;
 		height: 150rpx;
-		margin-top: 60rpx;
-		margin-left: 100rpx;
+		margin-top: 50rpx;
+		margin-left: 80rpx;
 	}
 
 	.imgs {
-		margin-left: 10rpx;
+		margin-left: 15rpx;
 		width: 80rpx;
 		height: 80rpx;
+	}
+
+	.order {
+		display: flex;
+		flex-direction: column;
+		font-size: 30rpx;
+		color: black;
+		width: 130rpx;
+		height: 150rpx;
+		margin-top: 50rpx;
+		margin-left: 80rpx;
 	}
 
 	.notice {
@@ -218,19 +234,8 @@
 		color: black;
 		width: 130rpx;
 		height: 150rpx;
-		margin-top: 60rpx;
-		margin-left: 100rpx;
-	}
-
-	.logistics {
-		display: flex;
-		flex-direction: column;
-		font-size: 30rpx;
-		color: black;
-		width: 130rpx;
-		height: 150rpx;
-		margin-top: 60rpx;
-		margin-left: 80rpx;
+		margin-top: 50rpx;
+		margin-left: 75rpx;
 	}
 
 	/* <!-- 头部消息end --> */
