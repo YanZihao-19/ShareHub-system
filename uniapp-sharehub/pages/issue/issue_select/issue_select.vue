@@ -12,13 +12,14 @@
 	export default {
 		data() {
 			return {
-
+				order: '',
 			};
 		},
 		methods: {
 			toExchange() {
 				uni.navigateTo({
-					url: '/pages/issue/barter/barter'
+					url: '/pages/issue/barter/barter?pageFlag=0&order=' + encodeURIComponent(JSON.stringify(
+						this.order))
 				});
 			},
 			toSale() {

@@ -3,6 +3,7 @@ package com.yzh.mapper;
 import com.yzh.pojo.Order;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 /**
@@ -22,4 +23,7 @@ public interface OrderMapper {
             "hscore = #{hScore}, nscore = #{nScore}, update_time = #{updateTime} " +
             "WHERE id = #{id}")
     Integer UpdateOrder(Order order);
+
+    @Select("SELECT * FROM `order` WHERE item_id = #{itemId} AND need_uid = #{needOpenId}")
+    Integer selectByItemidAndNuid(Integer itemId, String needOpenId);
 }

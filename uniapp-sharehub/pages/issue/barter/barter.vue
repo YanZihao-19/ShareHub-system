@@ -1,17 +1,20 @@
 <template>
 	<view>
 		<form @submit="formSubmit" @reset="">
+			<!-- 使用v-if指令来根据formMsg.pageFlag的值来决定显示哪一种界面 -->
 			<!-- 标题 -->
 			<view class="cu-form-group margin-top">
-				<view class="title">标题</view>
-				<input v-model="formMsg.itemTitle" name="title" placeholder="品类品牌型号都是买家喜欢搜索的"></input>
+				<view v-if="formMsg.pageFlag == 0" class="title">标题</view>
+				<view v-else class="title">申请理由</view>
+				<input v-model="formMsg.itemTitle" name="title"
+					:placeholder="formMsg.pageFlag == 0 ? '品类品牌型号都是买家喜欢搜索的' : '真诚的措辞换物成功率更高哦！'"></input>
 			</view>
 			<!-- end -->
 
 			<!-- 内容 -->
 			<view class="cu-form-group margin-top">
 				<textarea v-model="formMsg.itemDesc" name="content" maxlength="1000"
-					placeholder="描述意向换物种类以及当前宝贝新旧程度,注意事项和使用感受"></textarea>
+					:placeholder="formMsg.pageFlag == 0 ? '描述意向换物种类以及当前宝贝新旧程度，注意事项和使用感受' : '请在这里留下联系方式，同时描述自己的物品哦~'"></textarea>
 			</view>
 			<!-- end -->
 
@@ -144,8 +147,16 @@
 	export default {
 		data() {
 			return {
+				order: {
+					itemId: '', //当前物品id
+					reason: '', // 申请理由
+					contact: '', // 联系方式
+					mode: '', //订单交易模式
+					otherItemId: '', //另一个物品id（仅对以物换物生效）
+					image: '', //订单图片
+				},
 				formMsg: {
-					ownerUid: 'opwm66yu9D_BIoZcSaF4Pjdv8VuA', //暂时还未设置新增用户，故先默认设置
+					ownerUid: '', //暂时还未设置新增用户，故先默认设置
 					itemTitle: '', //物品标题
 					itemDesc: '', //物品描述
 					imgList: [], //图片列表
@@ -156,7 +167,8 @@
 					usageLevel: '0', //新旧程度（默认全新），对应itemList数组的标
 					deliveryStyle: '', //交送方式（）
 					tradeMode: '1', //交易模式以物易物
-					status: '0' //物品状态（0待交易，1以交易，2已下架）
+					status: '0', //物品状态（0待交易，1以交易，2已下架）
+					pageFlag: '', //作为判断是自主上传还是申请交换的标志
 				},
 
 				multiIndex: [0, 0, 0], //地址选择下标
@@ -408,69 +420,117 @@
 				this.formMsg.tag = e.currentTarget.dataset.value
 				this.hideModal();
 			},
+			onLoad(options) {
+				// 获取页面参数
+				this.formMsg.pageFlag = options.pageFlag;
+				this.order = JSON.parse(decodeURIComponent(options.order))
+
+				console.log('页面的flag', this.formMsg.pageFlag)
+				console.log('页面的order', this.order)
+			},
 			formSubmit() {
-				console.log(this.formMsg)
 				//最后处理form数据
 				this.formMsg.ownerUid = this.$store.state.user.openid
 				//设置物品待交易
 				this.formMsg.status = '0'
+				//如果pageFlag==1，则给order赋值
+				if (this.formMsg.pageFlag == 1) {
+					this.order.reason = this.formMsg.itemTitle //申请理由
+					this.order.contact = this.formMsg.itemDesc //联系方式
+				}
 
-				// 发送异步请求
-				uni.request({
-					url: 'http://localhost:8080/items',
-					method: 'POST',
-					data: JSON.stringify(this.formMsg),
-					header: {
-						'token': 'usertoken', // 根据实际情况设置 token
-						'content-type': 'application/json' // 请求头部设置为 JSON 格式
-					},
-					success: (res) => {
-						console.log(res);
-						console.log(res.data);
-						console.log(res.data.code);
-						// 处理响应结果，根据实际情况进行操作
-						if (res.data.code == 1) {
-							// 请求成功toast
-							uni.showToast({
-								title: '上传成功！',
-								icon: 'success',
-								duration: 1500
-							});
-							//跳转到物品选择页
-							setTimeout(function() {
-								uni.switchTab({
-									url: '/pages/issue/issue_select/issue_select'
-								})
-							}, 1000);
-						} else {
+				console.log('即将发送的order', this.order)
+				console.log('即将发送的item', this.formMsg)
+				// 判断pageFlag的值来发送异步请求
+				if (this.formMsg.pageFlag == 0) {
+					uni.request({
+						url: 'http://localhost:8080/items',
+						method: 'POST',
+						data: JSON.stringify(this.formMsg),
+						header: {
+							'token': '', // 根据实际情况设置 token
+							'content-type': 'application/json' // 请求头部设置为 JSON 格式
+						},
+						success: (res) => {
+							// 处理响应结果，根据实际情况进行操作
+							if (res.data.code == 1) {
+								// 请求成功toast
+								uni.showToast({
+									title: '操作成功！',
+									icon: 'success',
+									duration: 1500
+								});
+
+								var that = this;
+								//跳转到物品选择页
+								setTimeout(function() {
+									//回到上一页
+									uni.navigateBack()
+								}, 1000);
+							} else {
+								uni.showToast({
+									title: '上传失败！',
+									icon: 'error',
+									duration: 1500
+								});
+								console.log('失败！');
+							}
+						},
+						fail: (err) => {
 							uni.showToast({
 								title: '上传失败！',
-								icon: 'fail',
+								icon: 'error',
 								duration: 1500
 							});
-							console.log('失败！');
+							console.error(err);
 						}
-					},
-					fail: (err) => {
-						uni.showToast({
-							title: '上传失败！',
-							icon: 'success',
-							duration: 1500
-						});
-						console.error(err);
-					}
-				});
+					});
+				} else {
+					//如果pageFlag不为0，则生成易物订单(表示是申请易物)
+					uni.request({
+						url: 'http://localhost:8080/orders/addOrder',
+						method: 'POST',
+						data: {
+							item: this.formMsg,
+							order: this.order
+						},
+						header: {
+							'token': this.token, // 根据实际情况设置 token
+							'content-type': 'application/json' // 请求头部设置为 JSON 格式
+						},
+						success: (res) => {
+							// 处理响应结果，根据实际情况进行操作
+							console.log(res.data)
+							if (res.data.code == 1) {
+								// 申请成功
+								// 请求成功toast
+								uni.showToast({
+									title: '操作成功！',
+									icon: 'success',
+									duration: 1500
+								});
+								setTimeout(function() {
+									uni.navigateBack();
+								}, 2000);
+							} else {
+								// 您已经申请过了~
+								// 请求成功toast
+								uni.showToast({
+									title: '您已经申请过了~',
+									icon: 'error',
+									duration: 1500
+								});
+								setTimeout(function() {
+									uni.navigateBack();
+								}, 2000);
+							}
+						}
+					});
+				}
 			}
 		},
-		onLoad(options) {
-
-		},
-		onShow() {
-
-		},
-		onHide() {
-
-		},
+		onShow() {},
+		onHide() {},
 		// 出发下拉刷新
 		onPullDownRefresh() {
 			// 模拟刷新完成

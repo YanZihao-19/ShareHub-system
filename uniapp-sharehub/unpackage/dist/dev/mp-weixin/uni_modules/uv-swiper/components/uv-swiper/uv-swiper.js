@@ -80,10 +80,10 @@ var components
 try {
   components = {
     uvLoadingIcon: function () {
-      return Promise.all(/*! import() | uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon.vue */ 443))
+      return Promise.all(/*! import() | uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-loading-icon/components/uv-loading-icon/uv-loading-icon.vue */ 451))
     },
     uvSwiperIndicator: function () {
-      return Promise.all(/*! import() | uni_modules/uv-swiper/components/uv-swiper-indicator/uv-swiper-indicator */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-swiper/components/uv-swiper-indicator/uv-swiper-indicator")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-swiper/components/uv-swiper-indicator/uv-swiper-indicator.vue */ 468))
+      return Promise.all(/*! import() | uni_modules/uv-swiper/components/uv-swiper-indicator/uv-swiper-indicator */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-swiper/components/uv-swiper-indicator/uv-swiper-indicator")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-swiper/components/uv-swiper-indicator/uv-swiper-indicator.vue */ 476))
     },
   }
 } catch (e) {

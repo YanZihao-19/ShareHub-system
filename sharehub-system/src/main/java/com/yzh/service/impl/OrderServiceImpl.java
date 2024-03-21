@@ -41,8 +41,12 @@ public class OrderServiceImpl implements OrderService {
         //为订单属性赋默认值
         order.setStatus(0);
         order.setNoticeStatus(0); //0为未读状态
-        order.setCreateTime(LocalDateTime.now());
-        order.setUpdateTime(LocalDateTime.now());
+        //（0是未打分，分值1~5）
+        order.setHScore(0);
+        order.setNScore(0);
+//        订单完成时再设置时间
+//        order.setCreateTime(LocalDateTime.now());
+//        order.setUpdateTime(LocalDateTime.now());
         //添加到数据库
         Integer result = orderMapper.insertOrder(order);
 

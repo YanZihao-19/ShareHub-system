@@ -142,6 +142,7 @@
 					identifyId: '', //实名认证编号
 					bgImage: '', //用户背景图
 				},
+				order: '',
 			}
 		},
 		computed: {
@@ -213,7 +214,10 @@
 			// 我的发布跳转
 			toIssue_page: function() {
 				uni.navigateTo({
-					url: "/pages/my/my_issue/my_issue"
+					url: '/pages/my/my_issue/my_issue?pageFlag=' + '' + '&mode=3&order=' + encodeURIComponent(
+						JSON
+						.stringify(
+							this.order))
 				})
 			}
 

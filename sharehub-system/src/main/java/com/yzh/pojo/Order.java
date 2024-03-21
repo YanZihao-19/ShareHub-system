@@ -30,7 +30,10 @@ public class Order extends AbstractEntity {
     @Override
     public String toString() {
         return "Order{" +
-                "itemId=" + itemId +
+                "id=" + id +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", itemId=" + itemId +
                 ", holderUid='" + holderUid + '\'' +
                 ", needUid='" + needUid + '\'' +
                 ", reason='" + reason + '\'' +

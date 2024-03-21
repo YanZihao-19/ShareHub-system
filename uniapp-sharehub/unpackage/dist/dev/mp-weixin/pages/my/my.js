@@ -291,10 +291,11 @@ var _default = {
         identifyId: '',
         //实名认证编号
         bgImage: '' //用户背景图
-      }
+      },
+
+      order: ''
     };
   },
-
   computed: {
     credibilityText: function credibilityText() {
       if (this.userInfo.credibility >= 6) {
@@ -362,7 +363,7 @@ var _default = {
     // 我的发布跳转
     toIssue_page: function toIssue_page() {
       uni.navigateTo({
-        url: "/pages/my/my_issue/my_issue"
+        url: '/pages/my/my_issue/my_issue?pageFlag=' + '' + '&mode=3&order=' + encodeURIComponent(JSON.stringify(this.order))
       });
     }
   }

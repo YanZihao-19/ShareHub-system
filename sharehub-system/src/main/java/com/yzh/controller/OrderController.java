@@ -3,7 +3,9 @@ package com.yzh.controller;
 import com.yzh.pojo.Item;
 import com.yzh.pojo.Order;
 import com.yzh.pojo.Result;
+import com.yzh.service.ItemService;
 import com.yzh.service.OrderService;
+import com.yzh.vo.AddItemOrderVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private ItemService itemService;
 
     //新增免费共享订单
     @PostMapping("/newOrder")
@@ -28,6 +32,20 @@ public class OrderController {
             // 异常处理
             return Result.error("您已经提交过申领了，请耐心等待！");
         }
+
         return Result.success();
     }
+
+
+    //申请易物物品
+    @PostMapping("/addOrder")
+    public Result addItemOrder(@RequestHeader("token") String token, @RequestBody AddItemOrderVO addItemOrderVO) {
+        //flag为0是自主上传的一方,flag为1时，表明是用户是申请易物的一方
+        Integer result = itemService.addItemOrder(addItemOrderVO.getItem(), addItemOrderVO.getOrder(), token);
+        if (result == 1) {
+            return Result.success();
+        }
+        return Result.error("您已经申请过了~");
+    }
+
 }

@@ -2,12 +2,21 @@
 	<view>
 		<!-- 每个商品卡片内容 -->
 		<view class='pa'>
-			<uv-sticky>
+			<!-- <uv-sticky>
 				<view style="padding: 10rpx 0;background-color: #fff;">
 					<uv-tabs :list="[{ name: '全部' }, { name: '免费共享' }, { name: '以物换物' }, { name: '二手交易' }]"
 						@click="tabChange"></uv-tabs>
 				</view>
+			</uv-sticky> -->
+			<uv-sticky>
+				<view style="padding: 10rpx 0;background-color: #fff;">
+					<!-- 使用v-if根据pageFlag的值动态渲染uv-tabs组件 -->
+					<uv-tabs v-if="pageFlag === '0'" :list="[{ name: '以物换物' }]"></uv-tabs>
+					<uv-tabs v-else :list="[{ name: '全部' }, { name: '免费共享' }, { name: '以物换物' }, { name: '二手交易' }]"
+						@click="tabChange"></uv-tabs>
+				</view>
 			</uv-sticky>
+
 
 			<view class='contianer shadow-warp bg-white padding-sm' v-for="(item , index) in itemList" :key="index">
 				<view class='contianer-title'>
@@ -63,15 +72,55 @@
 				</view>
 
 				<!-- 操作按钮 -->
-				<view class='container-compile'>
+				<!-- 根据 pageFlag 的值决定按钮的渲染 -->
+				<view v-if="pageFlag == '' " class='container-compile'>
 					<view class="cu-tag line-yellow" @tap='offShelf'>下架</view>
 					<view class="cu-tag line-yellow" @tap='toIssue'>编辑</view>
 					<view class="cu-tag line-yellow" @tap='shareVX'>分享</view>
 				</view>
+				<view v-else-if="pageFlag == 0 " class='container-compile'>
+					<view class="cu-tag line-yellow" @tap='select(item)'>选择</view>
+				</view>
+				<!-- <view class='container-compile'>
+					<view class="cu-tag line-yellow" @tap='offShelf'>下架</view>
+					<view class="cu-tag line-yellow" @tap='toIssue'>编辑</view>
+					<view class="cu-tag line-yellow" @tap='shareVX'>分享</view>
+				</view> -->
+				<!-- 	<view class='container-compile'>
+					<view class="cu-tag line-yellow" @tap='select'>选择</view>
+				</view> -->
 
 				<view class='container-line'></view>
 			</view>
+			<!-- 模态框 -->
+			<view v-if="showModal" class="modal">
+				<view class="modal-content">
+
+					<view class="uv-demo-block">
+						<text class="uv-demo-block__title">申领理由：</text>
+						<view class="uv-demo-block__content">
+							<uv-textarea v-model="order.reason" placeholder="真诚的措辞换物成功率更高哦！" :maxlength="200"
+								count></uv-textarea>
+						</view>
+					</view>
+
+					<view class="uv-demo-block">
+						<text class="uv-demo-block__title">联系方式：</text>
+						<view class="uv-demo-block__content">
+							<uv-textarea v-model="order.contact" placeholder="请在这里留下联系方式，同时描述自己的物品哦~"></uv-textarea>
+						</view>
+					</view>
+
+					<!-- 将按钮放在第二个输入框下面 -->
+					<view class="modal-buttons">
+						<view class="modal-button cancel" @tap="cancel">取消</view>
+						<view class="modal-button confirm" @tap="confirm">提交</view>
+					</view>
+				</view>
+			</view>
+			<!-- 模态框end -->
 		</view>
+	</view>
 	</view>
 </template>
 
@@ -79,8 +128,20 @@
 	export default {
 		data() {
 			return {
+				showModal: '', // 控制是否展示以物换物模态框
+				pageFlag: '', //决定是否展示选择按钮,''是默认值，0才会展示选择按钮
 				token: '',
+				order: {
+					itemId: '', //当前物品id
+					reason: '', // 申请理由
+					contact: '', // 联系方式
+					mode: '', //订单交易模式
+					otherItemId: '', //另一个物品id（仅对以物换物生效）
+					image: '', //订单图片
+				},
 				itemList: [], //从后端获取的用户物品列表
+				mode: '3', //用户选择的物品模式
+				url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg',
 				// address: (...)
 				// createTime: (...)
 				// deliveryStyle: (...)
@@ -95,17 +156,24 @@
 				// status: (...)
 				// suit: (...)
 				// tag: (...)
+				// pageFlag
 				// tradeMode: (...)
 				// updateTime: (...)
 				// usageLevel: (...)
-				mode: '3', //用户选择的物品模式
-				url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg',
 			}
 		},
 		computed: {
 
 		},
-		onLoad(optins) {
+		onLoad(options) {
+			// 获取页面参数，如果是以物易物跳转来的则获取参数
+			this.pageFlag = options.pageFlag;
+			this.mode = options.mode;
+			this.order = JSON.parse(decodeURIComponent(options.order))
+
+			// console.log('this.mode 的数据:' + this.mode)
+			// console.log('pageFlag 的数据:' + this.pageFlag)
+			console.log('this.order获取来的数据:', this.order)
 			//获取token;
 			this.token = uni.getStorageSync('token')
 			try {
@@ -127,7 +195,7 @@
 					},
 					success: (res) => {
 						this.itemList = res.data.data;
-						console.log(this.itemList)
+						// console.log(this.itemList)
 					},
 				})
 			},
@@ -164,6 +232,7 @@
 						return ''; // 或者其他默认值
 				}
 			},
+
 			// 选项卡切换
 			tabChange(obj) {
 				console.log(obj.index)
@@ -193,6 +262,58 @@
 				const data = await this.getData();
 				this.itemList = data
 			},
+			// 点击选择后展示模态框
+			select(item) {
+				// 给order赋值
+				this.order.otherItemId = item.id
+				this.showModal = true
+			},
+
+			//取消模态框
+			cancel() {
+				this.showModal = false; // 取消按钮关闭模态框
+			},
+			//确定模态框
+			confirm() {
+				// 提交按钮关闭模态框
+				this.showModal = false;
+				//提交数据，发送请求
+				if (this.mode == 1) {
+					console.log('发送给后端的订单数据', this.order)
+
+					// 给后端发送请求
+					uni.request({
+						url: 'http://localhost:8080/orders/newOrder?mode=' + this.mode,
+						method: 'POST',
+						header: {
+							'content-type': 'application/json', // 设置请求头为 JSON 类型
+							'token': this.token
+						},
+						data: JSON.stringify(this.order),
+						success: (res) => {
+							// 提示框，提醒用户是否申请共享成功，或者以及申请过了。！！！！！！！！！！！
+							// console.log(res.data.code);
+							if (res.data.code == 1) {
+								uni.showToast({
+									title: '申请成功！',
+									icon: 'success',
+									duration: 2000
+								});
+							} else if (res.data.code == 0) {
+								uni.showToast({
+									title: '不能重复申请哦~',
+									icon: 'error',
+									duration: 2000
+								});
+							}
+						},
+						fail: (err) => {
+							reject(err);
+						}
+					});
+				}
+
+			},
 
 			// 跳转到编辑页面
 			toIssue: function() {
@@ -208,6 +329,8 @@
 
 			// 下架物品
 			offShelf() {
+
+				console.log('navigator获取来的数据' + this.pageFlag)
 				//这里改为显示toast
 				uni.showModal({
 					mask: true,
@@ -240,14 +363,12 @@
 						console.log(JSON.stringify(ret));
 					}
 				});
-
 			},
-
 		}
 	}
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 	.pa {
 		padding: 20rpx;
 	}
@@ -262,8 +383,6 @@
 
 	.contianer-title {
 		display: flex;
-
-
 	}
 
 	.contianer-title_2 {
@@ -344,6 +463,86 @@
   margin-left: 20rpx
 } */
 	/* end */
+
+	.modal {
+		position: fixed;
+		// height: 380rpx;
+		// width: 300rpx;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 9999;
+
+		.modal-content {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 10px;
+		}
+
+		.modal-buttons {
+			display: flex;
+			justify-content: center;
+			/* 将按钮水平居中显示 */
+		}
+
+		.modal-content {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 10px;
+			width: 80%;
+			/* 设置模态框内容宽度为父容器的80% */
+		}
+
+		.uv-demo-block {
+			margin-bottom: 20px;
+			/* 设置每个 demo-block 之间的间距 */
+		}
+
+		.uv-demo-block__title {
+			font-size: 16px;
+			/* 设置标题字体大小 */
+			margin-bottom: 15px;
+			/* 设置标题和内容之间的间距 */
+		}
+
+		.uv-demo-block__content {
+			width: 100%;
+			/* 设置内容区域宽度为100% */
+		}
+
+		.uv-textarea {
+			width: calc(100% - 20px);
+			/* 设置文本框宽度为父容器宽度减去一定的间距，例如这里减去20px */
+			height: 120px;
+			/* 设置文本框高度为120px */
+			font-size: 12px;
+			/* 设置文本框字体大小 */
+		}
+
+		.modal-button {
+			flex: 1;
+			margin: 20rpx;
+			padding: 10px 0;
+			text-align: center;
+			font-size: 16px;
+			cursor: pointer;
+		}
+
+		.modal-button.confirm {
+			color: #fff;
+			background-color: #007bff;
+		}
+
+		.modal-button.cancel {
+			color: #fff;
+			background-color: #b0bbb9;
+		}
+	}
 
 	/* <!-- 自定义弹窗 --> */
 	.showModel {

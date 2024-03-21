@@ -92,6 +92,10 @@
   color: #fff;
   background-color: #b0bbb9;
 }
+.confirm-botton {
+  display: inline-block;
+  /* 或者 display: inline; */
+}
 /* 商家信息 */
 .padding-name {
   padding-top: 7rpx;

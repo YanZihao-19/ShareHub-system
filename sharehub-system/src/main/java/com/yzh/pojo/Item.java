@@ -44,17 +44,14 @@ public class Item extends AbstractEntity {
     private String address;
     //交易方式(自提/面交/快递)
     private Integer deliveryStyle;
-//    //租借/共享押金
-//    private Integer deposit;
+    //以物换物标识，0表示主动上传的一方，1表示申请易物的一方
+    private Integer pageFlag;
 
 
     @Override
     public String toString() {
         return "Item{" +
-                "id=" + id +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", image='" + image + '\'' +
+                "image='" + image + '\'' +
                 ", itemTitle='" + itemTitle + '\'' +
                 ", itemDesc='" + itemDesc + '\'' +
                 ", tag=" + tag +
@@ -68,6 +65,7 @@ public class Item extends AbstractEntity {
                 ", usageLevel=" + usageLevel +
                 ", address='" + address + '\'' +
                 ", deliveryStyle=" + deliveryStyle +
+                ", pageFlag=" + pageFlag +
                 '}';
     }
 }

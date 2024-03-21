@@ -2,9 +2,13 @@ package com.yzh.controller;
 
 
 import com.yzh.pojo.Item;
+
 import java.util.*;
+
+import com.yzh.pojo.Order;
 import com.yzh.pojo.Result;
 import com.yzh.service.ItemService;
+import com.yzh.vo.AddItemOrderVO;
 import com.yzh.vo.ItemVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +28,6 @@ public class ItemController {
     //新增(免费、易物、二手)物品
     @PostMapping
     public Result addItem(@RequestBody Item item) {
-        System.out.println("获取item的suit" + item.getSuit());
         itemService.addItem(item);
         return Result.success();
     }

@@ -20,7 +20,7 @@
                     #{id}
                 </foreach>
             </if>
-            and status = 0
+            and status = 0 and pageflag != 1
         </where>
         order by RAND() LIMIT 20
     </select>
@@ -33,7 +33,7 @@
                 trade_mode = #{mode}
             </if>
             and owneruid = #{openId}
-            and status = 0
+            and status = 0 and pageflag != 1
         </where>
         order by create_time
     </select>

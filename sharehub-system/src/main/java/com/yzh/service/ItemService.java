@@ -1,7 +1,9 @@
 package com.yzh.service;
 
 import com.yzh.pojo.Item;
+import com.yzh.pojo.Order;
 import com.yzh.vo.ItemVO;
+import org.aspectj.weaver.ast.Or;
 
 import java.util.*;
 
@@ -17,6 +19,9 @@ public interface ItemService {
      * @param item
      */
     void addItem(Item item);
+
+
+    Integer addItemOrder(Item item, Order order,String token);
 
     /**
      * 获取物品列表

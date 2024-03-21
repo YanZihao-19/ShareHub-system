@@ -257,24 +257,26 @@
 				点赞
 			</view>
 			<view class="bg-blue submit margin-right-20" @tap="handleAction(item)">
-				{{ item.tradeMode == 0 ? '立即申领' : (item.tradeMode == 1 ? '立即交换' : '立即购买') }}
+				{{ item.tradeMode == 0 ? '立即申领' : (item.tradeMode == 1 ? '立即交换' : '申请购买') }}
 			</view>
 
 			<!-- 模态框 -->
 			<view v-if="showModal" class="modal">
 				<view class="modal-content">
 					<view class="uv-demo-block">
-						<text class="uv-demo-block__title">申领理由：</text>
+						<text class="uv-demo-block__title">{{ item.tradeMode == 0 ? '申领理由' : '求购留言' }}：</text>
 						<view class="uv-demo-block__content">
-							<uv-textarea v-model="order.reason" placeholder="诚恳的填写您想要的申领理由，可以大大增加成功几率哦~"
+							<uv-textarea v-model="order.reason"
+								:placeholder="item.tradeMode == 0 ? '诚恳的填写您想要的申领理由，可以大大增加成功几率哦~' : '礼貌的求购留言会得到更快的回复哦~'"
 								:maxlength="200" count></uv-textarea>
 						</view>
 					</view>
 
+
 					<view class="uv-demo-block">
 						<text class="uv-demo-block__title">联系方式：</text>
 						<view class="uv-demo-block__content">
-							<uv-textarea v-model="order.contact" placeholder="请填写您的微信号或手机号等，方便赠送者联系到您哦~"></uv-textarea>
+							<uv-textarea v-model="order.contact" placeholder="请填写您的微信号或手机号等，物主联系到您哦~"></uv-textarea>
 						</view>
 					</view>
 					<!-- 将按钮放在第二个输入框下面 -->
@@ -284,8 +286,36 @@
 					</view>
 				</view>
 			</view>
-		</view>
+			<!-- 模态框end -->
 
+			<!-- 以物换物actionSheet开始 -->
+			<uv-action-sheet ref="actionSheet" @close="show2 = false" @select="select" :actions="actions"
+				cancelText="取消">
+			</uv-action-sheet>
+			<!-- 以物换物actionSheet结束 -->
+
+			<!-- 二手交易模态框开始 -->
+			<view class="cu-modal" :class="showModal2=='show'?'show':''">
+				<view class="cu-dialog">
+					<view class="cu-bar bg-white justify-end">
+						<view class="content">交易须知！</view>
+						<view class="action" @tap="hideModal">
+							<text class="cuIcon-close text-red"></text>
+						</view>
+					</view>
+					<view class="padding-xl" style="text-align: left;">
+						&nbsp;&nbsp;ShareHub是一款致力于低碳环保减少闲置物品的信息供给平台，本平台不涉及金钱交易，只提供物品信息。<br>&nbsp;&nbsp;请各位用户自行交易过程中，擦亮眼睛谨防受骗，对于任何诈骗行为平台不予负责。
+					</view>
+					<view class="cu-bar bg-white justify-end">
+						<view class="action confirm-botton ">
+							<button class="cu-btn bg-green " @tap="acceptModal">同意</button>
+						</view>
+					</view>
+				</view>
+			</view>
+			<!-- 二手交易模态框结束 -->
+
+		</view>
 	</view>
 </template>
 
@@ -294,7 +324,8 @@
 		data() {
 			return {
 				token: '',
-				showModal: false, // 控制模态框显示隐藏
+				showModal: false, // 控制是否展示模态框
+				showModal2: '', //控制是否展示二手交易模态框
 				order: {
 					itemId: '', //当前物品id
 					reason: '', // 申请理由
@@ -325,6 +356,16 @@
 				},
 				itemImages: [], //物品详情图
 
+				actions: [{
+						flag: '0',
+						name: '创建新物品',
+					},
+					{
+						flag: '1',
+						name: '选择已有物品',
+					}
+				],
+
 				url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg',
 			}
 		},
@@ -347,18 +388,62 @@
 			}
 		},
 		methods: {
+			// 选择sheet后的逻辑操作
+			select(e) {
+				// 将当前页面的item赋值给order所需的属性
+				this.order.itemId = this.item.id
+				this.order.mode = this.item.tradeMode
+				this.order.image = this.item.image
+				console.log("即将发送的order", this.order)
+
+				// 根据不同的sheet跳转到不同的页面
+				if (e.flag == 0) {
+					// 跳转到新增页面，并携带参数flag=0,以及order对象
+					// var orderTempt = encodeURIComponent(JSON.stringify(this.order))
+
+					uni.navigateTo({
+						url: '/pages/issue/barter/barter?pageFlag=1&order=' + encodeURIComponent(JSON.stringify(
+							this.order))
+					});
+				} else if (e.flag == 1) {
+					// 跳转到选择页面，并携带参数flag=1,以及order对象
+					uni.navigateTo({
+						url: '/pages/my/my_issue/my_issue?pageFlag=0&mode=1&order=' + encodeURIComponent(JSON
+							.stringify(this.order))
+					});
+				}
+			},
+			//关闭二手交易模态框
+			hideModal() {
+				this.showModal2 = ''
+			},
+			//同意二手交易模态框
+			acceptModal() {
+				//关闭模态框1
+				this.showModal2 = ''
+				//展示模态框2
+				this.showModal = true;
+			},
 			handleAction(item) {
+				// console.log('进入了handleAction')
 				//如果交易模式是免费共享
-				if (this.item.tradeMode == 0) {
+				if (item.tradeMode == 0) {
 					//展示模态框
 					this.showModal = true;
 				}
 
-				//如果交易模式是以物换物，发送对应的请求!!!!!!!!!!!!!
-				if (this.item.tradeMode == 1) {}
+				//如果交易模式是以物换物
+				else if (item.tradeMode == 1) {
+					//展示actionSheet
+					this.$refs.actionSheet.open();
+				}
+				//如果交易模式是二手交易
+				else if (item.tradeMode == 2) {
+					this.showModal2 = 'show'
+				}
 
 				//如果交易模式是二手交易，发送对应的请求!!!!!!!!!!!!
-				if (this.item.tradeMode == 1) {}
+				else if (item.tradeMode == 1) {}
 			},
 			//取消模态框
 			cancel() {
@@ -370,7 +455,7 @@
 				this.showModal = false;
 
 				//提交数据，发送请求
-				if (this.item.tradeMode == 0) {
+				if (this.item.tradeMode == 0 || this.item.tradeMode == 2) {
 					// 赋值
 					this.order.itemId = this.item.id;
 					this.order.mode = this.item.mode;
@@ -576,6 +661,12 @@
 			color: #fff;
 			background-color: #b0bbb9;
 		}
+	}
+
+	// 二手交易模态框开
+	.confirm-botton {
+		display: inline-block;
+		/* 或者 display: inline; */
 	}
 
 	/* 商家信息 */

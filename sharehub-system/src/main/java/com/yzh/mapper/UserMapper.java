@@ -16,8 +16,8 @@ public interface UserMapper {
 
     List<User> getUserList(String name, Short gender, Short role, Integer credibility);
 
-    @Insert("insert into user (username, password, role, image, phone, credibility, gender, bgimage,create_time, update_time, identifyid) values" +
-            " (#{username},#{password},#{role},#{image},#{phone},#{credibility},#{gender},#{bgImage},#{createTime},#{updateTime},#{identifyId})")
+    @Insert("insert into user (username, password, role, image, phone, credibility,shareNum, gender, bgimage,create_time, update_time, identifyid) values" +
+            " (#{username},#{password},#{role},#{image},#{phone},#{credibility},#{shareNum},#{gender},#{bgImage},#{createTime},#{updateTime},#{identifyId})")
     void insertUser(User user);
 
     @Select("select * from user where id = #{id}")
@@ -36,8 +36,8 @@ public interface UserMapper {
     @Select("Select * from user where openid = #{openId}")
     User selectOpenId(String openId);
 
-    @Insert("insert into user (openid,username, password, role, image, phone, credibility, gender, bgimage,create_time, update_time, identifyid) values" +
-            " (#{openId},#{username},#{password},#{role},#{image},#{phone},#{credibility},#{gender},#{bgImage},#{createTime},#{updateTime},#{identifyId})")
+    @Insert("insert into user (openid,username, password, role, image, phone, credibility,shareNum,gender, bgimage,create_time, update_time, identifyid) values" +
+            " (#{openId},#{username},#{password},#{role},#{image},#{phone},#{credibility},#{shareNum},#{gender},#{bgImage},#{createTime},#{updateTime},#{identifyId})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insertUserOpenId(User user);
 

@@ -103,6 +103,9 @@ try {
     uvTextarea: function () {
       return Promise.all(/*! import() | uni_modules/uv-textarea/components/uv-textarea/uv-textarea */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-textarea/components/uv-textarea/uv-textarea")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-textarea/components/uv-textarea/uv-textarea.vue */ 435))
     },
+    uvActionSheet: function () {
+      return Promise.all(/*! import() | uni_modules/uv-action-sheet/components/uv-action-sheet/uv-action-sheet */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-action-sheet/components/uv-action-sheet/uv-action-sheet")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-action-sheet/components/uv-action-sheet/uv-action-sheet.vue */ 443))
+    },
   }
 } catch (e) {
   if (
@@ -125,6 +128,11 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function ($event) {
+      _vm.show2 = false
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -458,12 +466,44 @@ var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/r
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
       token: '',
       showModal: false,
-      // 控制模态框显示隐藏
+      // 控制是否展示模态框
+      showModal2: '',
+      //控制是否展示二手交易模态框
       order: {
         itemId: '',
         //当前物品id
@@ -516,6 +556,13 @@ var _default = {
       itemImages: [],
       //物品详情图
 
+      actions: [{
+        flag: '0',
+        name: '创建新物品'
+      }, {
+        flag: '1',
+        name: '选择已有物品'
+      }],
       url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg'
     };
   },
@@ -547,18 +594,60 @@ var _default = {
     }))();
   },
   methods: {
+    // 选择sheet后的逻辑操作
+    select: function select(e) {
+      // 将当前页面的item赋值给order所需的属性
+      this.order.itemId = this.item.id;
+      this.order.mode = this.item.tradeMode;
+      this.order.image = this.item.image;
+      console.log("即将发送的order", this.order);
+
+      // 根据不同的sheet跳转到不同的页面
+      if (e.flag == 0) {
+        // 跳转到新增页面，并携带参数flag=0,以及order对象
+        // var orderTempt = encodeURIComponent(JSON.stringify(this.order))
+
+        uni.navigateTo({
+          url: '/pages/issue/barter/barter?pageFlag=1&order=' + encodeURIComponent(JSON.stringify(this.order))
+        });
+      } else if (e.flag == 1) {
+        // 跳转到选择页面，并携带参数flag=1,以及order对象
+        uni.navigateTo({
+          url: '/pages/my/my_issue/my_issue?pageFlag=0&mode=1&order=' + encodeURIComponent(JSON.stringify(this.order))
+        });
+      }
+    },
+    //关闭二手交易模态框
+    hideModal: function hideModal() {
+      this.showModal2 = '';
+    },
+    //同意二手交易模态框
+    acceptModal: function acceptModal() {
+      //关闭模态框1
+      this.showModal2 = '';
+      //展示模态框2
+      this.showModal = true;
+    },
     handleAction: function handleAction(item) {
+      // console.log('进入了handleAction')
       //如果交易模式是免费共享
-      if (this.item.tradeMode == 0) {
+      if (item.tradeMode == 0) {
         //展示模态框
         this.showModal = true;
       }
 
-      //如果交易模式是以物换物，发送对应的请求!!!!!!!!!!!!!
-      if (this.item.tradeMode == 1) {}
+      //如果交易模式是以物换物
+      else if (item.tradeMode == 1) {
+        //展示actionSheet
+        this.$refs.actionSheet.open();
+      }
+      //如果交易模式是二手交易
+      else if (item.tradeMode == 2) {
+        this.showModal2 = 'show';
+      }
 
       //如果交易模式是二手交易，发送对应的请求!!!!!!!!!!!!
-      if (this.item.tradeMode == 1) {}
+      else if (item.tradeMode == 1) {}
     },
     //取消模态框
     cancel: function cancel() {
@@ -570,7 +659,7 @@ var _default = {
       this.showModal = false;
 
       //提交数据，发送请求
-      if (this.item.tradeMode == 0) {
+      if (this.item.tradeMode == 0 || this.item.tradeMode == 2) {
         // 赋值
         this.order.itemId = this.item.id;
         this.order.mode = this.item.mode;

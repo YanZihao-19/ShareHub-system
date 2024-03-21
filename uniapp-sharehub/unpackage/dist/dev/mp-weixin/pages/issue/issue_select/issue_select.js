@@ -151,12 +151,14 @@ exports.default = void 0;
 //
 var _default = {
   data: function data() {
-    return {};
+    return {
+      order: ''
+    };
   },
   methods: {
     toExchange: function toExchange() {
       uni.navigateTo({
-        url: '/pages/issue/barter/barter'
+        url: '/pages/issue/barter/barter?pageFlag=0&order=' + encodeURIComponent(JSON.stringify(this.order))
       });
     },
     toSale: function toSale() {
