@@ -31,4 +31,12 @@ public interface OrderMapper {
 
     //处理status,status=3时查询全部;status=0时,查询status为0的order;status=1时,查询status不为为0的order;
     List<Order> getAllOrderList(String holderUid, Integer status);
+
+    //完成订单，即更改订单状态
+    @Update("UPDATE  `order` SET status = #{status}, update_time = #{updateTime} WHERE id = #{id} ")
+    void changeOrderStatus(Order order);
+
+    //用户查看订单后去除未读小红点
+    @Update("UPDATE  `order` SET notice_status = 1 WHERE id = #{orderId} ")
+    void changeNoticeStatus(Integer orderId);
 }

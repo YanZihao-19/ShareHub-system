@@ -101,10 +101,10 @@ var components
 try {
   components = {
     uvTextarea: function () {
-      return Promise.all(/*! import() | uni_modules/uv-textarea/components/uv-textarea/uv-textarea */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-textarea/components/uv-textarea/uv-textarea")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-textarea/components/uv-textarea/uv-textarea.vue */ 314))
+      return Promise.all(/*! import() | uni_modules/uv-textarea/components/uv-textarea/uv-textarea */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-textarea/components/uv-textarea/uv-textarea")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-textarea/components/uv-textarea/uv-textarea.vue */ 322))
     },
     uvActionSheet: function () {
-      return Promise.all(/*! import() | uni_modules/uv-action-sheet/components/uv-action-sheet/uv-action-sheet */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-action-sheet/components/uv-action-sheet/uv-action-sheet")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-action-sheet/components/uv-action-sheet/uv-action-sheet.vue */ 443))
+      return Promise.all(/*! import() | uni_modules/uv-action-sheet/components/uv-action-sheet/uv-action-sheet */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-action-sheet/components/uv-action-sheet/uv-action-sheet")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-action-sheet/components/uv-action-sheet/uv-action-sheet.vue */ 451))
     },
   }
 } catch (e) {
@@ -128,11 +128,20 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var m0 = _vm.getDeliveryText(_vm.item.deliveryStyle)
   if (!_vm._isMounted) {
     _vm.e0 = function ($event) {
       _vm.show2 = false
     }
   }
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        m0: m0,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -175,9 +184,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 57));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 59));
-//
-//
-//
 //
 //
 //
@@ -627,6 +633,21 @@ var _default = {
       this.showModal2 = '';
       //展示模态框2
       this.showModal = true;
+    },
+    getDeliveryText: function getDeliveryText(delivery) {
+      console.log('调用 getDeliveryText 方法');
+      switch (delivery) {
+        case 0:
+          return '任意';
+        case 1:
+          return '上门自提';
+        case 2:
+          return '同城面交';
+        case 3:
+          return '邮寄';
+        default:
+          return '';
+      }
     },
     handleAction: function handleAction(item) {
       // console.log('进入了handleAction')

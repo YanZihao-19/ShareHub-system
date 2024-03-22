@@ -4,6 +4,7 @@ import com.yzh.pojo.Item;
 
 import java.util.*;
 
+import com.yzh.pojo.Order;
 import com.yzh.pojo.UserTagsScore;
 import org.apache.ibatis.annotations.*;
 
@@ -38,4 +39,7 @@ public interface ItemMapper {
     @Select("SELECT url FROM item_images WHERE item_id = #{itemId}")
     List<String> getItemImages(Integer itemId);
 
+    //更改物品的状态
+    @Update("UPDATE item SET status = #{status}, update_time = #{updateTime} WHERE id = #{id}")
+    void changeItemStatus(Item item);
 }

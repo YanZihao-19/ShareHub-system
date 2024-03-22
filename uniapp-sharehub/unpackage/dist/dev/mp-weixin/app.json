@@ -26,7 +26,8 @@
     "pages/demo/demo",
     "pages/issue/issue_select/issue_select",
     "pages/issue/share/share",
-    "pages/issue/barter/barter"
+    "pages/issue/barter/barter",
+    "pages/msg/msg_handleOrder/msg_handleOrder"
   ],
   "subPackages": [],
   "window": {

@@ -49,7 +49,7 @@ public interface UserService {
 
 
     /**
-     * 根据token返回用户
+     * 根据getnUserData返回用户
      */
     User selectByOpenId(String token);
 

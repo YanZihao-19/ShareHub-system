@@ -1,26 +1,6 @@
 <template>
 	<view>
-		<!-- 点击立即申领触发弹窗 -->
-		<view class="bg-red submit margin-right-20" @tap="openModal">立即申领</view>
-
-		<!-- 模态框 -->
-		<uni-modal v-model="modalVisible" title="申请领取">
-			<view class="modal-content">
-				<view class="input-container">
-					<view class="input-label">申请理由：</view>
-					<uni-input v-model="applyReason" placeholder="请输入申请理由"></uni-input>
-				</view>
-				<view class="input-container">
-					<view class="input-label">联系方式：</view>
-					<uni-input v-model="contactInfo" placeholder="请输入联系方式"></uni-input>
-				</view>
-			</view>
-			<view class="modal-buttons">
-				<view class="btn-cancel" @tap="closeModal">取消</view>
-				<view class="btn-submit" @tap="submitApplication">提交</view>
-			</view>
-		</uni-modal>
-
+	
 
 	</view>
 </template>

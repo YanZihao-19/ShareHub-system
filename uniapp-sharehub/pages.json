@@ -110,6 +110,14 @@
 				"navigationBarTitleText": "以物换物",
 				"enablePullDownRefresh": false
 			}
+		},
+		{
+			"path" : "pages/msg/msg_handleOrder/msg_handleOrder",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
 		}
 
 

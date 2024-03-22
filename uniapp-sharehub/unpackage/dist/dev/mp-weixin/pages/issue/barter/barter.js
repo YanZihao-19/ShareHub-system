@@ -101,10 +101,10 @@ var components
 try {
   components = {
     uvRadioGroup: function () {
-      return Promise.all(/*! import() | uni_modules/uv-radio/components/uv-radio-group/uv-radio-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-radio/components/uv-radio-group/uv-radio-group")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-radio/components/uv-radio-group/uv-radio-group.vue */ 427))
+      return Promise.all(/*! import() | uni_modules/uv-radio/components/uv-radio-group/uv-radio-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-radio/components/uv-radio-group/uv-radio-group")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-radio/components/uv-radio-group/uv-radio-group.vue */ 435))
     },
     uvRadio: function () {
-      return Promise.all(/*! import() | uni_modules/uv-radio/components/uv-radio/uv-radio */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-radio/components/uv-radio/uv-radio")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-radio/components/uv-radio/uv-radio.vue */ 435))
+      return Promise.all(/*! import() | uni_modules/uv-radio/components/uv-radio/uv-radio */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-radio/components/uv-radio/uv-radio")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-radio/components/uv-radio/uv-radio.vue */ 443))
     },
   }
 } catch (e) {
@@ -601,7 +601,6 @@ var _default = {
       console.log('页面的order', this.order);
     },
     formSubmit: function formSubmit() {
-      var _this3 = this;
       //最后处理form数据
       this.formMsg.ownerUid = this.$store.state.user.openid;
       //设置物品待交易
@@ -635,11 +634,20 @@ var _default = {
                 icon: 'success',
                 duration: 1500
               });
-              var that = _this3;
-              //跳转到物品选择页
+
+              //跳转到订单页并刷新订单页
               setTimeout(function () {
-                //回到上一页
-                uni.navigateBack();
+                //回到上一页，并在回调函数中执行页面刷新操作
+                uni.navigateBack({
+                  delta: 1,
+                  // 返回页面数，1表示返回上一页
+                  success: function success() {
+                    // 在页面返回成功后执行刷新操作
+                    uni.reLaunch({
+                      url: '/pages/msg/msg_order_all/msg_order_all'
+                    });
+                  }
+                });
               }, 1000);
             } else {
               uni.showToast({

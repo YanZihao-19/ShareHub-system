@@ -101,10 +101,10 @@ var components
 try {
   components = {
     uvSticky: function () {
-      return Promise.all(/*! import() | uni_modules/uv-sticky/components/uv-sticky/uv-sticky */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-sticky/components/uv-sticky/uv-sticky")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-sticky/components/uv-sticky/uv-sticky.vue */ 297))
+      return Promise.all(/*! import() | uni_modules/uv-sticky/components/uv-sticky/uv-sticky */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-sticky/components/uv-sticky/uv-sticky")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-sticky/components/uv-sticky/uv-sticky.vue */ 305))
     },
     uvTabs: function () {
-      return Promise.all(/*! import() | uni_modules/uv-tabs/components/uv-tabs/uv-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-tabs/components/uv-tabs/uv-tabs")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-tabs/components/uv-tabs/uv-tabs.vue */ 305))
+      return Promise.all(/*! import() | uni_modules/uv-tabs/components/uv-tabs/uv-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-tabs/components/uv-tabs/uv-tabs")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-tabs/components/uv-tabs/uv-tabs.vue */ 313))
     },
   }
 } catch (e) {
@@ -131,9 +131,13 @@ var render = function () {
   var l0 = _vm.__map(_vm.orderList, function (item, index) {
     var $orig = _vm.__get_orig(item)
     var m0 = _vm.formattedTime(item)
+    var m1 = _vm.tagColorClass(item.mode)
+    var m2 = _vm.modeText(item.mode)
     return {
       $orig: $orig,
       m0: m0,
+      m1: m1,
+      m2: m2,
     }
   })
   _vm.$mp.data = Object.assign(
@@ -216,6 +220,27 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
@@ -231,6 +256,14 @@ var _default = {
 
   computed: {},
   onLoad: function onLoad() {
+    // 获取用户token
+    this.token = uni.getStorageSync('token');
+
+    // 调用 getData() 函数获取数据并将数据赋值给 list 数组
+    var orders = this.getOrders();
+    this.orderList = orders;
+  },
+  onShow: function onShow() {
     // 获取用户token
     this.token = uni.getStorageSync('token');
 
@@ -286,6 +319,34 @@ var _default = {
       }
       this.init();
     },
+    //修改样式
+    tagColorClass: function tagColorClass(mode) {
+      switch (mode) {
+        case 0:
+          return 'line-green';
+        case 1:
+          return 'line-blue';
+        case 2:
+          return 'line-red';
+        default:
+          return '';
+        // 或者其他默认样式
+      }
+    },
+    //修改文字
+    modeText: function modeText(mode) {
+      switch (mode) {
+        case 0:
+          return '共享申请';
+        case 1:
+          return '易物申请';
+        case 2:
+          return '交易申请';
+        default:
+          return '';
+        // 或者其他默认值
+      }
+    },
     //初始化
     init: function init() {
       // 调用 getData() 函数获取数据并将数据赋值给 list 数组
@@ -293,13 +354,16 @@ var _default = {
       this.orderList = orders;
     },
     // 跳转到查看订单详情！！！！！！！！！！
-    toLogistics: function toLogistics() {
-      uni.navigateTo({
-        url: '/pages/msg/message_logistics/message_logistics',
-        success: function success(res) {},
-        fail: function fail(res) {},
-        complete: function complete(res) {}
-      });
+    toHandle: function toHandle(order) {
+      // 判断订单是否已处理，若未处理才执行跳转操作
+      if (order.status == 0) {
+        uni.navigateTo({
+          url: '/pages/msg/msg_handleOrder/msg_handleOrder?order=' + encodeURIComponent(JSON.stringify(order)),
+          success: function success(res) {},
+          fail: function fail(res) {},
+          complete: function complete(res) {}
+        });
+      }
     }
   }
 };

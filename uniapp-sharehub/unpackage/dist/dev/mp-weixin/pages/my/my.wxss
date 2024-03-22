@@ -202,30 +202,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* pages/my/my.wxss */
 /* 用户信息 */
 .UCenter-bg {
@@ -284,17 +260,6 @@ map,
 /* height: 200rpx; */
 /* background: linear-gradient(10deg, #ffe1ff, #1cbbb4); */
 /* } */
-.kuai {
-	width: 680rpx;
-	height: 130rpx;
-	background-color: white;
-	margin-top: 10rpx;
-	margin-left: 40rpx;
-	border-radius: 50rpx;
-	box-shadow: 3rpx 3rpx 3rpx 3rpx rgba(128, 128, 128, 0.384);
-	display: flex;
-	flex-direction: row;
-}
 .imgs {
 	margin-left: 20rpx;
 	width: 50rpx;

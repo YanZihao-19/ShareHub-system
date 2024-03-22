@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "uv-textarea": "/uni_modules/uv-textarea/components/uv-textarea/uv-textarea",
+    "uv-action-sheet": "/uni_modules/uv-action-sheet/components/uv-action-sheet/uv-action-sheet"
+  }
 }

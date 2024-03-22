@@ -101,13 +101,13 @@ var components
 try {
   components = {
     uvSticky: function () {
-      return Promise.all(/*! import() | uni_modules/uv-sticky/components/uv-sticky/uv-sticky */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-sticky/components/uv-sticky/uv-sticky")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-sticky/components/uv-sticky/uv-sticky.vue */ 297))
+      return Promise.all(/*! import() | uni_modules/uv-sticky/components/uv-sticky/uv-sticky */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-sticky/components/uv-sticky/uv-sticky")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-sticky/components/uv-sticky/uv-sticky.vue */ 305))
     },
     uvTabs: function () {
-      return Promise.all(/*! import() | uni_modules/uv-tabs/components/uv-tabs/uv-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-tabs/components/uv-tabs/uv-tabs")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-tabs/components/uv-tabs/uv-tabs.vue */ 305))
+      return Promise.all(/*! import() | uni_modules/uv-tabs/components/uv-tabs/uv-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-tabs/components/uv-tabs/uv-tabs")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-tabs/components/uv-tabs/uv-tabs.vue */ 313))
     },
     uvTextarea: function () {
-      return Promise.all(/*! import() | uni_modules/uv-textarea/components/uv-textarea/uv-textarea */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-textarea/components/uv-textarea/uv-textarea")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-textarea/components/uv-textarea/uv-textarea.vue */ 314))
+      return Promise.all(/*! import() | uni_modules/uv-textarea/components/uv-textarea/uv-textarea */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-textarea/components/uv-textarea/uv-textarea")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-textarea/components/uv-textarea/uv-textarea.vue */ 322))
     },
   }
 } catch (e) {

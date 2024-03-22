@@ -1,8 +1,11 @@
 {
   "pages": [
+    "pages/login/login",
+    "pages/my/my_issue/my_issue",
+    "pages/home/home_prefer/home_prefer",
     "pages/home/home",
     "pages/disconver/disconver",
-    "pages/issue/issue",
+    "pages/issue/sale/sale",
     "pages/msg/msg",
     "pages/my/my",
     "pages/home/home_classify/home_classify",
@@ -14,15 +17,16 @@
     "pages/disconver/discover_desc_more/discover_desc_more",
     "pages/msg/msg_chat/msg_chat",
     "pages/msg/msg_inform/msg_inform",
-    "pages/msg/msg_logistics_all/msg_logistics_all",
+    "pages/msg/msg_order_all/msg_order_all",
     "pages/msg/message_logistics/message_logistics",
-    "pages/my/my_issue/my_issue",
     "pages/issue/issue_edit/issue_edit",
     "pages/my/my_sale/my_sale",
     "pages/my/my_buy/my_buy",
     "pages/my/my_collect/my_collect",
     "pages/demo/demo",
-    "pages/login/login"
+    "pages/issue/issue_select/issue_select",
+    "pages/issue/share/share",
+    "pages/issue/barter/barter"
   ],
   "subPackages": [],
   "window": {
@@ -40,13 +44,7 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/disconver/disconver",
-        "iconPath": "static/img/f1.png",
-        "selectedIconPath": "static/img/f2.png",
-        "text": "发现"
-      },
-      {
-        "pagePath": "pages/issue/issue",
+        "pagePath": "pages/issue/issue_select/issue_select",
         "iconPath": "static/img/e1.png",
         "selectedIconPath": "static/img/e2.png",
         "text": "发布"
@@ -65,6 +63,7 @@
       }
     ]
   },
+  "permission": {},
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom"
   }

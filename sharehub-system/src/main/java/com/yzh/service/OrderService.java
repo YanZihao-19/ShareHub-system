@@ -25,4 +25,16 @@ public interface OrderService {
      * @return
      */
     List<Order> getAllOrders(String token, Integer status);
+
+    /**
+     * 用户完成订单
+     * @param token
+     * @param order
+     * @return
+     */
+    Integer finishOrder(String token, Order order);
+
+    void refuseOrder(String token, Order order);
+
+    void removeRedDot(Integer orderId);
 }

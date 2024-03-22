@@ -45,14 +45,11 @@
 
 			<!-- 交易方式 -->
 			<view class='hint'>
-				<text>该物品支持
-					<template v-if="item.deliveryStyle === 0"><b>任意</b></template>
-					<template v-else-if="item.deliveryStyle === 1"><b>自提</b></template>
-					<template v-else-if="item.deliveryStyle === 2"><b>同城面交</b></template>
-					<template v-else-if="item.deliveryStyle === 3"><b>邮寄</b></template>
-					交易方式。
+				<text>
+					该物品支持 <text :style="{ 'font-weight': 'bold' }">
+						{{ getDeliveryText(item.deliveryStyle) }}
+					</text>交易方式。
 				</text>
-
 			</view>
 			<!-- end -->
 
@@ -423,6 +420,21 @@
 				this.showModal2 = ''
 				//展示模态框2
 				this.showModal = true;
+			},
+			getDeliveryText(delivery) {
+				console.log('调用 getDeliveryText 方法');
+				switch (delivery) {
+					case 0:
+						return '任意';
+					case 1:
+						return '上门自提';
+					case 2:
+						return '同城面交';
+					case 3:
+						return '邮寄';
+					default:
+						return '';
+				}
 			},
 			handleAction(item) {
 				// console.log('进入了handleAction')

@@ -9,6 +9,7 @@ import com.yzh.utils.JwtUtils;
 import com.yzh.utils.UpdatePreference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -68,5 +69,82 @@ public class OrderServiceImpl implements OrderService {
         List<Order> orderList = orderMapper.getAllOrderList(holderUid, status);
 
         return orderList;
+    }
+
+    @Transactional
+    @Override
+    public Integer finishOrder(String token, Order order) {
+        //根据mode的不同实现不同的完成订单逻辑
+        LocalDateTime finishTime = LocalDateTime.now();
+        Item itemTemp = new Item();
+        //物品共享订单逻辑
+        if (order.getMode() == 0) {
+            //更改物品状态
+            itemTemp.setId(order.getItemId());
+            itemTemp.setStatus(1); //设置该物品为已交易
+            itemTemp.setUpdateTime(finishTime);
+            itemMapper.changeItemStatus(itemTemp);
+            //更改订单状态
+            order.setUpdateTime(finishTime);
+            order.setStatus(1); //设置该订单为已交易
+            orderMapper.changeOrderStatus(order);
+            //偏好倾向不用增加(之前已经加过了)
+        }
+        //以物换物订单逻辑
+        else if (order.getMode() == 1) {
+            //更改两个物品状态
+            itemTemp.setId(order.getItemId());
+            itemTemp.setStatus(1); //设置该物品1为已交易
+            itemTemp.setUpdateTime(finishTime);
+            itemMapper.changeItemStatus(itemTemp);
+            Item itemTemp2 = new Item();
+            itemTemp2.setId(order.getOtherItemId());
+            itemTemp2.setStatus(1); //设置该物品2为已交易
+            itemTemp2.setUpdateTime(finishTime);
+            itemMapper.changeItemStatus(itemTemp2);
+            //更改订单状态
+            order.setUpdateTime(finishTime);
+            order.setStatus(1); //设置该订单为已交易
+            orderMapper.changeOrderStatus(order);
+            //增加物品所有者的偏好倾向(根据接收易物的物品标签)！！！！！！！！！！！！！！！！！
+        }
+        //二手交易订单逻辑
+        else {
+            //更改物品状态
+            itemTemp.setId(order.getItemId());
+            itemTemp.setStatus(1); //设置该物品为已交易
+            itemTemp.setUpdateTime(finishTime);
+            itemMapper.changeItemStatus(itemTemp);
+            //更改订单状态
+            order.setUpdateTime(finishTime);
+            order.setStatus(1); //设置该订单为已交易
+            orderMapper.changeOrderStatus(order);
+            //增加物品购买者的偏好倾向(根据购买物物的物品标签)！！！！！！！！！！！！！！！！！
+        }
+        return 1;
+    }
+
+    @Transactional
+    @Override
+    public void refuseOrder(String token, Order order) {
+        //统一处理订单
+        LocalDateTime refuseTime = LocalDateTime.now();
+        Item itemTemp = new Item();
+        order.setStatus(2); //更改订单状态为已拒绝
+        order.setUpdateTime(refuseTime);
+        orderMapper.changeOrderStatus(order);
+
+        //处理mode=1(以物换物)的申请物品状态
+        if (order.getMode() == 1) {
+            itemTemp.setId(order.getOtherItemId());
+            itemTemp.setStatus(2); //设置为已下架
+            itemTemp.setUpdateTime(refuseTime);
+            itemMapper.changeItemStatus(itemTemp);
+        }
+    }
+
+    @Override
+    public void removeRedDot(Integer orderId) {
+        orderMapper.changeNoticeStatus(orderId);
     }
 }

@@ -169,11 +169,13 @@ public class ItemServiceImpl implements ItemService {
         Item itemDetail = itemMapper.getItemDetail(itemId);
         List<String> itemImages = itemMapper.getItemImages(itemId);
 
-        //根据该物品信息获取用户增加的偏好值
-        UserTagsScore userTagsScores = UpdatePreference.increase(token, itemDetail, 1);
-        //增加偏好值
-        userMapper.increaseTagsScore(userTagsScores);
-
+        if (token != null && !token.equals("")) {
+            //根据该物品信息获取用户增加的偏好值
+            UserTagsScore userTagsScores = UpdatePreference.increase(token, itemDetail, 1);
+            //增加偏好值
+            userMapper.increaseTagsScore(userTagsScores);
+            System.out.println("查看物品增加了用户偏好值");
+        }
         return new ItemVO(itemDetail, itemImages);
     }
 

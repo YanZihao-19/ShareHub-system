@@ -57,6 +57,45 @@ public class OrderController {
         return Result.success(orderList);
     }
 
+    //完成订单
+    @PostMapping("/finishOrder")
+    public Result finishOrder(@RequestHeader("token") String token, @RequestBody Order order) {
+        System.out.println("前端获取到的order" + order);
+        try {
+            orderService.finishOrder(token, order);
+        } catch (Exception e) {
+            // 异常处理
+            return Result.error("出现异常！");
+        }
+        return Result.success();
+    }
+
+    //拒绝订单
+    @PostMapping("/refuseOrder")
+    public Result refuseOrder(@RequestHeader("token") String token, @RequestBody Order order) {
+        System.out.println("前端获取到的order" + order);
+        try {
+            orderService.refuseOrder(token, order);
+        } catch (Exception e) {
+            // 异常处理
+            return Result.error("出现异常！");
+        }
+        return Result.success();
+    }
+
+    //用户查看订单后去除未读小红点
+    @PutMapping("/removeRedDot/{orderId}")
+    public Result removeRedDot( @PathVariable Integer orderId){
+//        System.out.println("前端获取到的order" + orderId);
+        orderService.removeRedDot(orderId);
+
+        return Result.success();
+    }
+
+
 
     //获取已完成订单列表
+
+
+
 }

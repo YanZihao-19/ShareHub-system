@@ -1,31 +1,7 @@
 <template>
 	<view>
-
 		<!-- 用户信息 -->
 		<view :style="{ 'background-image': 'url(' + userInfo.bgImage + ')' }" catchtap='toMy_detail'>
-			<!-- 头部消息,暂时不用 -->
-			<!-- <view class='bc '> -->
-			<!-- <view class='kuai'>
-				<view class='interactive'>
-					<image class='imgs'
-						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E4%BA%92%E5%8A%A8%E6%B6%88%E6%81%AF.png'>
-					</image>
-					<text>互动消息</text>
-				</view>
-				<view class='notice' @tap='notice'>
-					<image class='imgs'
-						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E8%AE%A2%E5%8D%95%E6%B6%88%E6%81%AF.png'>
-					</image>
-					<text>订单消息</text>
-				</view>
-				<view class='logistics' @tap='toLogistics'>
-					<image class='imgs'
-						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E9%80%9A%E7%9F%A5%E6%B6%88%E6%81%AF.png'>
-					</image>
-					<text>通知消息</text>
-				</view>
-			</view> -->
-
 			<!-- </view> -->
 			<!-- 头部消息end -->
 			<view class="UCenter-bg">
@@ -294,19 +270,6 @@
 	/* height: 200rpx; */
 	/* background: linear-gradient(10deg, #ffe1ff, #1cbbb4); */
 	/* } */
-
-
-	.kuai {
-		width: 680rpx;
-		height: 130rpx;
-		background-color: white;
-		margin-top: 10rpx;
-		margin-left: 40rpx;
-		border-radius: 50rpx;
-		box-shadow: 3rpx 3rpx 3rpx 3rpx rgba(128, 128, 128, 0.384);
-		display: flex;
-		flex-direction: row;
-	}
 
 	.imgs {
 		margin-left: 20rpx;

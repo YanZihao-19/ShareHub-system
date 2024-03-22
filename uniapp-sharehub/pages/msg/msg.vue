@@ -18,12 +18,15 @@
 					</image>
 					<text>互动消息</text>
 				</view>
-				<view class='order' @tap='toOrder'>
+
+				<view class='avatar order' @tap='toOrder'>
 					<image class='imgs'
 						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E8%AE%A2%E5%8D%95%E6%B6%88%E6%81%AF.png'>
 					</image>
+					<view class="cu-tag badge"></view>
 					<text>订单消息</text>
 				</view>
+
 				<view class='notice' @tap='notice'>
 					<image class='imgs'
 						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E9%80%9A%E7%9F%A5%E6%B6%88%E6%81%AF.png'>
@@ -142,11 +145,11 @@
 	export default {
 		data() {
 			return {
-				
+				noticeStatus: '', //是否有订单消息
 
 			}
 		},
-		
+
 		onLoad() {
 
 		},
@@ -210,6 +213,26 @@
 		margin-left: 80rpx;
 	}
 
+	.avatar {
+		font-variant: small-caps;
+		margin: 0;
+		padding: 0;
+		display: inline-flex;
+		text-align: center;
+		justify-content: center;
+		align-items: center;
+		/* background-color: #ccc; */
+		color: #ffffff;
+		white-space: nowrap;
+		position: relative;
+		/* width: 64upx;
+		height: 64upx; */
+		background-size: cover;
+		background-position: center;
+		vertical-align: middle;
+		font-size: 1.5em;
+	}
+
 	.imgs {
 		margin-left: 15rpx;
 		width: 80rpx;
@@ -223,7 +246,7 @@
 		color: black;
 		width: 130rpx;
 		height: 150rpx;
-		margin-top: 50rpx;
+		margin-top: 35rpx;
 		margin-left: 80rpx;
 	}
 

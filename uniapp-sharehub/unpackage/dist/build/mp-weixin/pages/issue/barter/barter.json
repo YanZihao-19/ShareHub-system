@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "以物换物",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "uv-radio-group": "/uni_modules/uv-radio/components/uv-radio-group/uv-radio-group",
+    "uv-radio": "/uni_modules/uv-radio/components/uv-radio/uv-radio"
+  }
+}
