@@ -147,4 +147,16 @@ public class OrderServiceImpl implements OrderService {
     public void removeRedDot(Integer orderId) {
         orderMapper.changeNoticeStatus(orderId);
     }
+
+    @Override
+    public Integer getRedDot(String token) {
+        if (token != null && !token.equals("")) {
+            //解析前端token,获取需求用户openid
+            Map<String, Object> itemUser = JwtUtils.parseJWT(token);
+            String openId = (String) itemUser.get("openId");
+
+            return orderMapper.selectDotNum(openId);
+        }
+        return 0;
+    }
 }

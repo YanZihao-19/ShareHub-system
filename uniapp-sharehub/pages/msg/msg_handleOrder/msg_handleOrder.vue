@@ -328,7 +328,7 @@
 			// 请求后端，已读订单去除红点
 			removeRedDot(id) {
 				uni.request({
-					url: 'http://localhost:8080/orders/removeRedDot/' + id,
+					url: 'http://localhost:8080/msg/removeRedDot/' + id,
 					method: 'PUT',
 					header: {
 						'content-type': 'application/json',

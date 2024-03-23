@@ -83,19 +83,8 @@ public class OrderController {
         return Result.success();
     }
 
-    //用户查看订单后去除未读小红点
-    @PutMapping("/removeRedDot/{orderId}")
-    public Result removeRedDot( @PathVariable Integer orderId){
-//        System.out.println("前端获取到的order" + orderId);
-        orderService.removeRedDot(orderId);
-
-        return Result.success();
-    }
-
-
 
     //获取已完成订单列表
-
 
 
 }

@@ -332,12 +332,17 @@
 		},
 
 		async onLoad() {
-			try {
-				const data = await this.getData(); // 调用 getData() 函数获取数据
-				this.list = data; // 将返回的数据赋值给 list 数组
-			} catch (error) {
-				console.error('Failed to load data:', error);
-			}
+			//获取token
+			this.token = uni.getStorageSync('token')
+			// 调用 getData() 函数获取数据
+			const data = await this.getData();
+			this.list = data; // 将返回的数据赋值给 list 数组
+
+			//获取用户未读订单数，存储到vuex中
+			let res = await this.getDotNum(this.token)
+		},
+		onShow() {
+			console.log('调用了onShow')
 		},
 
 		onTabItemTap: function(e) {
@@ -349,6 +354,8 @@
 			this.list2 = [];
 			// 根据不同的选项卡索引设置 mode 的值
 			this.init();
+			//重新获取红点
+			this.getDotNum(this.token)
 		},
 
 		// // 在“导航”页内写入该方法
@@ -502,8 +509,57 @@
 				})
 			},
 
-			//瀑布流
+			// 获取当前用户未读订单数目，展示红点(数字),存储到vuex中
+			getDotNum(token) {
+				// 获取订单红点数
+				if (token != null && token != '') {
+					uni.request({
+						url: 'http://localhost:8080/msg/getDotNum',
+						method: 'GET',
+						header: {
+							'content-type': 'application/json', // 设置请求头为 JSON 类型
+							'token': this.token
+						},
+						success: (res) => {
+							console.log('当前用户未读list：', res.data.data)
+							// 存储到vuex中
+							//用户信息存储到vuex中
+							let dotNumList = res.data.data
 
+							this.$store.commit('notice/setCommentNum', dotNumList[0]);
+							this.$store.commit('notice/setOrderNum', dotNumList[1]);
+							this.$store.commit('notice/setInformNum', dotNumList[2]);
+							//展示tabbar信息未读数
+							this.showTabBarRedDot()
+						}
+					})
+				}
+				// 获取评论红点数
+				// 获取通知红点数
+
+
+			},
+			// 展示tabBer的未读红点
+			showTabBarRedDot() {
+				let commentNum = this.$store.state.notice.commentNum
+				let orderNum = this.$store.state.notice.orderNum
+				let informNum = this.$store.state.notice.informNum
+				console.log('Vuex中存储的用户用户未读订单数：', orderNum);
+				console.log('Vuex中存储的用户用户未读评论数：', commentNum);
+				console.log('Vuex中存储的用户用户未读通知数：', informNum);
+				let totalRedDotNum = commentNum + orderNum + informNum
+				console.log('Vuex中存储的用户用户未读总数：', totalRedDotNum);
+				if (totalRedDotNum != 0) {
+					uni.showTabBarRedDot({ //显示红点 
+						index: 2, //tabbar下标
+						text: totalRedDotNum
+					})
+				} else if (totalRedDotNum == 0) {
+					uni.hideTabBarRedDot({ //隐藏红点
+						index: 2 //tabbar下标
+					})
+				}
+			},
 			// 选项卡切换
 			tabChange(obj) {
 				console.log(obj.index)
@@ -590,14 +646,15 @@
 			// 获取数据
 			getData() {
 				return new Promise((resolve, reject) => {
-					//获取token
-					this.token = uni.getStorageSync('token')
+
 					// console.log('发送给后端的token值：', this.token)
 					console.log('发送给后端的list值：', this.list)
 					//发送请求将前端itemList发给后端
 					let itemList = this.list
 					uni.request({
-						url: 'http://localhost:8080/items/recommendItems?tap='+this.tap+'&mode='+this.mode,
+						url: 'http://localhost:8080/items/recommendItems?tap=' + this
+							.tap + '&mode=' + this
+							.mode,
 						method: 'POST',
 						header: {
 							'content-type': 'application/json', // 设置请求头为 JSON 类型

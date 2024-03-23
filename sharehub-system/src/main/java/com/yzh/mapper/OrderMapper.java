@@ -39,4 +39,7 @@ public interface OrderMapper {
     //用户查看订单后去除未读小红点
     @Update("UPDATE  `order` SET notice_status = 1 WHERE id = #{orderId} ")
     void changeNoticeStatus(Integer orderId);
+
+    @Select("SELECT count(*) FROM `order` WHERE holder_uid = #{openId} AND notice_status = 0")
+    Integer selectDotNum(String openId);
 }

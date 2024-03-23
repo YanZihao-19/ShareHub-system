@@ -34,7 +34,21 @@ public interface OrderService {
      */
     Integer finishOrder(String token, Order order);
 
+    /**
+     * 用户拒绝订单
+     * @return
+     */
     void refuseOrder(String token, Order order);
 
+    /**
+     * 用户查看订单后去除红点
+     * @return
+     */
     void removeRedDot(Integer orderId);
+
+    /**
+     * 获取用户未查看的订单数
+     * @return
+     */
+    Integer getRedDot(String token);
 }

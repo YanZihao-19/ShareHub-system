@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import userModule from './modules/user.js'
 
+import userModule from './modules/user.js'
+import noticeModule from './modules/notice.js'
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -20,5 +21,6 @@ export default new Vuex.Store({
 	modules: {
 		//模块化
 		user: userModule,
+		notice: noticeModule
 	}
 });

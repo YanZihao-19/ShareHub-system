@@ -42,8 +42,8 @@ public class ItemController {
     @PostMapping("/presentItemList")
     public Result addItemList(@RequestHeader("token") String token, @RequestBody List<Item> itemList) {
         // 在这里处理接收到的物品列表 itemList
-        System.out.println("前端发来的List" + itemList);
-        System.out.println("-----------------------------------");
+//        System.out.println("前端发来的List" + itemList);
+
         return Result.success("Items added successfully");
     }
 

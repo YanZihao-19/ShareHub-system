@@ -1,13 +1,5 @@
 <template>
 	<view>
-
-		<!-- 自定义导航栏 -->
-		<!-- 	<cu-custom bgColor="bg-gradual-blue" :isBack="true">
-			<block slot="backText">返回</block>
-			<block slot="content">cdu</block>
-		</cu-custom> -->
-		<!-- end -->
-
 		<!-- 头部消息 -->
 		<view class='bc '>
 			<text class='txt_1'></text>
@@ -16,6 +8,8 @@
 					<image class='imgs'
 						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E4%BA%92%E5%8A%A8%E6%B6%88%E6%81%AF.png'>
 					</image>
+					
+					<view class="cu-tag badge"></view>
 					<text>互动消息</text>
 				</view>
 
@@ -23,6 +17,7 @@
 					<image class='imgs'
 						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E8%AE%A2%E5%8D%95%E6%B6%88%E6%81%AF.png'>
 					</image>
+					
 					<view class="cu-tag badge"></view>
 					<text>订单消息</text>
 				</view>
@@ -31,6 +26,8 @@
 					<image class='imgs'
 						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E9%80%9A%E7%9F%A5%E6%B6%88%E6%81%AF.png'>
 					</image>
+					
+					<view class="cu-tag badge"></view>
 					<text>通知消息</text>
 				</view>
 			</view>
