@@ -174,6 +174,66 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* pages/message/message.wxss */
 /* <!-- 头部消息 --> */
 .bc {
@@ -203,27 +263,11 @@
 	color: black;
 	width: 130rpx;
 	height: 150rpx;
-	margin-top: 50rpx;
+	margin-top: 45rpx;
 	margin-left: 80rpx;
 }
 .avatar {
-	font-variant: small-caps;
-	margin: 0;
-	padding: 0;
-	display: inline-flex;
-	text-align: center;
-	justify-content: center;
-	align-items: center;
-	/* background-color: #ccc; */
-	color: #ffffff;
-	white-space: nowrap;
 	position: relative;
-	/* width: 64upx;
-	height: 64upx; */
-	background-size: cover;
-	background-position: center;
-	vertical-align: middle;
-	font-size: 1.5em;
 }
 .imgs {
 	margin-left: 15rpx;
@@ -237,7 +281,7 @@
 	color: black;
 	width: 130rpx;
 	height: 150rpx;
-	margin-top: 35rpx;
+	margin-top: 45rpx;
 	margin-left: 80rpx;
 }
 .notice {
@@ -247,7 +291,7 @@
 	color: black;
 	width: 130rpx;
 	height: 150rpx;
-	margin-top: 50rpx;
+	margin-top: 45rpx;
 	margin-left: 75rpx;
 }
 /* <!-- 头部消息end --> */

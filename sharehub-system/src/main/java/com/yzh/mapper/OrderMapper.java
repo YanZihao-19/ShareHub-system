@@ -42,4 +42,7 @@ public interface OrderMapper {
 
     @Select("SELECT count(*) FROM `order` WHERE holder_uid = #{openId} AND notice_status = 0")
     Integer selectDotNum(String openId);
+
+    //若hScore==6，则hscore不作为查询条件；若hScore==0，则查询hscore=0；若hScore=1，则查询hscore属于1,2,3,4,5]中的任意值
+    List<Order> selectShareOrders(String holderUid, Integer hScore);
 }

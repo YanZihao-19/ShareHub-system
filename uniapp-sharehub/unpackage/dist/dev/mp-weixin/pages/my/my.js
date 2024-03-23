@@ -242,6 +242,21 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
@@ -340,6 +355,12 @@ var _default = {
     toIssue_page: function toIssue_page() {
       uni.navigateTo({
         url: '/pages/my/my_issue/my_issue?pageFlag=' + '' + '&mode=3&order=' + encodeURIComponent(JSON.stringify(this.order))
+      });
+    },
+    // 我的共享跳转
+    toMyShare_page: function toMyShare_page() {
+      uni.navigateTo({
+        url: '/pages/my/my_share/my_share'
       });
     }
   }

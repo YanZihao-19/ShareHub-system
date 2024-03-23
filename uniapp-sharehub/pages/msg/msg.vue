@@ -4,12 +4,11 @@
 		<view class='bc '>
 			<text class='txt_1'></text>
 			<view class='kuai'>
-				<view class='interactive'>
+				<view class='avatar interactive'>
 					<image class='imgs'
 						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E4%BA%92%E5%8A%A8%E6%B6%88%E6%81%AF.png'>
 					</image>
-					
-					<view class="cu-tag badge"></view>
+					<view v-if="commentNum !=0" class="cu-tag badge"></view>
 					<text>互动消息</text>
 				</view>
 
@@ -17,17 +16,15 @@
 					<image class='imgs'
 						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E8%AE%A2%E5%8D%95%E6%B6%88%E6%81%AF.png'>
 					</image>
-					
-					<view class="cu-tag badge"></view>
+					<view v-if="orderNum !=0" class="cu-tag badge"></view>
 					<text>订单消息</text>
 				</view>
 
-				<view class='notice' @tap='notice'>
+				<view class='avatar notice' @tap='notice'>
 					<image class='imgs'
 						src='http://web-showhub.oss-cn-beijing.aliyuncs.com/common/%E9%80%9A%E7%9F%A5%E6%B6%88%E6%81%AF.png'>
 					</image>
-					
-					<view class="cu-tag badge"></view>
+					<view v-if="informNum !=0" class="cu-tag badge"></view>
 					<text>通知消息</text>
 				</view>
 			</view>
@@ -142,15 +139,78 @@
 	export default {
 		data() {
 			return {
-				noticeStatus: '', //是否有订单消息
-
+				token: '', //用户token
+				commentNum: 0, //待读评论数
+				orderNum: 0, //待读订单数
+				informNum: 0, //待读通知数
 			}
 		},
 
-		onLoad() {
-
+		async onLoad() {
+			this.token = uni.getStorageSync('token')
+			// 从vuex中取值
+			await this.getDotNum(this.token);
+		},
+		onTabItemTap: function(e) {
+			//重新获取红点
+			this.getDotNum(this.token);
+		},
+		onShow() {
+			//重新获取红点
+			this.getDotNum(this.token);
 		},
 		methods: {
+			// 获取当前用户未读订单数目，展示红点(数字),存储到vuex中
+			getDotNum(token) {
+				// 获取订单红点数
+				if (token != null && token != '') {
+					uni.request({
+						url: 'http://localhost:8080/msg/getDotNum',
+						method: 'GET',
+						header: {
+							'content-type': 'application/json', // 设置请求头为 JSON 类型
+							'token': this.token
+						},
+						success: (res) => {
+							console.log('当前用户未读list：', res.data.data)
+							// 存储到vuex中
+							//用户信息存储到vuex中
+							let dotNumList = res.data.data
+
+							this.$store.commit('notice/setCommentNum', dotNumList[0]);
+							this.$store.commit('notice/setOrderNum', dotNumList[1]);
+							this.$store.commit('notice/setInformNum', dotNumList[2]);
+							// 从vuex中取DotNum
+							this.getVuexDot()
+							//更新tabbar的红点
+							this.changeTabBarRedDot()
+						}
+					})
+				}
+				// 获取评论红点数!!!!!!!!!!!!!!!!!!!!
+				// 获取通知红点数!!!!!!!!!!!!!!!!!!!!!!!!!
+			},
+			//更新tabbar的红点
+			changeTabBarRedDot() {
+				let totalRedDotNum = this.commentNum + this.orderNum + this.informNum
+				console.log('红点总数:', totalRedDotNum)
+				if (totalRedDotNum != 0) {
+					uni.showTabBarRedDot({ //显示红点 
+						index: 2, //tabbar下标
+						text: totalRedDotNum
+					})
+				} else if (totalRedDotNum == 0) {
+					uni.hideTabBarRedDot({ //隐藏红点
+						index: 2 //tabbar下标
+					})
+				}
+			},
+			// 从vuex中取DotNum
+			getVuexDot() {
+				this.commentNum = this.$store.state.notice.commentNum
+				this.orderNum = this.$store.state.notice.orderNum
+				this.informNum = this.$store.state.notice.informNum
+			},
 			// 跳转到用户评论的物品详情界面
 			toMsgChat: function(e) {
 				uni.navigateTo({
@@ -206,28 +266,12 @@
 		color: black;
 		width: 130rpx;
 		height: 150rpx;
-		margin-top: 50rpx;
+		margin-top: 45rpx;
 		margin-left: 80rpx;
 	}
 
 	.avatar {
-		font-variant: small-caps;
-		margin: 0;
-		padding: 0;
-		display: inline-flex;
-		text-align: center;
-		justify-content: center;
-		align-items: center;
-		/* background-color: #ccc; */
-		color: #ffffff;
-		white-space: nowrap;
 		position: relative;
-		/* width: 64upx;
-		height: 64upx; */
-		background-size: cover;
-		background-position: center;
-		vertical-align: middle;
-		font-size: 1.5em;
 	}
 
 	.imgs {
@@ -243,7 +287,7 @@
 		color: black;
 		width: 130rpx;
 		height: 150rpx;
-		margin-top: 35rpx;
+		margin-top: 45rpx;
 		margin-left: 80rpx;
 	}
 
@@ -254,7 +298,7 @@
 		color: black;
 		width: 130rpx;
 		height: 150rpx;
-		margin-top: 50rpx;
+		margin-top: 45rpx;
 		margin-left: 75rpx;
 	}
 

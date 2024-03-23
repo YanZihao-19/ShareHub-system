@@ -20,9 +20,6 @@ public interface ItemService {
      */
     void addItem(Item item);
 
-
-    Integer addItemOrder(Item item, Order order,String token);
-
     /**
      * 获取物品列表
      *

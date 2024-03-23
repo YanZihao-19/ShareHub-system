@@ -47,51 +47,66 @@
 			<view class="cu-item arrow">
 				<view class="content" @tap="toIssue_page">
 					<text class="cuIcon-moneybagfill text-red"></text>
-					<text class="text-grey">我的发布</text>
+					<text class="text-grey">上架物品</text>
 				</view>
 			</view>
 
 			<view class="cu-item arrow">
-				<navigator class="content" hover-class="none" url='/pages/my/my_sale/my_sale'>
+				<!-- <navigator class="content" hover-class="none" url='/pages/my/my_share/my_share'>
 					<text class="cuIcon-titles text-green"></text>
-					<text class="text-grey">我的卖出</text>
-				</navigator>
+					<text class="text-grey">我送出的</text>
+				</navigator> -->
+				<button class='cu-btn content' @tap="toMyShare_page">
+					<text class="cuIcon-titles text-green"></text>
+					<text class="text-grey">我送出的</text>
+				</button>
 			</view>
+
 			<view class="cu-item arrow">
-				<navigator class="content" hover-class="none" url="/pages/my/my_buy/my_buy">
-					<text class="cuIcon-formfill text-green"></text>
-					<text class="text-grey">我买到的</text>
+				<navigator class="content" hover-class="none" url="/pages/my/my_receive/my_receive">
+					<text class="cuIcon-formfill text-cyan"></text>
+					<text class="text-grey">我的领到</text>
 				</navigator>
 			</view>
+
 			<view class="cu-item arrow">
 				<view class="content" bindtap="CopyLink" data-link="https://github.com/weilanwl/ColorUI">
-					<text class="cuIcon-locationfill text-grey"></text>
-					<text class="text-grey">收货地址</text>
+					<text class="cuIcon-profile text-blue"></text>
+					<text class="text-grey">实名认证</text>
 				</view>
 			</view>
 			<view class="cu-item arrow">
-				<view class="content" bindtap="toCollect">
+				<view class=" content" bindtap="toCollect">
 					<text class="cuIcon-appreciatefill text-red"></text>
 					<text class="text-grey">我的收藏</text>
 				</view>
+			</view>
+
+
+			<view class="cu-item arrow content">
+				<button class='cu-btn content' @tap="">
+					<text class="cuIcon-creativefill text-orange"></text>
+					<text class="text-grey">环保大使</text>
+				</button>
+			</view>
+			<!-- <view class="cu-item arrow content">
+				<button class='cu-btn content' @click="clearAllStore">
+					<text class="cuIcon-creativefill text-orange"></text>
+					<text class="text-grey">清除缓存</text>
+				</button>
+			</view> -->
+
+			<view class="cu-item arrow">
+				<button class='cu-btn content'>
+					<text class="cuIcon-evaluate_fill text-orange"></text>
+					<text class="text-grey">社区公约</text>
+				</button>
 			</view>
 			<view class="cu-item arrow">
 				<button class="cu-btn content" open-type="feedback">
 					<text class="cuIcon-writefill text-cyan"></text>
 					<text class="text-grey">意见反馈</text>
 				</button>
-			</view>
-			<view class="cu-item arrow content">
-				<button class='cu-btn content' @click="clearAllStore">
-					<text class="cuIcon-creativefill text-orange"></text>
-					<text class="text-grey">清除缓存</text>
-				</button>
-			</view>
-			<view class="cu-item arrow">
-				<navigator class="content" url='/pages/message/message_chat/message_chat' hover-class="none">
-					<text class="cuIcon-evaluate_fill text-orange"></text>
-					<text class="text-grey">客服中心</text>
-				</navigator>
 			</view>
 		</view>
 		<view class="cu-tabbar-height"></view>
@@ -182,9 +197,7 @@
 						}
 
 					}
-
 				})
-
 			},
 
 			// 我的发布跳转
@@ -195,8 +208,14 @@
 						.stringify(
 							this.order))
 				})
-			}
+			},
 
+			// 我的共享跳转
+			toMyShare_page: function() {
+				uni.navigateTo({
+					url: '/pages/my/my_share/my_share'
+				})
+			},
 		}
 	}
 </script>

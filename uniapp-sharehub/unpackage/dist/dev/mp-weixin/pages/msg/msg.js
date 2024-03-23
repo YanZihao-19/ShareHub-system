@@ -137,13 +137,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//
-//
-//
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 58));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 60));
 //
 //
 //
@@ -284,11 +284,98 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
-      noticeStatus: '' //是否有订单消息
+      token: '',
+      //用户token
+      commentNum: 0,
+      //待读评论数
+      orderNum: 0,
+      //待读订单数
+      informNum: 0 //待读通知数
     };
   },
-  onLoad: function onLoad() {},
+  onLoad: function onLoad() {
+    var _this = this;
+    return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+      return _regenerator.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _this.token = uni.getStorageSync('token');
+              // 从vuex中取值
+              _context.next = 3;
+              return _this.getDotNum(_this.token);
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  onTabItemTap: function onTabItemTap(e) {
+    //重新获取红点
+    this.getDotNum(this.token);
+  },
+  onShow: function onShow() {
+    //重新获取红点
+    this.getDotNum(this.token);
+  },
   methods: {
+    // 获取当前用户未读订单数目，展示红点(数字),存储到vuex中
+    getDotNum: function getDotNum(token) {
+      var _this2 = this;
+      // 获取订单红点数
+      if (token != null && token != '') {
+        uni.request({
+          url: 'http://localhost:8080/msg/getDotNum',
+          method: 'GET',
+          header: {
+            'content-type': 'application/json',
+            // 设置请求头为 JSON 类型
+            'token': this.token
+          },
+          success: function success(res) {
+            console.log('当前用户未读list：', res.data.data);
+            // 存储到vuex中
+            //用户信息存储到vuex中
+            var dotNumList = res.data.data;
+            _this2.$store.commit('notice/setCommentNum', dotNumList[0]);
+            _this2.$store.commit('notice/setOrderNum', dotNumList[1]);
+            _this2.$store.commit('notice/setInformNum', dotNumList[2]);
+            // 从vuex中取DotNum
+            _this2.getVuexDot();
+            //更新tabbar的红点
+            _this2.changeTabBarRedDot();
+          }
+        });
+      }
+      // 获取评论红点数!!!!!!!!!!!!!!!!!!!!
+      // 获取通知红点数!!!!!!!!!!!!!!!!!!!!!!!!!
+    },
+    //更新tabbar的红点
+    changeTabBarRedDot: function changeTabBarRedDot() {
+      var totalRedDotNum = this.commentNum + this.orderNum + this.informNum;
+      console.log('红点总数:', totalRedDotNum);
+      if (totalRedDotNum != 0) {
+        uni.showTabBarRedDot({
+          //显示红点 
+          index: 2,
+          //tabbar下标
+          text: totalRedDotNum
+        });
+      } else if (totalRedDotNum == 0) {
+        uni.hideTabBarRedDot({
+          //隐藏红点
+          index: 2 //tabbar下标
+        });
+      }
+    },
+    // 从vuex中取DotNum
+    getVuexDot: function getVuexDot() {
+      this.commentNum = this.$store.state.notice.commentNum;
+      this.orderNum = this.$store.state.notice.orderNum;
+      this.informNum = this.$store.state.notice.informNum;
+    },
     // 跳转到用户评论的物品详情界面
     toMsgChat: function toMsgChat(e) {
       uni.navigateTo({

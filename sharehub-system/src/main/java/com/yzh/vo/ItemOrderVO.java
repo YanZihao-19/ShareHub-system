@@ -5,9 +5,6 @@ import com.yzh.pojo.Order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 /**
  * @Author: 燕子豪
@@ -16,9 +13,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddItemOrderVO {
-    //物品详情数据
+public class ItemOrderVO {
+    //订单数据
     private Order order;
-    //物品详情图
+    //物品详情
     private Item item;
 }

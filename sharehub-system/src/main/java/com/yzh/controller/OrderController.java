@@ -6,7 +6,7 @@ import com.yzh.pojo.Order;
 import com.yzh.pojo.Result;
 import com.yzh.service.ItemService;
 import com.yzh.service.OrderService;
-import com.yzh.vo.AddItemOrderVO;
+import com.yzh.vo.ItemOrderVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,12 +37,11 @@ public class OrderController {
         return Result.success();
     }
 
-
     //申请易物物品
     @PostMapping("/addOrder")
-    public Result addItemOrder(@RequestHeader("token") String token, @RequestBody AddItemOrderVO addItemOrderVO) {
+    public Result addItemOrder(@RequestHeader("token") String token, @RequestBody ItemOrderVO itemOrderVO) {
         //flag为0是自主上传的一方,flag为1时，表明是用户是申请易物的一方
-        Integer result = itemService.addItemOrder(addItemOrderVO.getItem(), addItemOrderVO.getOrder(), token);
+        Integer result = orderService.addItemOrder(itemOrderVO.getItem(), itemOrderVO.getOrder(), token);
         if (result == 1) {
             return Result.success();
         }
@@ -83,8 +82,11 @@ public class OrderController {
         return Result.success();
     }
 
-
-    //获取已完成订单列表
-
-
+    //获取我的共享(即为order中的h_uid和status为1)
+    @GetMapping("/getShareOrders")
+    public Result getShareOrders(@RequestHeader("token") String token, @RequestParam Integer hScore) {
+        List<ItemOrderVO> ItemOrderVOList = orderService.getShareOrders(token, hScore);
+        System.out.println("发送给前端的list"+ItemOrderVOList);
+        return Result.success(ItemOrderVOList);
+    }
 }

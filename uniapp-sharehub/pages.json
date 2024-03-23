@@ -75,10 +75,10 @@
 			"path": "pages/issue/issue_edit/issue_edit",
 			"style": {}
 		}, {
-			"path": "pages/my/my_sale/my_sale",
+			"path": "pages/my/my_share/my_share",
 			"style": {}
 		}, {
-			"path": "pages/my/my_buy/my_buy",
+			"path": "pages/my/my_receive/my_receive",
 			"style": {}
 		}, {
 			"path": "pages/my/my_collect/my_collect",

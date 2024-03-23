@@ -2,12 +2,6 @@
 	<view>
 		<!-- 每个商品卡片内容 -->
 		<view class='pa'>
-			<!-- <uv-sticky>
-				<view style="padding: 10rpx 0;background-color: #fff;">
-					<uv-tabs :list="[{ name: '全部' }, { name: '免费共享' }, { name: '以物换物' }, { name: '二手交易' }]"
-						@click="tabChange"></uv-tabs>
-				</view>
-			</uv-sticky> -->
 			<uv-sticky>
 				<view style="padding: 10rpx 0;background-color: #fff;">
 					<!-- 使用v-if根据pageFlag的值动态渲染uv-tabs组件 -->
@@ -209,6 +203,7 @@
 				// 使用split方法分割字符串，并取第一个元素
 				return time.split('T')[0];
 			},
+			
 			//修改样式
 			tagColorClass(tradeMode) {
 				switch (tradeMode) {

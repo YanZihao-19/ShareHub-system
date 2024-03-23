@@ -51,46 +51,7 @@ public class ItemServiceImpl implements ItemService {
         }
     }
 
-    @Transactional
-    @Override
-    public Integer addItemOrder(Item item, Order order, String token) {
-        //判断用户是否已经申请过了，即在order表中需求用户和物品0id是唯一的
-        //根据itemId(物品0的id)查用户ID
-        String needOpenId = itemMapper.getItemDetail(order.getItemId()).getOwnerUid();
-        Integer num = orderMapper.selectByItemidAndNuid(order.getItemId(), needOpenId);
-        //如果用户没有申请，则提交申请
-        if (num == null) {
-            //第一步添加物品
-            item.setCreateTime(LocalDateTime.now());
-            item.setUpdateTime(LocalDateTime.now());
-            //物品首页存储到item中
-            item.setImage(item.getImgList()[0]);
-            itemMapper.insertItem(item);
-            //插入物品对应的多张图片,除去第一张
-            for (int i = 1; i < item.getImgList().length; i++) {
-                itemMapper.insertImage(item.getImgList()[i], item.getId());
-            }
-            //将上述值赋值给order
-            //将插入item返回的itemId赋值到Order中
-            order.setOtherItemId(item.getId());
-            order.setHolderUid(item.getOwnerUid());
-            order.setNeedUid(needOpenId);
-            //设置订单状态，未完成
-            order.setStatus(0);
-            //设置holder用户未读
-            order.setNoticeStatus(0);
-            //（0是未打分，分值1~5）
-            order.setHScore(0);
-            order.setNScore(0);
-            //订单设置时间
-            order.setCreateTime(LocalDateTime.now());
-            order.setUpdateTime(LocalDateTime.now());
-            //最后插入order
-            orderMapper.insertOrder(order);
-            return 1;
-        }
-        return 0;
-    }
+
 
     @Override
     public List<Item> getItemList(String token, List<Item> itemList, Integer mode, Integer tag) {

@@ -65,6 +65,7 @@
   /* 添加通用的间距 */
   /* 设置第一个项目的左间距 */
   /* 最后一个项目的右侧间距 */
+  /* 使用更具体的选择器覆盖原有样式 */
 }
 .scroll-list__goods-item.data-v-92bb8f34 {
   margin-right: 20px;
@@ -93,6 +94,10 @@
 }
 .scroll-list .scroll-list__line__item--last.data-v-92bb8f34 {
   margin-right: 15px;
+}
+.scroll-list .my-text-cyan.data-v-92bb8f34 {
+  color: #fbbd08;
+  font-weight: bold;
 }
 .scroll-list .address.data-v-92bb8f34 {
   float: right;

@@ -22,4 +22,20 @@
             </if>
         </where>
     </select>
+
+
+    <select id="selectShareOrders" resultType="com.yzh.pojo.Order">
+        SELECT * FROM `order`
+        WHERE holder_uid = #{holderUid}
+        <if test="hScore == 6">
+            <!-- hScore == 6时，不作为查询条件 -->
+        </if>
+        <if test="hScore == 0">
+            AND hscore = 0
+        </if>
+        <if test="hScore == 1">
+            AND hscore IN (1, 2, 3, 4, 5)
+        </if>
+        AND status = 1
+    </select>
 </mapper>

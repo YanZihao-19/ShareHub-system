@@ -5,10 +5,8 @@ import com.yzh.pojo.Item;
 
 import java.util.*;
 
-import com.yzh.pojo.Order;
 import com.yzh.pojo.Result;
 import com.yzh.service.ItemService;
-import com.yzh.vo.AddItemOrderVO;
 import com.yzh.vo.ItemVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +32,8 @@ public class ItemController {
 
     //展示小程序注意(推荐)物品
     @PostMapping("/recommendItems")
-    public Result itemList(@RequestHeader("token") String token, @RequestBody List<Item> itemList, @RequestParam Integer mode, @RequestParam Integer tap) throws IllegalAccessException {
-        List<Item> itemListResult = itemService.getItemList(token, itemList, mode, tap);
+    public Result itemList(@RequestHeader("token") String token, @RequestBody List<Item> itemList, @RequestParam Integer mode, @RequestParam Integer tag) throws IllegalAccessException {
+        List<Item> itemListResult = itemService.getItemList(token, itemList, mode, tag);
         return Result.success(itemListResult);
     }
 

@@ -458,10 +458,11 @@ var _index = __webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/function/ind
 //
 //
 //
+//
 var _default = {
   data: function data() {
     return {
-      tap: '0',
+      tag: '0',
       //表示物品种类
       mode: '3',
       //表示物品的类型，0免费，1易物，2二手
@@ -486,59 +487,59 @@ var _default = {
       // 宫格列表
       menuBaseUrl: 'https://cdn.uviewui.com/uview/menu/',
       menuArr: [[{
-        tap: '1',
+        tag: '1',
         name: '电子产品',
         icon: __webpack_require__(/*! @/static/itemImages/电子产品.jpg */ 81)
       }, {
-        tap: '8',
+        tag: '8',
         name: '男装',
         icon: __webpack_require__(/*! @/static/itemImages/男装.jpg */ 82)
       }, {
-        tap: '4',
+        tag: '4',
         name: '数码影音',
         icon: __webpack_require__(/*! @/static/itemImages/数码影音.jpg */ 83)
       }, {
-        tap: '11',
+        tag: '11',
         name: '运动户外',
         icon: __webpack_require__(/*! @/static/itemImages/运动户外.jpg */ 84)
       }, {
-        tap: '5',
+        tag: '5',
         name: '家居日用',
         icon: __webpack_require__(/*! @/static/itemImages/家居日用.jpg */ 85)
       }, {
-        tap: '6',
+        tag: '6',
         name: '儿童玩具',
         icon: __webpack_require__(/*! @/static/itemImages/儿童玩具.jpg */ 86)
       }, {
-        tap: '7',
+        tag: '7',
         name: '宠物用品',
         icon: __webpack_require__(/*! @/static/itemImages/宠物用品.jpg */ 87)
       }], [{
-        tap: '9',
+        tag: '9',
         name: '女装',
         icon: __webpack_require__(/*! @/static/itemImages/女装.jpg */ 88)
       }, {
-        tap: '2',
+        tag: '2',
         name: '美妆用品',
         icon: __webpack_require__(/*! @/static/itemImages/美妆用品.jpg */ 89)
       }, {
-        tap: '10',
+        tag: '10',
         name: '母婴用品',
         icon: __webpack_require__(/*! @/static/itemImages/母婴用品.jpg */ 90)
       }, {
-        tap: '12',
+        tag: '12',
         name: '家用电器',
         icon: __webpack_require__(/*! @/static/itemImages/家用电器.jpg */ 91)
       }, {
-        tap: '3',
+        tag: '3',
         name: '图书',
         icon: __webpack_require__(/*! @/static/itemImages/图书.jpg */ 92)
       }, {
-        tap: '13',
+        tag: '13',
         name: '家纺家居',
         icon: __webpack_require__(/*! @/static/itemImages/家纺家居.jpg */ 93)
       }, {
-        tap: '14',
+        tag: '14',
         name: '其他',
         icon: __webpack_require__(/*! @/static/itemImages/其他.jpg */ 94)
       }]],
@@ -615,24 +616,13 @@ var _default = {
     this.list = [];
     this.list1 = [];
     this.list2 = [];
+    this.tag = '0';
+    this.mode = '3';
     // 根据不同的选项卡索引设置 mode 的值
     this.init();
     //重新获取红点
     this.getDotNum(this.token);
   },
-  // // 在“导航”页内写入该方法
-  // onTabItemTap() {
-  // 	 // 在页面显示时重新初始化数据
-  // 	    this.list = [];
-  // },
-  // onTabItemTap(item) {
-  //   // 判断点击的 Tab Bar 的页面路径是否为当前页面
-  //   if (item.pagePath === this.route) {
-  //     // 清空 list 数组
-  //     this.list = [];
-  // 	this.init();
-  //   }
-  // },
   onHide: function onHide() {
     this.$refs.waterfall.clear();
   },
@@ -684,9 +674,9 @@ var _default = {
   },
   methods: {
     //选择物品种类
-    itemClick: function itemClick(tap) {
+    itemClick: function itemClick(tag) {
       //获取点击的物品种类
-      this.tap = tap;
+      this.tag = tag;
       //重新获取对应物品种类和交易方式的物品列表
       this.list = [];
       this.list1 = [];
@@ -793,7 +783,7 @@ var _default = {
             'token': this.token
           },
           success: function success(res) {
-            console.log('当前用户未读list：', res.data.data);
+            console.log('当前用户未读信息数组：', res.data.data);
             // 存储到vuex中
             //用户信息存储到vuex中
             var dotNumList = res.data.data;
@@ -813,9 +803,6 @@ var _default = {
       var commentNum = this.$store.state.notice.commentNum;
       var orderNum = this.$store.state.notice.orderNum;
       var informNum = this.$store.state.notice.informNum;
-      console.log('Vuex中存储的用户用户未读订单数：', orderNum);
-      console.log('Vuex中存储的用户用户未读评论数：', commentNum);
-      console.log('Vuex中存储的用户用户未读通知数：', informNum);
       var totalRedDotNum = commentNum + orderNum + informNum;
       console.log('Vuex中存储的用户用户未读总数：', totalRedDotNum);
       if (totalRedDotNum != 0) {
@@ -932,7 +919,7 @@ var _default = {
         //发送请求将前端itemList发给后端
         var itemList = _this8.list;
         uni.request({
-          url: 'http://localhost:8080/items/recommendItems?tap=' + _this8.tap + '&mode=' + _this8.mode,
+          url: 'http://localhost:8080/items/recommendItems?tag=' + _this8.tag + '&mode=' + _this8.mode,
           method: 'POST',
           header: {
             'content-type': 'application/json',
