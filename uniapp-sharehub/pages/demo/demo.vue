@@ -1,7 +1,14 @@
 <template>
 	<view>
 	
-
+	<view class="uv-demo-block">
+			<text class="uv-demo-block__title">自定义星星大小</text>
+			<view class="uv-demo-block__content">
+				<view class="uv-page__tag-item">
+					<uv-rate size="30" count="5" ></uv-rate>
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 

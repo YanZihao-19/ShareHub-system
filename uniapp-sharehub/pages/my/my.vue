@@ -52,10 +52,6 @@
 			</view>
 
 			<view class="cu-item arrow">
-				<!-- <navigator class="content" hover-class="none" url='/pages/my/my_share/my_share'>
-					<text class="cuIcon-titles text-green"></text>
-					<text class="text-grey">我送出的</text>
-				</navigator> -->
 				<button class='cu-btn content' @tap="toMyShare_page">
 					<text class="cuIcon-titles text-green"></text>
 					<text class="text-grey">我送出的</text>
@@ -63,10 +59,10 @@
 			</view>
 
 			<view class="cu-item arrow">
-				<navigator class="content" hover-class="none" url="/pages/my/my_receive/my_receive">
+				<button class="cu-btn content" @tap="toMyReceive_page">
 					<text class="cuIcon-formfill text-cyan"></text>
 					<text class="text-grey">我的领到</text>
-				</navigator>
+				</button>
 			</view>
 
 			<view class="cu-item arrow">
@@ -214,6 +210,12 @@
 			toMyShare_page: function() {
 				uni.navigateTo({
 					url: '/pages/my/my_share/my_share'
+				})
+			},
+			//我的收到跳转
+			toMyReceive_page: function() {
+				uni.navigateTo({
+					url: "/pages/my/my_receive/my_receive"
 				})
 			},
 		}

@@ -98,10 +98,56 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
+try {
+  components = {
+    uvSticky: function () {
+      return Promise.all(/*! import() | uni_modules/uv-sticky/components/uv-sticky/uv-sticky */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-sticky/components/uv-sticky/uv-sticky")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-sticky/components/uv-sticky/uv-sticky.vue */ 306))
+    },
+    uvTabs: function () {
+      return Promise.all(/*! import() | uni_modules/uv-tabs/components/uv-tabs/uv-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-tabs/components/uv-tabs/uv-tabs")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-tabs/components/uv-tabs/uv-tabs.vue */ 314))
+    },
+  }
+} catch (e) {
+  if (
+    e.message.indexOf("Cannot find module") !== -1 &&
+    e.message.indexOf(".vue") !== -1
+  ) {
+    console.error(e.message)
+    console.error("1. 排查组件名称拼写是否正确")
+    console.error(
+      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
+    )
+    console.error(
+      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
+    )
+  } else {
+    throw e
+  }
+}
 var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.orderItemList, function (orderItem, index) {
+    var $orig = _vm.__get_orig(orderItem)
+    var m0 = _vm.tagColorClass(orderItem.item.tradeMode)
+    var m1 = _vm.tradeModeText(orderItem.item.tradeMode)
+    var m2 = _vm.handleStr(orderItem.order.updateTime)
+    return {
+      $orig: $orig,
+      m0: m0,
+      m1: m1,
+      m2: m2,
+    }
+  })
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -135,12 +181,46 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 58));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 60));
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -184,11 +264,119 @@ exports.default = void 0;
 //
 var _default = {
   data: function data() {
-    return {};
+    return {
+      token: '',
+      //用户token
+      nScore: 6,
+      //表示订单评价状态
+      orderItemList: '' //订单列表
+    };
   },
-  methods: {}
+  onLoad: function onLoad() {
+    //获取本地存储的token
+    this.token = uni.getStorageSync('token');
+    console.log('调用了onload');
+    // 初始化数据
+    this.init();
+  },
+  methods: {
+    //处理时间字符串
+    handleStr: function handleStr(time) {
+      time = time.replace('T', ' ');
+      return time;
+    },
+    //修改样式
+    tagColorClass: function tagColorClass(tradeMode) {
+      switch (tradeMode) {
+        case 0:
+          return 'line-green';
+        case 1:
+          return 'line-blue';
+        case 2:
+          return 'line-red';
+        default:
+          return '';
+        // 或者其他默认样式
+      }
+    },
+    //修改文字
+    tradeModeText: function tradeModeText(tradeMode) {
+      switch (tradeMode) {
+        case 0:
+          return '免费共享';
+        case 1:
+          return '以物换物';
+        case 2:
+          return '二手出售';
+        default:
+          return '';
+        // 或者其他默认值
+      }
+    },
+    // 选项卡切换
+    tabChange: function tabChange(obj) {
+      console.log(obj.index);
+      this.itemList = [];
+      // 根据不同的选项卡索引设置 mode 的值
+      switch (obj.index) {
+        case 0:
+          this.hScore = 6; // 点击全部时，查询hScore为任意值
+          break;
+        case 1:
+          this.hScore = 0; // 点击未评价时 hScore=0 
+          break;
+        case 2:
+          this.hScore = 1; // 点击已评价时,表示hScore为1~5(已评价)
+          break;
+        default:
+          break;
+      }
+      this.init();
+    },
+    //初始化数据
+    init: function init() {
+      var _this = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.getData();
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    //获取orderItemList数据
+    getData: function getData() {
+      var _this2 = this;
+      console.log('调用了getData');
+      uni.request({
+        url: 'http://localhost:8080/orders/getReceiveOrders?&nScore=' + this.nScore,
+        method: 'GET',
+        header: {
+          'content-type': 'application/json',
+          // 设置请求头为 JSON 类型
+          'token': this.token
+        },
+        success: function success(res) {
+          _this2.orderItemList = res.data.data;
+          console.log('获得到的订单列表', _this2.orderItemList[0].order);
+          console.log('获得到的物品列表', _this2.orderItemList[0].item);
+        },
+        fail: function fail(err) {
+          reject(err);
+        }
+      });
+    }
+  }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

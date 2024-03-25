@@ -593,7 +593,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	/* 模态框样式 */
 	.modal {
 		position: fixed;

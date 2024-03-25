@@ -106,6 +106,9 @@ try {
     uvTabs: function () {
       return Promise.all(/*! import() | uni_modules/uv-tabs/components/uv-tabs/uv-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-tabs/components/uv-tabs/uv-tabs")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-tabs/components/uv-tabs/uv-tabs.vue */ 314))
     },
+    uvRate: function () {
+      return Promise.all(/*! import() | uni_modules/uv-rate/components/uv-rate/uv-rate */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-rate/components/uv-rate/uv-rate")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-rate/components/uv-rate/uv-rate.vue */ 627))
+    },
   }
 } catch (e) {
   if (
@@ -261,6 +264,32 @@ var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/r
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
@@ -268,7 +297,14 @@ var _default = {
       //用户token
       hScore: 6,
       //表示订单评价状态
-      orderItemList: '' //订单列表
+      orderItemList: '',
+      //订单列表
+      orderId: '',
+      //选中的订单id
+
+      modalName: '',
+      //模态框控制是否显示
+      rateValue: 0 //评分初始值
     };
   },
   onLoad: function onLoad() {
@@ -297,6 +333,39 @@ var _default = {
           return '';
         // 或者其他默认样式
       }
+    },
+    //展示打分模态框
+    showModal: function showModal(order) {
+      this.modalName = 'true';
+      this.orderId = order.id;
+    },
+    // 隐藏模态框
+    hideModal: function hideModal() {
+      this.modalName = '';
+    },
+    // 确认打分
+    confirm: function confirm() {
+      var _this = this;
+      console.log('发送打分请求', this.rateValue);
+      uni.request({
+        url: 'http://localhost:8080/orders/sethSocre?&hScore=' + this.rateValue + '&orderId=' + this.orderId,
+        method: 'PUT',
+        header: {
+          'content-type': 'application/json',
+          // 设置请求头为 JSON 类型
+          'token': this.token
+        },
+        success: function success(res) {
+          //关闭模态框
+          _this.rateValue = 0;
+          _this.modalName = '';
+          // 刷新页面
+          _this.init();
+        },
+        fail: function fail(err) {
+          reject(err);
+        }
+      });
     },
     //修改文字
     tradeModeText: function tradeModeText(tradeMode) {
@@ -334,15 +403,16 @@ var _default = {
     },
     //初始化数据
     init: function init() {
-      var _this = this;
+      var _this2 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return _this.getData();
-              case 2:
+                _this2.orderItemList = '';
+                _context.next = 3;
+                return _this2.getData();
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -352,7 +422,7 @@ var _default = {
     },
     //获取orderItemList数据
     getData: function getData() {
-      var _this2 = this;
+      var _this3 = this;
       console.log('调用了getData');
       uni.request({
         url: 'http://localhost:8080/orders/getShareOrders?&hScore=' + this.hScore,
@@ -363,7 +433,7 @@ var _default = {
           'token': this.token
         },
         success: function success(res) {
-          _this2.orderItemList = res.data.data;
+          _this3.orderItemList = res.data.data;
           // console.log('获得到的订单列表', this.orderItemList[0].order)
           // console.log('获得到的物品列表', this.orderItemList[0].item)
         },

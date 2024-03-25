@@ -221,4 +221,36 @@ public class OrderServiceImpl implements OrderService {
         }
         return null;
     }
+
+    @Override
+    public List<ItemOrderVO> getReceiveOrders(String token, Integer nScore) {
+        List<ItemOrderVO> itemOrderVOList = new ArrayList<>();
+        if (token != null && !token.equals("")) {
+            //解析前端token,获取用户openid
+            Map<String, Object> itemUser = JwtUtils.parseJWT(token);
+            String needUid = (String) itemUser.get("openId");
+
+            List<Order> orderList = orderMapper.selectReceiveOrders(needUid, nScore);
+            //遍历这个订单list，根据每个order中itemId的值查到对应的item，并放入ItemOrderVO中
+            for (Order order : orderList) {
+                Item item = itemMapper.getItemDetail(order.getItemId());
+                ItemOrderVO itemOrderVO = new ItemOrderVO(order, item);
+                itemOrderVOList.add(itemOrderVO);
+            }
+            return itemOrderVOList;
+        }
+
+        return null;
+    }
+
+    @Override
+    public void sethScore(String token, Integer hScore, Integer orderId) {
+        if (token != null && !token.equals("")) {
+            //解析前端token,获取用户openid
+            Map<String, Object> itemUser = JwtUtils.parseJWT(token);
+            String holderUid = (String) itemUser.get("openId");
+
+            orderMapper.sethScore(holderUid, hScore, orderId);
+        }
+    }
 }

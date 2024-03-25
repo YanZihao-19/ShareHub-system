@@ -45,4 +45,10 @@ public interface OrderMapper {
 
     //若hScore==6，则hscore不作为查询条件；若hScore==0，则查询hscore=0；若hScore=1，则查询hscore属于1,2,3,4,5]中的任意值
     List<Order> selectShareOrders(String holderUid, Integer hScore);
+
+
+    List<Order> selectReceiveOrders(String needUid, Integer nScore);
+
+    @Update("UPDATE `order` SET hscore = #{hScore} WHERE holder_uid = #{holderUid} and id = #{orderId} ")
+    void sethScore(String holderUid, Integer hScore, Integer orderId);
 }

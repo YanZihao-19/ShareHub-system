@@ -86,7 +86,24 @@ public class OrderController {
     @GetMapping("/getShareOrders")
     public Result getShareOrders(@RequestHeader("token") String token, @RequestParam Integer hScore) {
         List<ItemOrderVO> ItemOrderVOList = orderService.getShareOrders(token, hScore);
-        System.out.println("发送给前端的list"+ItemOrderVOList);
+        System.out.println("发送给前端的list" + ItemOrderVOList);
         return Result.success(ItemOrderVOList);
     }
+
+    //获取我的收到(即为order中的n_uid和status为1)
+    @GetMapping("/getReceiveOrders")
+    public Result getReceiveOrders(@RequestHeader("token") String token, @RequestParam Integer nScore) {
+        List<ItemOrderVO> ItemOrderVOList = orderService.getReceiveOrders(token, nScore);
+        System.out.println("发送给前端的list" + ItemOrderVOList);
+        return Result.success(ItemOrderVOList);
+    }
+
+    //分享者给订单打分hScore
+    @PutMapping("/sethSocre")
+    public Result sethSocre(@RequestHeader("token") String token, @RequestParam Integer hScore, Integer orderId) {
+        orderService.sethScore(token, hScore, orderId);
+
+        return Result.success();
+    }
+
 }

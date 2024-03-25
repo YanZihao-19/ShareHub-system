@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "uv-sticky": "/uni_modules/uv-sticky/components/uv-sticky/uv-sticky",
+    "uv-tabs": "/uni_modules/uv-tabs/components/uv-tabs/uv-tabs"
+  }
 }

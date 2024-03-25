@@ -76,4 +76,22 @@ public interface OrderService {
      * @return
      */
     List<ItemOrderVO> getShareOrders(String token, Integer hScore);
+
+    /**
+     * 获取我收到的物品订单
+     *
+     * @param token
+     * @param nScore
+     * @return
+     */
+    List<ItemOrderVO> getReceiveOrders(String token, Integer nScore);
+
+    /**
+     * 分享者给订单打分hScore
+     *
+     * @param token
+     * @param hScore
+     * @return
+     */
+    void sethScore(String token, Integer hScore,Integer orderId);
 }

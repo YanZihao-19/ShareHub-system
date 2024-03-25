@@ -38,4 +38,19 @@
         </if>
         AND status = 1
     </select>
+
+    <select id="selectReceiveOrders" resultType="com.yzh.pojo.Order">
+        SELECT * FROM `order`
+        WHERE need_uid= #{needUid}
+        <if test="nScore == 6">
+            <!-- nScore == 6时，不作为查询条件 -->
+        </if>
+        <if test="nScore == 0">
+            AND nscore = 0
+        </if>
+        <if test="nScore == 1">
+            AND nscore IN (1, 2, 3, 4, 5)
+        </if>
+        AND status = 1
+    </select>
 </mapper>

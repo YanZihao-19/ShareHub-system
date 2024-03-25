@@ -47,15 +47,16 @@
 				<view class='container-line'></view>
 
 				<view class='container-under'>
-					<view v-if="orderItem.order.hscore == 0" class='container-under-1'><text class='cuIcon-remind font-size-lg text-black '></text><text
-							class='text-sm text-black'>1天3小时后订单自动好评</text></view>
-					<view  class='container-under-2'>
+					<view class='container-under-1'><text v-if="orderItem.order.hscore == 0"
+							class='cuIcon-remind font-size-lg text-black '></text><text
+							v-if="orderItem.order.hscore == 0" class='text-sm text-black'>1天3小时后订单自动好评</text></view>
+					<view class='container-under-2'>
 						<view class="cu-tag line-black padding">申诉</view>
 					</view>
-					<view  v-if="orderItem.order.hscore == 0">
-						<view class="cu-tag line-black padding" bindtap="send_out">去打分</view>
+					<view v-if="orderItem.order.hscore == 0">
+						<view class="cu-tag line-black padding" @tap="showModal(orderItem.order)">去打分</view>
 					</view>
-					<view  v-if="orderItem.order.hscore != 0">
+					<view v-if="orderItem.order.hscore != 0">
 						<view class="cu-tag line-black padding" bindtap="send_out">已评价</view>
 					</view>
 				</view>
@@ -65,6 +66,31 @@
 		</view>
 
 		<!-- end -->
+		<!-- 打分模态框 -->
+		<view class="cu-modal" :class="modalName=='true'?'show':''">
+			<view class="cu-dialog">
+				<view class="cu-bar bg-white justify-end">
+					<view class="content">订单评分：</view>
+					<view class="action" @tap="hideModal">
+						<text class="cuIcon-close text-red"></text>
+					</view>
+				</view>
+				<view class="uv-demo-block">
+					<text class="uv-demo-block__title">高分可以增加共享者的信誉等级哦~</text>
+					<view class="uv-demo-block__content">
+						<view class="uv-page__tag-item">
+							<uv-rate size="30" count="5" v-model="rateValue"></uv-rate>
+						</view>
+					</view>
+				</view>
+				<view class="cu-bar bg-white justify-end">
+					<view class="action">
+						<button class="cu-btn line-green text-green" @tap="hideModal">取消</button>
+						<button class="cu-btn bg-green margin-left" @tap="confirm">确定</button>
+					</view>
+				</view>
+			</view>
+		</view>
 
 	</view>
 </template>
@@ -76,6 +102,10 @@
 				token: '', //用户token
 				hScore: 6, //表示订单评价状态
 				orderItemList: '', //订单列表
+				orderId: '', //选中的订单id
+
+				modalName: '', //模态框控制是否显示
+				rateValue: 0, //评分初始值
 
 			}
 		},
@@ -86,7 +116,6 @@
 			// 初始化数据
 			this.init();
 		},
-
 		methods: {
 			//处理时间字符串
 			handleStr(time) {
@@ -106,6 +135,42 @@
 						return ''; // 或者其他默认样式
 				}
 			},
+
+
+			//展示打分模态框
+			showModal(order) {
+				this.modalName = 'true'
+				this.orderId = order.id
+			},
+
+			// 隐藏模态框
+			hideModal() {
+				this.modalName = ''
+			},
+			// 确认打分
+			confirm() {
+				console.log('发送打分请求', this.rateValue)
+				uni.request({
+					url: 'http://localhost:8080/orders/sethSocre?&hScore=' + this.rateValue + '&orderId=' + this
+						.orderId,
+					method: 'PUT',
+					header: {
+						'content-type': 'application/json', // 设置请求头为 JSON 类型
+						'token': this.token
+					},
+					success: (res) => {
+						//关闭模态框
+						this.rateValue = 0
+						this.modalName = ''
+						// 刷新页面
+						this.init();
+					},
+					fail: (err) => {
+						reject(err);
+					},
+				})
+			},
+
 			//修改文字
 			tradeModeText(tradeMode) {
 				switch (tradeMode) {
@@ -142,6 +207,8 @@
 			},
 			//初始化数据
 			async init() {
+
+				this.orderItemList = '';
 				await this.getData();
 			},
 			//获取orderItemList数据
@@ -171,6 +238,15 @@
 <style lang="scss" scoped>
 	.pa {
 		padding: 20rpx;
+	}
+
+	// 模态框
+	.uv-page__tag-item {
+		display: flex;
+		justify-content: center;
+		/* 水平居中 */
+		align-items: center;
+		/* 垂直居中 */
 	}
 
 	/* 内容 */

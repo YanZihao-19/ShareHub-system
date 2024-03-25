@@ -27,6 +27,13 @@
 .pa.data-v-01a849f6 {
   padding: 20rpx;
 }
+.uv-page__tag-item.data-v-01a849f6 {
+  display: flex;
+  justify-content: center;
+  /* 水平居中 */
+  align-items: center;
+  /* 垂直居中 */
+}
 /* 内容 */
 .container.data-v-01a849f6 {
   padding: 20rpx;
