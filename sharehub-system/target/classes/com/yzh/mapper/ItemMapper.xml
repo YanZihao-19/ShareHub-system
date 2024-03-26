@@ -37,4 +37,24 @@
         </where>
         order by create_time
     </select>
+
+    <!-- 从 item 表中选择所有字段，并计算每个物品与搜索关键词的相似度。
+    相似度定义为如果 item_title 或 item_desc 中包含了搜索关键词，则为1，否则为0。
+    最后根据similarity排序，最相似的放在前面-->
+    <select id="searchItems" resultType="com.yzh.pojo.Item">
+        SELECT *,
+        (CASE WHEN item_title LIKE CONCAT('%', #{keywords}, '%') THEN 1 ELSE 0 END +
+        CASE WHEN item_desc LIKE CONCAT('%', #{keywords}, '%') THEN 1 ELSE 0 END) AS similarity
+        FROM item
+        <where>
+            <if test="mode == 0 or mode == 1 or mode == 2">
+                trade_mode = #{mode}
+            </if>
+            <if test="keywords != null and keywords != ''">
+                AND (item_title LIKE CONCAT('%', #{keywords}, '%') OR item_desc LIKE CONCAT('%', #{keywords}, '%'))
+            </if>
+        </where>
+        ORDER BY similarity DESC
+    </select>
+
 </mapper>

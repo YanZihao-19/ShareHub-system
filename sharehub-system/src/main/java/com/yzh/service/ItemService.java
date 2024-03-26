@@ -40,4 +40,14 @@ public interface ItemService {
      * @param mode
      */
     List<Item> getUserItems(String token, Integer mode);
+
+    /**
+     *根据关键词模糊查询所有物品
+     *
+     * @param token
+     * @param mode
+     * @param keywords
+     * @return
+     */
+    List<Item> searchItems(String token, Integer mode, String keywords);
 }

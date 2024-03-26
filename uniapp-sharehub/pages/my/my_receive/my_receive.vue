@@ -47,16 +47,19 @@
 				<view class='container-line'></view>
 
 				<view class='container-under'>
-					<view v-if="orderItem.order.hscore == 0" class='container-under-1'><text class='cuIcon-remind font-size-lg text-black '></text><text
-							class='text-sm text-black'>1天3小时后订单自动好评</text></view>
-					<view  class='container-under-2'>
-						<view class="cu-tag line-black padding">申诉</view>
+					<view class='container-under-1'><text v-if="orderItem.order.nscore == 0"
+							class='cuIcon-remind font-size-lg text-black '></text>
+						<text v-if="orderItem.order.nscore == 0" class='text-sm text-black'>1天3小时后订单自动好评</text>
 					</view>
-					<view  v-if="orderItem.order.hscore == 0">
-						<view class="cu-tag line-black padding" bindtap="send_out">去打分</view>
+					<view class='container-under-2'>
+						<view class="cu-tag light bg-red line-black padding">申诉</view>
 					</view>
-					<view  v-if="orderItem.order.hscore != 0">
-						<view class="cu-tag line-black padding" bindtap="send_out">已评价</view>
+					<view v-if="orderItem.order.nscore == 0">
+						<view class="cu-tag light bg-blue line-black padding" @tap="showModal(orderItem.order)">去打分
+						</view>
+					</view>
+					<view v-if="orderItem.order.nscore != 0">
+						<view class="cu-tag light bg-olive  line-black padding" bindtap="send_out">已评价</view>
 					</view>
 				</view>
 
@@ -64,7 +67,32 @@
 
 		</view>
 
-		<!-- end -->;
+		<!-- end -->
+		<!-- 打分模态框 -->
+		<view class="cu-modal" :class="modalName=='true'?'show':''">
+			<view class="cu-dialog">
+				<view class="cu-bar bg-white justify-end">
+					<view class="content">订单评分：</view>
+					<view class="action" @tap="hideModal">
+						<text class="cuIcon-close text-red"></text>
+					</view>
+				</view>
+				<view class="uv-demo-block">
+					<text class="uv-demo-block__title">高分可以增加共享者的信誉等级哦~</text>
+					<view class="uv-demo-block__content">
+						<view class="uv-page__tag-item">
+							<uv-rate size="30" count="5" v-model="rateValue"></uv-rate>
+						</view>
+					</view>
+				</view>
+				<view class="cu-bar bg-white justify-end">
+					<view class="action">
+						<button class="cu-btn line-green text-green" @tap="hideModal">取消</button>
+						<button class="cu-btn bg-green margin-left" @tap="confirm">确定</button>
+					</view>
+				</view>
+			</view>
+		</view>
 		<!-- end -->
 
 	</view>
@@ -77,6 +105,10 @@
 				token: '', //用户token
 				nScore: 6, //表示订单评价状态
 				orderItemList: '', //订单列表
+				orderId: '', //选中的订单id
+
+				modalName: '', //模态框控制是否显示
+				rateValue: 0, //评分初始值
 			}
 		},
 		onLoad() {
@@ -86,7 +118,7 @@
 			// 初始化数据
 			this.init();
 		},
-		
+
 		methods: {
 
 			//处理时间字符串
@@ -106,6 +138,47 @@
 					default:
 						return ''; // 或者其他默认样式
 				}
+			},
+
+
+			//展示打分模态框
+			showModal(order) {
+				this.modalName = 'true'
+				this.orderId = order.id
+			},
+
+			// 隐藏模态框
+			hideModal() {
+				this.modalName = ''
+			},
+			// 确认打分
+			confirm() {
+				console.log('发送打分请求', this.rateValue)
+				uni.request({
+					url: 'http://localhost:8080/orders/setnScore?&nScore=' + this.rateValue + '&orderId=' + this
+						.orderId,
+					method: 'PUT',
+					header: {
+						'content-type': 'application/json', // 设置请求头为 JSON 类型
+						'token': this.token
+					},
+					success: (res) => {
+						//关闭模态框
+						this.rateValue = 0
+						this.modalName = ''
+						//显示toast
+						uni.showToast({
+							title: '操作成功！',
+							icon: 'success',
+							duration: 1500
+						});
+						// 刷新页面
+						this.init();
+					},
+					fail: (err) => {
+						reject(err);
+					},
+				})
 			},
 			//修改文字
 			tradeModeText(tradeMode) {
@@ -128,13 +201,13 @@
 				// 根据不同的选项卡索引设置 mode 的值
 				switch (obj.index) {
 					case 0:
-						this.hScore = 6; // 点击全部时，查询hScore为任意值
+						this.nScore = 6; // 点击全部时，查询nScore为任意值
 						break;
 					case 1:
-						this.hScore = 0; // 点击未评价时 hScore=0 
+						this.nScore = 0; // 点击未评价时 nScore=0 
 						break;
 					case 2:
-						this.hScore = 1; // 点击已评价时,表示hScore为1~5(已评价)
+						this.nScore = 1; // 点击已评价时,表示nScore为1~5(已评价)
 						break;
 					default:
 						break;
@@ -157,8 +230,7 @@
 					},
 					success: (res) => {
 						this.orderItemList = res.data.data;
-						console.log('获得到的订单列表', this.orderItemList[0].order)
-						console.log('获得到的物品列表', this.orderItemList[0].item)
+			
 					},
 					fail: (err) => {
 						reject(err);
@@ -174,6 +246,15 @@
 
 	.pa {
 		padding: 20rpx;
+	}
+
+	/* 模态框 */
+	.uv-page__tag-item {
+		display: flex;
+		justify-content: center;
+		/* 水平居中 */
+		align-items: center;
+		/* 垂直居中 */
 	}
 
 	/* 内容 */

@@ -249,8 +249,21 @@ public class OrderServiceImpl implements OrderService {
             //解析前端token,获取用户openid
             Map<String, Object> itemUser = JwtUtils.parseJWT(token);
             String holderUid = (String) itemUser.get("openId");
+            //根据hScore值来影响需求者的信誉分!!!!!!!!!!!!!
 
             orderMapper.sethScore(holderUid, hScore, orderId);
+        }
+    }
+
+    @Override
+    public void setnScore(String token, Integer nScore, Integer orderId) {
+        if (token != null && !token.equals("")) {
+            //解析前端token,获取用户openid
+            Map<String, Object> itemUser = JwtUtils.parseJWT(token);
+            String needUid = (String) itemUser.get("openId");
+            //根据hScore值来影响需求者的信誉分!!!!!!!!!!!!!!!!
+
+            orderMapper.setnScore(needUid, nScore, orderId);
         }
     }
 }

@@ -48,16 +48,19 @@
 
 				<view class='container-under'>
 					<view class='container-under-1'><text v-if="orderItem.order.hscore == 0"
-							class='cuIcon-remind font-size-lg text-black '></text><text
-							v-if="orderItem.order.hscore == 0" class='text-sm text-black'>1天3小时后订单自动好评</text></view>
+							class='cuIcon-remind font-size-lg text-black '></text>
+						<text v-if="orderItem.order.hscore == 0" class='text-sm text-black'>1天3小时后订单自动好评</text>
+					</view>
+
 					<view class='container-under-2'>
-						<view class="cu-tag line-black padding">申诉</view>
+						<view class="cu-tag light bg-red line-black padding">申诉</view>
 					</view>
 					<view v-if="orderItem.order.hscore == 0">
-						<view class="cu-tag line-black padding" @tap="showModal(orderItem.order)">去打分</view>
+						<view class="cu-tag light bg-blue line-black padding" @tap="showModal(orderItem.order)">去打分
+						</view>
 					</view>
 					<view v-if="orderItem.order.hscore != 0">
-						<view class="cu-tag line-black padding" bindtap="send_out">已评价</view>
+						<view class="cu-tag light bg-olive  line-black padding" bindtap="send_out">已评价</view>
 					</view>
 				</view>
 
@@ -76,7 +79,7 @@
 					</view>
 				</view>
 				<view class="uv-demo-block">
-					<text class="uv-demo-block__title">高分可以增加共享者的信誉等级哦~</text>
+					<text class="uv-demo-block__title">高分可以增加享用者的信誉等级哦~</text>
 					<view class="uv-demo-block__content">
 						<view class="uv-page__tag-item">
 							<uv-rate size="30" count="5" v-model="rateValue"></uv-rate>
@@ -151,7 +154,7 @@
 			confirm() {
 				console.log('发送打分请求', this.rateValue)
 				uni.request({
-					url: 'http://localhost:8080/orders/sethSocre?&hScore=' + this.rateValue + '&orderId=' + this
+					url: 'http://localhost:8080/orders/sethScore?&hScore=' + this.rateValue + '&orderId=' + this
 						.orderId,
 					method: 'PUT',
 					header: {
@@ -159,6 +162,12 @@
 						'token': this.token
 					},
 					success: (res) => {
+						//显示toast
+						uni.showToast({
+							title: '操作成功！',
+							icon: 'success',
+							duration: 1500
+						});
 						//关闭模态框
 						this.rateValue = 0
 						this.modalName = ''

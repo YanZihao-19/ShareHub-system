@@ -170,9 +170,90 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* pages/my/my_sale/my_sale.wxss */
 .pa.data-v-3f1d2cc5 {
 	padding: 20rpx;
+}
+
+/* 模态框 */
+.uv-page__tag-item.data-v-3f1d2cc5 {
+	display: flex;
+	justify-content: center;
+	/* 水平居中 */
+	align-items: center;
+	/* 垂直居中 */
 }
 
 /* 内容 */

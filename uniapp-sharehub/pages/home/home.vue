@@ -4,12 +4,12 @@
 		<view class="search">
 			<uv-row customStyle="margin-bottom: 10px" gutter="10">
 				<uv-col span="10">
-					<uv-input class="searchInput" placeholder="搜索关键字" prefixIcon="search" shape="circle"
-						prefixIconStyle="font-size: 22px;color: #909399"></uv-input>
+					<uv-input class="searchInput" placeholder="搜索关键字" v-model='keywords' prefixIcon="search"
+						shape="circle" prefixIconStyle="font-size: 22px;color: #909399"></uv-input>
 				</uv-col>
 				<uv-col span="1.5">
-					<uv-button class="type" type="primary" shape="circle" text="分类" size="normal"
-						:plain="true"></uv-button>
+					<uv-button class="type" type="primary" shape="circle" text="查询" @click='keywordsSearch'
+						size="normal" :plain="true"></uv-button>
 				</uv-col>
 			</uv-row>
 		</view>
@@ -215,6 +215,7 @@
 				tag: '0', //表示物品种类
 				mode: '3', //表示物品的类型，0免费，1易物，2二手
 				token: '',
+				keywords: '', //搜索关键字
 				// 导航条
 				TabCur: '0',
 				scrollLeft: 0,
@@ -589,7 +590,7 @@
 			async init() {
 				this.loadStatus = 'loading';
 				const data = await this.getData();
-				console.log(data)
+
 				this.list.push.apply(this.list, data);
 				this.loadStatus = 'loadmore';
 			},
@@ -621,6 +622,13 @@
 					if (item.id == id) {
 						this.list2.splice(index, 1);
 					}
+				})
+			},
+			//搜索关键字
+			keywordsSearch() {
+				//跳转搜索页面，并跟keywords参数
+				uni.navigateTo({
+					url: '/pages/home/home_search/home_search?keywords=' + this.keywords
 				})
 			},
 

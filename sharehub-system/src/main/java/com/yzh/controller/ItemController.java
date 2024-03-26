@@ -37,6 +37,13 @@ public class ItemController {
         return Result.success(itemListResult);
     }
 
+    //根据关键词模糊查询所有物品
+    @GetMapping("/searchItems")
+    public Result searchItems(@RequestHeader("token") String token, @RequestParam Integer mode, @RequestParam String keywords){
+        List<Item> itemListResult = itemService.searchItems(token, mode, keywords);
+        return Result.success(itemListResult);
+    }
+
     @PostMapping("/presentItemList")
     public Result addItemList(@RequestHeader("token") String token, @RequestBody List<Item> itemList) {
         // 在这里处理接收到的物品列表 itemList
@@ -59,4 +66,6 @@ public class ItemController {
         List<Item> itemListResult = itemService.getUserItems(token, mode);
         return Result.success(itemListResult);
     }
+
+
 }

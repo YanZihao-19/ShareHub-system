@@ -94,4 +94,13 @@ public interface OrderService {
      * @return
      */
     void sethScore(String token, Integer hScore,Integer orderId);
+
+    /**
+     *享用者给订单打分nScore
+     *
+     * @param token
+     * @param nScore
+     * @param orderId
+     */
+    void setnScore(String token, Integer nScore, Integer orderId);
 }

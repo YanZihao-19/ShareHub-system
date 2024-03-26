@@ -51,4 +51,7 @@ public interface OrderMapper {
 
     @Update("UPDATE `order` SET hscore = #{hScore} WHERE holder_uid = #{holderUid} and id = #{orderId} ")
     void sethScore(String holderUid, Integer hScore, Integer orderId);
+
+    @Update("UPDATE `order` SET nscore = #{nScore} WHERE need_uid = #{needUid} and id = #{orderId} ")
+    void setnScore(String needUid, Integer nScore, Integer orderId);
 }

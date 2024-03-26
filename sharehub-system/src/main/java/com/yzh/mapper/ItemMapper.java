@@ -42,4 +42,7 @@ public interface ItemMapper {
     //更改物品的状态
     @Update("UPDATE item SET status = #{status}, update_time = #{updateTime} WHERE id = #{id}")
     void changeItemStatus(Item item);
+
+    //根据关键词查询物品列表
+    List<Item> searchItems(Integer mode, String keywords);
 }

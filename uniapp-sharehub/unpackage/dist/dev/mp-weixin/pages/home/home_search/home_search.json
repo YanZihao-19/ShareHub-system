@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "物品搜索",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "uv-sticky": "/uni_modules/uv-sticky/components/uv-sticky/uv-sticky",
+    "uv-tabs": "/uni_modules/uv-tabs/components/uv-tabs/uv-tabs",
+    "uv-waterfall": "/uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall",
+    "uv-row": "/uni_modules/uv-row/components/uv-row/uv-row",
+    "uv-col": "/uni_modules/uv-row/components/uv-col/uv-col",
+    "uv-tags": "/uni_modules/uv-tags/components/uv-tags/uv-tags"
+  }
+}

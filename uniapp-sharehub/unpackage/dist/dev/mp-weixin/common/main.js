@@ -38,7 +38,7 @@ wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__; // import Vue from '
 // app.$mount()
 var cuCustom = function cuCustom() {
   __webpack_require__.e(/*! require.ensure | colorui/components/cu-custom */ "colorui/components/cu-custom").then((function () {
-    return resolve(__webpack_require__(/*! ./colorui/components/cu-custom.vue */ 288));
+    return resolve(__webpack_require__(/*! ./colorui/components/cu-custom.vue */ 294));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 _vue.default.component('cu-custom', cuCustom);

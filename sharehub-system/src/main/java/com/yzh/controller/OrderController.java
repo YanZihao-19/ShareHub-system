@@ -99,9 +99,17 @@ public class OrderController {
     }
 
     //分享者给订单打分hScore
-    @PutMapping("/sethSocre")
-    public Result sethSocre(@RequestHeader("token") String token, @RequestParam Integer hScore, Integer orderId) {
+    @PutMapping("/sethScore")
+    public Result sethScore(@RequestHeader("token") String token, @RequestParam Integer hScore, Integer orderId) {
         orderService.sethScore(token, hScore, orderId);
+
+        return Result.success();
+    }
+
+    //享用者给订单打分nScore
+    @PutMapping("/setnScore")
+    public Result setnScore(@RequestHeader("token") String token, @RequestParam Integer nScore, Integer orderId) {
+        orderService.setnScore(token, nScore, orderId);
 
         return Result.success();
     }

@@ -19,12 +19,13 @@ public class UpdatePreference {
     public static UserTagsScore increase(String token, Item item, Integer style) {
         UserTagsScore userTagsScore = new UserTagsScore(null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
+        //解析前端token, 获取用户openid
+        Map<String, Object> itemUser = JwtUtils.parseJWT(token);
+        String openId = (String) itemUser.get("openId");
+        userTagsScore.setUid(openId);
+
         //style=1表示查看物品详情和申请共享后的偏好调整
         if (style == 1) {
-            //解析前端token, 获取用户openid
-            Map<String, Object> itemUser = JwtUtils.parseJWT(token);
-            String openId = (String) itemUser.get("openId");
-            userTagsScore.setUid(openId);
 
             //增加所查看的物品种类好感度默认3 (注意是从case1开始，按照数据库的约定来)
             Integer tag = item.getTag();
@@ -91,6 +92,47 @@ public class UpdatePreference {
                 default -> throw new IllegalArgumentException("Invalid value: " + suit);
             }
 
+            System.out.println("打印的userTagsScore" + userTagsScore);
+        }
+        //表示用户搜索物品后偏好度的增加
+        else if (style == 2) {
+            //增加所搜索的物品种类好感度默认5 (注意是从case1开始，按照数据库的约定来)
+            Integer tag = item.getTag();
+            switch (tag) {
+                case 1 -> userTagsScore.setElectProduct(5);
+                case 2 -> userTagsScore.setBeauty(5);
+                case 3 -> userTagsScore.setBook(5);
+                case 4 -> userTagsScore.setDigital(5);
+                case 5 -> userTagsScore.setHousehold(5);
+                case 6 -> userTagsScore.setToy(5);
+                case 7 -> userTagsScore.setPetSup(5);
+                case 8 -> userTagsScore.setMenSwear(5);
+                case 9 -> userTagsScore.setWomenSwear(5);
+                case 10 -> userTagsScore.setMotherAndBaby(5);
+                case 11 -> userTagsScore.setSport(5);
+                case 12 -> userTagsScore.setAppliance(5);
+                case 13 -> userTagsScore.setFurniture(5);
+                case 14 -> userTagsScore.setOther(5);
+                default -> throw new IllegalArgumentException("Invalid value: " + tag);
+            }
+            //增加所查看的物品交易方式好感度默认2
+            Integer mode = item.getTradeMode();
+            switch (mode) {
+                case 0 -> userTagsScore.setShare(2);
+                case 1 -> userTagsScore.setExchange(2);
+                case 2 -> userTagsScore.setTrade(2);
+                default -> throw new IllegalArgumentException("Invalid value: " + mode);
+            }
+
+            //给用户的年龄段增加权重1
+            Integer suit = item.getSuit();
+            switch (suit) {
+                case 0 -> userTagsScore.setAllAge(1);
+                case 1 -> userTagsScore.setChild(1);
+                case 2 -> userTagsScore.setAdult(1);
+                case 3 -> userTagsScore.setOld(1);
+                default -> throw new IllegalArgumentException("Invalid value: " + suit);
+            }
             System.out.println("打印的userTagsScore" + userTagsScore);
         }
         return userTagsScore;

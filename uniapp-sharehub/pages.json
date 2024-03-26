@@ -7,6 +7,12 @@
 				"enablePullDownRefresh": false
 			}
 		}, {
+			"path": "pages/home/home_search/home_search",
+			"style": {
+				"navigationBarTitleText": "物品搜索",
+				"enablePullDownRefresh": false
+			}
+		}, {
 			"path": "pages/my/my_issue/my_issue",
 			"style": {}
 		}, {
@@ -112,13 +118,13 @@
 			}
 		},
 		{
-			"path" : "pages/msg/msg_handleOrder/msg_handleOrder",
-			"style" : 
-			{
-				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : false
+			"path": "pages/msg/msg_handleOrder/msg_handleOrder",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
 			}
 		}
+
 
 
 	],

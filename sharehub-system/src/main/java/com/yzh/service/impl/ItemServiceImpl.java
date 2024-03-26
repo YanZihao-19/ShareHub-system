@@ -52,7 +52,6 @@ public class ItemServiceImpl implements ItemService {
     }
 
 
-
     @Override
     public List<Item> getItemList(String token, List<Item> itemList, Integer mode, Integer tag) {
         //获取到前端已有物品的id的list
@@ -152,5 +151,17 @@ public class ItemServiceImpl implements ItemService {
             userItemList = itemMapper.getUserItemList(openId, mode);
         }
         return userItemList;
+    }
+
+    @Override
+    public List<Item> searchItems(String token, Integer mode, String keywords) {
+        //list按照搜索相似度排列从大到小排列
+        List<Item> itemList = itemMapper.searchItems(mode, keywords);
+
+        //根据用户搜索的的物品list中最相近的物品(第一个)，为用户增加偏好度
+        if (token != null && !token.equals("") && itemList != null && itemList.size() != 0) {
+            UpdatePreference.increase(token, itemList.get(0), 2);
+        }
+        return itemList;
     }
 }

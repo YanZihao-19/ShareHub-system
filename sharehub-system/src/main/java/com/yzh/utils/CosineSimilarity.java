@@ -37,21 +37,4 @@ public class CosineSimilarity {
         // 对平方和取平方根，即得到模
         return Math.sqrt(sumSquared);
     }
-
-//    public static void main(String[] args) {
-//        Integer[] vectorA = {15, 13, 12, 5, 0, 3, 2, 3, 5, 1, 0, 3, 12, 1,
-//                3, 3, 0, 8,
-//                9, 1, 8,
-//                0, 5, 10,
-//                0, 10, 8};
-//
-//        Integer[] vectorB = {20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-//                0, 0, 0, 10,
-//                10, 0, 0,
-//                0, 0, 10,
-//                0, 10, 0};
-//
-//        double cosineSimilarity = cosineSimilarity(vectorA, vectorB);
-//        System.out.println("Cosine Similarity: " + cosineSimilarity);
-//    }
 }
