@@ -66,15 +66,16 @@
 			</view>
 
 			<view class="cu-item arrow">
+				<view class=" content" bindtap="toCollect" @tap="toMyCollect_page">
+					<text class="cuIcon-favorfill text-red"></text>
+					<text class="text-grey">我的收藏</text>
+				</view>
+			</view>
+
+			<view class="cu-item arrow">
 				<view class="content" bindtap="CopyLink" data-link="https://github.com/weilanwl/ColorUI">
 					<text class="cuIcon-profile text-blue"></text>
 					<text class="text-grey">实名认证</text>
-				</view>
-			</view>
-			<view class="cu-item arrow">
-				<view class=" content" bindtap="toCollect">
-					<text class="cuIcon-appreciatefill text-red"></text>
-					<text class="text-grey">我的收藏</text>
 				</view>
 			</view>
 
@@ -216,6 +217,12 @@
 			toMyReceive_page: function() {
 				uni.navigateTo({
 					url: "/pages/my/my_receive/my_receive"
+				})
+			},
+			// 我的收藏条状
+			toMyCollect_page: function() {
+				uni.navigateTo({
+					url: "/pages/my/my_collect/my_collect"
 				})
 			},
 		}

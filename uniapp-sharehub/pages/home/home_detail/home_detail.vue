@@ -14,9 +14,13 @@
 				</view>
 
 				<!-- 举报功能待完善！！！！！！！！！！！！！！！！！！ -->
-				<view class=" fr padding-button">
-					<text>举报</text>
+				<view class="fr padding-button">
+					<view class="action" style="display: flex; align-items: center;">
+						<view class="cuIcon-warn" style="margin-right: 5px;"></view>
+						<text>举报</text>
+					</view>
 				</view>
+
 			</view>
 		</view>
 		<!-- 商家信息end -->
@@ -235,24 +239,24 @@
 
 		<!-- 操作选项卡 -->
 		<view class="cu-bar bg-white tabbar border shop fixation">
-			<button class="action" bindtap='toChat'>
-				<view class="cuIcon-service text-green">
-					<view class="cu-tag badge"></view>
-				</view>
-				聊一聊
+			<!-- 分享待完成！！！！！！ -->
+			<view class="action" @tap="shareItem">
+				<view class="cuIcon-forwardfill text-orange"></view>
+				分享
+			</view>
+			<view v-if="collect == 0" class="action" @tap="collectItem">
+				<view class="cuIcon-favorfill"></view>
+				收藏
+			</view>
+			<view v-else-if="collect == 1" class="action" @tap="delCollectItem">
+				<view class="cuIcon-favorfill text-red"></view>
+				已收藏
+			</view>
+			<button class="action" @tap='toChat'>
+				<!-- 留言待完成！！！！！！ -->
+				<view class="cuIcon-messagefill text-green"></view>
+				留言
 			</button>
-			<view class="action">
-				<view class=" cuIcon-shop">
-					<view class="cu-tag badge">99</view>
-				</view>
-				店铺
-			</view>
-			<view class="action">
-				<view class="cuIcon-appreciatefill text-orange">
-					<!-- <view class="cu-tag badge">99</view> -->
-				</view>
-				点赞
-			</view>
 			<view class="bg-blue submit margin-right-20" @tap="handleAction(item)">
 				{{ item.tradeMode == 0 ? '立即申领' : (item.tradeMode == 1 ? '立即交换' : '申请购买') }}
 			</view>
@@ -321,6 +325,7 @@
 		data() {
 			return {
 				token: '',
+				collect: 0, //判断物品是否已收藏
 				showModal: false, // 控制是否展示模态框
 				showModal2: '', //控制是否展示二手交易模态框
 				order: {
@@ -380,6 +385,9 @@
 				// 初始化函数获取数据
 				this.getItemData(id);
 
+
+				//获取物品是不是本人上传的！！！！！！！！！！！！！！！！！！！！
+
 			} catch (error) {
 				console.error('Failed to load data:', error);
 			}
@@ -435,6 +443,94 @@
 					default:
 						return '';
 				}
+			},
+			getCollect() {
+				uni.request({
+					url: 'http://localhost:8080/items/getCollect?itemId=' + this.item.id,
+					method: 'GET',
+					header: {
+						'content-type': 'application/json', // 设置请求头为 JSON 类型
+						'token': this.token
+					},
+					success: (res) => {
+						// 提示框，提醒用户是否申请共享成功，或者以及申请过了。！！！！！！！！！！！
+						// console.log(res.data.code);
+						if (res.data.code == 1) {
+							//已经收藏了
+							this.collect = 1
+							console.log("已经收藏了！")
+						} else if (res.data.code == 0) {
+							// 未收藏
+						}
+					},
+					fail: (err) => {
+						reject(err);
+					}
+				});
+			},
+			// 收藏物品
+			collectItem() {
+				uni.request({
+					url: 'http://localhost:8080/items/collectItem?itemId=' + this.item.id,
+					method: 'POST',
+					header: {
+						'content-type': 'application/json', // 设置请求头为 JSON 类型
+						'token': this.token
+					},
+					success: (res) => {
+						// 提示框，提醒用户是否申请共享成功，或者以及申请过了。！！！！！！！！！！！
+						// console.log(res.data.code);
+						if (res.data.code == 1) {
+							uni.showToast({
+								title: '收藏成功！',
+								icon: 'success',
+								duration: 2000
+							});
+							this.collect = 1
+						} else if (res.data.code == 0) {
+							uni.showToast({
+								title: '不能重复收藏哦~',
+								icon: 'error',
+								duration: 2000
+							});
+						}
+					},
+					fail: (err) => {
+						reject(err);
+					}
+				});
+			},
+			//取消收藏物品
+			delCollectItem() {
+				uni.request({
+					url: 'http://localhost:8080/items/delCollectItem?itemId=' + this.item.id,
+					method: 'DELETE',
+					header: {
+						'content-type': 'application/json', // 设置请求头为 JSON 类型
+						'token': this.token
+					},
+					success: (res) => {
+						// 提示框，提醒用户是否申请共享成功，或者以及申请过了。！！！！！！！！！！！
+						// console.log(res.data.code);
+						if (res.data.code == 1) {
+							// uni.showToast({
+							// 	title: '取消收藏！',
+							// 	icon: 'success',
+							// 	duration: 2000
+							// });
+							this.collect = 0
+						} else if (res.data.code == 0) {
+							uni.showToast({
+								title: '出错了~',
+								icon: 'error',
+								duration: 2000
+							});
+						}
+					},
+					fail: (err) => {
+						reject(err);
+					}
+				});
 			},
 			handleAction(item) {
 				// console.log('进入了handleAction')
@@ -556,8 +652,10 @@
 								//修改日期格式
 								this.item.createTime = this.item.createTime.replace('T', ' ');
 								console.log('this.item.time的数据：', this.item.createTime)
-
 								this.getUser(this.item.ownerUid);
+
+								//获取物品是否已经收藏
+								this.getCollect();
 							} else {
 								console.error('请求数据失败或返回数据格式不符合预期');
 							}
@@ -695,7 +793,9 @@
 
 	.padding-button {
 		padding-top: 75rpx;
+		padding-right: 30rpx;
 		font-size: 25rpx;
+		display: inline-block;
 	}
 
 	.fl image {

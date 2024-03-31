@@ -3,10 +3,10 @@
 		<view class="cu-bar search bg-white">
 			<view class="search-form round">
 				<text class="cuIcon-search"></text>
-				<input type="text" placeholder="搜索物品关键词" confirm-type="search"></input>
+				<input type="text" v-model="keywords" placeholder="搜索物品关键词" confirm-type="search"></input>
 			</view>
 			<view class="action">
-				<button class="cu-btn bg-green shadow-blur round">搜索</button>
+				<button class="cu-btn bg-green shadow-blur round" @tap="search">搜索</button>
 			</view>
 		</view>
 		<!-- 瀑布流内容 -->
@@ -74,8 +74,6 @@
 										</uv-row>
 									</view>
 								</view>
-
-
 							</view>
 						</view>
 
@@ -179,7 +177,6 @@
 			this.list = data; // 将返回的数据赋值给 list 数组
 			console.log('获取到的data数据：' + this.data)
 			console.log('获取到的list数据：' + this.list)
-
 		},
 
 		computed: {
@@ -200,6 +197,15 @@
 			}
 		},
 		methods: {
+			async search() {
+				this.list = [];
+				this.list1 = [];
+				this.list2 = [];
+				// 调用 getData() 函数获取数据
+				const data = await this.getData();
+				this.list = data; // 将返回的数据赋值给 list 数组
+
+			},
 			async init() {
 				try {
 					//获取token
@@ -217,7 +223,6 @@
 			// 获取数据
 			getData() {
 				return new Promise((resolve, reject) => {
-					// console.log('发送给后端的token值：', this.token)
 					console.log('发送给后端的list值：', this.list)
 					//发送请求将前端itemList发给后端
 					let itemList = this.list

@@ -2,25 +2,47 @@
 	<view>
 		<!-- 内容 -->
 		<view class='pa'>
-			<view class='container shadow-warp bg-white' v-for="(item,index) in 6" :key="item">
+			<view class='container shadow-warp bg-white' v-for="(itemUser,index) in itemUserList"
+				:key="itemUser.itemVO.item.id">
 				<view class='container-top'>
 					<view class='container-top-1'>
-						<image src='http://img.52z.com/upload/news/image/20181123/20181123144652_18174.jpg'></image>
+						<image :src='itemUser.user.image'></image>
 					</view>
 
 					<view class='container-top-2'>
 						<view class='container-top-2_1'>
-							<view class='container-top-2_1_1'><text class='text-lg text-weigth'>Amibitiom</text></view>
-							<view><text class='text-price text-red text-lg text-weigth '>2330</text></view>
+							<view class='container-top-2_1_1'><text
+									class='text-lg text-weigth'>{{itemUser.user.username}}</text></view>
+							<!--交易模式  -->
+							<view class='container-top-2_2'>
+								<view class="cu-capsule round view-width">
+									<view class="cu-tag bg-blue  ">
+										模式
+									</view>
+									<view :class="['cu-tag', tagColorClass(itemUser.itemVO.item.tradeMode)]">
+										{{ tradeModeText(itemUser.itemVO.item.tradeMode) }}
+									</view>
+								</view>
+							</view>
 						</view>
-						<view><text class='cuIcon-time lg text-gray'></text><text class='padding-left'>35天前来过</text>
+						<!-- 信誉等级展示待完成！！！！！！！！！！！！！ -->
+						<view><text class='cuIcon-selection lg text-gray'></text><text class='padding-left'>信誉分等级</text>
 						</view>
 					</view>
 				</view>
 
 				<view class='container-ScrollImage'>
 					<scroll-view scroll-x="true" style=" white-space: nowrap; display: flex" class='top-20'>
-						<block v-for="(item,index) in 10" :key="index">
+						<block>
+							<view class='item-inlines'>
+								<navigator url='' hover-class='none'>
+									<view class="item-inline bg-img padding-top-xl flex align-end"
+										:style=" 'background-image: url('+itemUser.itemVO.item.image+');' ">
+									</view>
+								</navigator>
+							</view>
+						</block>
+						<block v-for="(url,index) in itemUser.itemVO.itemImages" :key="index">
 							<view class='item-inlines'>
 								<navigator url='' hover-class='none'>
 									<view class="item-inline bg-img padding-top-xl flex align-end"
@@ -32,19 +54,20 @@
 					</scroll-view>
 				</view>
 
-				<view class='container-title'><text>vivo X21 6+128G 红色 后置指纹 全网通</text></view>
+				<view class='container-title'><text>{{itemUser.itemVO.item.itemTitle}}</text></view>
 
 				<view class='container-UserDesc'>
-					<view class='container-UserDesc-1'><text>来自毕节职业技术学院</text></view>
-					<view class='container-UserDesc-2' :class=" 'animation-' + animation " @tap='clickCollect'>
+					<view class='container-UserDesc-1'><text>{{handleStr(itemUser.itemVO.item.createTime)}}</text>
+					</view>
+
+					<view class='container-UserDesc-2' :class=" 'animation-' + animation "
+						@tap="clickCollect(itemUser.itemVO.item)">
 						<view class="cu-tag line-black padding-ll"><text class="text-xxl  "
-								:class=" [collect == true ? 'text-yellow' : '',collect == true ? 'cuIcon-favorfill' : 'cuIcon-favor'] "></text><text
+								:class=" [collect == true ? ' text-yellow' : '' ,collect==true ? 'cuIcon-favorfill' : 'cuIcon-favor' ] "></text><text
 								class='cancel text-black'>{{collectState}}</text></view>
 					</view>
 				</view>
-
 			</view>
-
 		</view>
 
 		<!-- end -->
@@ -55,7 +78,9 @@
 	export default {
 		data() {
 			return {
-				url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg',
+				//收藏物品信息列表
+				itemUserList: '',
+				token: '',
 				// 控制收藏状态
 				collect: true,
 				collectState: '取消收藏',
@@ -63,23 +88,112 @@
 				//end
 			}
 		},
+		onLoad() {
+			//获取本地存储的token
+			this.token = uni.getStorageSync('token')
+			console.log('调用了onload')
+			// 初始化数据
+			this.init();
+		},
 		methods: {
+			//初始化数据
+			async init() {
+				this.itemUserList = '';
+				await this.getData();
+			},
+			//处理时间字符串
+			handleStr(time) {
+				time = time.replace('T', ' ')
+				return time
+			},
+			//获取List数据
+			getData() {
+				console.log('调用了getData')
+				uni.request({
+					url: 'http://localhost:8080/items/getCollectItemList',
+					method: 'GET',
+					header: {
+						'content-type': 'application/json', // 设置请求头为 JSON 类型
+						'token': this.token
+					},
+					success: (res) => {
+						this.itemUserList = res.data.data;
+						console.log('获取到的收藏物品列表：', this.itemUserList)
+						for (let i = 0; i < this.itemUserList.length; i++) {
+							console.log('获取到的收藏物品：', this.itemUserList[i].itemVO.item);
+							console.log('获取到的收藏用户：', this.itemUserList[i].user);
+						}
 
-			// 点击收藏
-			clickCollect: function() {
-				var that = this;
-				this.animation = 'scale-up'
-				setTimeout(function() {
-					this.animation = ''
-				}, 600)
-
-				if (that.collect) {
-					this.collect = false,
-						this.collectState = '收藏'
-				} else {
-					this.collect = true,
-						this.collectState = '取消收藏'
+						// console.log('获得到的订单列表', this.orderItemList[0].order)
+						// console.log('获得到的物品列表', this.orderItemList[0].item)
+					},
+					fail: (err) => {
+						reject(err);
+					},
+				})
+			},
+			//修改文字
+			tradeModeText(tradeMode) {
+				switch (tradeMode) {
+					case 0:
+						return '免费共享';
+					case 1:
+						return '以物换物';
+					case 2:
+						return '二手出售';
+					default:
+						return ''; // 或者其他默认值
 				}
+			},
+			//修改样式
+			tagColorClass(tradeMode) {
+				switch (tradeMode) {
+					case 0:
+						return 'line-green';
+					case 1:
+						return 'line-blue';
+					case 2:
+						return 'line-red';
+					default:
+						return ''; // 或者其他默认样式
+				}
+			},
+			// 点击取消收藏
+			clickCollect(item) {
+				// console.log('所点击物品的id', item.id)
+				uni.request({
+					url: 'http://localhost:8080/items/delCollectItem?itemId=' + item.id,
+					method: 'DELETE',
+					header: {
+						'content-type': 'application/json', // 设置请求头为 JSON 类型
+						'token': this.token
+					},
+					success: (res) => {
+						if (res.data.code == 1) {
+							uni.showToast({
+								title: '已取消',
+								icon: 'success',
+								duration: 2000
+							});
+
+							// 移除指定item.id所对应的itemVO所对应的itemUser元素
+							const index = this.itemUserList.findIndex(itemUser => itemUser.itemVO.item.id ===
+								item.id);
+							if (index !== -1) {
+								this.itemUserList.splice(index, 1);
+							}
+						} else if (res.data.code == 0) {
+							uni.showToast({
+								title: '出错了~',
+								icon: 'error',
+								duration: 2000
+							});
+						}
+					},
+					fail: (err) => {
+						reject(err);
+					}
+				});
 
 			},
 		},
@@ -122,6 +236,15 @@
 
 	.container-top-2_1_1 {
 		width: 80%;
+	}
+
+	.container-top-2_2 {
+		margin-bottom: 25rpx;
+	}
+
+	.container-top-2_2 text {
+		font-size: 25rpx;
+		font-weight: 750;
 	}
 
 	.text-weigth {

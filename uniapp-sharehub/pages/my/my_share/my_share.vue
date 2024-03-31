@@ -17,16 +17,6 @@
 							<text>{{orderItem.item.itemDesc}}</text>
 						</view>
 
-
-						<!-- <view class="cu-capsule round view-width">
-							<view class="cu-tag bg-blue  ">
-								模式
-							</view>
-							<view :class="['cu-tag', tagColorClass(item.tradeMode)]">
-								{{ tradeModeText(item.tradeMode) }}
-							</view>
-						</view> -->
-
 						<view class='container-top-2_2'>
 							<view class="cu-capsule round view-width">
 								<view class="cu-tag bg-blue  ">
@@ -125,19 +115,7 @@
 				time = time.replace('T', ' ')
 				return time
 			},
-			//修改样式
-			tagColorClass(tradeMode) {
-				switch (tradeMode) {
-					case 0:
-						return 'line-green';
-					case 1:
-						return 'line-blue';
-					case 2:
-						return 'line-red';
-					default:
-						return ''; // 或者其他默认样式
-				}
-			},
+
 
 
 			//展示打分模态框
@@ -193,7 +171,19 @@
 						return ''; // 或者其他默认值
 				}
 			},
-
+			//修改样式
+			tagColorClass(tradeMode) {
+				switch (tradeMode) {
+					case 0:
+						return 'line-green';
+					case 1:
+						return 'line-blue';
+					case 2:
+						return 'line-red';
+					default:
+						return ''; // 或者其他默认样式
+				}
+			},
 			// 选项卡切换
 			tabChange(obj) {
 				console.log(obj.index)

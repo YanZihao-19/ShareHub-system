@@ -29,6 +29,13 @@
 .container-top-2_1_1 {
 	width: 80%;
 }
+.container-top-2_2 {
+	margin-bottom: 25rpx;
+}
+.container-top-2_2 text {
+	font-size: 25rpx;
+	font-weight: 750;
+}
 .text-weigth {
 	font-weight: 550;
 }

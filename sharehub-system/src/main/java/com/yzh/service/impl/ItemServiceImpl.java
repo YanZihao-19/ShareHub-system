@@ -5,12 +5,14 @@ import com.yzh.mapper.OrderMapper;
 import com.yzh.mapper.UserMapper;
 import com.yzh.pojo.Item;
 import com.yzh.pojo.Order;
+import com.yzh.pojo.User;
 import com.yzh.pojo.UserTagsScore;
 import com.yzh.service.ItemService;
 import com.yzh.utils.*;
 
 import java.util.*;
 
+import com.yzh.vo.ItemUserVO;
 import com.yzh.vo.ItemVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -163,5 +165,75 @@ public class ItemServiceImpl implements ItemService {
             UpdatePreference.increase(token, itemList.get(0), 2);
         }
         return itemList;
+    }
+
+    @Override
+    public void collectItem(String token, Integer itemId) {
+        if (token != null && !token.equals("")) {
+            //解析前端token,获取用户openid
+            Map<String, Object> itemUser = JwtUtils.parseJWT(token);
+            String openId = (String) itemUser.get("openId");
+
+            itemMapper.insertCollectItem(openId, itemId);
+        }
+    }
+
+    @Override
+    public Integer getCollect(String token, Integer itemId) {
+        if (token != null && !token.equals("")) {
+            //解析前端token,获取用户openid
+            Map<String, Object> itemUser = JwtUtils.parseJWT(token);
+            String openId = (String) itemUser.get("openId");
+
+            return itemMapper.selectCollectItem(openId, itemId);
+        }
+        return 0;
+    }
+
+    @Override
+    public void delCollectItem(String token, Integer itemId) {
+        if (token != null && !token.equals("")) {
+            //解析前端token,获取用户openid
+            Map<String, Object> itemUser = JwtUtils.parseJWT(token);
+            String openId = (String) itemUser.get("openId");
+
+            itemMapper.deleteCollectItem(openId, itemId);
+        }
+    }
+
+    @Override
+    public List<ItemUserVO> getCollectItemList(String token) {
+        List<ItemUserVO> collectItemList = new ArrayList<>();
+        ItemVO itemVO = null;
+        User user = null;
+        Integer itemStatus = 0;
+        if (token != null && !token.equals("")) {
+            //解析前端token,获取用户openid
+            Map<String, Object> itemUser = JwtUtils.parseJWT(token);
+            String openId = (String) itemUser.get("openId");
+
+            List<Integer> itemIdList = itemMapper.selectAllCollectItem(openId);
+            for (Integer itemId : itemIdList) {
+                //new一个ItemUserVO容器，并将每一个都放入list中
+                ItemUserVO itemUserVO = new ItemUserVO();
+                //获取物品信息和图片
+                Item itemDetail = itemMapper.getItemDetail(itemId);
+                List<String> itemImages = itemMapper.getItemImages(itemId);
+                itemVO = new ItemVO(itemDetail,itemImages);
+                //获取用户信息
+                user = userMapper.selectOpenId(itemVO.getItem().getOwnerUid());
+                if (itemMapper.selectCollectItem(openId, itemId) == 1) {
+                    itemStatus = 1;
+                }
+                //填充itemUserVO
+                itemUserVO.setItemVO(itemVO);
+                itemUserVO.setUser(user);
+                itemUserVO.setItemStatus(itemStatus);
+                //放进list中
+                collectItemList.add(itemUserVO);
+            }
+        }
+
+        return collectItemList;
     }
 }

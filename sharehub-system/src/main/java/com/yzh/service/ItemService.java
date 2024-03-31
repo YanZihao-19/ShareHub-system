@@ -2,6 +2,7 @@ package com.yzh.service;
 
 import com.yzh.pojo.Item;
 import com.yzh.pojo.Order;
+import com.yzh.vo.ItemUserVO;
 import com.yzh.vo.ItemVO;
 import org.aspectj.weaver.ast.Or;
 
@@ -50,4 +51,35 @@ public interface ItemService {
      * @return
      */
     List<Item> searchItems(String token, Integer mode, String keywords);
+
+    /**
+     * 用户收藏物品
+     *
+     * @param token
+     * @param itemId
+     */
+    void collectItem(String token, Integer itemId);
+
+    /**
+     * 判断物品是否已经收藏
+     *
+     * @param token
+     * @param itemId
+     */
+    Integer getCollect(String token, Integer itemId);
+
+    /**
+     * 取消收藏物品
+     *
+     * @param token
+     * @param itemId
+     */
+    void delCollectItem(String token, Integer itemId);
+
+    /**
+     * 获取用户物品收藏列表
+     *
+     * @param token
+     */
+    List<ItemUserVO> getCollectItemList(String token);
 }

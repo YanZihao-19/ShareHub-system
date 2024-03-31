@@ -108,7 +108,9 @@
 }
 .padding-button.data-v-738df69c {
   padding-top: 75rpx;
+  padding-right: 30rpx;
   font-size: 25rpx;
+  display: inline-block;
 }
 .fl image.data-v-738df69c {
   width: 100rpx;

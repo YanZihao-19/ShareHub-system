@@ -45,4 +45,16 @@ public interface ItemMapper {
 
     //根据关键词查询物品列表
     List<Item> searchItems(Integer mode, String keywords);
+
+    @Insert("INSERT item_collect (openid, itemid) VALUES (#{openId},#{itemId})")
+    void insertCollectItem(String openId, Integer itemId);
+
+    @Select("SELECT count(*) FROM item_collect WHERE openid = #{openId} AND itemid = #{itemId}")
+    Integer selectCollectItem(String openId, Integer itemId);
+
+    @Delete("DELETE FROM item_collect WHERE itemid=#{itemId} AND openid=#{openId}")
+    void deleteCollectItem(String openId, Integer itemId);
+
+    @Select("SELECT itemid FROM item_collect WHERE openid=#{openId}")
+    List<Integer> selectAllCollectItem(String openId);
 }

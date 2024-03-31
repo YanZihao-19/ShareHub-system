@@ -7,6 +7,7 @@ import java.util.*;
 
 import com.yzh.pojo.Result;
 import com.yzh.service.ItemService;
+import com.yzh.vo.ItemUserVO;
 import com.yzh.vo.ItemVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class ItemController {
 
     //根据关键词模糊查询所有物品
     @GetMapping("/searchItems")
-    public Result searchItems(@RequestHeader("token") String token, @RequestParam Integer mode, @RequestParam String keywords){
+    public Result searchItems(@RequestHeader("token") String token, @RequestParam Integer mode, @RequestParam String keywords) {
         List<Item> itemListResult = itemService.searchItems(token, mode, keywords);
         return Result.success(itemListResult);
     }
@@ -67,5 +68,41 @@ public class ItemController {
         return Result.success(itemListResult);
     }
 
+    //判断物品是否已经收藏
+    @GetMapping("/getCollect")
+    public Result getCollect(@RequestHeader("token") String token, @RequestParam Integer itemId) {
+        //mode是表示物品的发行方式
+        Integer count = itemService.getCollect(token, itemId);
+        if (count == 1) {
+            //已收藏
+            return Result.success();
+        } else {
+            return Result.error("未收藏");
+        }
+    }
+
+    //收藏物品
+    @PostMapping("/collectItem")
+    public Result collectItem(@RequestHeader("token") String token, @RequestParam Integer itemId) {
+        itemService.collectItem(token, itemId);
+
+        return Result.success("Items collect successfully");
+    }
+
+    //获取用户物品收藏列表
+    @GetMapping("/getCollectItemList")
+    public Result getCollectItemList(@RequestHeader("token") String token) {
+        //mode是表示物品的发行方式
+        List<ItemUserVO> collectItemList = itemService.getCollectItemList(token);
+        return Result.success(collectItemList);
+    }
+
+    //取消收藏物品
+    @DeleteMapping("/delCollectItem")
+    public Result delCollectItem(@RequestHeader("token") String token, @RequestParam Integer itemId) {
+        itemService.delCollectItem(token, itemId);
+
+        return Result.success("Items  delCollect successfully");
+    }
 
 }
