@@ -43,12 +43,16 @@
 			<!-- 地址选择 -->
 			<view class="cu-form-group">
 				<view class="title">地址选择</view>
-				<picker mode="multiSelector" @change="MultiChange" @columnchange="MultiColumnChange" :value="multiIndex"
-					:range="multiArray">
-					<view class="picker">
-						{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}，{{multiArray[2][multiIndex[2]]}}
+				<view>
+					<view class="picker" @click="onPickAddress()">
+						<!-- 显示选择的地址 -->
+						{{ province ? province.name : '请选择省' }},
+						{{ city ? city.name : '请选择市' }},
+						{{ district ? district.name : '请选择区' }}
 					</view>
-				</picker>
+					<!-- 监听子组件触发的事件，并接收选择的地址数据 -->
+					<pick-adress ref="pickAdress" @selectAddress="onSelectAddress"></pick-adress>
+				</view>
 			</view>
 			<!-- end -->
 
@@ -128,10 +132,10 @@
 		data() {
 			return {
 				formMsg: {
-					itemTitle: '',//物品标题
-					itemDesc: '',//物品描述
+					itemTitle: '', //物品标题
+					itemDesc: '', //物品描述
 					imgList: [], //物品图片
-					
+
 				},
 
 				modalName: '', //模态框开关

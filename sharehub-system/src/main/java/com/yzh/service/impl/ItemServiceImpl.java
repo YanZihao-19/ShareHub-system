@@ -4,14 +4,11 @@ import com.yzh.mapper.ItemMapper;
 import com.yzh.mapper.OrderMapper;
 import com.yzh.mapper.UserMapper;
 import com.yzh.pojo.Item;
-import com.yzh.pojo.Order;
 import com.yzh.pojo.User;
 import com.yzh.pojo.UserTagsScore;
 import com.yzh.service.ItemService;
 import com.yzh.utils.*;
-
 import java.util.*;
-
 import com.yzh.vo.ItemUserVO;
 import com.yzh.vo.ItemVO;
 import org.springframework.beans.factory.annotation.Autowired;

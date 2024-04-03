@@ -219,6 +219,9 @@
 .waterfall-item__ft__btn.data-v-92bb8f34 {
   padding: 10px 0;
 }
+.address.data-v-92bb8f34 {
+  margin-top: 15rpx;
+}
 /* 吸附置顶 */
 .navTab.data-v-92bb8f34 {
   position: fixed;

@@ -208,26 +208,30 @@ var render = function () {
     var m0 = _vm.getModeText(item.mode)
     var m1 = _vm.getModeType(item.mode)
     var m2 = _vm.getDeliveryText(item.delivery)
+    var m3 = _vm.handleAddress(item.address)
     return {
       $orig: $orig,
       s0: s0,
       m0: m0,
       m1: m1,
       m2: m2,
+      m3: m3,
     }
   })
   var l3 = _vm.__map(_vm.list2, function (item, index) {
     var $orig = _vm.__get_orig(item)
     var s1 = _vm.__get_style([_vm.imageStyle(item)])
-    var m3 = _vm.getModeText(item.mode)
-    var m4 = _vm.getModeType(item.mode)
-    var m5 = _vm.getDeliveryText(item.delivery)
+    var m4 = _vm.getModeText(item.mode)
+    var m5 = _vm.getModeType(item.mode)
+    var m6 = _vm.getDeliveryText(item.delivery)
+    var m7 = _vm.handleAddress(item.address)
     return {
       $orig: $orig,
       s1: s1,
-      m3: m3,
       m4: m4,
       m5: m5,
+      m6: m6,
+      m7: m7,
     }
   })
   _vm.$mp.data = Object.assign(
@@ -283,6 +287,10 @@ exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 58));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 60));
 var _index = __webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/function/index.js */ 61);
+//
+//
+//
+//
 //
 //
 //
@@ -607,7 +615,10 @@ var _default = {
           height: h + 'px'
         };
       };
-    }
+    } // handleAddress: function(address) {
+    // 	let addressParts = address.split(",");
+    // 	return addressParts[1];
+    // }
   },
   onLoad: function onLoad() {
     var _this2 = this;
@@ -704,6 +715,20 @@ var _default = {
     }))();
   },
   methods: {
+    //修改地址字符串
+    handleAddress: function handleAddress(address) {
+      var addressParts = address.split(',');
+      if (addressParts.length < 3) {
+        return '';
+      }
+
+      // 获取城市和区
+      var city = addressParts[1];
+      var district = addressParts[2];
+
+      // 返回格式化后的地址
+      return "".concat(city, " ").concat(district);
+    },
     //选择物品种类
     itemClick: function itemClick(tag) {
       //获取点击的物品种类

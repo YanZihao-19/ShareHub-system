@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uvRate: function () {
-      return Promise.all(/*! import() | uni_modules/uv-rate/components/uv-rate/uv-rate */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-rate/components/uv-rate/uv-rate")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-rate/components/uv-rate/uv-rate.vue */ 468))
+      return Promise.all(/*! import() | uni_modules/uv-rate/components/uv-rate/uv-rate */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-rate/components/uv-rate/uv-rate")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-rate/components/uv-rate/uv-rate.vue */ 476))
     },
   }
 } catch (e) {

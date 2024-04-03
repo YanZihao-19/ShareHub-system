@@ -80,7 +80,7 @@ var components
 try {
   components = {
     uvBadge: function () {
-      return __webpack_require__.e(/*! import() | uni_modules/uv-badge/components/uv-badge/uv-badge */ "uni_modules/uv-badge/components/uv-badge/uv-badge").then(__webpack_require__.bind(null, /*! @/uni_modules/uv-badge/components/uv-badge/uv-badge.vue */ 485))
+      return __webpack_require__.e(/*! import() | uni_modules/uv-badge/components/uv-badge/uv-badge */ "uni_modules/uv-badge/components/uv-badge/uv-badge").then(__webpack_require__.bind(null, /*! @/uni_modules/uv-badge/components/uv-badge/uv-badge.vue */ 493))
     },
   }
 } catch (e) {

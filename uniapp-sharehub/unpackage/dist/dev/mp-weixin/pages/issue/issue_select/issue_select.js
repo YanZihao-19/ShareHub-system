@@ -139,23 +139,24 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var pickAdress = function pickAdress() {
+  Promise.all(/*! require.ensure | components/john-pickAddress/pickAddress */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/john-pickAddress/pickAddress")]).then((function () {
+    return resolve(__webpack_require__(/*! @/components/john-pickAddress/pickAddress */ 460));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
 var _default = {
   data: function data() {
     return {
       order: ''
     };
   },
+  components: {
+    pickAdress: pickAdress
+  },
   methods: {
+    onPickAddress: function onPickAddress() {
+      this.$refs.pickAdress.onOpen();
+    },
     toExchange: function toExchange() {
       uni.navigateTo({
         url: '/pages/issue/barter/barter?pageFlag=0&order=' + encodeURIComponent(JSON.stringify(this.order))

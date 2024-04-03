@@ -128,7 +128,9 @@
 										<uv-row justify="space-between" gutter="4">
 											<uv-col span="4">
 												<view>
-													<view class='cu-tag light bg-cyan radius'>成都</view>
+													<view class='address cu-tag light bg-blue radius'>
+														{{handleAddress(item.address)}}
+													</view>
 												</view>
 											</uv-col>
 										</uv-row>
@@ -182,7 +184,9 @@
 										<uv-row justify="space-between" gutter="4">
 											<uv-col span="4">
 												<view>
-													<view class='cu-tag light bg-cyan radius'>成都</view>
+													<view class='address cu-tag light bg-cyan radius'>
+														{{handleAddress(item.address)}}
+													</view>
 												</view>
 											</uv-col>
 										</uv-row>
@@ -328,7 +332,11 @@
 						height: h + 'px'
 					}
 				}
-			}
+			},
+			// handleAddress: function(address) {
+			// 	let addressParts = address.split(",");
+			// 	return addressParts[1];
+			// }
 		},
 
 		async onLoad() {
@@ -390,6 +398,21 @@
 		},
 
 		methods: {
+			//修改地址字符串
+			handleAddress: function(address) {
+
+				const addressParts = address.split(',');
+				if (addressParts.length < 3) {
+					return '';
+				}
+
+				// 获取城市和区
+				const city = addressParts[1];
+				const district = addressParts[2];
+
+				// 返回格式化后的地址
+				return `${city} ${district}`;
+			},
 			//选择物品种类
 			itemClick(tag) {
 				//获取点击的物品种类
@@ -832,6 +855,9 @@
 	}
 
 	//瀑布流end
+	.address {
+		margin-top: 15rpx;
+	}
 
 	/* 吸附置顶 */
 	.navTab {
