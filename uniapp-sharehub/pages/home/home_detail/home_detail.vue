@@ -31,10 +31,15 @@
 				<text class='price-symbol'>￥</text>
 				<text class='price-size'>{{item.sellPrice}}</text>
 				<text class='price-ori'>￥{{item.originalPrice}}</text>
-				<!-- <view class="cu-tag">不讲价</view> -->
+
+				<uv-col span="1.8">
+					<view class="uv-page__tag-item">
+						<uv-tags :text="getUsageText(item.usageLevel)" :type="getUsageLevel(item.usageLevel)"></uv-tags>
+					</view>
+				</uv-col>
 			</view>
 			<!-- 物品标题 -->
-			<view class='bg-white top-20 font-size'>
+			<view class='itemTitle bg-white top-20 font-size'>
 				<text>
 					{{item.itemTitle}}
 				</text>
@@ -56,6 +61,11 @@
 				</text>
 			</view>
 			<!-- end -->
+			<!-- 展示物品地址 -->
+			<view class='address'>
+				<text class="cuIcon-location text-blue"></text>
+				<view class="text-grey">{{item.address}}</view>
+			</view>
 
 			<!-- 图片位置 -->
 			<view>
@@ -66,23 +76,36 @@
 					<image class='img' :src="item" @tap="previewImage(item)"></image>
 				</block>
 			</view>
-			<!--图片位置end  -->
-
-			<view class='browse'>
-				<view>
-					<text></text>
-					<!-- <text>担保交易</text> -->
-				</view>
-				<!-- 	<view class="text-gray text-sm text-right padding-browse">
-					<text class="cuIcon-attentionfill margin-lr-xs"></text> 10
-					<text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
-					<text class="cuIcon-messagefill margin-lr-xs"></text> 30
-				</view> -->
-
-			</view>
-
 		</view>
 		<!-- 商品内容end -->
+
+		<!-- 用户留言 -->
+		<view class='bg-white top-20 padding-sm '>
+			<view class='in_regard_to'>
+				<view>
+					<!-- <image src='../img/tiao.png'></image> -->
+				</view>
+				<view>
+					<text class='in_regard_to_text'>全部留言</text>
+				</view>
+			</view>
+
+			<view class='msg padding-sm' v-for="(item,index) in 3" wx:key="id">
+
+				<view class="cu-avatar round lg"
+					style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);">
+				</view>
+
+				<view class='msg-conetent'>
+					<view>Amibition
+						<text class="cuIcon-timefill text-green msg-timer  margin-right-xs"></text>
+						<text class='msg-timers'>2024-4-11</text>
+					</view>
+					<view>宝贝还在吗？</view>
+				</view>
+			</view>
+		</view>
+		<!-- end -->
 
 		<!-- 商家信息 -->
 		<view class='bg-white top-20 padding-sm '>
@@ -94,7 +117,7 @@
 					<text class='in_regard_to_text'>关于卖家</text>
 				</view>
 			</view>
-			<!-- 
+
 			<navigator url='/pages/my/my_detail/my_detail'>
 				<view class="cu-list menu-avatar">
 					<view class="cu-item arrow ">
@@ -140,13 +163,7 @@
 						<text>在线宝贝</text>
 					</view>
 				</view>
-
-			</view> -->
-
-
-
-
-
+			</view>
 
 			<scroll-view scroll-x="true" style=" white-space: nowrap; display: flex" class='top-20'>
 				<block v-for="(item,index) in 10" :key="index">
@@ -167,36 +184,7 @@
 
 		<!-- end -->
 
-		<!-- 消息 -->
-		<view class='bg-white top-20 padding-sm '>
-			<view class='in_regard_to'>
-				<view>
-					<!-- <image src='../img/tiao.png'></image> -->
-				</view>
-				<view>
-					<text class='in_regard_to_text'>消息（10）</text>
-				</view>
-			</view>
 
-			<view class='msg padding-sm' v-for="(item,index) in 3" wx:key="id">
-
-				<view class="cu-avatar round lg"
-					style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);">
-				</view>
-
-				<view class='msg-conetent'>
-					<view>Amibition
-						<text class="cuIcon-timefill text-green msg-timer  margin-right-xs"></text>
-						<text class='msg-timers'>2018-6-11</text>
-					</view>
-					<view>发射点撒旦点发射点撒旦发生发射点射点</view>
-
-				</view>
-
-			</view>
-		</view>
-
-		<!-- end -->
 
 		<!-- 相识商品 -->
 		<view class='bg-white top-20 '>
@@ -354,7 +342,8 @@
 					originalPrice: '', //原价
 					usageLevel: '', //物品磨损度
 					deliveryStyle: '', //物品交易方式
-					ownerUid: '' //用户openID
+					ownerUid: '', //用户openID
+					address: '',
 				},
 				itemImages: [], //物品详情图
 
@@ -532,6 +521,31 @@
 					}
 				});
 			},
+			//瀑布流中根据后端数据展示不同文本和样式
+			getUsageText(usage) {
+				switch (usage) {
+					case 0:
+						return '全新';
+					case 1:
+						return '99新';
+					case 2:
+						return '95新';
+					case 3:
+						return '85新';
+					default:
+						return '';
+				}
+			},
+			getUsageLevel(usage) {
+				switch (usage) {
+					case 0:
+						return 'success';
+					case 1:
+						return 'success';
+					default:
+						return 'primary';
+				}
+			},
 			handleAction(item) {
 				// console.log('进入了handleAction')
 				//如果交易模式是免费共享
@@ -648,7 +662,7 @@
 								//赋值给前端的 item 数据
 								this.item = res.data.data.item;
 								this.itemImages = res.data.data.itemImages
-								console.log('this.item的数据：', this.item)
+								// console.log('this.item的address数据：', this.item.address)
 								//修改日期格式
 								this.item.createTime = this.item.createTime.replace('T', ' ');
 								console.log('this.item.time的数据：', this.item.createTime)
@@ -821,6 +835,10 @@
 		margin-top: 20rpx;
 	}
 
+	.price {
+		display: flex;
+	}
+
 	.price-size {
 		font-size: 50rpx;
 		color: red;
@@ -875,6 +893,10 @@
 		padding: 10rpx;
 	}
 
+	.itemTitle {
+		display: flex;
+	}
+
 	/* 商品内容end */
 
 	/* 商家信息 */
@@ -926,6 +948,11 @@
 	}
 
 	/* end */
+
+	.address {
+		margin-top: 10rpx;
+		display: flex;
+	}
 
 	/* 消息 */
 	.msg {

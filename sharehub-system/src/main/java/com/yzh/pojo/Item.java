@@ -34,10 +34,8 @@ public class Item extends AbstractEntity {
     private Integer sellPrice;
     //物品原价
     private Integer originalPrice;
-
     //物品上传的图片(使用OSS存储)
     private String[] imgList;
-
     //物品磨损度
     private Integer usageLevel;
     //物品地址

@@ -100,6 +100,12 @@ __webpack_require__.r(__webpack_exports__);
 var components
 try {
   components = {
+    uvCol: function () {
+      return Promise.all(/*! import() | uni_modules/uv-row/components/uv-col/uv-col */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-row/components/uv-col/uv-col")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-row/components/uv-col/uv-col.vue */ 347))
+    },
+    uvTags: function () {
+      return Promise.all(/*! import() | uni_modules/uv-tags/components/uv-tags/uv-tags */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-tags/components/uv-tags/uv-tags")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-tags/components/uv-tags/uv-tags.vue */ 355))
+    },
     uvTextarea: function () {
       return Promise.all(/*! import() | uni_modules/uv-textarea/components/uv-textarea/uv-textarea */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-textarea/components/uv-textarea/uv-textarea")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-textarea/components/uv-textarea/uv-textarea.vue */ 363))
     },
@@ -128,7 +134,9 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var m0 = _vm.getDeliveryText(_vm.item.deliveryStyle)
+  var m0 = _vm.getUsageText(_vm.item.usageLevel)
+  var m1 = _vm.getUsageLevel(_vm.item.usageLevel)
+  var m2 = _vm.getDeliveryText(_vm.item.deliveryStyle)
   if (!_vm._isMounted) {
     _vm.e0 = function ($event) {
       _vm.show2 = false
@@ -139,6 +147,8 @@ var render = function () {
     {
       $root: {
         m0: m0,
+        m1: m1,
+        m2: m2,
       },
     }
   )
@@ -184,18 +194,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 58));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 60));
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -562,9 +560,10 @@ var _default = {
         //物品磨损度
         deliveryStyle: '',
         //物品交易方式
-        ownerUid: '' //用户openID
+        ownerUid: '',
+        //用户openID
+        address: ''
       },
-
       itemImages: [],
       //物品详情图
 
@@ -751,6 +750,31 @@ var _default = {
         }
       });
     },
+    //瀑布流中根据后端数据展示不同文本和样式
+    getUsageText: function getUsageText(usage) {
+      switch (usage) {
+        case 0:
+          return '全新';
+        case 1:
+          return '99新';
+        case 2:
+          return '95新';
+        case 3:
+          return '85新';
+        default:
+          return '';
+      }
+    },
+    getUsageLevel: function getUsageLevel(usage) {
+      switch (usage) {
+        case 0:
+          return 'success';
+        case 1:
+          return 'success';
+        default:
+          return 'primary';
+      }
+    },
     handleAction: function handleAction(item) {
       // console.log('进入了handleAction')
       //如果交易模式是免费共享
@@ -867,7 +891,7 @@ var _default = {
               //赋值给前端的 item 数据
               _this6.item = res.data.data.item;
               _this6.itemImages = res.data.data.itemImages;
-              console.log('this.item的数据：', _this6.item);
+              // console.log('this.item的address数据：', this.item.address)
               //修改日期格式
               _this6.item.createTime = _this6.item.createTime.replace('T', ' ');
               console.log('this.item.time的数据：', _this6.item.createTime);

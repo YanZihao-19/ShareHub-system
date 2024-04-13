@@ -130,6 +130,9 @@ text-title-size.data-v-738df69c {
 .top-20.data-v-738df69c {
   margin-top: 20rpx;
 }
+.price.data-v-738df69c {
+  display: flex;
+}
 .price-size.data-v-738df69c {
   font-size: 50rpx;
   color: red;
@@ -173,6 +176,9 @@ text-title-size.data-v-738df69c {
 .padding-browse.data-v-738df69c {
   padding: 10rpx;
 }
+.itemTitle.data-v-738df69c {
+  display: flex;
+}
 /* 商品内容end */
 /* 商家信息 */
 .in_regard_to.data-v-738df69c {
@@ -214,6 +220,10 @@ text-title-size.data-v-738df69c {
   width: 230rpx;
 }
 /* end */
+.address.data-v-738df69c {
+  margin-top: 10rpx;
+  display: flex;
+}
 /* 消息 */
 .msg.data-v-738df69c {
   display: flex;

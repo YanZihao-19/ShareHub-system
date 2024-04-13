@@ -136,8 +136,6 @@
 										</uv-row>
 									</view>
 								</view>
-
-
 							</view>
 						</view>
 
