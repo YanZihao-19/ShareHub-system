@@ -48,7 +48,6 @@ public class OrderController {
         return Result.error("您已经申请过了~");
     }
 
-
     //获取待处理订单列表(包括有类型)
     @GetMapping("/getOrders")
     public Result getAllOrders(@RequestHeader("token") String token, @RequestParam Integer status) {
@@ -102,7 +101,6 @@ public class OrderController {
     @PutMapping("/sethScore")
     public Result sethScore(@RequestHeader("token") String token, @RequestParam Integer hScore, Integer orderId) {
         orderService.sethScore(token, hScore, orderId);
-
         return Result.success();
     }
 

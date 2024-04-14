@@ -5,7 +5,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.yzh.mapper.UserMapper;
 import com.yzh.pojo.User;
-import com.yzh.service.IMemberLoginService;
+import com.yzh.service.MemberLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class MemberLoginServiceImpl implements IMemberLoginService {
+public class MemberLoginServiceImpl implements MemberLoginService {
     @Autowired
     UserMapper userMapper;
 

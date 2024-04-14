@@ -34,4 +34,112 @@ public class User extends AbstractEntity {
     private String bgImage;
     //实名认证编号
     private Integer identifyId;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", openId='" + openId + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", gender=" + gender +
+                ", credibility=" + credibility +
+                ", phone='" + phone + '\'' +
+                ", role=" + role +
+                ", image='" + image + '\'' +
+                ", shareNum=" + shareNum +
+                ", bgImage='" + bgImage + '\'' +
+                ", identifyId=" + identifyId +
+                '}';
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Short getGender() {
+        return gender;
+    }
+
+    public void setGender(Short gender) {
+        this.gender = gender;
+    }
+
+    public Short getCredibility() {
+        return credibility;
+    }
+
+    public void setCredibility(Short credibility) {
+        this.credibility = credibility;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Short getRole() {
+        return role;
+    }
+
+    public void setRole(Short role) {
+        this.role = role;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Integer getShareNum() {
+        return shareNum;
+    }
+
+    public void setShareNum(Integer shareNum) {
+        this.shareNum = shareNum;
+    }
+
+    public String getBgImage() {
+        return bgImage;
+    }
+
+    public void setBgImage(String bgImage) {
+        this.bgImage = bgImage;
+    }
+
+    public Integer getIdentifyId() {
+        return identifyId;
+    }
+
+    public void setIdentifyId(Integer identifyId) {
+        this.identifyId = identifyId;
+    }
 }

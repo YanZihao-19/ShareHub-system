@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzh.mapper.ManageItemMapper">
+
+    <sql id="Base_Column_List">
+        id,item_title,item_desc,image,tag,trade_mode,delivery_style,status,update_time
+    </sql>
+
+    <select id="selectAll" resultType="com.yzh.pojo.Item">
+        select
+        <include refid="Base_Column_List" />
+        from item
+        <where>
+            <if test="id != null"> and id = #{id}</if>
+            <if test="itemTitle != null"> and item_title like concat('%', #{itemTitle}, '%')</if>
+            <if test="itemDesc != null"> and item_desc like concat('%', #{itemDesc}, '%')</if>
+            <if test="image != null"> and image like concat('%', #{image}, '%')</if>
+            <if test="tag != null"> and tag = #{tag}</if>
+            <if test="tradeMode != null"> and trade_mode = #{tradeMode}</if>
+            <if test="deliveryStyle != null"> and delivery_style = #{deliveryStyle}</if>
+            <if test="status != null"> and status = #{status}</if>
+            <if test="updateTime != null"> and update_time = #{updateTime}</if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="selectById" resultType="com.yzh.pojo.Item">
+        select
+        <include refid="Base_Column_List" />
+        from item
+        where id = #{id}
+    </select>
+
+    <delete id="deleteById">
+        delete from item
+        where  id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.yzh.pojo.Item" useGeneratedKeys="true" keyProperty="id">
+        insert into item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="itemTitle != null">item_title,</if>
+            <if test="itemDesc != null">item_desc,</if>
+            <if test="image != null">image,</if>
+            <if test="tag != null">tag,</if>
+            <if test="tradeMode != null">trade_mode,</if>
+            <if test="deliveryStyle != null">delivery_style,</if>
+            <if test="status != null">status,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="itemTitle != null">#{itemTitle},</if>
+            <if test="itemDesc != null">#{itemDesc},</if>
+            <if test="image != null">#{image},</if>
+            <if test="tag != null">#{tag},</if>
+            <if test="tradeMode != null">#{tradeMode},</if>
+            <if test="deliveryStyle != null">#{deliveryStyle},</if>
+            <if test="status != null">#{status},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.yzh.pojo.Item">
+        update item
+        <set>
+            <if test="itemTitle != null">
+                item_title = #{itemTitle},
+            </if>
+            <if test="itemDesc != null">
+                item_desc = #{itemDesc},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <if test="tag != null">
+                tag = #{tag},
+            </if>
+            <if test="tradeMode != null">
+                trade_mode = #{tradeMode},
+            </if>
+            <if test="deliveryStyle != null">
+                delivery_style = #{deliveryStyle},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

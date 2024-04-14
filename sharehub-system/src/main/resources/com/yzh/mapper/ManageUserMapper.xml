@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzh.mapper.ManageUserMapper">
+
+    <sql id="Base_Column_List">
+        id,username,image,role,phone,credibility,shareNum
+    </sql>
+
+    <select id="selectAll" resultType="com.yzh.pojo.User">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        <where>
+            <if test="id != null"> and id = #{id}</if>
+            <if test="username != null"> and username like concat('%', #{username}, '%')</if>
+            <if test="image != null"> and image like concat('%', #{image}, '%')</if>
+            <if test="role != null"> and role = #{role}</if>
+            <if test="phone != null"> and phone like concat('%', #{phone}, '%')</if>
+            <if test="credibility != null"> and credibility = #{credibility}</if>
+            <if test="shareNum != null"> and shareNum = #{shareNum}</if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="selectById" resultType="com.yzh.pojo.User">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        where id = #{id}
+    </select>
+
+    <delete id="deleteById">
+        delete from user
+        where  id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.yzh.pojo.User" useGeneratedKeys="true" keyProperty="id">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="username != null">username,</if>
+            <if test="image != null">image,</if>
+            <if test="role != null">role,</if>
+            <if test="phone != null">phone,</if>
+            <if test="credibility != null">credibility,</if>
+            <if test="shareNum != null">shareNum,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="username != null">#{username},</if>
+            <if test="image != null">#{image},</if>
+            <if test="role != null">#{role},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="credibility != null">#{credibility},</if>
+            <if test="shareNum != null">#{shareNum},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.yzh.pojo.User">
+        update user
+        <set>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <if test="role != null">
+                role = #{role},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="credibility != null">
+                credibility = #{credibility},
+            </if>
+            <if test="shareNum != null">
+                shareNum = #{shareNum},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

@@ -2,7 +2,11 @@ package com.yzh.config;
 
 import com.yzh.interceptor.LoginCheckInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -23,13 +27,16 @@ public class WebConfig implements WebMvcConfigurer {
 //        registry.addInterceptor(loginCheckInterceptor).addPathPatterns("/**").excludePathPatterns("/login");
 //    }
 
-    //ORS（跨域资源共享），允许跨域请求
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("*") // 允许任意域名进行跨域访问，这里是你的前端应用地址
-                .allowedMethods("GET", "POST", "PUT", "DELETE") // 允许哪些请求方法
-                .allowedHeaders("*"); // 允许任意请求头
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("*"); // 1 设置访问源地址
+        corsConfiguration.addAllowedHeader("*"); // 2 设置访问源请求头
+        corsConfiguration.addAllowedMethod("*"); // 3 设置访问源请求方法
+        source.registerCorsConfiguration("/**", corsConfiguration); // 4 对接口配置跨域设置
+        return new CorsFilter(source);
     }
 
 }
