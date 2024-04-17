@@ -4,6 +4,7 @@ import com.yzh.mapper.ItemMapper;
 import com.yzh.mapper.OrderMapper;
 import java.util.*;
 import com.yzh.pojo.Result;
+import com.yzh.service.CommentService;
 import com.yzh.service.ItemService;
 import com.yzh.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,13 +23,16 @@ public class MessageController {
     private OrderService orderService;
     @Autowired
     private ItemService itemService;
+    @Autowired
+    private CommentService commentService;
 
     //查询当前用户是否有订单信息、未读评论信息、未读通知信息
     @GetMapping("/getDotNum")
     public Result getOrderDot(@RequestHeader("token") String token) {
         List<Integer> dotNumList = new ArrayList<>();
-        //待补充！！！！！！
-        Integer commentDot = 0;
+        //获取评论红点
+        Integer commentDot = commentService.getCommentDot(token);
+        //获取订单红点
         Integer orderDot = orderService.getRedDot(token);
         //待补充！！！！！！
         Integer informDot = 0;

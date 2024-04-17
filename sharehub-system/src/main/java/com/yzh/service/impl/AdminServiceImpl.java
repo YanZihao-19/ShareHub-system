@@ -3,7 +3,7 @@ package com.yzh.service.impl;
 import com.yzh.pojo.Account;
 import com.yzh.mapper.AdminMapper;
 import com.yzh.service.AdminService;
-import com.yzh.utils.JwtUtils;
+import com.yzh.common.utils.JwtUtils;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 /**
@@ -31,9 +32,9 @@ public class Item extends AbstractEntity {
     //物品所有者id
     private String ownerUid;
     //租借/出售价格（共享的话默认为0）
-    private Integer sellPrice;
+    private BigDecimal sellPrice;
     //物品原价
-    private Integer originalPrice;
+    private BigDecimal originalPrice;
     //物品上传的图片(使用OSS存储)
     private String[] imgList;
     //物品磨损度

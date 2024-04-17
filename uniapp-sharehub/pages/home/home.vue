@@ -235,7 +235,7 @@
 				// 轮播图end
 
 				// 滚动条
-				text: ['uv-ui众多组件覆盖开发过程的各个需求', '组件功能丰富，多端兼容', '让您快速集成，开箱即用'],
+				text: ['今天系统正式上线，开始内测', '验证回收商资历，解锁更多特权！', '分享平台给好友，赢共享次数上限！'],
 				// 宫格列表
 				menuBaseUrl: 'https://cdn.uviewui.com/uview/menu/',
 				menuArr: [
@@ -530,7 +530,7 @@
 							// 存储到vuex中
 							//用户信息存储到vuex中
 							let dotNumList = res.data.data
-
+							console.log('评论dot数', dotNumList[1])
 							this.$store.commit('notice/setCommentNum', dotNumList[0]);
 							this.$store.commit('notice/setOrderNum', dotNumList[1]);
 							this.$store.commit('notice/setInformNum', dotNumList[2]);

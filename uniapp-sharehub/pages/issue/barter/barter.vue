@@ -7,14 +7,15 @@
 				<view v-if="formMsg.pageFlag == 0" class="title">标题</view>
 				<view v-else class="title">申请理由</view>
 				<input v-model="formMsg.itemTitle" name="title"
-					:placeholder="formMsg.pageFlag == 0 ? '品类品牌型号都是买家喜欢搜索的' : '真诚的措辞换物成功率更高哦！'"></input>
+					:placeholder="formMsg.pageFlag == 0 ? '品类品牌型号都是买家喜欢搜索的' : '真诚的措辞换物成功率更高哦！'" required></input>
 			</view>
 			<!-- end -->
 
 			<!-- 内容 -->
 			<view class="cu-form-group margin-top">
 				<textarea v-model="formMsg.itemDesc" name="content" maxlength="1000"
-					:placeholder="formMsg.pageFlag == 0 ? '描述意向换物种类以及当前宝贝新旧程度，注意事项和使用感受' : '请在这里留下联系方式，同时描述自己的物品哦~'"></textarea>
+					:placeholder="formMsg.pageFlag == 0 ? '描述意向换物种类以及当前宝贝新旧程度，注意事项和使用感受' : '请在这里留下联系方式，同时描述自己的物品哦~'"
+					required></textarea>
 			</view>
 			<!-- end -->
 
@@ -116,6 +117,11 @@
 			<!-- end -->
 		</form>
 
+		<!-- toast提醒 -->
+		<view>
+			<uv-toast ref="toast"></uv-toast>;
+		</view>
+
 		<!-- 模态框 -->
 		<view @touchmove.stop="modeMove" class=" cu-modal drawer-modal justify-start "
 			:class=" modalName == 'DrawerModalL'?'show':'' " @tap="hideModal">
@@ -142,6 +148,27 @@
 				city: null, //地址市
 				district: null, //地址区
 
+				// toas数组
+				toastList: [{
+					type: 'error',
+					title: '失败主题',
+					message: "请填写物品标题"
+				}, {
+					type: 'error',
+					icon: false,
+					title: '失败主题',
+					message: "请填写物品描述信息"
+				}, {
+					type: 'error',
+					icon: false,
+					title: '失败主题',
+					message: "请上传物品图片"
+				}, {
+					type: 'error',
+					title: '失败主题',
+					message: "请填写物品地址"
+				}],
+
 				order: {
 					itemId: '', //当前物品id
 					reason: '', // 申请理由
@@ -155,7 +182,7 @@
 					itemTitle: '', //物品标题
 					itemDesc: '', //物品描述
 					imgList: [], //图片列表
-					address: '', //地址选择下标拼接的字符串
+					address: '', //地址
 					sellPrice: '0', //出售价
 					originalPrice: '', //原价
 					tag: '', //物品种类
@@ -378,6 +405,13 @@
 
 			},
 
+			//显示toast
+			showToast(params) {
+				this.$refs.toast.show({
+					...params,
+				})
+			},
+
 			// 显示分类模态框
 			showModal(e) {
 				this.modalName = e.currentTarget.dataset.target
@@ -403,6 +437,24 @@
 				console.log('页面的order', this.order)
 			},
 			formSubmit() {
+				// 表单验证
+				if (!this.formMsg.itemTitle) {
+					this.showToast(this.toastList[0])
+					return;
+				}
+				if (!this.formMsg.itemDesc) {
+					this.showToast(this.toastList[1])
+					return;
+				}
+				if (this.formMsg.imgList.length == 0) {
+					this.showToast(this.toastList[2])
+					return;
+				}
+				if (!this.province) {
+					this.showToast(this.toastList[3])
+					return;
+				}
+
 				//最后处理form数据
 				this.formMsg.ownerUid = this.$store.state.user.openid
 				//设置物品待交易

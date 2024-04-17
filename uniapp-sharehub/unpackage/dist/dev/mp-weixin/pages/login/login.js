@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uvLoadingPage: function () {
-      return Promise.all(/*! import() | uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page.vue */ 301))
+      return Promise.all(/*! import() | uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-loading-page/components/uv-loading-page/uv-loading-page.vue */ 320))
     },
   }
 } catch (e) {
@@ -165,6 +165,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _jwtDecode = __webpack_require__(/*! jwt-decode */ 43);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -337,6 +342,13 @@ var _default = {
           url: url
         });
       }
+    },
+    switchLogin: function switchLogin() {
+      var url = '';
+      url = '/pages/login/pswLogin';
+      uni.navigateTo({
+        url: url
+      });
     }
   }
 };

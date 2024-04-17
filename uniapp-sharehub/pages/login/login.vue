@@ -5,12 +5,17 @@
 			<text class="title">{{ nickName }}</text>
 		</view>
 		<view v-if="!loggedIn">
-			<button class="cu-btn bg-blue lg" @click="login">登录</button>
+			<button class="cu-btn bg-blue lg" @click="login">微信一键登录</button>
 		</view>
 		<view v-else>
 			<!-- 导航按钮 -->
 			<button class="cu-btn bg-blue lg" @click="switchTab">Let's Share！</button>
 		</view>
+
+		<view v-if="!loggedIn" class="login-text" @click="switchLogin">
+			账户密码登录
+		</view>
+
 
 		<template>
 			<uv-loading-page :loading="loading" image="/static/gif/loading.gif">加载中...</uv-loading-page>
@@ -181,12 +186,28 @@
 						url: url
 					});
 				}
+			},
+			switchLogin() {
+				let url = '';
+				url = '/pages/login/pswLogin';
+				uni.navigateTo({
+					url: url
+				});
+
+
 			}
 		}
 	}
 </script>
 
 <style>
+	.login-text {
+		margin-top: 10px;
+		/* 调整间隔 */
+		color: blue;
+		/* 设置字体颜色 */
+	}
+
 	.content {
 		display: flex;
 		flex-direction: column;

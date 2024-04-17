@@ -1,5 +1,6 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages{
+		
 		{
 			"path": "pages/login/login",
 			"style": {
@@ -7,6 +8,12 @@
 				"enablePullDownRefresh": false
 			}
 		}, {
+			"path": "pages/issue/barter/barter",
+			"style": {
+				"navigationBarTitleText": "以物换物",
+				"enablePullDownRefresh": false
+			}
+		},{
 			"path": "pages/home/home_search/home_search",
 			"style": {
 				"navigationBarTitleText": "物品搜索",
@@ -14,7 +21,10 @@
 			}
 		}, {
 			"path": "pages/my/my_issue/my_issue",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "我的发布",
+				"enablePullDownRefresh": false
+			}
 		}, {
 			"path": "pages/home/home_prefer/home_prefer",
 			"style": {
@@ -24,6 +34,7 @@
 		}, {
 			"path": "pages/home/home",
 			"style": {
+				"navigationBarTitleText": "ShareHub",
 				"enablePullDownRefresh": true
 			}
 		}, {
@@ -39,10 +50,16 @@
 			}
 		}, {
 			"path": "pages/msg/msg",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "消息",
+				"enablePullDownRefresh": false
+			}
 		}, {
 			"path": "pages/my/my",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh": false
+			}
 		},
 		{
 			"path": "pages/home/home_classify/home_classify",
@@ -73,7 +90,10 @@
 			"style": {}
 		}, {
 			"path": "pages/msg/msg_order_all/msg_order_all",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "订单消息",
+				"enablePullDownRefresh": false
+			}
 		}, {
 			"path": "pages/msg/message_logistics/message_logistics",
 			"style": {}
@@ -82,13 +102,19 @@
 			"style": {}
 		}, {
 			"path": "pages/my/my_share/my_share",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "我的共享",
+				"enablePullDownRefresh": false
+			}
 		}, {
 			"path": "pages/my/my_receive/my_receive",
 			"style": {}
 		}, {
 			"path": "pages/my/my_collect/my_collect",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "我的收藏",
+				"enablePullDownRefresh": false
+			}
 		}, {
 			"path": "pages/demo/demo",
 			"style": {
@@ -110,18 +136,28 @@
 				"enablePullDownRefresh": false
 			}
 		},
-		{
-			"path": "pages/issue/barter/barter",
-			"style": {
-				"navigationBarTitleText": "以物换物",
-				"enablePullDownRefresh": false
-			}
-		},
+		
 		{
 			"path": "pages/msg/msg_handleOrder/msg_handleOrder",
 			"style": {
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path" : "pages/login/pswLogin",
+			"style" : 
+			{
+				"navigationBarTitleText" : "密码登录",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/login/register",
+			"style" : 
+			{
+				"navigationBarTitleText" : "用户注册",
+				"enablePullDownRefresh" : false
 			}
 		}
 

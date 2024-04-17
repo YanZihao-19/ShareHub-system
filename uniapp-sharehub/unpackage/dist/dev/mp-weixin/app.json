@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/login/login",
+    "pages/issue/barter/barter",
     "pages/home/home_search/home_search",
     "pages/my/my_issue/my_issue",
     "pages/home/home_prefer/home_prefer",
@@ -27,8 +28,9 @@
     "pages/demo/demo",
     "pages/issue/issue_select/issue_select",
     "pages/issue/share/share",
-    "pages/issue/barter/barter",
-    "pages/msg/msg_handleOrder/msg_handleOrder"
+    "pages/msg/msg_handleOrder/msg_handleOrder",
+    "pages/login/pswLogin",
+    "pages/login/register"
   ],
   "subPackages": [],
   "window": {

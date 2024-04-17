@@ -118,6 +118,10 @@
 			</view>
 			<!-- end -->
 		</form>
+		<!-- toast提醒 -->
+		<view>
+			<uv-toast ref="toast"></uv-toast>;
+		</view>
 
 		<!-- 模态框 -->
 		<view @touchmove.stop="modeMove" class=" cu-modal drawer-modal justify-start "
@@ -159,7 +163,26 @@
 					tradeMode: '0', //交易模式我免费共享
 					status: '0' //物品状态（0待交易，1以交易，2已下架）
 				},
-
+				// toas数组
+				toastList: [{
+					type: 'error',
+					title: '失败主题',
+					message: "请填写物品标题"
+				}, {
+					type: 'error',
+					icon: false,
+					title: '失败主题',
+					message: "请填写物品描述信息"
+				}, {
+					type: 'error',
+					icon: false,
+					title: '失败主题',
+					message: "请上传物品图片"
+				}, {
+					type: 'error',
+					title: '失败主题',
+					message: "请填写物品地址"
+				}],
 				itemLists: ['全新', '99新', '95新', '85新'], //几次新
 				modalName: '', //模态框开关
 				radioTrade: [{
@@ -383,7 +406,31 @@
 				this.formMsg.tag = e.currentTarget.dataset.value
 				this.hideModal();
 			},
+			//显示toast
+			showToast(params) {
+				this.$refs.toast.show({
+					...params,
+				})
+			},
 			formSubmit() {
+				// 表单验证
+				if (!this.formMsg.itemTitle) {
+					this.showToast(this.toastList[0])
+					return;
+				}
+				if (!this.formMsg.itemDesc) {
+					this.showToast(this.toastList[1])
+					return;
+				}
+				if (this.formMsg.imgList.length == 0) {
+					this.showToast(this.toastList[2])
+					return;
+				}
+				if (!this.province) {
+					this.showToast(this.toastList[3])
+					return;
+				}
+				
 				console.log(this.formMsg)
 				//最后处理form数据
 				this.formMsg.ownerUid = this.$store.state.user.openid

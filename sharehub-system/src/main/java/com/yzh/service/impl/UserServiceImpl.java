@@ -7,7 +7,7 @@ import com.yzh.pojo.PageBean;
 import com.yzh.pojo.User;
 import com.yzh.pojo.UserTagsScore;
 import com.yzh.service.UserService;
-import com.yzh.utils.JwtUtils;
+import com.yzh.common.utils.JwtUtils;
 import com.yzh.vo.PreferenceVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,10 @@
 
+.login-text {
+	margin-top: 10px;
+	/* 调整间隔 */
+	color: blue;
+	/* 设置字体颜色 */
+}
 .content {
 	display: flex;
 	flex-direction: column;

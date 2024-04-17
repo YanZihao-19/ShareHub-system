@@ -31,12 +31,9 @@
 				<text class='price-symbol'>￥</text>
 				<text class='price-size'>{{item.sellPrice}}</text>
 				<text class='price-ori'>￥{{item.originalPrice}}</text>
-
-				<uv-col span="1.8">
 					<view class="uv-page__tag-item">
 						<uv-tags :text="getUsageText(item.usageLevel)" :type="getUsageLevel(item.usageLevel)"></uv-tags>
 					</view>
-				</uv-col>
 			</view>
 			<!-- 物品标题 -->
 			<view class='itemTitle bg-white top-20 font-size'>
@@ -89,20 +86,8 @@
 					<text class='in_regard_to_text'>全部留言</text>
 				</view>
 			</view>
-
-			<view class='msg padding-sm' v-for="(item,index) in 3" wx:key="id">
-
-				<view class="cu-avatar round lg"
-					style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);">
-				</view>
-
-				<view class='msg-conetent'>
-					<view>Amibition
-						<text class="cuIcon-timefill text-green msg-timer  margin-right-xs"></text>
-						<text class='msg-timers'>2024-4-11</text>
-					</view>
-					<view>宝贝还在吗？</view>
-				</view>
+			<view>
+				<comment-eg :articleId="item.id"></comment-eg>
 			</view>
 		</view>
 		<!-- end -->

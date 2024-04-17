@@ -9,7 +9,7 @@ import com.yzh.service.AdminService;
 import com.yzh.pojo.Result;
 import com.yzh.service.MemberLoginService;
 import com.yzh.service.UserService;
-import com.yzh.utils.JwtUtils;
+import com.yzh.common.utils.JwtUtils;
 import com.yzh.vo.LoginVO;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;

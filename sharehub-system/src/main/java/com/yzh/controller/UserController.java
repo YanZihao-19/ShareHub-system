@@ -1,6 +1,6 @@
 package com.yzh.controller;
 
-import com.yzh.anno.Log;
+import com.yzh.common.anno.Log;
 import com.yzh.pojo.PageBean;
 import com.yzh.pojo.Result;
 import com.yzh.pojo.User;

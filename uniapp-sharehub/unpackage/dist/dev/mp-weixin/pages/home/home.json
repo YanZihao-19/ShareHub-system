@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "ShareHub",
   "enablePullDownRefresh": true,
   "usingComponents": {
     "uv-row": "/uni_modules/uv-row/components/uv-row/uv-row",
