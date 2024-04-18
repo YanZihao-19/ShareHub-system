@@ -8,7 +8,9 @@ import com.yzh.pojo.User;
 import com.yzh.pojo.UserTagsScore;
 import com.yzh.service.ItemService;
 import com.yzh.common.utils.*;
+
 import java.util.*;
+
 import com.yzh.vo.ItemUserVO;
 import com.yzh.vo.ItemVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +54,7 @@ public class ItemServiceImpl implements ItemService {
 
 
     @Override
-    public List<Item> getItemList(String token, List<Item> itemList, Integer mode, Integer tag) {
+    public List<Item> getItemList(String token, List<Item> itemList, Integer mode, Integer tag, Integer itemId) {
         //获取到前端已有物品的id的list
         Set<Integer> idSet = null;
         if (itemList != null && itemList.size() != 0) {
@@ -82,8 +84,11 @@ public class ItemServiceImpl implements ItemService {
                 }
                 System.out.println("用户的喜好向量：" + Arrays.toString(userTagsArray));
 
+                if (itemId != 0) {
+                    tag = itemMapper.getItemDetail(itemId).getTag();
+                }
                 //数据库中随机获取itemRandomList
-                List<Item> itemRandomList = itemMapper.getItemList(mode, tag, idSet);
+                List<Item> itemRandomList = itemMapper.getItemList(mode, tag, idSet, itemId);
                 System.out.println("打印算法过滤前获取到的items" + itemRandomList);
 
                 //每个物品与当前用户的相似度，key是当前物品的index,value是相似度
@@ -118,7 +123,7 @@ public class ItemServiceImpl implements ItemService {
         }
 
         // 下面是默认token为null,即用户未登录时，随机获取6条物品数据
-        itemListResult = itemMapper.getItemList(mode, tag, idSet);
+        itemListResult = itemMapper.getItemList(mode, tag, idSet, itemId);
         return itemListResult;
     }
 
@@ -216,7 +221,7 @@ public class ItemServiceImpl implements ItemService {
                 //获取物品信息和图片
                 Item itemDetail = itemMapper.getItemDetail(itemId);
                 List<String> itemImages = itemMapper.getItemImages(itemId);
-                itemVO = new ItemVO(itemDetail,itemImages);
+                itemVO = new ItemVO(itemDetail, itemImages);
                 //获取用户信息
                 user = userMapper.selectOpenId(itemVO.getItem().getOwnerUid());
                 if (itemMapper.selectCollectItem(openId, itemId) == 1) {

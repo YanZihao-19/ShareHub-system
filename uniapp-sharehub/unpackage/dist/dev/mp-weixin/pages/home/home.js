@@ -980,7 +980,7 @@ var _default = {
         //发送请求将前端itemList发给后端
         var itemList = _this8.list;
         uni.request({
-          url: 'http://localhost:8080/items/recommendItems?tag=' + _this8.tag + '&mode=' + _this8.mode,
+          url: 'http://localhost:8080/items/recommendItems?tag=' + _this8.tag + '&mode=' + _this8.mode + '&id=0',
           method: 'POST',
           header: {
             'content-type': 'application/json',

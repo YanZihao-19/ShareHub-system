@@ -298,6 +298,74 @@ text-title-size.data-v-738df69c {
   flex-wrap: wrap;
 }
 /* end */
+.uv-line-1.data-v-738df69c {
+  display: -webkit-box !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical !important;
+}
+.uv-line-2.data-v-738df69c {
+  display: -webkit-box !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical !important;
+}
+.uv-line-3.data-v-738df69c {
+  display: -webkit-box !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical !important;
+}
+.uv-line-4.data-v-738df69c {
+  display: -webkit-box !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical !important;
+}
+.uv-line-5.data-v-738df69c {
+  display: -webkit-box !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical !important;
+}
+.waterfall.data-v-738df69c {
+  background-color: #f1f1f1;
+}
+.waterfall-item.data-v-738df69c {
+  overflow: hidden;
+  margin-top: 10px;
+  border-radius: 6px;
+}
+.waterfall-item__ft.data-v-738df69c {
+  padding: 20rpx;
+  background: #fff;
+}
+.waterfall-item__ft__title.data-v-738df69c {
+  margin-bottom: 10rpx;
+  line-height: 48rpx;
+  font-weight: 700;
+}
+.waterfall-item__ft__title .value.data-v-738df69c {
+  font-size: 32rpx;
+  color: #303133;
+}
+.waterfall-item__ft__desc .value.data-v-738df69c {
+  font-size: 28rpx;
+  color: #606266;
+}
+.waterfall-item__ft__btn.data-v-738df69c {
+  padding: 10px 0;
+}
 /* 底部操作选项卡 */
 .fixation.data-v-738df69c {
   position: fixed;

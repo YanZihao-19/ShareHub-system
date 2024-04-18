@@ -24,7 +24,7 @@ public interface ItemMapper {
     void insertImage(String url, Integer itemId);
 
     //不同交易模式的物品列表随机获取20条数据
-    List<Item> getItemList(Integer mode, Integer tag, Set idSet);
+    List<Item> getItemList(Integer mode, Integer tag, Set idSet, Integer itemId);
 
     //根据用户id和mode获取itemList
     List<Item> getUserItemList(String openId, Integer mode);

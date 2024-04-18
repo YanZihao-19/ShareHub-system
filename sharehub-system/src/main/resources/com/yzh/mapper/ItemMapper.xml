@@ -11,6 +11,9 @@
             <if test="mode == 0 or mode == 1 or mode == 2">
                 trade_mode = #{mode}
             </if>
+            <if test="itemId != 0">
+                and id != #{itemId}
+            </if>
             <if test="tag != 0">
                 and tag = #{tag}
             </if>

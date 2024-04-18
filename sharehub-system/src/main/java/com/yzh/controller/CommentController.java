@@ -59,5 +59,10 @@ public class CommentController {
         return Result.success(commentVOList);
     }
 
-
+    //已读评论
+    @PutMapping("/readComment/{id}")
+    public Result readComment(@PathVariable Integer id) {
+        commentService.readComment(id);
+        return Result.success();
+    }
 }

@@ -119,8 +119,8 @@
 				<view class="comment-submit">
 					<view class="btn-click cancel" @click="closeInput">取消</view>
 					<view>
-						<view class="replayTag" v-show="showTag">
-							<view>回复在 {{pUser}} 的评论下</view>
+						<view class="replayTag" v-if="pUser!=null" v-show="showTag">
+							<view  >回复在 {{pUser}} 的评论下</view>
 							<view @click="tagClose" class="replyTagClose">×</view>
 						</view>
 					</view>

@@ -33,8 +33,8 @@ public class ItemController {
 
     //展示小程序注意(推荐)物品
     @PostMapping("/recommendItems")
-    public Result itemList(@RequestHeader("token") String token, @RequestBody List<Item> itemList, @RequestParam Integer mode, @RequestParam Integer tag) throws IllegalAccessException {
-        List<Item> itemListResult = itemService.getItemList(token, itemList, mode, tag);
+    public Result itemList(@RequestHeader("token") String token, @RequestBody List<Item> itemList, @RequestParam Integer mode, @RequestParam Integer tag,@RequestParam Integer id) throws IllegalAccessException {
+        List<Item> itemListResult = itemService.getItemList(token, itemList, mode, tag,id);
         return Result.success(itemListResult);
     }
 

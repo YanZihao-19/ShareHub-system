@@ -325,10 +325,23 @@ var _default = {
       this.orderNum = this.$store.state.notice.orderNum;
       this.informNum = this.$store.state.notice.informNum;
     },
-    // 跳转到用户评论的物品详情界面
-    toMsgChat: function toMsgChat(e) {
+    // 跳转到用户评论的物品详情界面的评论区位置
+    toMsgChat: function toMsgChat(itemId, commentId) {
+      //已读，发起请求去除红点
+      uni.request({
+        url: 'http://localhost:8080/comments/readComment/' + commentId,
+        method: 'PUT',
+        header: {
+          'content-type': 'application/json',
+          // 设置请求头为 JSON 类型
+          'token': this.token
+        },
+        success: function success(res) {}
+      });
+      this.getCommentList(this.token);
+      //跳转页面
       uni.navigateTo({
-        // url: "/pages/msg/msg_chat/msg_chat"
+        url: '/pages/home/home_detail/home_detail?id=' + itemId + '&scrollTo=comments'
       });
     },
     // 通知消息点击

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserCommentVO {
-//             "id": 2,
+    //             "id": 2,
 //            "owner": false,
 //            "hasLike": false,
 //            "likeNum": 2,
@@ -24,8 +24,10 @@ public class UserCommentVO {
 //            "parentId": 1,
 //            "createTime": "2021-07-02 17:05:50"
     private Integer id;
+    private Integer itemId;
     private Boolean owner;
     private String userId;
+    private Integer status;
     private Integer hasLike;
     private Integer likeNum;
     private String avatarUrl;

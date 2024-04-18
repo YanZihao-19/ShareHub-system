@@ -48,7 +48,9 @@ public class CommentServiceImpl implements CommentService {
             //new一个UserCommentVO容器，并将每一个都放入list中
             UserCommentVO commentVO = new UserCommentVO();
             commentVO.setId(comment.getId());
+            commentVO.setItemId(comment.getItemId());
             commentVO.setOwner(comment.getUserId().equals(openId));
+            commentVO.setStatus(comment.getStatus());
             commentVO.setHasLike(comment.getHasLike());
             commentVO.setLikeNum(comment.getLikeNum());
             commentVO.setContent(comment.getContent());
@@ -118,7 +120,9 @@ public class CommentServiceImpl implements CommentService {
             //new一个UserCommentVO容器，并将每一个都放入list中
             UserCommentVO commentVO = new UserCommentVO();
             commentVO.setId(comment.getId());
+            commentVO.setItemId(comment.getItemId());
             commentVO.setOwner(comment.getUserId().equals(openId));
+            commentVO.setStatus(comment.getStatus());
             commentVO.setHasLike(comment.getHasLike());
             commentVO.setLikeNum(comment.getLikeNum());
             commentVO.setContent(comment.getContent());
@@ -131,5 +135,10 @@ public class CommentServiceImpl implements CommentService {
             commentVOList.add(commentVO);
         }
         return commentVOList;
+    }
+
+    @Override
+    public void readComment( Integer id) {
+        commentMapper.readComment(id);
     }
 }

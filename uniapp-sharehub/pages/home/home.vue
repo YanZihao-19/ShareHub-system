@@ -178,7 +178,7 @@
 										<view class="waterfall-item__ft__desc uv-line-1">
 											<text class="value">{{item.itemDesc}}</text>
 										</view>
-										<!-- 物品所在地标签，暂未实现！！！！ -->
+										<!-- 物品所在地标签， -->
 										<uv-row justify="space-between" gutter="4">
 											<uv-col span="4">
 												<view>
@@ -663,7 +663,7 @@
 					uni.request({
 						url: 'http://localhost:8080/items/recommendItems?tag=' + this
 							.tag + '&mode=' + this
-							.mode,
+							.mode + '&id=0',
 						method: 'POST',
 						header: {
 							'content-type': 'application/json', // 设置请求头为 JSON 类型

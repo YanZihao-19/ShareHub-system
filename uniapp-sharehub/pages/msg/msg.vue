@@ -34,9 +34,9 @@
 
 		<!-- 留言消息 -->
 		<view class="cu-list menu-avatar  card-menu martop">
-			<view class="cu-item" v-for="(commnetVO, index) in commentList"@tap="toMsgChat">
-				<view class="cu-avatar round lg"
-					:style="{ 'background-image': 'url(' + commnetVO.avatarUrl + ')' }">
+			<view class="cu-item" v-for="(commnetVO, index) in commentList"
+				@tap="toMsgChat(commnetVO.itemId,commnetVO.id)">
+				<view class="cu-avatar round lg" :style="{ 'background-image': 'url(' + commnetVO.avatarUrl + ')' }">
 				</view>
 				<view class="content">
 					<view class="text-grey">{{commnetVO.nickName}}</view>
@@ -49,7 +49,7 @@
 				</view>
 				<view class="action">
 					<view class="text-grey text-xs">{{commnetVO.createTime}}</view>
-					<view class="cu-tag round bg-red sm">1</view>
+					<view v-if="commnetVO.status == 0" class="cu-tag round bg-red sm">1</view>
 				</view>
 			</view>
 		</view>
@@ -134,6 +134,7 @@
 				}
 				// 获取通知红点数!!!!!!!!!!!!!!!!!!!!!!!!!
 			},
+			
 			//更新tabbar的红点
 			changeTabBarRedDot() {
 				let totalRedDotNum = this.commentNum + this.orderNum + this.informNum
@@ -155,11 +156,25 @@
 				this.orderNum = this.$store.state.notice.orderNum
 				this.informNum = this.$store.state.notice.informNum
 			},
-			// 跳转到用户评论的物品详情界面
-			toMsgChat: function(e) {
-				uni.navigateTo({
-					// url: "/pages/msg/msg_chat/msg_chat"
+			// 跳转到用户评论的物品详情界面的评论区位置
+			toMsgChat: function(itemId, commentId) {
+				//已读，发起请求去除红点
+				uni.request({
+					url: 'http://localhost:8080/comments/readComment/' + commentId,
+					method: 'PUT',
+					header: {
+						'content-type': 'application/json', // 设置请求头为 JSON 类型
+						'token': this.token
+					},
+					success: (res) => {
+
+					}
 				})
+				this.getCommentList(this.token);
+				//跳转页面
+				uni.navigateTo({
+					url: '/pages/home/home_detail/home_detail?id=' + itemId + '&scrollTo=comments'
+				});
 			},
 			// 通知消息点击
 			notice: function() {

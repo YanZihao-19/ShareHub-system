@@ -106,6 +106,18 @@ try {
     commentEg: function () {
       return __webpack_require__.e(/*! import() | components/comment-eg/comment-eg */ "components/comment-eg/comment-eg").then(__webpack_require__.bind(null, /*! @/components/comment-eg/comment-eg.vue */ 495))
     },
+    uvWaterfall: function () {
+      return Promise.all(/*! import() | uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall.vue */ 382))
+    },
+    uvRow: function () {
+      return Promise.all(/*! import() | uni_modules/uv-row/components/uv-row/uv-row */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-row/components/uv-row/uv-row")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-row/components/uv-row/uv-row.vue */ 390))
+    },
+    uvCol: function () {
+      return Promise.all(/*! import() | uni_modules/uv-row/components/uv-col/uv-col */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-row/components/uv-col/uv-col")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-row/components/uv-col/uv-col.vue */ 398))
+    },
+    uvLoadMore: function () {
+      return Promise.all(/*! import() | uni_modules/uv-load-more/components/uv-load-more/uv-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-load-more/components/uv-load-more/uv-load-more")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-load-more/components/uv-load-more/uv-load-more.vue */ 473))
+    },
     uvTextarea: function () {
       return Promise.all(/*! import() | uni_modules/uv-textarea/components/uv-textarea/uv-textarea */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-textarea/components/uv-textarea/uv-textarea")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-textarea/components/uv-textarea/uv-textarea.vue */ 414))
     },
@@ -137,6 +149,34 @@ var render = function () {
   var m0 = _vm.getUsageText(_vm.item.usageLevel)
   var m1 = _vm.getUsageLevel(_vm.item.usageLevel)
   var m2 = _vm.getDeliveryText(_vm.item.deliveryStyle)
+  var l0 = _vm.__map(_vm.list1, function (item, index) {
+    var $orig = _vm.__get_orig(item)
+    var s0 = _vm.__get_style([_vm.imageStyle(item)])
+    var m3 = _vm.getModeText(item.mode)
+    var m4 = _vm.getModeType(item.mode)
+    var m5 = _vm.getDeliveryText1(item.delivery)
+    return {
+      $orig: $orig,
+      s0: s0,
+      m3: m3,
+      m4: m4,
+      m5: m5,
+    }
+  })
+  var l1 = _vm.__map(_vm.list2, function (item, index) {
+    var $orig = _vm.__get_orig(item)
+    var s1 = _vm.__get_style([_vm.imageStyle(item)])
+    var m6 = _vm.getModeText(item.mode)
+    var m7 = _vm.getModeType(item.mode)
+    var m8 = _vm.getDeliveryText1(item.delivery)
+    return {
+      $orig: $orig,
+      s1: s1,
+      m6: m6,
+      m7: m7,
+      m8: m8,
+    }
+  })
   if (!_vm._isMounted) {
     _vm.e0 = function ($event) {
       _vm.show2 = false
@@ -149,6 +189,8 @@ var render = function () {
         m0: m0,
         m1: m1,
         m2: m2,
+        l0: l0,
+        l1: l1,
       },
     }
   )
@@ -489,14 +531,102 @@ var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/r
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
+      //定位锚点
+      scroll: '',
       token: '',
+      //瀑布流数据
+      list: [],
+      // 瀑布流全部数据
+      list1: [],
+      // 瀑布流第一列数据
+      list2: [],
+      // 瀑布流第二列数据
       collect: 0,
       //判断物品是否已收藏
       showModal: false,
       // 控制是否展示模态框
+      tag: '0',
+      mode: '3',
+      //表示物品的类型，瀑布流默认
       showModal2: '',
       //控制是否展示二手交易模态框
       order: {
@@ -547,9 +677,10 @@ var _default = {
         //物品交易方式
         ownerUid: '',
         //用户openID
-        address: ''
+        address: '',
+        tag: ''
       },
-      itemImages: [],
+      itemImages: '',
       //物品详情图
 
       actions: [{
@@ -562,43 +693,67 @@ var _default = {
       url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg'
     };
   },
-  onLoad: function onLoad() {
+  onLoad: function onLoad(options) {
     var _this = this;
     return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-      var pages, currentPage, id;
+      var pages, currentPage, id, data;
       return _regenerator.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              try {
-                //获取token
-                _this.token = uni.getStorageSync('token');
-                //获取上个页面传来的item.id
-                pages = getCurrentPages();
-                currentPage = pages[pages.length - 1];
-                id = currentPage.options.id; // 初始化函数获取数据
-                _this.getItemData(id);
+              _context.prev = 0;
+              //获取token
+              _this.token = uni.getStorageSync('token');
 
-                //获取物品是不是本人上传的！！！！！！！！！！！！！！！！！！！！
-              } catch (error) {
-                console.error('Failed to load data:', error);
-              }
-            case 1:
+              //获取上个页面传来的item.id
+              pages = getCurrentPages(); // 获取传递过来的锚点信息
+              _this.scroll = options.scrollTo;
+              console.log('scroll:', _this.scroll);
+              currentPage = pages[pages.length - 1];
+              id = currentPage.options.id; // 调用 getData() 函数获取数据
+              _context.next = 9;
+              return _this.getData(id);
+            case 9:
+              data = _context.sent;
+              _this.list = data; // 将返回的数据赋值给 list 数组
+
+              // 初始化函数获取数据
+              _this.getItemData(id);
+              _context.next = 16;
+              break;
+            case 14:
+              _context.prev = 14;
+              _context.t0 = _context["catch"](0);
+            case 16:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee);
+      }, _callee, null, [[0, 14]]);
     }))();
   },
+  onReady: function onReady() {
+    //跳转
+    if (this.scroll != '') {
+      console.log("图片list：", this.itemImages);
+      this.scrollTo(this.scroll);
+    }
+  },
   methods: {
+    //评论定位
+    scrollTo: function scrollTo(e) {
+      uni.pageScrollTo({
+        selector: '#' + e,
+        duration: 300 // 滚动动画时长，单位 ms
+      });
+    },
     // 选择sheet后的逻辑操作
     select: function select(e) {
       // 将当前页面的item赋值给order所需的属性
       this.order.itemId = this.item.id;
       this.order.mode = this.item.tradeMode;
       this.order.image = this.item.image;
-      console.log("即将发送的order", this.order);
+      // console.log("即将发送的order", this.order)
 
       // 根据不同的sheet跳转到不同的页面
       if (e.flag == 0) {
@@ -627,7 +782,7 @@ var _default = {
       this.showModal = true;
     },
     getDeliveryText: function getDeliveryText(delivery) {
-      console.log('调用 getDeliveryText 方法');
+      // console.log('调用 getDeliveryText 方法');
       switch (delivery) {
         case 0:
           return '任意';
@@ -641,8 +796,119 @@ var _default = {
           return '';
       }
     },
-    getCollect: function getCollect() {
+    // 瀑布流：这点非常重要：e.name在这里返回是list1或list2，要手动将数据追加到相应列
+    changeList: function changeList(e) {
+      this[e.name].push(e.value);
+    },
+    imageStyle: function imageStyle(item) {
       var _this2 = this;
+      return function (item) {
+        var v = uni.upx2px(750) - _this2.leftGap - _this2.rightGap - _this2.columnGap;
+        var w = v / 2;
+        var rate = w / item.w;
+        var h = rate * item.h;
+        return {
+          width: w + 'px',
+          height: h + 'px'
+        };
+      };
+    },
+    //瀑布流中根据后端数据展示不同文本和样式
+    getModeText: function getModeText(mode) {
+      switch (mode) {
+        case 0:
+          return '免费共享';
+        case 1:
+          return '以物换物';
+        case 2:
+          return '二手交易';
+        default:
+          return '';
+      }
+    },
+    getModeType: function getModeType(mode) {
+      switch (mode) {
+        case 0:
+          return 'success';
+        case 1:
+          return 'warning';
+        case 2:
+          return 'error';
+        default:
+          return '';
+      }
+    },
+    getDeliveryText1: function getDeliveryText1(delivery) {
+      switch (delivery) {
+        case 0:
+          return '任意';
+        case 1:
+          return '自提';
+        case 2:
+          return '面交';
+        case 3:
+          return '邮寄';
+        default:
+          return '';
+      }
+    },
+    //点击物品跳转到详情页
+    goToDetail: function goToDetail(item) {
+      // 在这里进行页面跳转，比如跳转到详情页，并传递参数
+      console.log('准备执行跳转了！');
+      uni.navigateTo({
+        url: '/pages/home/home_detail/home_detail?id=' + item.id
+      });
+    },
+    // 获取猜你喜欢List数据
+    getData: function getData(id) {
+      var _this3 = this;
+      return new Promise(function (resolve, reject) {
+        // console.log('发送给后端的token值：', this.token)
+        // console.log('发送给后端的list值：', this.list)
+        //发送请求将前端itemList发给后端
+        var itemList = _this3.list;
+        uni.request({
+          url: 'http://localhost:8080/items/recommendItems?tag=' + _this3.tag + '&mode=' + _this3.mode + '&id=' + id,
+          method: 'POST',
+          header: {
+            'content-type': 'application/json',
+            // 设置请求头为 JSON 类型
+            'token': _this3.token
+          },
+          data: JSON.stringify(itemList),
+          success: function success(res) {
+            var data = res.data.data.map(function (item) {
+              return {
+                id: item.id,
+                //物品id
+                allowEdit: false,
+                // 暂时设置为 false，根据实际需求进行修改
+                image: item.image,
+                //物品图片卡图像
+                itemTitle: item.itemTitle,
+                //物品标题
+                itemDesc: item.itemDesc,
+                //物品描述
+                address: item.address,
+                //物品地址
+                mode: item.tradeMode,
+                //物品交易模式
+                delivery: item.deliveryStyle //物品交付方式
+              };
+            });
+
+            resolve(data); // 将处理后的数据返回给调用方
+          },
+
+          fail: function fail(err) {
+            reject(err);
+          }
+        });
+      });
+    },
+    getCollect: function getCollect() {
+      var _this4 = this;
       uni.request({
         url: 'http://localhost:8080/items/getCollect?itemId=' + this.item.id,
         method: 'GET',
@@ -656,8 +922,8 @@ var _default = {
           // console.log(res.data.code);
           if (res.data.code == 1) {
             //已经收藏了
-            _this2.collect = 1;
-            console.log("已经收藏了！");
+            _this4.collect = 1;
+            // console.log("已经收藏了！")
           } else if (res.data.code == 0) {
             // 未收藏
           }
@@ -669,7 +935,7 @@ var _default = {
     },
     // 收藏物品
     collectItem: function collectItem() {
-      var _this3 = this;
+      var _this5 = this;
       uni.request({
         url: 'http://localhost:8080/items/collectItem?itemId=' + this.item.id,
         method: 'POST',
@@ -687,7 +953,7 @@ var _default = {
               icon: 'success',
               duration: 2000
             });
-            _this3.collect = 1;
+            _this5.collect = 1;
           } else if (res.data.code == 0) {
             uni.showToast({
               title: '不能重复收藏哦~',
@@ -703,7 +969,7 @@ var _default = {
     },
     //取消收藏物品
     delCollectItem: function delCollectItem() {
-      var _this4 = this;
+      var _this6 = this;
       uni.request({
         url: 'http://localhost:8080/items/delCollectItem?itemId=' + this.item.id,
         method: 'DELETE',
@@ -721,7 +987,7 @@ var _default = {
             // 	icon: 'success',
             // 	duration: 2000
             // });
-            _this4.collect = 0;
+            _this6.collect = 0;
           } else if (res.data.code == 0) {
             uni.showToast({
               title: '出错了~',
@@ -796,7 +1062,7 @@ var _default = {
         this.order.itemId = this.item.id;
         this.order.mode = this.item.mode;
         this.order.image = this.item.image;
-        console.log('发送给后端的订单数据', this.order);
+        // console.log('发送给后端的订单数据', this.order)
 
         // 给后端发送请求
         uni.request({
@@ -832,65 +1098,66 @@ var _default = {
       }
     },
     getUser: function getUser(openId) {
-      var _this5 = this;
+      var _this7 = this;
       return new Promise(function (resolve, reject) {
         //获取token
-        _this5.token = uni.getStorageSync('token');
+        _this7.token = uni.getStorageSync('token');
         uni.request({
           url: 'http://localhost:8080/users/user?openId=' + openId,
           method: 'GET',
           header: {
-            'token': _this5.token
+            'token': _this7.token
           },
           success: function success(res) {
             // 请求成功的回调函数，处理后端返回的数据
             if (res.data && res.data.code === 1) {
               //赋值给前端的 item 数据
-              _this5.user = res.data.data;
-              console.log('this.user的数据：', _this5.user);
+              _this7.user = res.data.data;
+              // console.log('this.user的数据：', this.user)
             } else {
-              console.error('请求数据失败或返回数据格式不符合预期');
+              // console.error('请求数据失败或返回数据格式不符合预期');
             }
           },
           fail: function fail(err) {
             // 请求失败的回调函数，处理错误情况
-            console.error('请求数据失败', err);
+            // console.error('请求数据失败', err);
           }
         });
       });
     },
     getItemData: function getItemData(id) {
-      var _this6 = this;
+      var _this8 = this;
       return new Promise(function (resolve, reject) {
         //获取token
-        _this6.token = uni.getStorageSync('token');
+        _this8.token = uni.getStorageSync('token');
         uni.request({
           url: 'http://localhost:8080/items/' + id,
           method: 'GET',
           header: {
-            'token': _this6.token
+            'token': _this8.token
           },
           success: function success(res) {
             // 请求成功的回调函数，处理后端返回的数据
             if (res.data && res.data.code === 1) {
               //赋值给前端的 item 数据
-              _this6.item = res.data.data.item;
-              _this6.itemImages = res.data.data.itemImages;
+              _this8.item = res.data.data.item;
+              console.log("物品种类：", _this8.item.tag);
+              _this8.itemImages = res.data.data.itemImages;
               // console.log('this.item的address数据：', this.item.address)
               //修改日期格式
-              _this6.item.createTime = _this6.item.createTime.replace('T', ' ');
-              console.log('this.item.time的数据：', _this6.item.createTime);
-              _this6.getUser(_this6.item.ownerUid);
+              _this8.item.createTime = _this8.item.createTime.replace('T', ' ');
+              // console.log('this.item.time的数据：', this.item.createTime)
+              _this8.getUser(_this8.item.ownerUid);
 
               //获取物品是否已经收藏
-              _this6.getCollect();
+              _this8.getCollect();
             } else {
-              console.error('请求数据失败或返回数据格式不符合预期');
+              // console.error('请求数据失败或返回数据格式不符合预期');
             }
           },
           fail: function fail(err) {
             // 请求失败的回调函数，处理错误情况
-            console.error('请求数据失败', err);
+            // console.error('请求数据失败', err);
           }
         });
       });

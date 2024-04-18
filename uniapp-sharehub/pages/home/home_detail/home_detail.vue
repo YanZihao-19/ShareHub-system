@@ -31,9 +31,9 @@
 				<text class='price-symbol'>￥</text>
 				<text class='price-size'>{{item.sellPrice}}</text>
 				<text class='price-ori'>￥{{item.originalPrice}}</text>
-					<view class="uv-page__tag-item">
-						<uv-tags :text="getUsageText(item.usageLevel)" :type="getUsageLevel(item.usageLevel)"></uv-tags>
-					</view>
+				<view class="uv-page__tag-item">
+					<uv-tags :text="getUsageText(item.usageLevel)" :type="getUsageLevel(item.usageLevel)"></uv-tags>
+				</view>
 			</view>
 			<!-- 物品标题 -->
 			<view class='itemTitle bg-white top-20 font-size'>
@@ -77,27 +77,29 @@
 		<!-- 商品内容end -->
 
 		<!-- 用户留言 -->
-		<view class='bg-white top-20 padding-sm '>
-			<view class='in_regard_to'>
-				<view>
-					<!-- <image src='../img/tiao.png'></image> -->
+		<view id="comments">
+			<view class='bg-white top-20 padding-sm '>
+				<view class='in_regard_to'>
+					<view>
+						<!-- <image src='../img/tiao.png'></image> -->
+					</view>
+					<view>
+						<text class='in_regard_to_text'>全部留言</text>
+					</view>
 				</view>
 				<view>
-					<text class='in_regard_to_text'>全部留言</text>
+					<comment-eg :articleId="item.id"></comment-eg>
 				</view>
-			</view>
-			<view>
-				<comment-eg :articleId="item.id"></comment-eg>
 			</view>
 		</view>
 		<!-- end -->
 
 		<!-- 商家信息 -->
-		<view class='bg-white top-20 padding-sm '>
+		<!-- <view class='bg-white top-20 padding-sm '>
 			<view class='in_regard_to'>
-				<view>
-					<!-- <image src='../img/tiao.png'></image> -->
-				</view>
+				<view> -->
+		<!-- <image src='../img/tiao.png'></image> -->
+		<!-- </view>
 				<view>
 					<text class='in_regard_to_text'>关于卖家</text>
 				</view>
@@ -140,9 +142,8 @@
 						<text>累计交易</text>
 					</view>
 				</view>
-
-
-				<view class='Business_information'>
+ -->
+		<!-- 	<view class='Business_information'>
 					<view>5</view>
 					<view>
 						<text>在线宝贝</text>
@@ -163,50 +164,126 @@
 						</navigator>
 					</view>
 				</block>
-
 			</scroll-view>
-		</view>
-
+		</view> -->
 		<!-- end -->
-
-
 
 		<!-- 相识商品 -->
 		<view class='bg-white top-20 '>
 			<view class='in_regard_to'>
-				<view>
-					<!-- <image src='../img/tiao.png'></image> -->
-				</view>
 				<view>
 					<text class='in_regard_to_text'>相似商品</text>
 				</view>
 			</view>
 
 			<!-- 内容 -->
-			<view class='container-flex '>
-				<view class='card-menu container margin-top' v-for="(item,index) in 10" :key="index">
-					<navigator url='/pages/home/home_detail/home_detail' hover-class='none'>
-						<view class='container_img'>
-							<image src='http://pic25.nipic.com/20121205/10197997_003647426000_2.jpg'></image>
-						</view>
-						<view class='container_text'><text class=''>Huawei/华为Mate 20 Pro运气真好双卡双待全网通</text></view>
-						<view class='container_price'>
-							<text class='container_price_text_0'>￥980</text>
-							<!-- <text class='container_price_text_1'>11人想要</text> -->
-							<view class="cu-tag line-orange">全新</view>
-						</view>
-						<view class='container_line'></view>
-						<view class='container_user'>
-							<image src='http://pic25.nipic.com/20121205/10197997_003647426000_2.jpg'></image>
-							<text>Amibition</text>
-						</view>
-					</navigator>
+			<view class="waterfall">
+				<view>
+					<uv-waterfall ref="waterfall" v-model="list" :add-time="10" :left-gap="leftGap"
+						:right-gap="rightGap" :column-gap="columnGap" @changeList="changeList" @remove="remove">
+						<!-- 第一列数据 -->
+						<template v-slot:list1>
+							<!-- 为了磨平部分平台的BUG，必须套一层view -->
+							<view>
+								<!-- 使用 v-for 遍历 list1 数组中的数据 -->
+								<view v-for="(item, index) in list1" :key="index" class="waterfall-item"
+									@longpress="longHandle(item)">
+									<view class="waterfall-item-wrapper" @tap="goToDetail(item)">
+										<!-- 每个瀑布流项的图片部分 -->
+										<view class="waterfall-item__image" :style="[imageStyle(item)]">
+											<!-- 图片展示，根据 item.image 设置 src -->
+											<image :src="item.image" mode="widthFix" :style="{width:item.width+'px'}">
+											</image>
+										</view>
+
+										<!-- 每个瀑布流项的内容部分 -->
+										<view class="waterfall-item__ft">
+											<!-- 交易方式和交易途径标签 -->
+											<view>
+												<uv-row justify="space-between" gutter="4">
+													<uv-col span="6">
+														<view class="uv-page__tag-item">
+															<uv-tags :text="getModeText(item.mode)"
+																:type="getModeType(item.mode)"></uv-tags>
+														</view>
+													</uv-col>
+													<uv-col span="4">
+														<view class="uv-page__tag-item">
+															<uv-tags class="experss"
+																:text="getDeliveryText1(item.delivery)" plain
+																type="error" shape="circle"></uv-tags>
+														</view>
+													</uv-col>
+												</uv-row>
+											</view>
+											<!-- 标题部分 -->
+											<view class="waterfall-item__ft__title uv-line-2">
+												<text class="value">{{item.itemTitle}}</text>
+											</view>
+
+											<!-- 描述部分，最多显示两行 -->
+											<view class="waterfall-item__ft__desc uv-line-1">
+												<text class="value">{{item.itemDesc}}</text>
+											</view>
+
+										</view>
+									</view>
+								</view>
+							</view>
+
+						</template>
+						<!-- 第二列数据 -->
+						<template v-slot:list2>
+							<!-- 为了磨平部分平台的BUG，必须套一层view -->
+							<view>
+								<view v-for="(item, index) in list2" :key="index" class="waterfall-item"
+									@longpress="longHandle(item)">
+									<view class="waterfall-item-wrapper" @tap="goToDetail(item)">
+										<view class="waterfall-item__image" :style="[imageStyle(item)]">
+											<image :src="item.image" mode="widthFix" :style="{width:item.width+'px'}">
+											</image>
+										</view>
+										<view class="waterfall-item__ft">
+											<!-- 交易方式和交易途径标签 -->
+											<view>
+												<uv-row justify="space-between" gutter="4">
+													<uv-col span="6">
+														<view class="uv-page__tag-item">
+															<uv-tags :text="getModeText(item.mode)"
+																:type="getModeType(item.mode)"></uv-tags>
+														</view>
+													</uv-col>
+													<uv-col span="4">
+														<view class="uv-page__tag-item">
+															<uv-tags class="experss"
+																:text="getDeliveryText1(item.delivery)" plain
+																type="error" shape="circle"></uv-tags>
+														</view>
+													</uv-col>
+												</uv-row>
+											</view>
+											<!-- 标题部分 -->
+											<view class="waterfall-item__ft__title uv-line-2">
+												<text class="value">{{item.itemTitle}}</text>
+											</view>
+
+											<!-- 描述部分，最多显示两行 -->
+											<view class="waterfall-item__ft__desc uv-line-1">
+												<text class="value">{{item.itemDesc}}</text>
+											</view>
+
+										</view>
+									</view>
+								</view>
+							</view>
+						</template>
+						<!-- 第二列数据 -->
+					</uv-waterfall>
+					<uv-load-more :status="loadStatus"></uv-load-more>
 				</view>
 			</view>
 			<!-- 内容end -->
-
 		</view>
-
 		<!-- end -->
 
 
@@ -245,7 +322,6 @@
 								:maxlength="200" count></uv-textarea>
 						</view>
 					</view>
-
 
 					<view class="uv-demo-block">
 						<text class="uv-demo-block__title">联系方式：</text>
@@ -288,8 +364,8 @@
 				</view>
 			</view>
 			<!-- 二手交易模态框结束 -->
-
 		</view>
+
 	</view>
 </template>
 
@@ -297,9 +373,17 @@
 	export default {
 		data() {
 			return {
+				//定位锚点
+				scroll: '',
 				token: '',
+				//瀑布流数据
+				list: [], // 瀑布流全部数据
+				list1: [], // 瀑布流第一列数据
+				list2: [], // 瀑布流第二列数据
 				collect: 0, //判断物品是否已收藏
 				showModal: false, // 控制是否展示模态框
+				tag: '0',
+				mode: '3', //表示物品的类型，瀑布流默认
 				showModal2: '', //控制是否展示二手交易模态框
 				order: {
 					itemId: '', //当前物品id
@@ -329,8 +413,9 @@
 					deliveryStyle: '', //物品交易方式
 					ownerUid: '', //用户openID
 					address: '',
+					tag: '',
 				},
-				itemImages: [], //物品详情图
+				itemImages: '', //物品详情图
 
 				actions: [{
 						flag: '0',
@@ -345,35 +430,56 @@
 				url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg',
 			}
 		},
-		async onLoad() {
+		async onLoad(options) {
 			try {
 				//获取token
 				this.token = uni.getStorageSync('token')
+
 				//获取上个页面传来的item.id
 				const pages = getCurrentPages();
+				// 获取传递过来的锚点信息
+				this.scroll = options.scrollTo;
+				console.log('scroll:', this.scroll)
+
 				const currentPage = pages[pages.length - 1];
 				const {
 					id
 				} = currentPage.options;
 
+				// 调用 getData() 函数获取数据
+				const data = await this.getData(id);
+				this.list = data; // 将返回的数据赋值给 list 数组
+
 				// 初始化函数获取数据
 				this.getItemData(id);
 
-
-				//获取物品是不是本人上传的！！！！！！！！！！！！！！！！！！！！
-
 			} catch (error) {
-				console.error('Failed to load data:', error);
+				// console.error('Failed to load data:', error);
+			}
+		},
+		onReady() {
+
+			//跳转
+			if (this.scroll != '') {
+				console.log("图片list：", this.itemImages)
+				this.scrollTo(this.scroll)
 			}
 		},
 		methods: {
+			//评论定位
+			scrollTo(e) {
+				uni.pageScrollTo({
+					selector: '#' + e,
+					duration: 300 // 滚动动画时长，单位 ms
+				});
+			},
 			// 选择sheet后的逻辑操作
 			select(e) {
 				// 将当前页面的item赋值给order所需的属性
 				this.order.itemId = this.item.id
 				this.order.mode = this.item.tradeMode
 				this.order.image = this.item.image
-				console.log("即将发送的order", this.order)
+				// console.log("即将发送的order", this.order)
 
 				// 根据不同的sheet跳转到不同的页面
 				if (e.flag == 0) {
@@ -404,7 +510,7 @@
 				this.showModal = true;
 			},
 			getDeliveryText(delivery) {
-				console.log('调用 getDeliveryText 方法');
+				// console.log('调用 getDeliveryText 方法');
 				switch (delivery) {
 					case 0:
 						return '任意';
@@ -417,6 +523,106 @@
 					default:
 						return '';
 				}
+			},
+			// 瀑布流：这点非常重要：e.name在这里返回是list1或list2，要手动将数据追加到相应列
+			changeList(e) {
+				this[e.name].push(e.value);
+			},
+
+			imageStyle(item) {
+				return item => {
+					const v = uni.upx2px(750) - this.leftGap - this.rightGap - this.columnGap;
+					const w = v / 2;
+					const rate = w / item.w;
+					const h = rate * item.h;
+					return {
+						width: w + 'px',
+						height: h + 'px'
+					}
+				}
+			},
+			//瀑布流中根据后端数据展示不同文本和样式
+			getModeText(mode) {
+				switch (mode) {
+					case 0:
+						return '免费共享';
+					case 1:
+						return '以物换物';
+					case 2:
+						return '二手交易';
+					default:
+						return '';
+				}
+			},
+			getModeType(mode) {
+				switch (mode) {
+					case 0:
+						return 'success';
+					case 1:
+						return 'warning';
+					case 2:
+						return 'error';
+					default:
+						return '';
+				}
+			},
+			getDeliveryText1(delivery) {
+				switch (delivery) {
+					case 0:
+						return '任意';
+					case 1:
+						return '自提';
+					case 2:
+						return '面交';
+					case 3:
+						return '邮寄';
+					default:
+						return '';
+				}
+			},
+			//点击物品跳转到详情页
+			goToDetail(item) {
+				// 在这里进行页面跳转，比如跳转到详情页，并传递参数
+				console.log('准备执行跳转了！')
+				uni.navigateTo({
+					url: '/pages/home/home_detail/home_detail?id=' + item.id
+				});
+			},
+			// 获取猜你喜欢List数据
+			getData(id) {
+				return new Promise((resolve, reject) => {
+					// console.log('发送给后端的token值：', this.token)
+					// console.log('发送给后端的list值：', this.list)
+					//发送请求将前端itemList发给后端
+					let itemList = this.list
+					uni.request({
+						url: 'http://localhost:8080/items/recommendItems?tag=' + this
+							.tag + '&mode=' + this
+							.mode + '&id=' + id,
+						method: 'POST',
+						header: {
+							'content-type': 'application/json', // 设置请求头为 JSON 类型
+							'token': this.token
+						},
+						data: JSON.stringify(itemList),
+						success: (res) => {
+							const data = res.data.data.map(item => ({
+								id: item.id, //物品id
+								allowEdit: false, // 暂时设置为 false，根据实际需求进行修改
+								image: item.image, //物品图片卡图像
+								itemTitle: item.itemTitle, //物品标题
+								itemDesc: item.itemDesc, //物品描述
+								address: item.address, //物品地址
+								mode: item.tradeMode, //物品交易模式
+								delivery: item.deliveryStyle //物品交付方式
+							}));
+							resolve(data); // 将处理后的数据返回给调用方
+						},
+						fail: (err) => {
+							reject(err);
+						}
+					});
+				});
 			},
 			getCollect() {
 				uni.request({
@@ -432,7 +638,7 @@
 						if (res.data.code == 1) {
 							//已经收藏了
 							this.collect = 1
-							console.log("已经收藏了！")
+							// console.log("已经收藏了！")
 						} else if (res.data.code == 0) {
 							// 未收藏
 						}
@@ -442,6 +648,7 @@
 					}
 				});
 			},
+
 			// 收藏物品
 			collectItem() {
 				uni.request({
@@ -567,7 +774,7 @@
 					this.order.itemId = this.item.id;
 					this.order.mode = this.item.mode;
 					this.order.image = this.item.image;
-					console.log('发送给后端的订单数据', this.order)
+					// console.log('发送给后端的订单数据', this.order)
 
 					// 给后端发送请求
 					uni.request({
@@ -617,14 +824,14 @@
 							if (res.data && res.data.code === 1) {
 								//赋值给前端的 item 数据
 								this.user = res.data.data;
-								console.log('this.user的数据：', this.user)
+								// console.log('this.user的数据：', this.user)
 							} else {
-								console.error('请求数据失败或返回数据格式不符合预期');
+								// console.error('请求数据失败或返回数据格式不符合预期');
 							}
 						},
 						fail: (err) => {
 							// 请求失败的回调函数，处理错误情况
-							console.error('请求数据失败', err);
+							// console.error('请求数据失败', err);
 						}
 
 					});
@@ -646,22 +853,26 @@
 							if (res.data && res.data.code === 1) {
 								//赋值给前端的 item 数据
 								this.item = res.data.data.item;
+								console.log("物品种类：", this.item.tag)
 								this.itemImages = res.data.data.itemImages
 								// console.log('this.item的address数据：', this.item.address)
 								//修改日期格式
 								this.item.createTime = this.item.createTime.replace('T', ' ');
-								console.log('this.item.time的数据：', this.item.createTime)
+								// console.log('this.item.time的数据：', this.item.createTime)
 								this.getUser(this.item.ownerUid);
+
+
 
 								//获取物品是否已经收藏
 								this.getCollect();
+
 							} else {
-								console.error('请求数据失败或返回数据格式不符合预期');
+								// console.error('请求数据失败或返回数据格式不符合预期');
 							}
 						},
 						fail: (err) => {
 							// 请求失败的回调函数，处理错误情况
-							console.error('请求数据失败', err);
+							// console.error('请求数据失败', err);
 						}
 
 					});
@@ -1031,7 +1242,46 @@
 	}
 
 	/* end */
+	//瀑布流
+	$show-lines: 1;
+	@import '@/uni_modules/uv-ui-tools/libs/css/variable.scss';
 
+	.waterfall {
+		background-color: #f1f1f1;
+	}
+
+	.waterfall-item {
+		overflow: hidden;
+		margin-top: 10px;
+		border-radius: 6px;
+	}
+
+	.waterfall-item__ft {
+		padding: 20rpx;
+		background: #fff;
+
+		&__title {
+			margin-bottom: 10rpx;
+			line-height: 48rpx;
+			font-weight: 700;
+
+			.value {
+				font-size: 32rpx;
+				color: #303133;
+			}
+		}
+
+		&__desc .value {
+			font-size: 28rpx;
+			color: #606266;
+		}
+
+		&__btn {
+			padding: 10px 0;
+		}
+	}
+
+	//瀑布流end
 	/* 底部操作选项卡 */
 	.fixation {
 		position: fixed;
