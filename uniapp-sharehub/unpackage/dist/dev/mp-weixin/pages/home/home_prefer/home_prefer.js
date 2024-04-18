@@ -404,7 +404,7 @@ var _default = {
 
       // console.log(this.preferenceVO)
       // 指定完整的请求路径
-      var path = 'http://localhost:8080/users/preference';
+      var path = 'http://localhost:8080/preference/init';
       uni.request({
         url: path,
         method: 'POST',

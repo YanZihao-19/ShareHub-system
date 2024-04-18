@@ -30,9 +30,9 @@
 								<view class="item-inline bg-img padding-top-xl flex align-end"
 									:style=" 'background-image: url(' +item.image+');' ">
 								</view>
-								<view class="item-text text-cut">
+								<view class="item-text .truncate-text">
 									<!-- 这里放置文字内容 -->
-									<text class='text-cut text-black'>{{item.itemDesc}}</text>
+									<text class='truncate-text  text-black'>{{item.itemDesc}}</text>
 								</view>
 							</navigator>
 
@@ -203,7 +203,7 @@
 				// 使用split方法分割字符串，并取第一个元素
 				return time.split('T')[0];
 			},
-			
+
 			//修改样式
 			tagColorClass(tradeMode) {
 				switch (tradeMode) {
@@ -540,6 +540,14 @@
 			color: #fff;
 			background-color: #b0bbb9;
 		}
+	}
+
+	//文字截断
+	.truncate-text {
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
 	}
 
 	/* <!-- 自定义弹窗 --> */

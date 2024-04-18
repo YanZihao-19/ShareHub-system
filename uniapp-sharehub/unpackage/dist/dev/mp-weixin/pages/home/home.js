@@ -532,17 +532,17 @@ var _default = {
         name: '男装',
         icon: __webpack_require__(/*! @/static/itemImages/男装.jpg */ 98)
       }, {
-        tag: '4',
-        name: '数码影音',
-        icon: __webpack_require__(/*! @/static/itemImages/数码影音.jpg */ 99)
-      }, {
-        tag: '11',
-        name: '运动户外',
-        icon: __webpack_require__(/*! @/static/itemImages/运动户外.jpg */ 100)
+        tag: '9',
+        name: '女装',
+        icon: __webpack_require__(/*! @/static/itemImages/女装.jpg */ 99)
       }, {
         tag: '5',
         name: '家居日用',
-        icon: __webpack_require__(/*! @/static/itemImages/家居日用.jpg */ 101)
+        icon: __webpack_require__(/*! @/static/itemImages/家居日用.jpg */ 100)
+      }, {
+        tag: '11',
+        name: '运动户外',
+        icon: __webpack_require__(/*! @/static/itemImages/运动户外.jpg */ 101)
       }, {
         tag: '6',
         name: '儿童玩具',
@@ -552,9 +552,9 @@ var _default = {
         name: '宠物用品',
         icon: __webpack_require__(/*! @/static/itemImages/宠物用品.jpg */ 103)
       }], [{
-        tag: '9',
-        name: '女装',
-        icon: __webpack_require__(/*! @/static/itemImages/女装.jpg */ 104)
+        tag: '3',
+        name: '图书',
+        icon: __webpack_require__(/*! @/static/itemImages/图书.jpg */ 104)
       }, {
         tag: '2',
         name: '美妆用品',
@@ -568,9 +568,9 @@ var _default = {
         name: '家用电器',
         icon: __webpack_require__(/*! @/static/itemImages/家用电器.jpg */ 107)
       }, {
-        tag: '3',
-        name: '图书',
-        icon: __webpack_require__(/*! @/static/itemImages/图书.jpg */ 108)
+        tag: '4',
+        name: '数码影音',
+        icon: __webpack_require__(/*! @/static/itemImages/数码影音.jpg */ 108)
       }, {
         tag: '13',
         name: '家纺家居',
@@ -944,8 +944,22 @@ var _default = {
         content: '你不喜欢该物品吗？',
         success: function success(res) {
           if (res.confirm) {
+            //向后端发送请求，降低该物品类别的期望值
+            if (token != null && token != '') {
+              uni.request({
+                url: 'http://localhost:8080/preference/decPreference&itemId=' + item.tag,
+                method: 'PUT',
+                header: {
+                  'content-type': 'application/json',
+                  // 设置请求头为 JSON 类型
+                  'token': this.token
+                },
+                success: function success(res) {}
+              });
+            }
+
+            // 请求成功
             that.$refs.waterfall.remove(item.id);
-            //推家算法！！！！！向后端发送请求，降低该物品的期望值
           }
         }
       });

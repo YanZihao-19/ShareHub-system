@@ -96,14 +96,6 @@ public class UserController {
     }
 
 
-    /**
-     * 初始化用户偏好
-     */
-    @PostMapping("/preference")
-    public Result initUserPreference(@RequestHeader("token") String token, @RequestBody PreferenceVO preferenceVO) {
-        userService.initUserPreference(token, preferenceVO);
-        return Result.success("success");
-    }
 
 
 }

@@ -44,6 +44,7 @@ public interface UserMapper {
     @Select("SELECT id FROM user_tags_score WHERE uid = #{openId}")
     Integer selectTagsPreferId(String openId);
 
+
     @Insert("insert into user_tags_score (uid,elect_product, beauty, book, digital, household, toy, pet_sup, menswear, womenswear, mother_and_baby, sport, appliance, furniture, other, " +
             "share, exchange,trade," +
             "allage,child,adult,old," +
@@ -90,4 +91,6 @@ public interface UserMapper {
             "WHERE uid = #{uid}")
     void increaseTagsScore(UserTagsScore userTagsScores);
 
+    @Select("SELECT * FROM user_tags_score WHERE uid = #{openId}")
+    UserTagsScore selectPreferById(String openId);
 }

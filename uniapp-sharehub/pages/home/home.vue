@@ -248,17 +248,17 @@
 						name: '男装',
 						icon: require('@/static/itemImages/男装.jpg')
 					}, {
-						tag: '4',
-						name: '数码影音',
-						icon: require('@/static/itemImages/数码影音.jpg')
-					}, {
-						tag: '11',
-						name: '运动户外',
-						icon: require('@/static/itemImages/运动户外.jpg')
+						tag: '9',
+						name: '女装',
+						icon: require('@/static/itemImages/女装.jpg')
 					}, {
 						tag: '5',
 						name: '家居日用',
 						icon: require('@/static/itemImages/家居日用.jpg')
+					}, {
+						tag: '11',
+						name: '运动户外',
+						icon: require('@/static/itemImages/运动户外.jpg')
 					}, {
 						tag: '6',
 						name: '儿童玩具',
@@ -269,9 +269,9 @@
 						icon: require('@/static/itemImages/宠物用品.jpg')
 					}],
 					[{
-							tag: '9',
-							name: '女装',
-							icon: require('@/static/itemImages/女装.jpg')
+							tag: '3',
+							name: '图书',
+							icon: require('@/static/itemImages/图书.jpg')
 						},
 						{
 							tag: '2',
@@ -286,10 +286,11 @@
 							name: '家用电器',
 							icon: require('@/static/itemImages/家用电器.jpg')
 						}, {
-							tag: '3',
-							name: '图书',
-							icon: require('@/static/itemImages/图书.jpg')
-						}, {
+							tag: '4',
+							name: '数码影音',
+							icon: require('@/static/itemImages/数码影音.jpg')
+						},
+						{
 							tag: '13',
 							name: '家纺家居',
 							icon: require('@/static/itemImages/家纺家居.jpg')
@@ -625,8 +626,24 @@
 					content: '你不喜欢该物品吗？',
 					success(res) {
 						if (res.confirm) {
+							//向后端发送请求，降低该物品类别的期望值
+							if (token != null && token != '') {
+								uni.request({
+									url: 'http://localhost:8080/preference/decPreference&itemId=' + item.tag,
+									method: 'PUT',
+									header: {
+										'content-type': 'application/json', // 设置请求头为 JSON 类型
+										'token': this.token
+									},
+									success: (res) => {
+										
+									}
+								})
+							}
+
+							// 请求成功
 							that.$refs.waterfall.remove(item.id);
-							//推家算法！！！！！向后端发送请求，降低该物品的期望值
+
 
 						}
 					}

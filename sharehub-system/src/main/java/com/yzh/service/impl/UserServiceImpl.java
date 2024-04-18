@@ -110,20 +110,20 @@ public class UserServiceImpl implements UserService {
             //给用户所偏好的物品标签赋值(注意是从0开始，按照前端的约定来)
             for (Integer i : preferenceVO.getTagList()) {
                 switch (i) {
-                    case 0 -> userTagsScore.setElectProduct(30);
-                    case 1 -> userTagsScore.setBeauty(30);
-                    case 2 -> userTagsScore.setBook(30);
-                    case 3 -> userTagsScore.setDigital(30);
-                    case 4 -> userTagsScore.setHousehold(30);
-                    case 5 -> userTagsScore.setToy(30);
-                    case 6 -> userTagsScore.setPetSup(30);
-                    case 7 -> userTagsScore.setMenSwear(30);
-                    case 8 -> userTagsScore.setWomenSwear(30);
-                    case 9 -> userTagsScore.setMotherAndBaby(30);
-                    case 10 -> userTagsScore.setSport(30);
-                    case 11 -> userTagsScore.setAppliance(30);
-                    case 12 -> userTagsScore.setFurniture(30);
-                    case 13 -> userTagsScore.setOther(30);
+                    case 0 -> userTagsScore.setElectProduct(100);
+                    case 1 -> userTagsScore.setBeauty(100);
+                    case 2 -> userTagsScore.setBook(100);
+                    case 3 -> userTagsScore.setDigital(100);
+                    case 4 -> userTagsScore.setHousehold(100);
+                    case 5 -> userTagsScore.setToy(100);
+                    case 6 -> userTagsScore.setPetSup(100);
+                    case 7 -> userTagsScore.setMenSwear(100);
+                    case 8 -> userTagsScore.setWomenSwear(100);
+                    case 9 -> userTagsScore.setMotherAndBaby(100);
+                    case 10 -> userTagsScore.setSport(100);
+                    case 11 -> userTagsScore.setAppliance(100);
+                    case 12 -> userTagsScore.setFurniture(100);
+                    case 13 -> userTagsScore.setOther(100);
                     default -> throw new IllegalArgumentException("Invalid value: " + i);
                 }
             }
@@ -177,10 +177,10 @@ public class UserServiceImpl implements UserService {
             //给用户的年龄段赋值
             for (Integer i : preferenceVO.getSuitList()) {
                 switch (i) {
-                    case 0 -> userTagsScore.setAllAge(30);
-                    case 1 -> userTagsScore.setChild(30);
-                    case 2 -> userTagsScore.setAdult(30);
-                    case 3 -> userTagsScore.setOld(30);
+                    case 0 -> userTagsScore.setAllAge(20);
+                    case 1 -> userTagsScore.setChild(20);
+                    case 2 -> userTagsScore.setAdult(20);
+                    case 3 -> userTagsScore.setOld(20);
                     default -> throw new IllegalArgumentException("Invalid value: " + i);
                 }
             }
@@ -196,5 +196,17 @@ public class UserServiceImpl implements UserService {
         String openId = (String) itemUser.get("openId");
 
         return userMapper.selectOpenId(openId);
+    }
+
+    @Override
+    public void decPreference(String token, Integer tag) {
+        //解析前端token,获取用户openid
+        Map<String, Object> itemUser = JwtUtils.parseJWT(token);
+        String openId = (String) itemUser.get("openId");
+
+        //获取对应openId的偏好值
+        UserTagsScore userTagsScore = userMapper.selectPreferById(openId);
+
+
     }
 }

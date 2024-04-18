@@ -168,6 +168,12 @@
   color: #fff;
   background-color: #b0bbb9;
 }
+.truncate-text.data-v-1be8b445 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 /* <!-- 自定义弹窗 --> */
 .showModel.data-v-1be8b445 {
   position: fixed;

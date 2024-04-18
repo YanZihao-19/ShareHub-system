@@ -59,4 +59,7 @@ public interface UserService {
     Integer initUserPreference(String token, PreferenceVO preferenceVO);
 
     User selectByToken(String token);
+
+//    降低用户偏好
+    void decPreference(String token, Integer tag);
 }

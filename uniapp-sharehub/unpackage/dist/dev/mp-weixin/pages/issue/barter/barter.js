@@ -543,21 +543,22 @@ var _default = {
                 icon: 'success',
                 duration: 1500
               });
-
-              //跳转到订单页并刷新订单页
               setTimeout(function () {
-                //回到上一页，并在回调函数中执行页面刷新操作
-                uni.navigateBack({
-                  delta: 1,
-                  // 返回页面数，1表示返回上一页
-                  success: function success() {
-                    // 在页面返回成功后执行刷新操作
-                    uni.reLaunch({
-                      url: '/pages/msg/msg_order_all/msg_order_all'
-                    });
-                  }
-                });
-              }, 1000);
+                uni.navigateBack();
+              }, 2000);
+              //跳转到订单页并刷新订单页
+              // setTimeout(function() {
+              //回到上一页，并在回调函数中执行页面刷新操作？？？？？
+              // 	uni.navigateBack({
+              // 		delta: 1, // 返回页面数，1表示返回上一页
+              // 		success: function() {
+              // 			// 在页面返回成功后执行刷新操作
+              // 			uni.reLaunch({
+              // 				url: '/pages/msg/msg_order_all/msg_order_all'
+              // 			});
+              // 		}
+              // 	});
+              // }, 1000);
             } else {
               uni.showToast({
                 title: '上传失败！',
