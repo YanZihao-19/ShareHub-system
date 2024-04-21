@@ -3,7 +3,7 @@
 		<!-- 内容 -->
 		<view class='pa'>
 			<view class='container shadow-warp bg-white' v-for="(itemUser,index) in itemUserList"
-				:key="itemUser.itemVO.item.id">
+			@tap="goToDetail(itemUser.itemVO.item)"	:key="itemUser.itemVO.item.id">
 				<view class='container-top'>
 					<view class='container-top-1'>
 						<image :src='itemUser.user.image'></image>
@@ -105,6 +105,14 @@
 			handleStr(time) {
 				time = time.replace('T', ' ')
 				return time
+			},
+			// 查看详情
+			goToDetail(item) {
+				// 在这里进行页面跳转，比如跳转到详情页，并传递参数
+				console.log('准备执行跳转了！')
+				uni.navigateTo({
+					url: '/pages/home/home_detail/home_detail?id=' + item.id
+				});
 			},
 			//获取List数据
 			getData() {

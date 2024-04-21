@@ -56,7 +56,7 @@ public class OrderServiceImpl implements OrderService {
 
         //如果添加成功,增加用户对该物品相关标签的好感度
         if (result == 1) {
-            UpdatePreference.increase(token, item, 1);
+            UpdatePreference.updatePreference(token, item, 1);
             System.out.println("发起申请交易增加好感度！！！！！！");
         }
         return result;

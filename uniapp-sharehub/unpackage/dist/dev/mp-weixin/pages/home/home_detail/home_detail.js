@@ -614,6 +614,7 @@ var _default = {
       scroll: '',
       token: '',
       //瀑布流数据
+      comments: 'comments',
       list: [],
       // 瀑布流全部数据
       list1: [],

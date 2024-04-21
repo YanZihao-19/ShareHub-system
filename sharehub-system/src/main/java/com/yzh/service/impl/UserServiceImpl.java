@@ -2,7 +2,9 @@ package com.yzh.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.yzh.common.utils.UpdatePreference;
 import com.yzh.mapper.UserMapper;
+import com.yzh.pojo.Item;
 import com.yzh.pojo.PageBean;
 import com.yzh.pojo.User;
 import com.yzh.pojo.UserTagsScore;
@@ -199,14 +201,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void decPreference(String token, Integer tag) {
-        //解析前端token,获取用户openid
-        Map<String, Object> itemUser = JwtUtils.parseJWT(token);
-        String openId = (String) itemUser.get("openId");
-
-        //获取对应openId的偏好值
-        UserTagsScore userTagsScore = userMapper.selectPreferById(openId);
-
-
+    public void decPreference(String token, Item item) {
+        //根据该物品信息获取用户降低的偏好值
+        UserTagsScore userTagsScores = UpdatePreference.updatePreference(token, item, 3);
+        userMapper.updateTagsScore(userTagsScores);
     }
 }

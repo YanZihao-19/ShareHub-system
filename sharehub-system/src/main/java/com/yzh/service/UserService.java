@@ -1,5 +1,6 @@
 package com.yzh.service;
 
+import com.yzh.pojo.Item;
 import com.yzh.pojo.PageBean;
 import com.yzh.pojo.User;
 import com.yzh.vo.PreferenceVO;
@@ -61,5 +62,5 @@ public interface UserService {
     User selectByToken(String token);
 
 //    降低用户偏好
-    void decPreference(String token, Integer tag);
+    void decPreference(String token, Item item);
 }

@@ -89,7 +89,7 @@ public interface UserMapper {
             "hand_deliver = hand_deliver + #{handDeliver}, " +
             "post = post + #{post} " +
             "WHERE uid = #{uid}")
-    void increaseTagsScore(UserTagsScore userTagsScores);
+    void updateTagsScore(UserTagsScore userTagsScores);
 
     @Select("SELECT * FROM user_tags_score WHERE uid = #{openId}")
     UserTagsScore selectPreferById(String openId);

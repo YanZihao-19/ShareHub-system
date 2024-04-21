@@ -217,7 +217,11 @@
 
 			// 初始化函数获取数据
 			this.getnUserData(this.order.needUid);
-			this.getOtherItemData(this.order.otherItemId);
+			if (this.order.otherItemId != null) {
+				this.getOtherItemData(this.order.otherItemId);
+			}else{
+				this.getOtherItemData(this.order.itemId)
+			}
 			//向后端发送请求，表示该订单已经查看，去除小红点
 			this.removeRedDot(this.order.id);
 		},

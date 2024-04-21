@@ -70,10 +70,18 @@
 				commentList: null //评论列表
 			}
 		},
+		async onTabItemTap() {
+			uni.switchTab({
+				url: '/pages/msg/msg'
+			});
+			this.commentList = null
+			await this.getCommentList(this.token);
+			// this.getDotNum(this.token);
 
+		},
 		async onLoad() {
 			this.token = uni.getStorageSync('token')
-			// 从vuex中取值
+			// 请求数据
 			await this.getDotNum(this.token);
 			await this.getCommentList(this.token);
 		},
@@ -134,7 +142,7 @@
 				}
 				// 获取通知红点数!!!!!!!!!!!!!!!!!!!!!!!!!
 			},
-			
+
 			//更新tabbar的红点
 			changeTabBarRedDot() {
 				let totalRedDotNum = this.commentNum + this.orderNum + this.informNum
@@ -167,14 +175,14 @@
 						'token': this.token
 					},
 					success: (res) => {
-
+						this.getCommentList(this.token);
+						//跳转页面
+						uni.navigateTo({
+							url: '/pages/home/home_detail/home_detail?id=' + itemId +
+								'&scrollTo=comments'
+						});
 					}
 				})
-				this.getCommentList(this.token);
-				//跳转页面
-				uni.navigateTo({
-					url: '/pages/home/home_detail/home_detail?id=' + itemId + '&scrollTo=comments'
-				});
 			},
 			// 通知消息点击
 			notice: function() {

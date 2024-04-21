@@ -82,7 +82,7 @@ public class ItemServiceImpl implements ItemService {
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
-                System.out.println("用户的喜好向量：" + Arrays.toString(userTagsArray));
+//                System.out.println("用户的喜好向量：" + Arrays.toString(userTagsArray));
 
                 if (itemId != 0) {
                     tag = itemMapper.getItemDetail(itemId).getTag();
@@ -135,9 +135,9 @@ public class ItemServiceImpl implements ItemService {
 
         if (token != null && !token.equals("")) {
             //根据该物品信息获取用户增加的偏好值
-            UserTagsScore userTagsScores = UpdatePreference.increase(token, itemDetail, 1);
+            UserTagsScore userTagsScores = UpdatePreference.updatePreference(token, itemDetail, 1);
             //增加偏好值
-            userMapper.increaseTagsScore(userTagsScores);
+            userMapper.updateTagsScore(userTagsScores);
             System.out.println("查看物品增加了用户偏好值");
         }
         return new ItemVO(itemDetail, itemImages);
@@ -164,7 +164,7 @@ public class ItemServiceImpl implements ItemService {
 
         //根据用户搜索的的物品list中最相近的物品(第一个)，为用户增加偏好度
         if (token != null && !token.equals("") && itemList != null && itemList.size() != 0) {
-            UpdatePreference.increase(token, itemList.get(0), 2);
+            UpdatePreference.updatePreference(token, itemList.get(0), 2);
         }
         return itemList;
     }

@@ -399,7 +399,11 @@ var _default = {
 
               // 初始化函数获取数据
               _this.getnUserData(_this.order.needUid);
-              _this.getOtherItemData(_this.order.otherItemId);
+              if (_this.order.otherItemId != null) {
+                _this.getOtherItemData(_this.order.otherItemId);
+              } else {
+                _this.getOtherItemData(_this.order.itemId);
+              }
               //向后端发送请求，表示该订单已经查看，去除小红点
               _this.removeRedDot(_this.order.id);
             case 6:

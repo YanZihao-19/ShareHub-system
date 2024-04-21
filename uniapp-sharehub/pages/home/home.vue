@@ -103,8 +103,8 @@
 											<uv-row justify="space-between" gutter="4">
 												<uv-col span="6">
 													<view class="uv-page__tag-item">
-														<uv-tags :text="getModeText(item.mode)"
-															:type="getModeType(item.mode)"></uv-tags>
+														<uv-tags :text="getModeText(item.tradeMode)"
+															:type="getModeType(item.tradeMode)"></uv-tags>
 													</view>
 												</uv-col>
 												<uv-col span="4">
@@ -157,8 +157,8 @@
 											<uv-row justify="space-between" gutter="4">
 												<uv-col span="6">
 													<view class="uv-page__tag-item">
-														<uv-tags :text="getModeText(item.mode)"
-															:type="getModeType(item.mode)"></uv-tags>
+														<uv-tags :text="getModeText(item.tradeMode)"
+															:type="getModeType(item.tradeMode)"></uv-tags>
 													</view>
 												</uv-col>
 												<uv-col span="4">
@@ -215,7 +215,7 @@
 		data() {
 			return {
 				tag: '0', //表示物品种类
-				mode: '3', //表示物品的类型，0免费，1易物，2二手
+				tradeMode: '3', //表示物品的类型，0免费，1易物，2二手
 				token: '',
 				keywords: '', //搜索关键字
 				// 导航条
@@ -359,7 +359,7 @@
 			this.list1 = [];
 			this.list2 = [];
 			this.tag = '0';
-			this.mode = '3'
+			this.tradeMode = '3'
 			// 根据不同的选项卡索引设置 mode 的值
 			this.init();
 			//重新获取红点
@@ -576,16 +576,16 @@
 				// 根据不同的选项卡索引设置 mode 的值
 				switch (obj.index) {
 					case 0:
-						this.mode = '3'; // 点击全部时 mode=3
+						this.tradeMode = '3'; // 点击全部时 mode=3
 						break;
 					case 1:
-						this.mode = '0'; // 点击免费共享时 mode=0
+						this.tradeMode = '0'; // 点击免费共享时 mode=0
 						break;
 					case 2:
-						this.mode = '1'; // 点击以物换物时 mode=1
+						this.tradeMode = '1'; // 点击以物换物时 mode=1
 						break;
 					case 3:
-						this.mode = '2'; // 点击二手出售时 mode=2
+						this.tradeMode = '2'; // 点击二手出售时 mode=2
 						break;
 					default:
 						break;
@@ -593,7 +593,7 @@
 				this.init();
 			},
 
-			//点击物品跳转到详情页
+			//点击物品跳转到详情页!!!!!!!!!!!!!!（待修改！！！）
 			goToDetail(item) {
 				// 在这里进行页面跳转，比如跳转到详情页，并传递参数
 				console.log('准备执行跳转了！')
@@ -626,25 +626,24 @@
 					content: '你不喜欢该物品吗？',
 					success(res) {
 						if (res.confirm) {
+							console.log("长按的item:",item)
 							//向后端发送请求，降低该物品类别的期望值
-							if (token != null && token != '') {
+							if (that.token != null && that.token != '') {
 								uni.request({
-									url: 'http://localhost:8080/preference/decPreference&itemId=' + item.tag,
+									url: 'http://localhost:8080/preference/decPreference?',
 									method: 'PUT',
+									data: JSON.stringify(item),
 									header: {
 										'content-type': 'application/json', // 设置请求头为 JSON 类型
-										'token': this.token
+										'token': that.token
 									},
 									success: (res) => {
-										
+
+										// 请求成功
+										that.$refs.waterfall.remove(item.id);
 									}
 								})
 							}
-
-							// 请求成功
-							that.$refs.waterfall.remove(item.id);
-
-
 						}
 					}
 				})
@@ -680,7 +679,7 @@
 					uni.request({
 						url: 'http://localhost:8080/items/recommendItems?tag=' + this
 							.tag + '&mode=' + this
-							.mode + '&id=0',
+							.tradeMode + '&id=0',
 						method: 'POST',
 						header: {
 							'content-type': 'application/json', // 设置请求头为 JSON 类型
@@ -693,10 +692,12 @@
 								allowEdit: false, // 暂时设置为 false，根据实际需求进行修改
 								image: item.image, //物品图片卡图像
 								itemTitle: item.itemTitle, //物品标题
+								tag:item.tag,//物品种类
 								itemDesc: item.itemDesc, //物品描述
 								address: item.address, //物品地址
-								mode: item.tradeMode, //物品交易模式
-								delivery: item.deliveryStyle //物品交付方式
+								tradeMode: item.tradeMode, //物品交易模式
+								delivery: item.deliveryStyle ,//物品交付方式
+								suit: item.suit //适合年龄
 							}));
 							resolve(data); // 将处理后的数据返回给调用方
 						},

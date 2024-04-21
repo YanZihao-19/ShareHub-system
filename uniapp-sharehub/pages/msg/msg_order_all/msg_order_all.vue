@@ -76,7 +76,7 @@
 		onShow() {
 			// 获取用户token
 			this.token = uni.getStorageSync('token')
-			
+
 			// 调用 getData() 函数获取数据并将数据赋值给 list 数组
 			const orders = this.getOrders();
 			this.orderList = orders;
@@ -161,15 +161,17 @@
 			},
 			// 跳转到查看订单详情！！！！！！！！！！
 			toHandle(order) {
+				console.log('发送给下个页面的订单内容：', order)
 				// 判断订单是否已处理，若未处理才执行跳转操作
 				if (order.status == 0) {
-				uni.navigateTo({
-					url: '/pages/msg/msg_handleOrder/msg_handleOrder?order=' + encodeURIComponent(JSON
-						.stringify(order)),
-					success: function(res) {},
-					fail: function(res) {},
-					complete: function(res) {},
-				})
+					uni.navigateTo({
+						url: '/pages/msg/msg_handleOrder/msg_handleOrder?order=' + encodeURIComponent(JSON
+							.stringify(order)),
+
+						success: function(res) {},
+						fail: function(res) {},
+						complete: function(res) {},
+					})
 				}
 			},
 		}

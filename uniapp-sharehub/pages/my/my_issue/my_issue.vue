@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<!-- 每个商品卡片内容 -->
+		<!--tabs -->
 		<view class='pa'>
 			<uv-sticky>
 				<view style="padding: 10rpx 0;background-color: #fff;">
@@ -11,8 +11,9 @@
 				</view>
 			</uv-sticky>
 
-
-			<view class='contianer shadow-warp bg-white padding-sm' v-for="(item , index) in itemList" :key="index">
+			<!-- 遍历发布物品列表 -->
+			<view class='contianer shadow-warp bg-white padding-sm' v-for="(item , index) in itemList"
+				@tap="goToDetail(item)" :key="index">
 				<view class='contianer-title'>
 					<view class='contianer-title_1 text-cut'><text class='text-cut text-black'>{{item.itemTitle}}</text>
 					</view>
@@ -136,24 +137,6 @@
 				itemList: [], //从后端获取的用户物品列表
 				mode: '3', //用户选择的物品模式
 				url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg',
-				// address: (...)
-				// createTime: (...)
-				// deliveryStyle: (...)
-				// id: (...)
-				// image: (...)
-				// imgList: (...)
-				// itemDesc: (...)
-				// itemTitle: (...)
-				// originalPrice: (...)
-				// ownerUid: (...)
-				// sellPrice: (...)
-				// status: (...)
-				// suit: (...)
-				// tag: (...)
-				// pageFlag
-				// tradeMode: (...)
-				// updateTime: (...)
-				// usageLevel: (...)
 			}
 		},
 		computed: {
@@ -195,6 +178,14 @@
 						reject(err);
 					},
 				})
+			},
+			// 跳转到物品详情页面
+			goToDetail(item) {
+				// 在这里进行页面跳转，比如跳转到详情页，并传递参数
+				console.log('准备执行跳转了！')
+				uni.navigateTo({
+					url: '/pages/home/home_detail/home_detail?id=' + item.id
+				});
 			},
 			//修改日期格式
 			formattedTime(t) {

@@ -313,6 +313,7 @@ var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/r
 //
 //
 //
+//
 var _default = {
   data: function data() {
     return {
@@ -340,27 +341,8 @@ var _default = {
       mode: '3',
       //用户选择的物品模式
       url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg'
-      // address: (...)
-      // createTime: (...)
-      // deliveryStyle: (...)
-      // id: (...)
-      // image: (...)
-      // imgList: (...)
-      // itemDesc: (...)
-      // itemTitle: (...)
-      // originalPrice: (...)
-      // ownerUid: (...)
-      // sellPrice: (...)
-      // status: (...)
-      // suit: (...)
-      // tag: (...)
-      // pageFlag
-      // tradeMode: (...)
-      // updateTime: (...)
-      // usageLevel: (...)
     };
   },
-
   computed: {},
   onLoad: function onLoad(options) {
     // 获取页面参数，如果是以物易物跳转来的则获取参数
@@ -400,6 +382,14 @@ var _default = {
         fail: function fail(err) {
           reject(err);
         }
+      });
+    },
+    // 跳转到物品详情页面
+    goToDetail: function goToDetail(item) {
+      // 在这里进行页面跳转，比如跳转到详情页，并传递参数
+      console.log('准备执行跳转了！');
+      uni.navigateTo({
+        url: '/pages/home/home_detail/home_detail?id=' + item.id
       });
     },
     //修改日期格式

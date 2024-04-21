@@ -285,6 +285,14 @@ var _default = {
       time = time.replace('T', ' ');
       return time;
     },
+    // 查看详情
+    goToDetail: function goToDetail(item) {
+      // 在这里进行页面跳转，比如跳转到详情页，并传递参数
+      console.log('准备执行跳转了！');
+      uni.navigateTo({
+        url: '/pages/home/home_detail/home_detail?id=' + item.id
+      });
+    },
     //获取List数据
     getData: function getData() {
       var _this2 = this;

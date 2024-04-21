@@ -355,6 +355,7 @@ var _default = {
     },
     // 跳转到查看订单详情！！！！！！！！！！
     toHandle: function toHandle(order) {
+      console.log('发送给下个页面的订单内容：', order);
       // 判断订单是否已处理，若未处理才执行跳转操作
       if (order.status == 0) {
         uni.navigateTo({

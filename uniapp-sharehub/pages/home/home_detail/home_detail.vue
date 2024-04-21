@@ -302,9 +302,9 @@
 				<view class="cuIcon-favorfill text-red"></view>
 				已收藏
 			</view>
-			<button class="action" @tap='toChat'>
+			<button class="action" @tap='scrollTo(comments)'>
 				<!-- 留言待完成！！！！！！ -->
-				<view class="cuIcon-messagefill text-green"></view>
+				<view class="cuIcon-messagefill text-green" ></view>
 				留言
 			</button>
 			<view class="bg-blue submit margin-right-20" @tap="handleAction(item)">
@@ -377,6 +377,7 @@
 				scroll: '',
 				token: '',
 				//瀑布流数据
+				comments:'comments',
 				list: [], // 瀑布流全部数据
 				list1: [], // 瀑布流第一列数据
 				list2: [], // 瀑布流第二列数据
@@ -458,7 +459,6 @@
 			}
 		},
 		onReady() {
-
 			//跳转
 			if (this.scroll != '') {
 				console.log("图片list：", this.itemImages)

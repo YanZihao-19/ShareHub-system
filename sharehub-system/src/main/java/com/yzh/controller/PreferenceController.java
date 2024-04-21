@@ -1,5 +1,6 @@
 package com.yzh.controller;
 
+import com.yzh.pojo.Item;
 import com.yzh.pojo.Result;
 import com.yzh.service.UserService;
 import com.yzh.vo.PreferenceVO;
@@ -31,10 +32,8 @@ public class PreferenceController {
      *用户长按不喜欢降低 偏好值
      */
     @PutMapping("/decPreference")
-    public Result decPreference(@RequestHeader("token") String token, @RequestParam Integer tag) {
-        userService.decPreference(token, tag);
+    public Result decPreference(@RequestHeader("token") String token, @RequestBody  Item item) {
+        userService.decPreference(token, item);
         return Result.success("success");
     }
-
-
 }

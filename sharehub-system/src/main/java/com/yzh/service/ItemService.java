@@ -26,7 +26,7 @@ public interface ItemService {
      *
      * @param mode
      */
-    List<Item> getItemList(String token, List<Item> itemList, Integer mode, Integer tag,Integer itemId) throws IllegalAccessException;
+    List<Item> getItemList(String token, List<Item> itemList, Integer mode, Integer tag, Integer itemId) throws IllegalAccessException;
 
     /**
      * 获取物品详情
@@ -43,7 +43,7 @@ public interface ItemService {
     List<Item> getUserItems(String token, Integer mode);
 
     /**
-     *根据关键词模糊查询所有物品
+     * 根据关键词模糊查询所有物品
      *
      * @param token
      * @param mode
