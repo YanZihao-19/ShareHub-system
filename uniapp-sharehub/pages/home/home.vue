@@ -531,7 +531,7 @@
 							// 存储到vuex中
 							//用户信息存储到vuex中
 							let dotNumList = res.data.data
-							console.log('评论dot数', dotNumList[1])
+							console.log('系统通知dot数', dotNumList[2])
 							this.$store.commit('notice/setCommentNum', dotNumList[0]);
 							this.$store.commit('notice/setOrderNum', dotNumList[1]);
 							this.$store.commit('notice/setInformNum', dotNumList[2]);

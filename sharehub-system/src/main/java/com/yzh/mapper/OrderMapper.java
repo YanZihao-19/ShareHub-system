@@ -40,6 +40,10 @@ public interface OrderMapper {
     @Update("UPDATE  `order` SET notice_status = 1 WHERE id = #{orderId} ")
     void changeNoticeStatus(Integer orderId);
 
+    //修改订单申诉状态
+    @Update("UPDATE  `order` SET isComplaint = 1 WHERE id = #{orderId} ")
+    void changeIsComplaintStatus(Integer orderId);
+
     @Select("SELECT count(*) FROM `order` WHERE holder_uid = #{openId} AND notice_status = 0")
     Integer selectDotNum(String openId);
 

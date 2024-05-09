@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "选择发行方式",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "pick-adress": "/components/john-pickAddress/pickAddress"
-  }
-}

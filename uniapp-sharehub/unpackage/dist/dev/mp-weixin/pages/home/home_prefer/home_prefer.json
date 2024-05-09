@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "选择偏好",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "helang-checkbox": "/components/helang-checkbox/helang-checkbox"
-  }
-}

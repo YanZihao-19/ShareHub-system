@@ -4,21 +4,15 @@
 		<view class='pg'>
 
 			<view class='container shadow-warp bg-white' v-for="(item,index) in 6" :key="index">
-				<view class='container-1'><text>你收藏的宝贝降价了~~~</text></view>
+				<view class='container-1'><text>审核结果请查收</text></view>
 				<view class='container-2'><text>主人，--帮你找到了哪些好宝贝，快看看把~~~</text></view>
-				<view class='container-3'>
-					<image src='https://image.weilanwl.com/color2.0/plugin/sylb2244.jpg'></image>
-				</view>
-
 				<view class='contaniner-lines'></view>
 
 				<view class='container-4'>
 					<view><text class=' text-cyan text-weight'>点我看看</text></view>
 					<view><text class="cuIcon-right lg text-gray"></text></view>
 				</view>
-
 			</view>
-
 		</view>
 		<!-- end -->
 
@@ -46,7 +40,7 @@
 	/* 内容 */
 	.container {
 		width: 100%;
-		height: 570rpx;
+		height: 260rpx;
 		padding: 20rpx;
 		border-radius: 10rpx;
 		margin-bottom: 20rpx;
