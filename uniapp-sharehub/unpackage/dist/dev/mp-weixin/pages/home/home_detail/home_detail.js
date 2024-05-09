@@ -100,11 +100,11 @@ __webpack_require__.r(__webpack_exports__);
 var components
 try {
   components = {
-    uvForm: function () {
-      return Promise.all(/*! import() | uni_modules/uv-form/components/uv-form/uv-form */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-form/components/uv-form/uv-form")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-form/components/uv-form/uv-form.vue */ 493))
-    },
     uvTags: function () {
       return Promise.all(/*! import() | uni_modules/uv-tags/components/uv-tags/uv-tags */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-tags/components/uv-tags/uv-tags")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-tags/components/uv-tags/uv-tags.vue */ 404))
+    },
+    uvForm: function () {
+      return Promise.all(/*! import() | uni_modules/uv-form/components/uv-form/uv-form */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uv-form/components/uv-form/uv-form")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uv-form/components/uv-form/uv-form.vue */ 493))
     },
     commentEg: function () {
       return __webpack_require__.e(/*! import() | components/comment-eg/comment-eg */ "components/comment-eg/comment-eg").then(__webpack_require__.bind(null, /*! @/components/comment-eg/comment-eg.vue */ 502))
@@ -239,6 +239,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 66));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 68));
+//
+//
+//
 //
 //
 //

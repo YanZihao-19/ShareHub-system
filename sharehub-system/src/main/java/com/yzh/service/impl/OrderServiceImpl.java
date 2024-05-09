@@ -131,7 +131,9 @@ public class OrderServiceImpl implements OrderService {
             order.setUpdateTime(finishTime);
             order.setStatus(1); //设置该订单为已交易
             orderMapper.changeOrderStatus(order);
-            //偏好倾向不用增加(之前已经加过了)
+            //共享者可共享数-1
+
+            //偏好倾向不用增加(发送申请时已经加过了)
         }
         //以物换物订单逻辑
         else if (order.getMode() == 1) {
@@ -248,7 +250,7 @@ public class OrderServiceImpl implements OrderService {
         if (token != null && !token.equals("")) {
             //解析前端token,获取用户openid
             Map<String, Object> itemUser = JwtUtils.parseJWT(token);
-            String holderUid = (String) itemUser.get("openId");
+            String holderUid = (String)itemUser.get("openId");
             //根据hScore值来影响需求者的信誉分!!!!!!!!!!!!!
 
             orderMapper.sethScore(holderUid, hScore, orderId);

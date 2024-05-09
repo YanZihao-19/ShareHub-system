@@ -429,7 +429,7 @@
 					this.showToast(this.toastList[3])
 					return;
 				}
-				
+
 				console.log(this.formMsg)
 				//最后处理form数据
 				this.formMsg.ownerUid = this.$store.state.user.openid
@@ -485,7 +485,11 @@
 			}
 		},
 		onLoad(options) {
-
+			//获取页面发来的数据
+			if (JSON.parse(decodeURIComponent(options.item)) != null) {
+				this.formMsg = JSON.parse(decodeURIComponent(options.item))
+				this.formMsg.imgList = []
+			}
 		},
 		onShow() {
 

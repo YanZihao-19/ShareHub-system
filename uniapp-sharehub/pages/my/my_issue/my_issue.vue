@@ -12,78 +12,71 @@
 			</uv-sticky>
 
 			<!-- 遍历发布物品列表 -->
-			<view class='contianer shadow-warp bg-white padding-sm' v-for="(item , index) in itemList"
-				@tap="goToDetail(item)" :key="index">
-				<view class='contianer-title'>
-					<view class='contianer-title_1 text-cut'><text class='text-cut text-black'>{{item.itemTitle}}</text>
-					</view>
-					<view class='contianer-title_2 text-cut'><text
-							class='text-cut'>{{formattedTime(item.createTime)}}</text></view>
-				</view>
-
-				<view class='item-inline-1_1'><text decode='true'>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</text></view>
-				<scroll-view scroll-x="true" style=" white-space: nowrap; display: flex" class='top-20'>
-					<!-- 物品首页图 -->
-					<block>
-						<view class='item-inlines'>
-							<!-- 点击物品跳转还未完善！！！！！！！！！！！！！！！ -->
-							<navigator url='' hover-class='none'>
-								<view class="item-inline bg-img padding-top-xl flex align-end"
-									:style=" 'background-image: url(' +item.image+');' ">
-								</view>
-								<view class="item-text .truncate-text">
-									<!-- 这里放置文字内容 -->
-									<text class='truncate-text  text-black'>{{item.itemDesc}}</text>
-								</view>
-							</navigator>
-
+			<view class='contianer shadow-warp bg-white padding-sm' v-for="(item , index) in itemList" :key="index">
+				<view @tap="goToDetail(item)">
+					<view class='contianer-title'>
+						<view class='contianer-title_1 text-cut'><text
+								class='text-cut text-black'>{{item.itemTitle}}</text>
 						</view>
-					</block>
-				</scroll-view>
-
-				<view class='container-price_desc'>
-					<view class="cu-capsule round view-width">
-						<view class="cu-tag bg-blue  ">
-							模式
-						</view>
-						<view :class="['cu-tag', tagColorClass(item.tradeMode)]">
-							{{ tradeModeText(item.tradeMode) }}
-						</view>
+						<view class='contianer-title_2 text-cut'><text
+								class='text-cut'>{{formattedTime(item.createTime)}}</text></view>
 					</view>
 
-					<!-- 物品邮寄方式 -->
-					<view class="cu-capsule radius">
-						<view class="cu-tag bg-brown">
-							<text class="cuIcon-footprint"></text>
+					<view class='item-inline-1_1'><text decode='true'>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</text></view>
+					<scroll-view scroll-x="true" style=" white-space: nowrap; display: flex" class='top-20'>
+						<!-- 物品首页图 -->
+						<block>
+							<view class='item-inlines'>
+								<!-- 点击物品跳转还未完善！！！！！！！！！！！！！！！ -->
+								<navigator url='' hover-class='none'>
+									<view class="item-inline bg-img padding-top-xl flex align-end"
+										:style=" 'background-image: url(' +item.image+');' ">
+									</view>
+									<view class="item-text .truncate-text">
+										<!-- 这里放置文字内容 -->
+										<text class='truncate-text  text-black'>{{item.itemDesc}}</text>
+									</view>
+								</navigator>
+
+							</view>
+						</block>
+					</scroll-view>
+
+					<view class='container-price_desc'>
+						<view class="cu-capsule round view-width">
+							<view class="cu-tag bg-blue  ">
+								模式
+							</view>
+							<view :class="['cu-tag', tagColorClass(item.tradeMode)]">
+								{{ tradeModeText(item.tradeMode) }}
+							</view>
 						</view>
-						<view :class="{
+
+						<!-- 物品邮寄方式 -->
+						<view class="cu-capsule radius">
+							<view class="cu-tag bg-brown">
+								<text class="cuIcon-footprint"></text>
+							</view>
+							<view :class="{
 						  'cu-tag line-green': item.usageLevel == 0 || item.usageLevel == 1,
 						  'cu-tag line-blue': item.usageLevel == 2 ||item.usageLevel == 3
 						}">
-							{{ item.usageLevel === 0 ? '全新' : (item.usageLevel === 1 ? '99新' : (item.usageLevel === 2 ? '95新' : '85新')) }}
-						</view>
+								{{ item.usageLevel === 0 ? '全新' : (item.usageLevel === 1 ? '99新' : (item.usageLevel === 2 ? '95新' : '85新')) }}
+							</view>
 
+						</view>
 					</view>
 				</view>
-
 				<!-- 操作按钮 -->
 				<!-- 根据 pageFlag 的值决定按钮的渲染 -->
 				<view v-if="pageFlag == '' " class='container-compile'>
-					<view class="cu-tag line-yellow" @tap='offShelf'>下架</view>
-					<view class="cu-tag line-yellow" @tap='toIssue'>编辑</view>
+					<view class="cu-tag line-yellow" @tap='offShelf(item.id)'>下架</view>
+					<view class="cu-tag line-yellow" @tap='toIssue(item)'>编辑</view>
 					<view class="cu-tag line-yellow" @tap='shareVX'>分享</view>
 				</view>
 				<view v-else-if="pageFlag == 0 " class='container-compile'>
 					<view class="cu-tag line-yellow" @tap='select(item)'>选择</view>
 				</view>
-				<!-- <view class='container-compile'>
-					<view class="cu-tag line-yellow" @tap='offShelf'>下架</view>
-					<view class="cu-tag line-yellow" @tap='toIssue'>编辑</view>
-					<view class="cu-tag line-yellow" @tap='shareVX'>分享</view>
-				</view> -->
-				<!-- 	<view class='container-compile'>
-					<view class="cu-tag line-yellow" @tap='select'>选择</view>
-				</view> -->
 
 				<view class='container-line'></view>
 			</view>
@@ -246,11 +239,7 @@
 				this.init();
 			},
 
-			//重新获取数据
-			async init() {
-				const data = await this.getData();
-				this.itemList = data
-			},
+
 			// 点击选择后展示模态框
 			select(item) {
 				// 给order赋值
@@ -305,20 +294,27 @@
 			},
 
 			// 跳转到编辑页面
-			toIssue: function() {
+			toIssue(item) {
 				//根据mode来跳转不同的编辑页面！！！！！！！！！！
+				if (item.tradeMode == 0) {
+					uni.navigateTo({
+						url: '/pages/issue/share/share?item=' + encodeURIComponent(JSON.stringify(item)),
+					})
+				} else if (item.tradeMode == 1) {
+					uni.navigateTo({
+						url: '/pages/issue/barter/barter?item=' + encodeURIComponent(JSON.stringify(item)),
+					})
+				} else {
+					uni.navigateTo({
+						url: '/pages/issue/sale/sale?item=' + encodeURIComponent(JSON.stringify(item)),
+					})
+				}
 
-				uni.navigateTo({
-					url: '/pages/issue/issue_edit/issue_edit',
-					success: function(res) {},
-					fail: function(res) {},
-					complete: function(res) {},
-				})
 			},
 
 			// 下架物品
-			offShelf() {
-
+			offShelf(id) {
+				var that = this
 				console.log('navigator获取来的数据' + this.pageFlag)
 				//这里改为显示toast
 				uni.showModal({
@@ -328,10 +324,28 @@
 					success(res) {
 						if (res.confirm) {
 							//请求后端将该物品设置为下架
+							uni.request({
+								url: 'http://localhost:8080/items/itemOffShelf/' + id,
+								method: 'PUT',
+								header: {
+									'content-type': 'application/json',
+									'token': that.token
+								},
+								success: (res) => {
+									that.init();
+								}
+							})
 
 						} else if (res.cancel) {}
 					}
 				})
+				//重新获取物品列表
+
+			},
+			//重新获取数据
+			async init() {
+				const data = await this.getData();
+				this.itemList = data
 			},
 			//微信分享接口还未更改！！！！！！！
 			shareVX() {

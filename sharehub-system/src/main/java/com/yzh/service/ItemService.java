@@ -82,4 +82,11 @@ public interface ItemService {
      * @param token
      */
     List<ItemUserVO> getCollectItemList(String token);
+
+    /**
+     * 物品下架
+     *
+     * @param token
+     */
+    void itemOffShelf(String token, Integer itemId);
 }

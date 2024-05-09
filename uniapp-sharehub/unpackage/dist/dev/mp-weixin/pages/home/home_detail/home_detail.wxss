@@ -118,7 +118,7 @@
   border-radius: 100%;
 }
 .padding-time.data-v-738df69c {
-  padding-top: 30rpx;
+  padding-top: 0rpx;
   font-size: 25rpx;
 }
 text-title-size.data-v-738df69c {

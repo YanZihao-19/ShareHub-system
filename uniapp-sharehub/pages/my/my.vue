@@ -25,18 +25,19 @@
 						<text class="cuIcon-attentionfill"></text> 信誉等级
 					</view>
 				</view>
-				<view class="flex flex-sub flex-direction solid-right" bindtap='toAttention'>
+				<view v-if="userInfo.role==1" class="flex flex-sub flex-direction solid-right" bindtap='toAttention'>
 					<view class="text-xxl text-blue">{{userInfo.shareNum}}</view>
 					<view class="margin-top-sm">
 						<text class="cuIcon-favorfill">可共享数</text>
 					</view>
 				</view>
-				<!-- <view class="flex flex-sub flex-direction" bindtap='toFans'>
-				<view class="text-xxl text-green">0</view>
-				<view class="margin-top-sm">
-					<text class="cuIcon-fork"></text>粉丝数
+				
+				<view v-if="userInfo.role==2" class="flex flex-sub flex-direction solid-right" bindtap='toAttention'>
+					<view class="text-xxl text-blue">回收商</view>
+					<view class="margin-top-sm">
+						<text class="cuIcon-favorfill">不限共享数</text>
+					</view>
 				</view>
-			</view> -->
 			</view>
 		</view>
 		<!-- 用户信息end -->

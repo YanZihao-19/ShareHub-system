@@ -486,7 +486,11 @@
 			}
 		},
 		onLoad(options) {
-
+			//获取页面发来的数据
+			if (JSON.parse(decodeURIComponent(options.item)) != null) {
+				this.formMsg = JSON.parse(decodeURIComponent(options.item))
+				this.formMsg.imgList = []
+			}
 		},
 		onShow() {
 

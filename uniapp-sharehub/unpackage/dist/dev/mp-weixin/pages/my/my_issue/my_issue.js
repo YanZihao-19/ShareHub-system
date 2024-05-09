@@ -307,13 +307,6 @@ var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/r
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 var _default = {
   data: function data() {
     return {
@@ -450,28 +443,6 @@ var _default = {
       }
       this.init();
     },
-    //重新获取数据
-    init: function init() {
-      var _this2 = this;
-      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        var data;
-        return _regenerator.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return _this2.getData();
-              case 2:
-                data = _context.sent;
-                _this2.itemList = data;
-              case 4:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
     // 点击选择后展示模态框
     select: function select(item) {
       // 给order赋值
@@ -524,18 +495,25 @@ var _default = {
       }
     },
     // 跳转到编辑页面
-    toIssue: function toIssue() {
+    toIssue: function toIssue(item) {
       //根据mode来跳转不同的编辑页面！！！！！！！！！！
-
-      uni.navigateTo({
-        url: '/pages/issue/issue_edit/issue_edit',
-        success: function success(res) {},
-        fail: function fail(res) {},
-        complete: function complete(res) {}
-      });
+      if (item.tradeMode == 0) {
+        uni.navigateTo({
+          url: '/pages/issue/share/share?item=' + encodeURIComponent(JSON.stringify(item))
+        });
+      } else if (item.tradeMode == 1) {
+        uni.navigateTo({
+          url: '/pages/issue/barter/barter?item=' + encodeURIComponent(JSON.stringify(item))
+        });
+      } else {
+        uni.navigateTo({
+          url: '/pages/issue/sale/sale?item=' + encodeURIComponent(JSON.stringify(item))
+        });
+      }
     },
     // 下架物品
-    offShelf: function offShelf() {
+    offShelf: function offShelf(id) {
+      var that = this;
       console.log('navigator获取来的数据' + this.pageFlag);
       //这里改为显示toast
       uni.showModal({
@@ -545,9 +523,43 @@ var _default = {
         success: function success(res) {
           if (res.confirm) {
             //请求后端将该物品设置为下架
+            uni.request({
+              url: 'http://localhost:8080/items/itemOffShelf/' + id,
+              method: 'PUT',
+              header: {
+                'content-type': 'application/json',
+                'token': that.token
+              },
+              success: function success(res) {
+                that.init();
+              }
+            });
           } else if (res.cancel) {}
         }
       });
+      //重新获取物品列表
+    },
+    //重新获取数据
+    init: function init() {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var data;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this2.getData();
+              case 2:
+                data = _context.sent;
+                _this2.itemList = data;
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     },
     //微信分享接口还未更改！！！！！！！
     shareVX: function shareVX() {

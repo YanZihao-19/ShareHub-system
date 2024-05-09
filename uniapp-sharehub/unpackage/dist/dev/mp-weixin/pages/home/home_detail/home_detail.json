@@ -1,7 +1,7 @@
 {
   "usingComponents": {
-    "uv-form": "/uni_modules/uv-form/components/uv-form/uv-form",
     "uv-tags": "/uni_modules/uv-tags/components/uv-tags/uv-tags",
+    "uv-form": "/uni_modules/uv-form/components/uv-form/uv-form",
     "comment-eg": "/components/comment-eg/comment-eg",
     "uv-waterfall": "/uni_modules/uv-waterfall/components/uv-waterfall/uv-waterfall",
     "uv-row": "/uni_modules/uv-row/components/uv-row/uv-row",

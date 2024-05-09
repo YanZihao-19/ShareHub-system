@@ -238,4 +238,15 @@ public class ItemServiceImpl implements ItemService {
 
         return collectItemList;
     }
+
+    @Override
+    public void itemOffShelf(String token, Integer itemId) {
+        if (token != null && !token.equals("")) {
+            //解析前端token,获取用户openid
+            Map<String, Object> itemUser = JwtUtils.parseJWT(token);
+            String openId = (String) itemUser.get("openId");
+            itemMapper.updateItemStatus(openId,itemId);
+        }
+
+    }
 }

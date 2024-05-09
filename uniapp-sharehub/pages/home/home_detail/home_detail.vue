@@ -7,6 +7,9 @@
 					<image :src='user.image'></image>
 					<view class="fr padding-name">
 						<view>{{user.username}}</view>
+						<view style="display: inline-block; min-width: 100px; min-height: 50px; padding: 10px;">
+							<uv-tags text="二手回收商" size="medium" shape="circle" type="primary"></uv-tags>
+						</view>
 						<view class="padding-time ">
 							<text>{{item.createTime}}</text>
 						</view>
@@ -519,7 +522,7 @@
 								icon: 'success',
 								duration: 1500
 							});
-							
+
 							//隐藏模态框
 							this.hideModal2();
 						} else {
@@ -925,7 +928,6 @@
 				return new Promise((resolve, reject) => {
 					//获取token
 					this.token = uni.getStorageSync('token')
-
 					uni.request({
 						url: 'http://localhost:8080/items/' + id,
 						method: 'GET',
@@ -1099,7 +1101,7 @@
 	}
 
 	.padding-time {
-		padding-top: 30rpx;
+		padding-top: 0rpx;
 		font-size: 25rpx;
 	}
 

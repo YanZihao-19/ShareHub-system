@@ -79,7 +79,6 @@ public class ComplaintController {
         return Result.success();
     }
 
-    //    getIdentification
     //获取指定用户资历认证结果
     @GetMapping("/getIdentification")
     public Result getIdentification(@RequestHeader("token") String token) {

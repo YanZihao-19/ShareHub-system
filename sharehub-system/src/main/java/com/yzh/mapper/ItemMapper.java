@@ -56,4 +56,7 @@ public interface ItemMapper {
 
     @Select("SELECT itemid FROM item_collect WHERE openid=#{openId}")
     List<Integer> selectAllCollectItem(String openId);
+
+    @Update("UPDATE item SET status = 2 WHERE id = #{itemId} ")
+    void updateItemStatus(String openId, Integer itemId);
 }
