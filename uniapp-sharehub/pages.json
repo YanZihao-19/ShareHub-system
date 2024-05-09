@@ -83,9 +83,6 @@
 			"path": "pages/disconver/discover_desc_more/discover_desc_more",
 			"style": {}
 		}, {
-			"path": "pages/msg/msg_chat/msg_chat",
-			"style": {}
-		}, {
 			"path": "pages/msg/msg_inform/msg_inform",
 			"style": {}
 		}, {
@@ -94,10 +91,7 @@
 				"navigationBarTitleText": "订单消息",
 				"enablePullDownRefresh": false
 			}
-		}, {
-			"path": "pages/msg/message_logistics/message_logistics",
-			"style": {}
-		}, {
+		},{
 			"path": "pages/issue/issue_edit/issue_edit",
 			"style": {}
 		}, {
@@ -157,6 +151,22 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "用户注册",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/home/complaint_detail/complaint_detail",
+			"style" : 
+			{
+				"navigationBarTitleText" : "系统消息",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/my/my_identification/my_identification",
+			"style" : 
+			{
+				"navigationBarTitleText" : "资历认证",
 				"enablePullDownRefresh" : false
 			}
 		}

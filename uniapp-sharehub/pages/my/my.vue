@@ -72,26 +72,13 @@
 				</view>
 			</view>
 
-			<view class="cu-item arrow">
-				<view class="content" bindtap="CopyLink" data-link="https://github.com/weilanwl/ColorUI">
-					<text class="cuIcon-profile text-blue"></text>
-					<text class="text-grey">实名认证</text>
-				</view>
-			</view>
-
 
 			<view class="cu-item arrow content">
-				<button class='cu-btn content' @tap="">
+				<button class='cu-btn content' @tap="toIdentification">
 					<text class="cuIcon-creativefill text-orange"></text>
-					<text class="text-grey">环保大使</text>
+					<text class="text-grey">资历认证</text>
 				</button>
 			</view>
-			<!-- <view class="cu-item arrow content">
-				<button class='cu-btn content' @click="clearAllStore">
-					<text class="cuIcon-creativefill text-orange"></text>
-					<text class="text-grey">清除缓存</text>
-				</button>
-			</view> -->
 
 			<view class="cu-item arrow">
 				<button class='cu-btn content'>
@@ -219,10 +206,16 @@
 					url: "/pages/my/my_receive/my_receive"
 				})
 			},
-			// 我的收藏条状
+			// 我的收藏跳转
 			toMyCollect_page: function() {
 				uni.navigateTo({
 					url: "/pages/my/my_collect/my_collect"
+				})
+			},
+			// 资历认证跳转
+			toIdentification: function() {
+				uni.navigateTo({
+					url: "/pages/my/my_identification/my_identification"
 				})
 			},
 		}

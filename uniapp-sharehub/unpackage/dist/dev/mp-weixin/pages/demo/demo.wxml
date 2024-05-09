@@ -1,0 +1,1 @@
+<view class="data-v-eae40a34"><view class="uv-demo-block data-v-eae40a34"><text class="uv-demo-block__title data-v-eae40a34">自定义星星大小</text><view class="uv-demo-block__content data-v-eae40a34"><view class="uv-page__tag-item data-v-eae40a34"><uv-rate vue-id="719c3a40-1" size="30" count="5" class="data-v-eae40a34" bind:__l="__l"></uv-rate></view></view></view></view>

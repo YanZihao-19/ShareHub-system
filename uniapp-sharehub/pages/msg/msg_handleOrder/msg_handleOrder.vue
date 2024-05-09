@@ -12,11 +12,6 @@
 						</view>
 					</view>
 				</view>
-
-				<!-- 举报功能待完善！！！！！！！！！！！！！！！！！！ -->
-				<view class=" fr padding-button">
-					<text>举报</text>
-				</view>
 			</view>
 		</view>
 		<!-- 用户信息end -->

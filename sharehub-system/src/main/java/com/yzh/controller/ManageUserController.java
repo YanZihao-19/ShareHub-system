@@ -81,6 +81,7 @@ public class ManageUserController {
     public Result selectPage(User user,
                              @RequestParam(defaultValue = "1") Integer pageNum,
                              @RequestParam(defaultValue = "10") Integer pageSize) {
+        System.out.println("发来的用户"+user);
         PageInfo<User> page = manageUserService.selectPage(user, pageNum, pageSize);
         return Result.success(page);
     }

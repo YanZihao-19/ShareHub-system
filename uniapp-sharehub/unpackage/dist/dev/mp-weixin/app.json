@@ -17,10 +17,8 @@
     "pages/home/order_detail/order_detail",
     "pages/disconver/discover_desc/discover_desc",
     "pages/disconver/discover_desc_more/discover_desc_more",
-    "pages/msg/msg_chat/msg_chat",
     "pages/msg/msg_inform/msg_inform",
     "pages/msg/msg_order_all/msg_order_all",
-    "pages/msg/message_logistics/message_logistics",
     "pages/issue/issue_edit/issue_edit",
     "pages/my/my_share/my_share",
     "pages/my/my_receive/my_receive",
@@ -30,7 +28,9 @@
     "pages/issue/share/share",
     "pages/msg/msg_handleOrder/msg_handleOrder",
     "pages/login/pswLogin",
-    "pages/login/register"
+    "pages/login/register",
+    "pages/home/complaint_detail/complaint_detail",
+    "pages/my/my_identification/my_identification"
   ],
   "subPackages": [],
   "window": {

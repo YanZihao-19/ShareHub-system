@@ -71,7 +71,7 @@
               <i class="el-icon-s-shop"></i><span>事务处理</span>
             </template>
             <el-menu-item index="/complaint">举报处理</el-menu-item>
-            <el-menu-item index="/noFund">资历验证</el-menu-item>
+            <el-menu-item index="/identification">资历验证</el-menu-item>
           </el-submenu>
 
         </el-menu>

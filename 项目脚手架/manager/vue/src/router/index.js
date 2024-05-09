@@ -24,6 +24,7 @@ const routes = [
       { path: 'noFund', name: 'Item', meta: { name: '未找到' }, component: () => import('../views/404') },
       // complaint
       { path: 'complaint', name: 'Complaint', meta: { name: '举报处理' }, component: () => import('../views/manager/Complaint') },
+      { path: 'identification', name: 'Identification', meta: { name: '资历验证' }, component: () => import('../views/manager/Identification') },
       { path: 'notice', name: 'Notice', meta: { name: '公告信息' }, component: () => import('../views/manager/Notice') },
     ]
   },

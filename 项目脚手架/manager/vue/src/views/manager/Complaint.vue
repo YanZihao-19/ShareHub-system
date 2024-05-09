@@ -1,23 +1,18 @@
 <template>
   <div>
-    <!-- <div class="card" style="padding: 15px;width:90%;">
-      您好，{{ user.name }}！您有新的事务待处理！
-    </div> -->
-
     <div style="display: flex; justify-content: center; margin-top: 10px;">
       <div style="width: 90%;">
         <div class="card">
-          <div style="margin-bottom: 30px; font-size: 20px; font-weight: bold">待处理事务</div>
+          <div style="margin-bottom: 30px; font-size: 20px; font-weight: bold">举报处理</div>
           <template>
             <el-tabs v-model="status" @tab-click="handleClick">
-              <el-tab-pane label="物品举报" name="1"></el-tab-pane>
-              <el-tab-pane label="用户举报" name="2"></el-tab-pane>
+              <el-tab-pane label="物品举报" name="2"></el-tab-pane>
               <el-tab-pane label="订单申诉" name="3"></el-tab-pane>
             </el-tabs>
           </template>
 
           <div class="table">
-            <el-table :data="tableData" stripe @selection-change="handleSelectionChange">
+            <el-table :data="tableData" stripe>
               <el-table-column type="selection" width="55" align="center"></el-table-column>
               <el-table-column prop="id" label="序号" width="80" align="center" sortable></el-table-column>
               <el-table-column prop="reason" label="理由" show-overflow-tooltip></el-table-column>
@@ -31,9 +26,12 @@
                   </el-image>
                 </template>
               </el-table-column>
-              <el-table-column prop="userId1" label="申诉者ID"></el-table-column>
-              <el-table-column prop="userId2" label="被申诉者ID"></el-table-column>
-              <el-table-column prop="createTime" label="申诉时间"></el-table-column>
+              
+              <el-table-column prop="userId1" :label="status==2 ? '举报者Id' : '申诉者ID'"></el-table-column>
+
+              <el-table-column :prop="status==2 ? 'itemId' : 'userId2'" :label="status==2 ? '举报物品ID' : '被申诉者ID'"></el-table-column>
+
+              <el-table-column prop="createTime" :label="status==2 ? '举报时间' : '申诉时间'"></el-table-column>
 
               <el-table-column label="操作" width="180" align="center">
                 <template v-slot="scope">
@@ -91,7 +89,7 @@ export default {
       selectedImage: '', // 存储被点击的图片的 URL
       complaintList: '',
       user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
-      status: '1', //选项卡标志
+      status: '2', //选项卡标志,默认是物品举报
       tableData: [],  // 所有的数据
       pageNum: 1,   // 当前的页码
       pageSize: 10,  // 每页显示的个数
@@ -102,9 +100,7 @@ export default {
     }
   },
   created() {
-    this.$request.get('/notice/selectAll').then(res => {
-      this.notices = res.data || []
-    })
+    this.load(1);
   },
   computed: {
 

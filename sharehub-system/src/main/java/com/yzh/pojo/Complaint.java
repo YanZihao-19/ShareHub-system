@@ -26,6 +26,8 @@ public class Complaint extends AbstractEntity {
     private String image;
     //申诉或举报状态
     private Integer status;
+    //已读状态
+    private Integer flag;
     //申诉或举报结果
     private String result;
 }

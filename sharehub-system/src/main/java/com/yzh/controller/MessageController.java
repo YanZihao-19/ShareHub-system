@@ -54,6 +54,17 @@ public class MessageController {
         orderService.removeRedDot(orderId);
         return Result.success();
     }
+    //用户查看系统通知后去除举报未读小红点
+    @PutMapping("/removeComplaintDot/{complaintId}")
+    public Result removeComplaintDot(@PathVariable Integer complaintId) {
+        complaintService.removeRedDot(complaintId);
+        return Result.success();
+    }
 
-
+    //去除资历验证未读小红点
+    @PutMapping("/removeIdenDot/{identificationId}")
+    public Result removeIdenDot(@PathVariable Integer identificationId) {
+        complaintService.removeIdenDot(identificationId);
+        return Result.success();
+    }
 }

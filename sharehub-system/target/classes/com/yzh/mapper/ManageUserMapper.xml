@@ -13,7 +13,7 @@
         <include refid="Base_Column_List" />
         from user
         <where>
-            <if test="id != null"> and id = #{id}</if>
+            <if test="openId != null"> and openid = #{openId}</if>
             <if test="username != null"> and username like concat('%', #{username}, '%')</if>
             <if test="image != null"> and image like concat('%', #{image}, '%')</if>
             <if test="role != null"> and role = #{role}</if>

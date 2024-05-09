@@ -24,7 +24,6 @@
 					{{formMsg.imgList.length}}/3
 				</view>
 			</view>
-
 			<view class="cu-form-group">
 				<view class="grid col-4 grid-square flex-sub">
 					<view class="bg-img" v-for="(item,index) in formMsg.imgList" :key="index" @tap="ViewImage"

@@ -1,0 +1,6 @@
+
+.sbutton {
+	display: flex;
+	justify-content: center;
+}
+

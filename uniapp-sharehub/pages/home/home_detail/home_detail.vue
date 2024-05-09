@@ -13,8 +13,8 @@
 					</view>
 				</view>
 
-				<!-- 举报功能待完善！！！！！！！！！！！！！！！！！！ -->
-				<view class="fr padding-button">
+				<!-- 举报功能 -->
+				<view class="fr padding-button" @tap="toComplain(item.id)">
 					<view class="action" style="display: flex; align-items: center;">
 						<view class="cuIcon-warn" style="margin-right: 5px;"></view>
 						<text>举报</text>
@@ -25,6 +25,57 @@
 		</view>
 		<!-- 商家信息end -->
 
+		<!-- 举报模态框 -->
+		<view class="cu-modal" :class="complainName=='true'?'show':''">
+			<view class="cu-dialog">
+				<view class="cu-bar bg-white justify-end">
+					<view class="content">物品举报</view>
+					<view class="action" @tap="hideModal2">
+						<text class="cuIcon-close text-red"></text>
+					</view>
+				</view>
+
+				<uv-form ref="form" @submit="complaintSubmit">
+					<!-- 申诉理由 -->
+					<!-- <uv-form-item label="姓名" prop="complaint.reason"> -->
+					<view class="cu-form-group margin-top">
+						<view class="title">举报原因</view>
+						<textarea style="text-align: left;" v-model="complaint.reason" name="content" maxlength="1000"
+							placeholder=" "></textarea>
+					</view>
+					<!-- </uv-form-item> -->
+					<!-- 申诉证明图片 -->
+					<view class="cu-bar bg-white margin-top">
+						<view class="action">
+							图片上传
+						</view>
+						<view class="action">
+							<view v-if="complaint.image == ''">0/1</view>
+							<view v-else>1/1</view>
+							<!-- {{complaint.image.length}}/1 -->
+
+						</view>
+					</view>
+					<view class="cu-form-group">
+						<view class="grid col-4 grid-square flex-sub">
+							<view class="bg-img" @tap="ViewImage" :data-url="complaint.image">
+								<image :src="complaint.image" mode='aspectFill'></image>
+							</view>
+							<view class="solids" @tap="ChooseImage" v-if="complaint.image =='' ">
+								<text class="cuIcon-cameraadd"></text>
+							</view>
+
+						</view>
+					</view>
+				</uv-form>
+				<view class="cu-bar bg-white justify-end">
+					<view class="action">
+						<button class="cu-btn line-green text-green" @tap="hideModal2">取消</button>
+						<button class="cu-btn bg-green margin-left" @tap="complaintSubmit">提交</button>
+					</view>
+				</view>
+			</view>
+		</view>
 		<!-- 商品内容 -->
 		<view class='contanier bg-white padding-sm top-20'>
 			<view class='price'>
@@ -92,80 +143,6 @@
 				</view>
 			</view>
 		</view>
-		<!-- end -->
-
-		<!-- 商家信息 -->
-		<!-- <view class='bg-white top-20 padding-sm '>
-			<view class='in_regard_to'>
-				<view> -->
-		<!-- <image src='../img/tiao.png'></image> -->
-		<!-- </view>
-				<view>
-					<text class='in_regard_to_text'>关于卖家</text>
-				</view>
-			</view>
-
-			<navigator url='/pages/my/my_detail/my_detail'>
-				<view class="cu-list menu-avatar">
-					<view class="cu-item arrow ">
-						<view class="cu-avatar round lg"
-							style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);">
-						</view>
-						<view class="content">
-							<view class="text-grey">Amibition</view>
-							<view class="text-gray text-sm flex">
-								<text class="text-cut">
-									<text class="cuIcon-infofill text-red  margin-right-xs"></text>
-									我已天理为凭，踏入这片荒芜，不再受凡人的枷锁遏制。我已天理为凭，踏入这片荒芜，不再受凡人的枷锁遏制。
-								</text>
-							</view>
-						</view>
-						<view class="action arrow">
-							<view class="cuIcon-right"></view>
-						</view>
-					</view>
-				</view>
-			</navigator>
-
-			<view class='bg-gray top-30 information '>
-
-				<view class='Business_information'>
-					<view>5</view>
-					<view>
-						<text>在售宝贝</text>
-					</view>
-				</view>
-
-				<view class='Business_information'>
-					<view>5</view>
-					<view>
-						<text>累计交易</text>
-					</view>
-				</view>
- -->
-		<!-- 	<view class='Business_information'>
-					<view>5</view>
-					<view>
-						<text>在线宝贝</text>
-					</view>
-				</view>
-			</view>
-
-			<scroll-view scroll-x="true" style=" white-space: nowrap; display: flex" class='top-20'>
-				<block v-for="(item,index) in 10" :key="index">
-					<view class='item-inline'>
-						<navigator url='' hover-class='none'>
-							<view class="item-inline bg-img padding-top-xl flex align-end"
-								:style=" 'background-image: url(' + url + ');' ">
-								<view class="bg-shadeBottom  padding-top-xl flex-sub">
-									￥200
-								</view>
-							</view>
-						</navigator>
-					</view>
-				</block>
-			</scroll-view>
-		</view> -->
 		<!-- end -->
 
 		<!-- 相识商品 -->
@@ -304,7 +281,7 @@
 			</view>
 			<button class="action" @tap='scrollTo(comments)'>
 				<!-- 留言待完成！！！！！！ -->
-				<view class="cuIcon-messagefill text-green" ></view>
+				<view class="cuIcon-messagefill text-green"></view>
 				留言
 			</button>
 			<view class="bg-blue submit margin-right-20" @tap="handleAction(item)">
@@ -377,11 +354,19 @@
 				scroll: '',
 				token: '',
 				//瀑布流数据
-				comments:'comments',
+				comments: 'comments',
 				list: [], // 瀑布流全部数据
 				list1: [], // 瀑布流第一列数据
 				list2: [], // 瀑布流第二列数据
 				collect: 0, //判断物品是否已收藏
+				complainName: '', //举报申诉框
+				complaint: { //举报内容
+					userId1: '',
+					userId2: '',
+					orderId: '',
+					reason: '',
+					image: '',
+				},
 				showModal: false, // 控制是否展示模态框
 				tag: '0',
 				mode: '3', //表示物品的类型，瀑布流默认
@@ -497,6 +482,104 @@
 							.stringify(this.order))
 					});
 				}
+			},
+			//展示举报模态框
+			toComplain() {
+				this.complainName = 'true'
+			},
+			// 隐藏模态框
+			hideModal2() {
+				this.complainName = ''
+			},
+			//提交举报
+			complaintSubmit() {
+				// 填充数据
+				this.complaint.itemId = this.item.id;
+				// 表示物品举报
+				this.complaint.status = '2';
+
+				// 发送异步请求
+				uni.request({
+					url: 'http://localhost:8080/complaint/itemComplaint',
+					method: 'POST',
+					data: JSON.stringify(this.complaint),
+					header: {
+						'token': this.token, // 根据实际情况设置 token
+						'content-type': 'application/json' // 请求头部设置为 JSON 格式
+					},
+					success: (res) => {
+						console.log(res);
+						console.log(res.data);
+						console.log(res.data.code);
+						// 处理响应结果，根据实际情况进行操作
+						if (res.data.code == 1) {
+							// 请求成功toast
+							uni.showToast({
+								title: '提交成功！',
+								icon: 'success',
+								duration: 1500
+							});
+							
+							//隐藏模态框
+							this.hideModal2();
+						} else {
+							uni.showToast({
+								title: '提交失败！',
+								icon: 'fail',
+								duration: 1500
+							});
+							console.log('失败！');
+						}
+					},
+				});
+
+			},
+			// 图片上传
+			ChooseImage() {
+				if (this.complaint.image != '') {
+					uni.showToast({
+						title: '最多只能上传1张图片',
+						icon: 'none'
+					});
+					return; // 如果已经上传了1张图片，则直接返回，不再执行上传操作
+				}
+				let imageLength = 0;
+				if (this.complaint.image != '') {
+					imageLength = 1
+				}
+				uni.chooseImage({
+					count: 1 - imageLength, // 计算还能上传的图片数量
+					sizeType: ['compressed'], //采用图片压缩
+					sourceType: ['album'],
+					success: (chooseImageRes) => {
+						//上传到oss服务器的代码：
+						//本地图片临时路径
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						uni.uploadFile({
+							// 生成 UUID
+							url: 'http://localhost:8080/upload?flag=complaint',
+							filePath: tempFilePaths[0],
+							name: 'image',
+							formData: {
+								'token': 'test'
+							},
+							success: (uploadFileRes) => {
+								//接收后端返回的数据并转为json格式
+								let imgData = JSON.parse(uploadFileRes.data);
+								//将后端返回的url，追加到imge中
+								this.complaint.image = imgData.data;
+								console.log(this.complaint.image);
+							}
+						});
+					}
+				});
+			},
+			//放大举报图片
+			ViewImage(e) {
+				uni.previewImage({
+					urls: this.formMsg.imgList,
+					current: e.currentTarget.dataset.url
+				});
 			},
 			//关闭二手交易模态框
 			hideModal() {
@@ -837,6 +920,7 @@
 					});
 				});
 			},
+
 			getItemData(id) {
 				return new Promise((resolve, reject) => {
 					//获取token

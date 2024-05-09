@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="search">
-      <el-input placeholder="请输入关键字查询" style="width: 200px" v-model="name"></el-input>
+      <el-input placeholder="请输入关键字查询" style="width: 200px" v-model="id"></el-input>
       <el-button type="info" plain style="margin-left: 10px" @click="load(1)">查询</el-button>
       <el-button type="warning" plain style="margin-left: 10px" @click="reset">重置</el-button>
     </div>
 
     <div class="operation">
       <el-button type="primary" plain @click="handleAdd">新增</el-button>
-      <el-button type="danger" plain @click="delBatch">批量删除</el-button>
+      <el-button type="danger" plain @click="delBatch">批量下架</el-button>
     </div>
 
     <div class="table">
@@ -67,7 +67,7 @@
         <el-table-column label="操作" align="center" width="180">
           <template v-slot="scope">
             <el-button size="mini" type="primary" plain @click="handleEdit(scope.row)">编辑</el-button>
-            <el-button size="mini" type="danger" plain @click="del(scope.row.id)">删除</el-button>
+            <el-button size="mini" type="danger" plain @click="del(scope.row.id)">下架</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -130,7 +130,7 @@ export default {
       pageNum: 1,   // 当前的页码
       pageSize: 5,  // 每页显示的个数
       total: 0,
-      name: null,
+      id: null,
       fromVisible: false,
       form: {},
       user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
@@ -266,7 +266,7 @@ export default {
       })
     },
     del(id) {   // 单个删除
-      this.$confirm('您确定删除吗？', '确认删除', { type: "warning" }).then(response => {
+      this.$confirm('您确定下架吗？', '确认下架', { type: "warning" }).then(response => {
         this.$request.delete('/manageItem/delete/' + id).then(res => {
           if (res.code == '1') {   // 表示操作成功
             this.$message.success('操作成功')
@@ -309,7 +309,7 @@ export default {
         params: {
           pageNum: this.pageNum,
           pageSize: this.pageSize,
-          name: this.name,
+          id: this.id,
         }
       }).then(res => {
         if (res.code == '1') {
@@ -321,7 +321,7 @@ export default {
       })
     },
     reset() {
-      this.name = null
+      this.id = null
       this.load(1)
     },
     handleCurrentChange(pageNum) {

@@ -25,6 +25,9 @@ public interface UserMapper {
 
     void updateUser(User user);
 
+    @Update("UPDATE user SET role = 2 WHERE openid = #{openId}")
+    void updateUserRole(String openId);
+
     void delUser(List<Integer> ids);
 
     @Select("select * from user where role = 0 and username= #{username} and password = #{password}")

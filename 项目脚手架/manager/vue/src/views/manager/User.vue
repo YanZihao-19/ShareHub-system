@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="search">
-      <el-input placeholder="请输入关键字查询" style="width: 200px" v-model="name"></el-input>
+      <el-input placeholder="请输入用户Id查询" style="width: 200px" v-model="openId"></el-input>
       <el-button type="info" plain style="margin-left: 10px" @click="load(1)">查询</el-button>
       <el-button type="warning" plain style="margin-left: 10px" @click="reset">重置</el-button>
     </div>
 
     <div class="operation">
       <el-button type="primary" plain @click="handleAdd">新增</el-button>
-      <el-button type="danger" plain @click="delBatch">批量删除</el-button>
+      <!-- <el-button type="danger" plain @click="delBatch">批量删除</el-button> -->
     </div>
 
     <div class="table">
@@ -32,7 +32,7 @@
         <el-table-column label="操作" align="center" width="180">
           <template v-slot="scope">
             <el-button size="mini" type="primary" plain @click="handleEdit(scope.row)">编辑</el-button>
-            <el-button size="mini" type="danger" plain @click="del(scope.row.id)">删除</el-button>
+            <el-button size="mini" type="danger" plain @click="del(scope.row.id)">封禁</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -80,7 +80,7 @@ export default {
       pageNum: 1,   // 当前的页码
       pageSize: 10,  // 每页显示的个数
       total: 0,
-      name: null,
+      openId: null,
       fromVisible: false,
       form: {},
       user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
@@ -159,7 +159,7 @@ export default {
         params: {
           pageNum: this.pageNum,
           pageSize: this.pageSize,
-          username: this.name,
+          openId: this.openId,
         }
       }).then(res => {
         if (res.code == '1') {
