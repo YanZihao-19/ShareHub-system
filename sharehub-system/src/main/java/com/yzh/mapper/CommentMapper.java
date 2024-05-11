@@ -32,7 +32,7 @@ public interface CommentMapper {
     void delComment(Integer commentId);
 
 //    查询用户未读评论数
-    @Select("SELECT count(*) FROM comment WHERE user_id2 = #{openId} AND status = 0")
+    @Select("SELECT count(*) FROM comment WHERE user_id2 = #{openId} AND status = 0 ORDER BY create_time DESC")
     Integer selectDotCount(String openId);
 
 //    查询用户所有被评价的评论

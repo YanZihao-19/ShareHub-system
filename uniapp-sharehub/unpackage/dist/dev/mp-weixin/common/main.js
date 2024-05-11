@@ -19,23 +19,7 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 // @ts-ignore
-wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__; // import Vue from 'vue';
-// import App from './App'
-// import store from './store/index.js'
-
-// Vue.config.productionTip = false
-
-// App.mpType = 'app'
-
-// //注册colorui
-// import cuCustom from './colorui/components/cu-custom.vue'
-// Vue.component('cu-custom', cuCustom)
-
-// const app = new Vue({
-// 	...App,
-// 	store
-// })
-// app.$mount()
+wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;
 var cuCustom = function cuCustom() {
   __webpack_require__.e(/*! require.ensure | colorui/components/cu-custom */ "colorui/components/cu-custom").then((function () {
     return resolve(__webpack_require__(/*! ./colorui/components/cu-custom.vue */ 313));
@@ -129,44 +113,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var _default = {
   onLaunch: function onLaunch() {
     uni.getSystemInfo({

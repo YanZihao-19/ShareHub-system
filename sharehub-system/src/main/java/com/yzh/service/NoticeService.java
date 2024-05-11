@@ -34,4 +34,6 @@ public interface NoticeService {
      * 分页查询
      */
     PageInfo<Notice> selectPage(Notice notice, Integer pageNum, Integer pageSize);
+
+    PageInfo<String> selectNotice(Notice notice, Integer pageNum, Integer pageSize);
 }

@@ -48,8 +48,8 @@
             <template slot="title">
               <i class="el-icon-s-help"></i><span>系统管理</span>
             </template>
-            <el-menu-item index="/notice">公告信息</el-menu-item>
-            <el-menu-item index="/noFund">轮播图信息</el-menu-item>
+            <el-menu-item index="/notice">轮播图信息</el-menu-item>
+            <el-menu-item index="/notice2">公告信息</el-menu-item>
           </el-submenu>
 
           <el-submenu index="user">

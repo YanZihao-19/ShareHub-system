@@ -312,7 +312,9 @@
 					<!-- 将按钮放在第二个输入框下面 -->
 					<view class="modal-buttons">
 						<view class="modal-button cancel" @tap="cancel">取消</view>
-						<view class="modal-button confirm" @tap="confirm">提交</view>
+						<view v-if="item.tradeMode == 2" class="modal-button confirm" @tap="confirm">去支付</view>
+						<view v-else class="modal-button confirm" @tap="confirm">提交</view>
+						
 					</view>
 				</view>
 			</view>

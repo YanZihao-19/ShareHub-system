@@ -37,6 +37,7 @@
             AND hscore IN (1, 2, 3, 4, 5)
         </if>
         AND status = 1
+        ORDER BY update_time DESC
     </select>
 
     <select id="selectReceiveOrders" resultType="com.yzh.pojo.Order">
@@ -52,5 +53,6 @@
             AND nscore IN (1, 2, 3, 4, 5)
         </if>
         AND status = 1
+        ORDER BY update_time DESC
     </select>
 </mapper>

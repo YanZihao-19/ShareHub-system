@@ -12,48 +12,78 @@
     </div>
 
     <div class="table">
-      <el-table :data="tableData" stripe  @selection-change="handleSelectionChange">
+      <el-table :data="tableData" stripe @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center"></el-table-column>
         <el-table-column prop="id" label="序号" width="80" align="center" sortable></el-table-column>
-        <el-table-column prop="title" label="标题" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="content" label="内容" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="time" label="创建时间"></el-table-column>
-        <el-table-column prop="user" label="创建人"></el-table-column>
+
+        <el-table-column prop="content" label="轮播图" align="center">
+          <template slot-scope="{ row }">
+            <el-image style="width: auto; height: 100px; border: none; cursor: pointer" :src="row.content"
+              @click="showImageDialog(row.content)"></el-image>
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="url" label="链接路径" align="center">
+          <template slot-scope="{ row }">
+            <div class="truncate-text">{{ row.url }}</div>
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="createTime" label="创建时间">
+          <template slot-scope="{ row }">
+            {{ formatUpdateTime(row.createTime) }}
+          </template>
+        </el-table-column>
+
+        <el-table-column prop="updateTime" label="更新时间">
+          <template slot-scope="{ row }">
+            {{ formatUpdateTime(row.updateTime) }}
+          </template>
+        </el-table-column>
 
         <el-table-column label="操作" width="180" align="center">
           <template v-slot="scope">
-            <el-button plain type="primary" @click="handleEdit(scope.row)" size="mini">编辑</el-button>
+            <el-button plain type="primary" @click="handleEdit(scope.row)" size="mini">修改</el-button>
             <el-button plain type="danger" size="mini" @click=del(scope.row.id)>删除</el-button>
           </template>
         </el-table-column>
       </el-table>
 
+      <!-- 图片放大dialog -->
+      <el-dialog :visible.sync="imageDialogVisible" width="50%">
+        <el-image :src="selectedImage" style="width: 100%"></el-image>
+      </el-dialog>
+
       <div class="pagination">
-        <el-pagination
-            background
-            @current-change="handleCurrentChange"
-            :current-page="pageNum"
-            :page-sizes="[5, 10, 20]"
-            :page-size="pageSize"
-            layout="total, prev, pager, next"
-            :total="total">
+        <el-pagination background @current-change="handleCurrentChange" :current-page="pageNum"
+          :page-sizes="[5, 10, 20]" :page-size="pageSize" layout="total, prev, pager, next" :total="total">
         </el-pagination>
       </div>
     </div>
 
+    <!-- 修改内容dialog -->
+    <el-dialog title="修改轮播图" :visible.sync="fromVisible" width="40%" :close-on-click-modal="false" destroy-on-close>
 
-    <el-dialog title="信息" :visible.sync="fromVisible" width="40%" :close-on-click-modal="false" destroy-on-close>
-      <el-form label-width="100px" style="padding-right: 50px" :model="form" :rules="rules" ref="formRef">
-        <el-form-item prop="title" label="标题">
-          <el-input v-model="form.title" autocomplete="off"></el-input>
+      <el-form label-width="100px" style="padding-right: 50px" :model="form" ref="formRef">
+
+        <el-form-item prop="content" label="轮播图">
+          <el-upload class="avatar-uploader" action="http://localhost:8080/upload?flag=notice" name="image"
+            :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+            <img v-if="form.content" :src="form.content" class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
         </el-form-item>
-        <el-form-item prop="content" label="内容">
-          <el-input type="textarea" :rows="5" v-model="form.content" autocomplete="off"></el-input>
+
+        <el-form-item prop="url" label="链接路径">
+          <el-input v-model="form.url" placeholder="链接路径"></el-input>
         </el-form-item>
+
       </el-form>
+
       <div slot="footer" class="dialog-footer">
         <el-button @click="fromVisible = false">取 消</el-button>
         <el-button type="primary" @click="save">确 定</el-button>
+
       </div>
     </el-dialog>
 
@@ -69,19 +99,14 @@ export default {
       tableData: [],  // 所有的数据
       pageNum: 1,   // 当前的页码
       pageSize: 10,  // 每页显示的个数
+      imageDialogVisible: false, // 控制对话框的显示状态
+      selectedImage: '', // 存储被点击的图片的 URL
       total: 0,
       title: null,
       fromVisible: false,
       form: {},
       user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
-      rules: {
-        title: [
-          {required: true, message: '请输入标题', trigger: 'blur'},
-        ],
-        content: [
-          {required: true, message: '请输入内容', trigger: 'blur'},
-        ]
-      },
+
       ids: []
     }
   },
@@ -89,6 +114,33 @@ export default {
     this.load(1)
   },
   methods: {
+    formatUpdateTime(updateTime) {
+      if (!updateTime) return '';
+      return updateTime.replace('T', ' '); // 使用 'T' 进行分割，取前半部分
+    },
+  
+    //文件上传相关
+    handleAvatarSuccess(res, file) {
+      this.form.content = res.data;
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type == "image/jpeg";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isJPG) {
+        this.$message.error("上传头像图片只能是 JPG 格式!");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传头像图片大小不能超过 2MB!");
+      }
+      return isJPG && isLt2M;
+    },
+
+    //放大图片
+    showImageDialog(imageUrl) {
+      // 点击图片时触发，设置对话框的显示状态为 true，并存储被点击的图片的 URL
+      this.imageDialogVisible = true;
+      this.selectedImage = imageUrl;
+    },
     handleAdd() {   // 新增数据
       this.form = {}  // 新增数据的时候清空数据
       this.fromVisible = true   // 打开弹窗
@@ -98,6 +150,8 @@ export default {
       this.fromVisible = true   // 打开弹窗
     },
     save() {   // 保存按钮触发的逻辑  它会触发新增或者更新
+      //赋值状态为轮播图
+      this.form.status = 1;
       this.$refs.formRef.validate((valid) => {
         if (valid) {
           this.$request({
@@ -105,7 +159,7 @@ export default {
             method: this.form.id ? 'PUT' : 'POST',
             data: this.form
           }).then(res => {
-            if (res.code === '200') {  // 表示成功保存
+            if (res.code == '1') {  // 表示成功保存
               this.$message.success('保存成功')
               this.load(1)
               this.fromVisible = false
@@ -117,9 +171,9 @@ export default {
       })
     },
     del(id) {   // 单个删除
-      this.$confirm('您确定删除吗？', '确认删除', {type: "warning"}).then(response => {
+      this.$confirm('您确定删除吗？', '确认删除', { type: "warning" }).then(response => {
         this.$request.delete('/notice/delete/' + id).then(res => {
-          if (res.code === '200') {   // 表示操作成功
+          if (res.code == '1') {   // 表示操作成功
             this.$message.success('操作成功')
             this.load(1)
           } else {
@@ -137,9 +191,9 @@ export default {
         this.$message.warning('请选择数据')
         return
       }
-      this.$confirm('您确定批量删除这些数据吗？', '确认删除', {type: "warning"}).then(response => {
-        this.$request.delete('/notice/delete/batch', {data: this.ids}).then(res => {
-          if (res.code === '200') {   // 表示操作成功
+      this.$confirm('您确定批量删除这些数据吗？', '确认删除', { type: "warning" }).then(response => {
+        this.$request.delete('/notice/delete/batch', { data: this.ids }).then(res => {
+          if (res.code == '1') {   // 表示操作成功
             this.$message.success('操作成功')
             this.load(1)
           } else {
@@ -155,7 +209,7 @@ export default {
         params: {
           pageNum: this.pageNum,
           pageSize: this.pageSize,
-          title: this.title,
+          status: 1,
         }
       }).then(res => {
         this.tableData = res.data?.list
@@ -174,5 +228,30 @@ export default {
 </script>
 
 <style scoped>
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
 
-</style>
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  display: block;
+}
+</style>>

@@ -305,6 +305,15 @@ var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/r
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
@@ -413,6 +422,7 @@ var _default = {
     // 选择sheet后的逻辑操作
     //关闭模态框
     hideModal: function hideModal() {
+      console.log("点击了取消按钮");
       this.showModal = '';
       this.showModal2 = '';
     },

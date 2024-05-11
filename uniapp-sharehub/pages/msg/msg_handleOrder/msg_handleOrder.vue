@@ -16,12 +16,11 @@
 		</view>
 		<!-- 用户信息end -->
 
-
-		<!-- 物品详情 -->
-		<view class='contanier bg-white padding-sm top-20'>
+		<!-- 订单信息 -->
+		<view class='bg-white padding-sm'>
 			<!-- 请求信息 -->
-			<view class="" v-if="item.pageFlag != 1">
-				<text class="text-xl text-grey ">请求信息： </text>
+			<view v-if="item.pageFlag != 1"  class="">
+				<text class="text-xl text-cyan ">请求信息： </text>
 				<view class='bg-white top-20 font-size'>
 					<text>
 						{{order.reason}}
@@ -30,21 +29,23 @@
 			</view>
 
 			<!-- 联系方式 -->
-			<view class='bg-white top-20' v-if="item.pageFlag != 1">
-				<text class="text-xl text-grey ">联系方式： </text>
-				<view class='bg-white top-20'>
-					<text class="text-xl ">
-						{{order.contact}}
-					</text>
+			<view v-if="item.pageFlag != 1" class='bg-white top-20'>
+				<view class=''>
+					<text class="text-xl text-cyan ">联系方式： </text>
+					<view class='bg-white font-size'>
+						<text>
+							{{order.contact}}
+						</text>
+					</view>
 				</view>
 			</view>
 			<!--物品详情  -->
-			<view v-if="item.pageFlag != 1">
-				<text class="text-xl text-grey ">物品详情： </text>
+			<view v-if="item.pageFlag != 1" class='bg-white top-20'>
+				<text class="text-xl text-cyan ">物品详情： </text>
 			</view>
 
 			<!-- 物品标题(请求信息) -->
-			<text v-if="item.pageFlag == 1" class="text-xl text-grey ">物品详情： </text>
+			<text v-if="item.pageFlag == 1" class="text-xl text-cyan ">物品详情： </text>
 			<view class='bg-white top-20 font-size'>
 				<text>
 					{{item.itemTitle}}
@@ -52,11 +53,18 @@
 			</view>
 
 			<!-- 物品描述(联系方式) -->
-			<text v-if="item.pageFlag == 1" class="text-xl text-grey ">联系方式： </text>
-			<view class='bg-white top-20'>
-				<text class="text-xl ">
+			<text v-if="item.pageFlag == 1" class="text-xl text-cyan ">联系方式： </text>
+			<view class='bg-white top-20 font-size'>
+				<text>
 					{{item.itemDesc}}
 				</text>
+			</view>
+		</view>
+		
+		<!-- 物品详情 -->
+		<view class='bg-white padding-sm'>
+			<view style="margin-top: 30rpx;">
+				<text v-if="item.pageFlag != null" style="font-weight: bold;" class="text-xl text-black ">原物品详情： </text>
 			</view>
 			<!-- 物品价格 -->
 			<view class='price'>
@@ -90,7 +98,7 @@
 		<!-- 操作选项卡 -->
 		<view class="cu-bar bg-white tabbar border shop fixation">
 			<view class="bg-red submit margin-right-20" @tap="cancelOrder(item)">
-				拒绝申请
+				拒绝交易
 			</view>
 			<view class="bg-blue submit margin-right-20" @tap="confirmOrder(item)">
 				完成交易
@@ -107,7 +115,7 @@
 						</view>
 					</view>
 					<view class="padding-xl" style="text-align: left;">
-						&nbsp;&nbsp;请您确定双方已经完整地完成了交易的流程，再进行订单的确认~
+						&nbsp;&nbsp;请您确定达成交易后，请及时进行发货~
 					</view>
 					<view class="cu-bar bg-white justify-end">
 						<view class="action confirm-botton ">
@@ -138,6 +146,7 @@
 						<view class="action confirm-botton ">
 							<button class="cu-btn line-green text-green" @tap="hideModal">取消</button>
 						</view>
+						
 						<view class="action confirm-botton ">
 							<button class="cu-btn bg-green " @tap="confirmCancelOrder">确认</button>
 						</view>
@@ -214,7 +223,7 @@
 			this.getnUserData(this.order.needUid);
 			if (this.order.otherItemId != null) {
 				this.getOtherItemData(this.order.otherItemId);
-			}else{
+			} else {
 				this.getOtherItemData(this.order.itemId)
 			}
 			//向后端发送请求，表示该订单已经查看，去除小红点
@@ -224,6 +233,7 @@
 			// 选择sheet后的逻辑操作
 			//关闭模态框
 			hideModal() {
+				console.log("点击了取消按钮")
 				this.showModal = ''
 				this.showModal2 = ''
 			},
@@ -578,7 +588,7 @@
 	}
 
 	.font-size text {
-		font-weight: bold;
+		// font-weight: bold;
 		font-size: 35rpx;
 		color: black;
 

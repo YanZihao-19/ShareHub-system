@@ -17,7 +17,7 @@ public interface UserMapper {
     List<User> getUserList(String name, Short gender, Short role, Integer credibility);
 
     @Insert("insert into user (username, password, role, image, phone, credibility,shareNum, gender, bgimage,create_time, update_time, identifyid) values" +
-            " (#{username},#{password},#{role},#{image},#{phone},#{credibility},#{shareNum},#{gender},#{bgImage},#{createTime},#{updateTime},#{identifyId})")
+            " (#{username},MD5(#{password}),#{role},#{image},#{phone},#{credibility},#{shareNum},#{gender},#{bgImage},#{createTime},#{updateTime},#{identifyId})")
     void insertUser(User user);
 
     @Select("select * from user where id = #{id}")
@@ -30,17 +30,17 @@ public interface UserMapper {
 
     void delUser(List<Integer> ids);
 
-    @Select("select * from user where role = 0 and username= #{username} and password = #{password}")
+    @Select("select * from user where role = 0 and username= #{username} and password = MD5(#{password})")
     User selectUserByUsernameAndPassword(User user);
 
-    @Select("select * from user where role in(1,2) and username= #{username} and password = #{password}")
+    @Select("select * from user where role in(1,2) and username= #{username} and password = MD5(#{password})")
     User selectUserByUsernameAndPassword2(User user);
 
     @Select("Select * from user where openid = #{openId}")
     User selectOpenId(String openId);
 
     @Insert("insert into user (openid,username, password, role, image, phone, credibility,shareNum,gender, bgimage,create_time, update_time, identifyid) values" +
-            " (#{openId},#{username},#{password},#{role},#{image},#{phone},#{credibility},#{shareNum},#{gender},#{bgImage},#{createTime},#{updateTime},#{identifyId})")
+            " (#{openId},#{username},MD5(#{password}),#{role},#{image},#{phone},#{credibility},#{shareNum},#{gender},#{bgImage},#{createTime},#{updateTime},#{identifyId})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insertUserOpenId(User user);
 

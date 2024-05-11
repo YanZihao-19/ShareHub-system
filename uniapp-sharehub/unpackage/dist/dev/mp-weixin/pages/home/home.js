@@ -493,7 +493,6 @@ var _index = __webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/function/ind
 //
 //
 //
-//
 var _default = {
   data: function data() {
     return {
@@ -520,7 +519,7 @@ var _default = {
       // 轮播图end
 
       // 滚动条
-      text: ['今天系统正式上线，开始内测', '验证回收商资历，解锁更多特权！', '分享平台给好友，赢共享次数上限！'],
+      textList: ['今天系统正式上线，开始内测', '验证回收商资历，解锁更多特权！', '分享平台给好友，赢共享次数上限！'],
       // 宫格列表
       menuBaseUrl: 'https://cdn.uviewui.com/uview/menu/',
       menuArr: [[{
@@ -628,12 +627,14 @@ var _default = {
             case 0:
               //获取token
               _this2.token = uni.getStorageSync('token');
-              // 调用 getData() 函数获取数据
+              // 调用 getData() 函数获取物品数据获取数据
               _context.next = 3;
               return _this2.getData();
             case 3:
               data = _context.sent;
               _this2.list = data; // 将返回的数据赋值给 list 数组
+
+              //获取轮播图和滚动条数据
 
               //获取用户未读订单数，存储到vuex中
               _context.next = 7;
@@ -713,6 +714,10 @@ var _default = {
     }))();
   },
   methods: {
+    //获取轮播图list
+    getSwiperList: function getSwiperList() {},
+    //获取滚动条List
+    getTextList: function getTextList() {},
     //修改地址字符串
     handleAddress: function handleAddress(address) {
       var addressParts = address.split(',');
@@ -990,6 +995,47 @@ var _default = {
     // 获取数据
     getData: function getData() {
       var _this8 = this;
+      uni.request({
+        url: 'http://localhost:8080/notice/selectNotice?status=1',
+        method: 'GET',
+        header: {
+          'content-type': 'application/json',
+          // 设置请求头为 JSON 类型
+          'token': this.token
+        },
+        success: function success(res) {
+          if (res.data.code == 1) {
+            // 如果接口返回的数据正常，将数据存储到 userInfo 中
+            _this8.swiperList = res.data.data.list;
+          } else {
+            console.error('接口返回错误：', res.data.msg);
+          }
+        },
+        fail: function fail(err) {
+          console.error('请求失败：', err);
+        }
+      });
+      uni.request({
+        url: 'http://localhost:8080/notice/selectNotice?status=2',
+        method: 'GET',
+        header: {
+          'content-type': 'application/json',
+          // 设置请求头为 JSON 类型
+          'token': this.token
+        },
+        success: function success(res) {
+          if (res.data.code == 1) {
+            // 如果接口返回的数据正常，将数据存储到 userInfo 中
+            _this8.textList = res.data.data.list;
+            console.log('返回的用户信息：', _this8.userInfo);
+          } else {
+            console.error('接口返回错误：', res.data.msg);
+          }
+        },
+        fail: function fail(err) {
+          console.error('请求失败：', err);
+        }
+      });
       return new Promise(function (resolve, reject) {
         // console.log('发送给后端的token值：', this.token)
         console.log('发送给后端的list值：', _this8.list);
@@ -1005,6 +1051,8 @@ var _default = {
           },
           data: JSON.stringify(itemList),
           success: function success(res) {
+            // this.getSwiperList;
+            // this.getTextList;
             var data = res.data.data.map(function (item) {
               return {
                 id: item.id,

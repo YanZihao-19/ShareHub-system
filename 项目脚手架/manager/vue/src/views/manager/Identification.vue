@@ -26,7 +26,11 @@
                 </template>
               </el-table-column>
 
-              <el-table-column prop="createTime" label="申请时间"></el-table-column>
+              <el-table-column prop="createTime" label="申请时间">
+                <template slot-scope="{ row }">
+                  {{ formatUpdateTime(row.createTime) }}
+                </template>
+              </el-table-column>
 
               <el-table-column label="操作" width="180" align="center">
                 <template v-slot="scope">
@@ -103,6 +107,11 @@ export default {
 
   },
   methods: {
+    //格式化时间格式
+    formatUpdateTime(updateTime) {
+      if (!updateTime) return '';
+      return updateTime.replace('T', ' '); // 使用 'T' 进行分割，取前半部分
+    },
     // 申诉处理
     handleIdentification(row) {
       this.handleDialogVisible = true;

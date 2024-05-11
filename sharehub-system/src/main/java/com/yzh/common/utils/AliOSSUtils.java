@@ -46,6 +46,9 @@ public class AliOSSUtils {
         }else if (flag.contains("identification")) {
             //上传文件到 OSS,申诉目录
             fileName = "identification/" + fileName;
+        }else if (flag.contains("notice")) {
+            //上传文件到 OSS,申诉目录
+            fileName = "notice/" + fileName;
         }
 
         ossClient.putObject(bucketName, fileName, inputStream);

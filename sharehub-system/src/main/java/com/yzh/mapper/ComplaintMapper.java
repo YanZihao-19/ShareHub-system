@@ -24,7 +24,7 @@ public interface ComplaintMapper {
             "VALUES (#{userId1}, #{itemId},  #{reason},#{image}, #{status},#{updateTime},#{createTime})")
     void insertItemComplaint(Complaint complaint);
 
-    @Select("SELECT * FROM complaint WHERE status = #{status}")
+    @Select("SELECT * FROM complaint WHERE status = #{status} ORDER BY update_time DESC")
     List<Complaint> selectAll(Integer status);
 
     @Update("UPDATE complaint SET result = #{result}, flag = 0 ,update_time = #{updateTime} WHERE id = #{id}")
@@ -36,7 +36,7 @@ public interface ComplaintMapper {
     @Select("SELECT count(*) FROM identification WHERE openId = #{openId} AND flag = 0")
     Integer selectIdenDotNum(String openId);
 
-    @Select("SELECT * FROM complaint WHERE userId1 = #{openId} AND result is not null")
+    @Select("SELECT * FROM complaint WHERE userId1 = #{openId} AND result is not null  ORDER BY update_time DESC")
     List<Complaint> selectAllComplaints(String openId);
 
     @Update("UPDATE complaint SET flag = 1 where id = #{complaintId}")
@@ -46,13 +46,13 @@ public interface ComplaintMapper {
             "(#{openid}, #{code}, #{corporateName}, #{belong},#{image}, #{status},#{flag},#{updateTime},#{createTime}) ")
     void insertIdentification(Identification identification);
 
-    @Select("SELECT * FROM identification")
+    @Select("SELECT * FROM identification ORDER BY update_time DESC")
     List<Identification> selectIdenAll();
 
     @Update("UPDATE identification SET status = #{status}, flag = 0 ,update_time = #{updateTime} WHERE id = #{id}")
     void updateIdenResult(Integer id, Integer status, LocalDateTime updateTime);
 
-    @Select("SELECT * FROM identification WHERE openid = #{openId} AND status != 0")
+    @Select("SELECT * FROM identification WHERE openid = #{openId} AND status != 0  ORDER BY update_time DESC")
     List<Identification> selectIdentification(String openId);
 
     @Update("UPDATE identification SET flag = 1 where id = #{identificationId}")

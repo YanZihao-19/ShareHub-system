@@ -4,71 +4,61 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yzh.mapper.NoticeMapper">
 
-    <sql id="Base_Column_List">
-        id,title,content,time,user
-    </sql>
-
     <select id="selectAll" resultType="com.yzh.pojo.Notice">
         select
-        <include refid="Base_Column_List" />
+        *
         from notice
         <where>
-            <if test="id != null"> and id= #{id}</if>
-            <if test="title != null"> and title like concat('%', #{title}, '%')</if>
-            <if test="content != null"> and content= #{content}</if>
-            <if test="time != null"> and time= #{time}</if>
-            <if test="user != null"> and user= #{user}</if>
+            <if test="id != null">and id= #{id}</if>
+            <if test="content != null">and content like concat('%', #{content}, '%')</if>
+            <if test="status != null">and status= #{status}</if>
         </where>
-        order by id desc
+        ORDER BY update_time DESC
     </select>
 
     <select id="selectById" resultType="com.yzh.pojo.Notice">
-        select
-        <include refid="Base_Column_List" />
+        select *
         from notice
         where id = #{id}
     </select>
 
     <delete id="deleteById">
-        delete from notice
-        where  id = #{id}
+        delete
+        from notice
+        where id = #{id}
     </delete>
 
     <insert id="insert" parameterType="com.yzh.pojo.Notice" useGeneratedKeys="true">
         insert into notice
         <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="id != null">id,</if>
-                <if test="title != null">title,</if>
-                <if test="content != null">content,</if>
-                <if test="time != null">time,</if>
-                <if test="user != null">user,</if>
+            <if test="id != null">id,</if>
+            <if test="content != null">content,</if>
+            <if test="status != null">status,</if>
+            <if test="url != null">url,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="id != null">#{id},</if>
-                <if test="title != null">#{title},</if>
-                <if test="content != null">#{content},</if>
-                <if test="time != null">#{time},</if>
-                <if test="user != null">#{user},</if>
+            <if test="id != null">#{id},</if>
+            <if test="content != null">#{content},</if>
+            <if test="status != null">#{status},</if>
+            <if test="url != null">#{url},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime}</if>
         </trim>
     </insert>
 
     <update id="updateById" parameterType="com.yzh.pojo.Notice">
         update notice
         <set>
-            <if test="title != null">
-                title = #{title},
-            </if>
             <if test="content != null">
                 content = #{content},
             </if>
-            <if test="time != null">
-                time = #{time},
-            </if>
-            <if test="user != null">
-                user = #{user},
+            <if test="url != null">
+                url = #{url},
             </if>
         </set>
-        where id = #{id} 
+        where id = #{id}
     </update>
 
 </mapper>

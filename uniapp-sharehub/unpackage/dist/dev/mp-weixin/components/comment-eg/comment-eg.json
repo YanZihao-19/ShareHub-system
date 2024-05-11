@@ -1,6 +1,6 @@
 {
-  "component": true,
   "usingComponents": {
     "hb-comment": "/uni_modules/hb-comment/components/hb-comment/hb-comment"
-  }
+  },
+  "component": true
 }

@@ -15,7 +15,6 @@
 		</view>
 		<!-- 搜索end -->
 
-
 		<!-- 轮播图 -->
 		<view>
 			<uv-swiper :list="swiperList" indicator indicatorMode="line" circular @click="clickSwiper"></uv-swiper>
@@ -25,7 +24,7 @@
 
 		<!--头条滚动区域-->
 		<view>
-			<uv-notice-bar :text="text" @click="clickNotice" direction="column"></uv-notice-bar>
+			<uv-notice-bar :text="textList" @click="clickNotice" direction="column"></uv-notice-bar>
 		</view>
 		<!-- end -->
 
@@ -235,7 +234,7 @@
 				// 轮播图end
 
 				// 滚动条
-				text: ['今天系统正式上线，开始内测', '验证回收商资历，解锁更多特权！', '分享平台给好友，赢共享次数上限！'],
+				textList: ['今天系统正式上线，开始内测', '验证回收商资历，解锁更多特权！', '分享平台给好友，赢共享次数上限！'],
 				// 宫格列表
 				menuBaseUrl: 'https://cdn.uviewui.com/uview/menu/',
 				menuArr: [
@@ -341,9 +340,12 @@
 		async onLoad() {
 			//获取token
 			this.token = uni.getStorageSync('token')
-			// 调用 getData() 函数获取数据
+			// 调用 getData() 函数获取物品数据获取数据
 			const data = await this.getData();
 			this.list = data; // 将返回的数据赋值给 list 数组
+
+			//获取轮播图和滚动条数据
+
 
 			//获取用户未读订单数，存储到vuex中
 			let res = await this.getDotNum(this.token)
@@ -397,9 +399,16 @@
 		},
 
 		methods: {
+			//获取轮播图list
+			getSwiperList() {
+
+			},
+			//获取滚动条List
+			getTextList() {
+
+			},
 			//修改地址字符串
 			handleAddress: function(address) {
-
 				const addressParts = address.split(',');
 				if (addressParts.length < 3) {
 					return '';
@@ -626,7 +635,7 @@
 					content: '你不喜欢该物品吗？',
 					success(res) {
 						if (res.confirm) {
-							console.log("长按的item:",item)
+							console.log("长按的item:", item)
 							//向后端发送请求，降低该物品类别的期望值
 							if (that.token != null && that.token != '') {
 								uni.request({
@@ -671,6 +680,45 @@
 
 			// 获取数据
 			getData() {
+				uni.request({
+					url: 'http://localhost:8080/notice/selectNotice?status=1',
+					method: 'GET',
+					header: {
+						'content-type': 'application/json', // 设置请求头为 JSON 类型
+						'token': this.token
+					},
+					success: (res) => {
+						if (res.data.code == 1) {
+							// 如果接口返回的数据正常，将数据存储到 userInfo 中
+							this.swiperList = res.data.data.list;
+						} else {
+							console.error('接口返回错误：', res.data.msg);
+						}
+					},
+					fail: (err) => {
+						console.error('请求失败：', err);
+					}
+				});
+				uni.request({
+					url: 'http://localhost:8080/notice/selectNotice?status=2',
+					method: 'GET',
+					header: {
+						'content-type': 'application/json', // 设置请求头为 JSON 类型
+						'token': this.token
+					},
+					success: (res) => {
+						if (res.data.code == 1) {
+							// 如果接口返回的数据正常，将数据存储到 userInfo 中
+							this.textList = res.data.data.list;
+							console.log('返回的用户信息：', this.userInfo)
+						} else {
+							console.error('接口返回错误：', res.data.msg);
+						}
+					},
+					fail: (err) => {
+						console.error('请求失败：', err);
+					}
+				});
 				return new Promise((resolve, reject) => {
 					// console.log('发送给后端的token值：', this.token)
 					console.log('发送给后端的list值：', this.list)
@@ -687,16 +735,18 @@
 						},
 						data: JSON.stringify(itemList),
 						success: (res) => {
+							// this.getSwiperList;
+							// this.getTextList;
 							const data = res.data.data.map(item => ({
 								id: item.id, //物品id
 								allowEdit: false, // 暂时设置为 false，根据实际需求进行修改
 								image: item.image, //物品图片卡图像
 								itemTitle: item.itemTitle, //物品标题
-								tag:item.tag,//物品种类
+								tag: item.tag, //物品种类
 								itemDesc: item.itemDesc, //物品描述
 								address: item.address, //物品地址
 								tradeMode: item.tradeMode, //物品交易模式
-								delivery: item.deliveryStyle ,//物品交付方式
+								delivery: item.deliveryStyle, //物品交付方式
 								suit: item.suit //适合年龄
 							}));
 							resolve(data); // 将处理后的数据返回给调用方

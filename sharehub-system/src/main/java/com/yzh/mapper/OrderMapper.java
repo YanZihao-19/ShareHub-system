@@ -26,7 +26,7 @@ public interface OrderMapper {
             "WHERE id = #{id}")
     Integer UpdateOrder(Order order);
 
-    @Select("SELECT * FROM `order` WHERE item_id = #{itemId} AND need_uid = #{needOpenId}")
+    @Select("SELECT * FROM `order` WHERE item_id = #{itemId} AND need_uid = #{needOpenId}  ORDER BY update_time DESC")
     Integer selectByItemidAndNuid(Integer itemId, String needOpenId);
 
     //处理status,status=3时查询全部;status=0时,查询status为0的order;status=1时,查询status不为为0的order;

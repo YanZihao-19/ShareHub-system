@@ -141,7 +141,6 @@ text-title-size {
   text-decoration: line-through;
 }
 .font-size text {
-  font-weight: bold;
   font-size: 35rpx;
   color: black;
 }

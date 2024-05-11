@@ -181,6 +181,10 @@
 					type: 'error',
 					title: '失败主题',
 					message: "请填写物品地址"
+				},{
+					type: 'error',
+					title: '失败主题',
+					message: "请填写物品价格"
 				}],
 
 				itemLists: ['全新', '99新', '95新', '85新'], //几次新
@@ -434,6 +438,10 @@
 					this.showToast(this.toastList[3])
 					return;
 				}
+				if (this.formMsg.originalPrice == null || this.formMsg.sellPrice == null) {
+					this.showToast(this.toastList[4])
+					return;
+				}
 				//最后处理form数据
 				this.formMsg.ownerUid = this.$store.state.user.openid
 				this.formMsg.status = '0'
@@ -486,10 +494,12 @@
 			}
 		},
 		onLoad(options) {
-			//获取页面发来的数据
-			if (JSON.parse(decodeURIComponent(options.item)) != null) {
-				this.formMsg = JSON.parse(decodeURIComponent(options.item))
-				this.formMsg.imgList = []
+			if (options.item != null) {
+				//获取页面发来的数据
+				if (JSON.parse(decodeURIComponent(options.item)) != null) {
+					this.formMsg = JSON.parse(decodeURIComponent(options.item))
+					this.formMsg.imgList = []
+				}
 			}
 		},
 		onShow() {

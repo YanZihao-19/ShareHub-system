@@ -47,7 +47,7 @@
         <el-form-item label="用户名">
           <el-input v-model="user.username"></el-input>
         </el-form-item>
-       
+
         <el-form-item label="用户密码">
           <el-input v-model="user.password"></el-input>
         </el-form-item>
@@ -69,29 +69,12 @@
         </el-form-item>
 
         <el-form-item label="头像">
-          <el-upload class="avatar-uploader" action="/api/upload?flag=users" :headers="token" name="image" :show-file-list="false"
-            :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+          <el-upload class="avatar-uploader" action="/api/upload?flag=users" :headers="token" name="image"
+            :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
             <img v-if="user.image" :src="user.image" class="avatar" />
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
-
-
-
-        <!-- <el-form-item label="入职日期">
-          <el-date-picker v-model="emp.entrydate" clearable type="date" placeholder="选择日期" size="small"
-            style="width:100%"></el-date-picker>
-        </el-form-item>
-
-        <el-form-item label="归属部门">
-          <el-select v-model="emp.deptId" placeholder="请选择" style="width:100%">
-            
-            <el-option label="学工部" value="1"></el-option>
-            <el-option label="教研部" value="2"></el-option>
-            
-            <el-option v-for="item in deptList" :key="item.value" :label="item.name" :value="item.id" />
-          </el-select>
-        </el-form-item> -->
 
         <el-form-item>
           <el-button type="primary" @click="add">提交</el-button>
@@ -99,6 +82,9 @@
         </el-form-item>
       </el-form>
     </el-dialog>
+
+
+
 
     <br>
     <!--表格 ok-->

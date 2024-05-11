@@ -26,12 +26,17 @@
                   </el-image>
                 </template>
               </el-table-column>
-              
-              <el-table-column prop="userId1" :label="status==2 ? '举报者Id' : '申诉者ID'"></el-table-column>
 
-              <el-table-column :prop="status==2 ? 'itemId' : 'userId2'" :label="status==2 ? '举报物品ID' : '被申诉者ID'"></el-table-column>
+              <el-table-column prop="userId1" :label="status == 2 ? '举报者Id' : '申诉者ID'"></el-table-column>
 
-              <el-table-column prop="createTime" :label="status==2 ? '举报时间' : '申诉时间'"></el-table-column>
+              <el-table-column :prop="status == 2 ? 'itemId' : 'userId2'"
+                :label="status == 2 ? '举报物品ID' : '被申诉者ID'"></el-table-column>
+
+              <el-table-column prop="createTime" :label="status == 2 ? '举报时间' : '申诉时间'">
+                <template slot-scope="{ row }">
+                  {{ formatUpdateTime(row.createTime) }}
+                </template>
+              </el-table-column>
 
               <el-table-column label="操作" width="180" align="center">
                 <template v-slot="scope">
@@ -83,7 +88,7 @@ export default {
   data() {
     return {
       result: '',
-      complaintId:'',
+      complaintId: '',
       handleDialogVisible: false, // 控制对话框的显示状态
       imageDialogVisible: false, // 控制对话框的显示状态
       selectedImage: '', // 存储被点击的图片的 URL
@@ -106,6 +111,11 @@ export default {
 
   },
   methods: {
+    //格式化时间格式
+    formatUpdateTime(updateTime) {
+      if (!updateTime) return '';
+      return updateTime.replace('T', ' '); // 使用 'T' 进行分割，取前半部分
+    },
     // 申诉处理
     handleComplaint(row) {
       this.handleDialogVisible = true;

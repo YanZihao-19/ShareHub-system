@@ -1,7 +1,5 @@
 package com.yzh.service.impl;
 
-import cn.hutool.core.date.DateUtil;
-import com.yzh.pojo.Account;
 import com.yzh.pojo.Notice;
 import com.yzh.mapper.NoticeMapper;
 import com.github.pagehelper.PageHelper;
@@ -11,6 +9,8 @@ import com.yzh.service.NoticeService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,8 +26,8 @@ public class NoticeServiceImpl implements NoticeService {
      * 新增
      */
     public void add(Notice notice) {
-        notice.setTime(DateUtil.today());
-        notice.setUser("admin");
+        notice.setCreateTime(LocalDateTime.now());
+        notice.setUpdateTime(LocalDateTime.now());
         noticeMapper.insert(notice);
     }
 
@@ -51,6 +51,7 @@ public class NoticeServiceImpl implements NoticeService {
      * 修改
      */
     public void updateById(Notice notice) {
+        notice.setUpdateTime(LocalDateTime.now());
         noticeMapper.updateById(notice);
     }
 
@@ -75,6 +76,17 @@ public class NoticeServiceImpl implements NoticeService {
         PageHelper.startPage(pageNum, pageSize);
         List<Notice> list = noticeMapper.selectAll(notice);
         return PageInfo.of(list);
+    }
+
+    @Override
+    public PageInfo<String> selectNotice(Notice notice, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Notice> list = noticeMapper.selectAll(notice);
+        List<String> contentList = new ArrayList<>();
+        for (Notice n: list) {
+            contentList.add(n.getContent());
+        }
+        return PageInfo.of(contentList);
     }
 
 }

@@ -84,4 +84,11 @@ public class NoticeController {
         return Result.success(page);
     }
 
+    @GetMapping("/selectNotice")
+    public Result selectNotice(Notice notice,
+                             @RequestParam(defaultValue = "1") Integer pageNum,
+                             @RequestParam(defaultValue = "10") Integer pageSize) {
+        PageInfo<String> page = noticeService.selectNotice(notice, pageNum, pageSize);
+        return Result.success(page);
+    }
 }
